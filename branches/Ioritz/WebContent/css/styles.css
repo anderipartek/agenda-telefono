@@ -15,7 +15,7 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
 	.header { width: 100%; height: 98px; background: #000; }
 	.header:after { content: " "; display: block; clear: both; height: 0; visibility: hidden;}
-		.logo { float:right; color: #fff; margin: 1em 0 0 0; padding: 0 5em 0 0; background:url(../../theme/img/telefono.gif) no-repeat right center; }
+		.logo { float:right; color: #fff; margin: 1em 0 0 0; padding: 0 5em 0 0; background:url(../img/telefono.gif) no-repeat right center; }
 			.logo span { display: block; text-align: right; line-height: .7}
 			.logo span:first-child { font-size: 3em;}
 			.logo span:last-child { font-size: 2em; opacity: .6;}
@@ -84,10 +84,10 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 		.navBar li { display: inline-block; width: auto; margin: 0 1em 0 0; font-size: 1em;}
 		.navBar li.sel:after{ content: " "; display:block; width: 100%; height: 27px; background: url(../img/flecha.gif) no-repeat center bottom; }
 			.navBar li a { display:inline-block; width: auto; min-height: auto; padding: 0 0 0 1em; color: #fff; text-decoration: none; font-style: normal;}
-			.navBar li#anadir a{ background: url(../../theme/img/anadir.gif) no-repeat 0 center; background-size: contain; }
-			.navBar li#modificar a{ background: url(../../theme/img/editar.gif) no-repeat 0 center; background-size: contain; }
-			.navBar li#eliminar a{ background: url(../../theme/img/eliminar.gif) no-repeat 0 center; background-size: contain; }
-			.navBar li#ver a{ background: url(../../theme/img/vertodos.gif) no-repeat 0 center; background-size: contain; } 
+			.navBar li#anadir a{ background: url(../img/anadir.gif) no-repeat 0 center; background-size: contain; }
+			.navBar li#modificar a{ background: url(../img/editar.gif) no-repeat 0 center; background-size: contain; }
+			.navBar li#eliminar a{ background: url(../img/eliminar.gif) no-repeat 0 center; background-size: contain; }
+			.navBar li#ver a{ background: url(../img/vertodos.gif) no-repeat 0 center; background-size: contain; } 
 
 /* FIN NAVBAR */
 
