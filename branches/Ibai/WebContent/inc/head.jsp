@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Agenda Online</title>
+	<link href="css/styles.css" type="text/css" rel="stylesheet">
+        <!--[if IE]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css" />
+		<![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:500,300' rel='stylesheet' type='text/css'>
 
-</body>
-</html>
+	<!-- Javascript -->
+                
+        <!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+</head>
+
+<body <%if (request.getAttribute("seccion") == null){ %> id="home"<%} %> >
+	<%@include file="header.jsp" %>
