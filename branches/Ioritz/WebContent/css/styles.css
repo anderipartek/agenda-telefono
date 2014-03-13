@@ -44,10 +44,10 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 				.botones a { text-decoration: none; color: #000; }
 				.boton { padding: .5em 1em .5em 2em; margin-left: 1em; background-color: black; background-size: 1em; background-repeat: no-repeat; background-position:10% 50%; border:0; color:#d8ff00; cursor: pointer; font-size: 1em}
 
-					.boton.anadir{ background-image: url(../../theme/img/anadir.gif); }
-					.boton.eliminar{ background-image: url(../../theme/img/eliminar.gif); }
-					.boton.modificar{ background-image: url(../../theme/img/editar.gif); }
-					.boton.buscar{ background-image: url(../../theme/img/buscar.gif); }
+					.boton.anadir{ background-image: url(../img/anadir.gif); }
+					.boton.eliminar{ background-image: url(../img/eliminar.gif); }
+					.boton.modificar{ background-image: url(../img/editar.gif); }
+					.boton.buscar{ background-image: url(../theme/img/buscar.gif); }
 
 			a.boton { display: inline-block; padding: .5em 1em .5em 2em; margin-left: 1em; background-color: black; background-size: 1em; background-repeat: no-repeat; background-position:5% 50%; border:0; color:#d8ff00; cursor: pointer; text-decoration: none;}
 
