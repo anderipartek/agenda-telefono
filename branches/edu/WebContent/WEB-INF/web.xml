@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AgendServlet</display-name>
+    <servlet-name>AgendServlet</servlet-name>
+    <servlet-class>controller.AgendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AgendServlet</servlet-name>
+    <url-pattern>/agenda</url-pattern>
+  </servlet-mapping>
 </web-app>
