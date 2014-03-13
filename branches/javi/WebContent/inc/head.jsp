@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Agenda Online</title>
-	<link href="../../theme/css/styles.css" type="text/css" rel="stylesheet">
+	<link href="css/styles.css" type="text/css" rel="stylesheet">
         <!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="css/ie.css" />
 		<![endif]-->
@@ -17,6 +17,7 @@
 		<![endif]-->
 </head>
 
-<body <?php if($seccion == 'index') echo ' id="home"'; ?>>
+<body> 
 	
-	<?php include('inc/header.php'); ?>
+	<%@ include file="header.jsp"%>
+
