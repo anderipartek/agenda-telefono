@@ -2,12 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 
 <!-- HEAD -->
-<%String seccion = (String) session.getAttribute("seccion");%>
+<%!public static String seccion; %>
+<%seccion = (String) request.getParameter("seccion");%>
 <%@ include file="inc/head.jsp"%>
 
 <section class="wrapper content">
  
-	<%if ("anadir".equalsIgnoreCase(seccion)) { %>
+	<%//seccion = (String) session.getAttribute("seccion");
+	if ("anadir".equalsIgnoreCase(seccion)) { %>
 		<%@ include file="anadir.jsp"%>	
 	<% } else if ("modificar".equalsIgnoreCase(seccion)) { %>
 		<%@ include file="modificar.jsp"%>
@@ -15,7 +17,7 @@
 		<%@ include file="eliminar.jsp"%>
 	<% } else if ("ver".equalsIgnoreCase(seccion)) { %>
 		<%@ include file="ver.jsp"%>
-	<% } else if ("index".equalsIgnoreCase(seccion)){ %>
+	<% } else if (seccion == null){ %>
 		<%@ include file="inc/navBar.jsp"%>
 	<%} %>
 </section>

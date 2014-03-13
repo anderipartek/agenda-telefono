@@ -16,8 +16,7 @@
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 </head>
-<%String seccion = request.getParameter("seccion");
-if("index".equals(seccion)) {
+<%if("index".equals(seccion)) {
 	%> <body id="home"><%
 } else {%>
 <body>
