@@ -16,10 +16,4 @@
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 </head>
-<%if("index".equals(seccion)) {
-	%> <body id="home"><%
-} else {%>
-<body>
-<%} %>
-<!-- HEADER -->
-<%@ include file="header.jsp" %>
+<body  <%if(request.getAttribute("seccion") == null){%> id="home" <%} else {}%>>

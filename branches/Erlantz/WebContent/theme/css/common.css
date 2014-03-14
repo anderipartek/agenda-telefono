@@ -48,3 +48,8 @@ table {
 }
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
+
+/* ESTILOS COMUNES O GENERALES PARA LA AGENDA TELEFÓNICA */
+a {
+	text-decoration: none; 
+}

@@ -1,8 +1,14 @@
+
+<%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <nav class="navBar">
-			<ul>
-				<li id="anadir"<%-- if("anadir".equalsIgnoreCase(seccion)) out.print("class='sel'");--%>> <!-- php if($seccion == 'anadir') echo 'class="sel"'; ?--><a href="index.jsp?seccion=anadir" title="">Añadir amigo</a></li>
-				<li id="modificar" <%-- if("modificar".equalsIgnoreCase(seccion)) out.print("class='sel'");--%>><!--  ?php if($seccion == 'modificar') echo 'class="sel"'; ?--><a href="index.jsp?seccion=modificar" title="">Modificar amigo</a></li>
-				<li id="eliminar" <%-- if("eliminar".equalsIgnoreCase(seccion)) out.print("class='sel'");--%>><!-- ?php if($seccion == 'eliminar') echo 'class="sel"'; ?--><a href="index.jsp?seccion=eliminar" title="">Eliminar amigo</a></li>
-				<li id="ver" <%-- if("ver".equalsIgnoreCase(seccion)) out.print("class='sel'");--%>><!--  ?php if($seccion == 'ver') echo 'class="sel"'; ?--><a href="index.jsp?seccion=ver" title="">Ver todos</a></li>
-			</ul>				
-		</nav>
+	<ul>
+		<li id="anadir" <%if(MainServlet.ANADIR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" title="">Añadir
+				amigo</a></li>
+		<li id="modificar" <%if(MainServlet.MODIFICAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" title="">Modificar
+				amigo</a></li>
+		<li id="eliminar" <%if(MainServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ELIMINAR %>" title="">Eliminar
+				amigo</a></li>
+		<li id="ver" <%if(MainServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" title="">Ver
+				todos</a></li>
+	</ul>
+</nav>
