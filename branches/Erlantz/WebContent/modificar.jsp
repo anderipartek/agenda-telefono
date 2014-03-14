@@ -31,3 +31,4 @@
 			</ul>
 		</div>
 <%@ include file="core/model/forms/modificar.jsp"%>
+<%@ include file="todoOk.jsp"%>

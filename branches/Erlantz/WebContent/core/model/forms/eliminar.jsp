@@ -23,11 +23,13 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
+				<a title="" href="todoOk.jsp">
 				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
+				</a>
 			</div>
 		</form>
-
 		<!-- ?php
 		}
 		?-->
 	</div>
+
