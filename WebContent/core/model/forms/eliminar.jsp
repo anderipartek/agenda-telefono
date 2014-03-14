@@ -1,7 +1,7 @@
-	<div class="contain">
+<div class="contain">
 		<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 
-		<?php
+		<!--  ?php
 
 		// enviamos la query
 		$id = comillas_inteligentes($_POST['id']);
@@ -14,7 +14,7 @@
 		}
 
 		while($result_row = mysql_fetch_array($result)){
-		?>
+		?-->
 		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
@@ -22,14 +22,12 @@
 			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
 			
 			<div class="botones">
-				<a title="" href="index.php">cancelar</a>
+				<a title="" href="index.jsp">cancelar</a>
 				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
 			</div>
 		</form>
 
-		<?php
+		<!-- ?php
 		}
-		?>
+		?-->
 	</div>
-
-	

@@ -1,12 +1,35 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ include file="core/model/forms/buscador.jsp"%>
+<div class="contain">
+			<p class="txt">Seleccionalo de la lista</p>
+			<ul class="amigos modify">
+			<!-- ?php
+			// mostramos los datos de la query
+			while($result_row = mysql_fetch_array($result)){
+			
+			?-->
+			<%
+			ArrayList<String> lista = new ArrayList<String>();
+			lista.add("Erlantz Romero");
+			lista.add("Manolo Gisasola");
+			lista.add("Manola Gisasola");
+			lista.add("Manolito Abertxale");
+			for (int i = 0 ; i < lista.size(); i++) { %>
+				<li>
+					<form action="<?php htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+					
+						<input type="submit" name="amigo" value="<%=lista.get(i)%>">
+						<input type="hidden" name="buscar" value="ok">
+						<input type="hidden" name="nombre" value="Erlantz">
+						<input type="hidden" name="id" value="<%=i %>>">
+					</form>
+				</li>
+				<%} %>
+			<!-- ?php
+			}
+			?-->
+			</ul>
+		</div>
+<%@ include file="core/model/forms/eliminar.jsp"%>

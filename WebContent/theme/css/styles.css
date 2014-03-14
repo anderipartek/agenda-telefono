@@ -3,6 +3,7 @@
 body{ background:  url(../img/bg_body_interiores.jpg) no-repeat center 98px;; text-align: center; font: 1em/1 'Raleway'; }
 body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
+
 /* GENERIC ITEMS */
 
 	.wrapper { width: 1000px; margin: 0 auto; text-align: left; }
