@@ -1,5 +1,5 @@
 <%@include file="inc/head.jsp"%>
-
+<!DOCTYPE html>
 <h3>Estos son tus amigos:</h3>
 <?php
 	// insertamos las funciones del site

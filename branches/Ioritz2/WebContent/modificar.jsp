@@ -3,3 +3,5 @@
 <%@include file="forms/modificar.jsp"%>
 
 <%@include file="inc/footer.jsp"%>
+
+<!DOCTYPE html>

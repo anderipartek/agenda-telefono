@@ -3,3 +3,5 @@
 <%@include file="forms/anadir.jsp"%>
 
 <%@include file="inc/footer.jsp"%>
+
+<!DOCTYPE html>

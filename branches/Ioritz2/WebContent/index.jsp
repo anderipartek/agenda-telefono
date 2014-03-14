@@ -3,3 +3,5 @@
 <%@include file="inc/navBar.jsp"%>
 
 <%@include file="inc/footer.jsp"%>
+
+<!DOCTYPE html>
