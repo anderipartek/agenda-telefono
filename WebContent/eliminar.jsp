@@ -23,7 +23,7 @@
 						<input type="submit" name="amigo" value="<%=lista.get(i)%>">
 						<input type="hidden" name="buscar" value="ok">
 						<input type="hidden" name="nombre" value="Erlantz">
-						<input type="hidden" name="id" value="<%=i %>>">
+						<input type="hidden" name="id" value="<%=i %>">
 					</form>
 				</li>
 				<%} %>
@@ -33,3 +33,4 @@
 			</ul>
 		</div>
 <%@ include file="core/model/forms/eliminar.jsp"%>
+<%@ include file="todoOk.jsp"%>

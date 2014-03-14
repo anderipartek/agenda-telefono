@@ -1,6 +1,7 @@
 <%--@ include file="core/abstract/functions.jsp" --%>
 
 <%@ include file="core/model/forms/anadir.jsp"%>
+<%@ include file="todoOk.jsp"%>
 
 <!-- ?php
 // insertamos las funciones del site
