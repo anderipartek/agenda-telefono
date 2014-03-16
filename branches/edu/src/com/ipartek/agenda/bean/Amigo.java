@@ -1,5 +1,8 @@
 package com.ipartek.agenda.bean;
 
+import com.ipartek.agenda.exception.AmigoException;
+import com.ipartek.agenda.util.UtilAmigo;
+
 public class Amigo {
     private int id;
     private String nombre;
@@ -26,7 +29,7 @@ public class Amigo {
     
 	public Amigo(int id, String nombre, String apellido, String calle, int cp,
 			String localidad, String provincia, int movil, int fijo,
-			String anotaciones) {
+			String anotaciones) throws AmigoException {
 		super();
 		this.setId(id);
 		this.setNombre(nombre);
@@ -48,55 +51,82 @@ public class Amigo {
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String nombre) throws AmigoException {
+		if (UtilAmigo.checkNombre(nombre)){
+			this.nombre = nombre;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_NOMBRE,AmigoException.MENSAJE_ERROR_NOMBRE);
+		
 	}
 	public String getApellido() {
 		return apellido;
 	}
-	public void setApellido(String apellido) {
+	public void setApellido(String apellido) throws AmigoException {
+		if (UtilAmigo.checkNombre(apellido)){
 		this.apellido = apellido;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_APELLIDO,AmigoException.MENSAJE_ERROR_APELLIDO);
+		
 	}
 	public String getCalle() {
 		return calle;
 	}
-	public void setCalle(String calle) {
-		this.calle = calle;
+	public void setCalle(String calle) throws AmigoException {
+		if (UtilAmigo.checkNombre(calle)){
+			this.calle = calle;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_CALLE,AmigoException.MENSAJE_ERROR_CALLE);
+		
 	}
 	public int getCp() {
 		return cp;
 	}
-	public void setCp(int cp) {
+	public void setCp(int cp) throws AmigoException {
+		if (UtilAmigo.checkCP(cp)){
 		this.cp = cp;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_CP,AmigoException.MENSAJE_ERROR_CP);
 	}
 	public String getLocalidad() {
 		return localidad;
 	}
-	public void setLocalidad(String localidad) {
+	public void setLocalidad(String localidad) throws AmigoException {
+		if (UtilAmigo.checkNombre(localidad)){
 		this.localidad = localidad;
+	    }
+		else throw new AmigoException(AmigoException.COD_ERROR_LOCALIDAD,AmigoException.MENSAJE_ERROR_LOCALIDAD);
 	}
 	public String getProvincia() {
 		return provincia;
 	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public void setProvincia(String provincia) throws AmigoException {
+		if (UtilAmigo.checkNombre(provincia)){
+		   this.provincia = provincia;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_PROVINCIA,AmigoException.MENSAJE_ERROR_PROVINCIA);
 	}
 	public int getMovil() {
 		return movil;
 	}
-	public void setMovil(int movil) {
+	public void setMovil(int movil) throws AmigoException {
+		if (UtilAmigo.checkMovil(movil)){
 		this.movil = movil;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_MOVIL,AmigoException.MENSAJE_ERROR_MOVIL);
 	}
 	public int getFijo() {
 		return fijo;
 	}
-	public void setFijo(int fijo) {
+	public void setFijo(int fijo) throws AmigoException {
+		if (UtilAmigo.checkFijo(fijo)){
 		this.fijo = fijo;
+		}
+		else throw new AmigoException(AmigoException.COD_ERROR_FIJO,AmigoException.MENSAJE_ERROR_FIJO);
 	}
 	public String getAnotaciones() {
 		return anotaciones;
 	}
-	public void setAnotaciones(String anotaciones) {
+	public void setAnotaciones(String anotaciones){
 		this.anotaciones = anotaciones;
 	}
 	@Override
