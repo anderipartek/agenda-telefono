@@ -11,10 +11,9 @@ public interface IDAOAmigo {
 	 * 
 	 * @param amigo
 	 *            a añadir
-	 * @return [true] si la operacion ha tenido exito [false] si ha ocurrido
-	 *         algun error durante la operacion.
+	 * @return id del amigo añadido, -1 si no se ha podido añadir
 	 */
-	boolean add(Amigo amigo);
+	int add(Amigo amigo);
 
 	/**
 	 * Devuelve todos los amigos en la tabla amigos de la DB agenda
@@ -58,11 +57,11 @@ public interface IDAOAmigo {
 	 * Elimina un contacto en la tabla amigos de la DB agenda. Para eliminar se
 	 * usa el id de amigo.
 	 * 
-	 * @param amigo
-	 *            a eliminar
+	 * @param id
+	 *            id del amigo a eliminar
 	 * @return [true] si la operacion ha tenido exito [false] si ha ocurrido
 	 *         algun error durante la operacion.
 	 */
-	boolean delete(Amigo amigo);
+	boolean delete(int id);
 
 }
