@@ -9,7 +9,7 @@ import com.ipartek.agenda.database.interfaces.IDAOAmigo;
 public class ConnectionFactory {
 
 	private static Connection conn = null;
-	static final String DB_NAME = "alumno";
+	static final String DB_NAME = "agenda";
 	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME + "?allowMultiQueries=true";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
