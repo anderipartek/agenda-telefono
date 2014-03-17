@@ -1,5 +1,9 @@
 package com.ipartek.agenda.exception;
-
+/**
+ * Clase que contiene la excepción AmigoException que se lanza al crear el objeto Amigo
+ * @author Eduardo Monterrubio
+ *
+ */
 public class AmigoException extends Exception {
    private int codigo;
    private String mensaje;
@@ -24,7 +28,11 @@ public class AmigoException extends Exception {
    public static final String MENSAJE_ERROR_ANOTACIONES="Las anotaciones tienen que contener al menos dos caracteres";
    
    
-   
+ /**
+  * Constructor con parametros  
+  * @param codigo
+  * @param mensaje
+  */
 public AmigoException(int codigo, String mensaje) {
 	super();
 	this.codigo = codigo;

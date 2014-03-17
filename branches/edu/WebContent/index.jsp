@@ -2,14 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 
 <!-- HEAD -->
-<%--!public static String seccion; --%>
+
 
 <%@ include file="inc/head.jsp"%>
 <!-- HEADER -->
 <%@ include file="inc/header.jsp" %>
 <section class="wrapper content">
- 
-	<%//seccion = (String) session.getAttribute("seccion")
+    <% 
+	String seccion = (String) session.getAttribute("seccion");
 	if ("anadir".equalsIgnoreCase(request.getParameter("seccion"))) { %>
 		<%@ include file="anadir.jsp"%>	
 	<% } else if ("modificar".equalsIgnoreCase(request.getParameter("seccion"))) { %>

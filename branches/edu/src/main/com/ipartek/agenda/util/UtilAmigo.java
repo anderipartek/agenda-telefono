@@ -1,8 +1,16 @@
 package com.ipartek.agenda.util;
-
+/**
+ * Clase que contiene los testeos propios de la clase Amigo
+ * @author Eduardo Monterrubio
+ *
+ */
 public class UtilAmigo {
 	
-	
+	/**
+	 * Metodo que comprueba que el nombre tenga al menos dos caracteres
+	 * @param nombre
+	 * @return boolean si correcto, false en caso contrario
+	 */
 	public static boolean checkNombre(String nombre){
 		boolean result = false;
 		if (nombre != null) {
@@ -29,7 +37,11 @@ public class UtilAmigo {
 		result=checkNombre(calle);
 		return result;
 	}
-	
+	/**
+	 * Metodo que comprueba que el cp sean cinco caracteres
+	 * @param cp
+	 * @return boolean si correcto, false en caso contrario
+	 */
 	public static boolean checkCP(int cp){
 		boolean result=false;
 		String CPl= Integer.toString(cp);
@@ -51,7 +63,11 @@ public class UtilAmigo {
 		result=checkNombre(provincia);
 		return result;
 	}
-	
+	/**
+	 * Metodo que comprueba que el movil tenga nueve digitos
+	 * @param movil
+	 * @return boolean si correcto, false en caso contrario
+	 */
 	public static boolean checkMovil(int movil){
 		boolean result=false;
 		String movill= Integer.toString(movil);
