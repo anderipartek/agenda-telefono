@@ -2,10 +2,8 @@
 
 <%@include file="inc/head.jsp" %>
 
-<%@include file="/inc/navBar.jsp" %>
-
 <!-- contenido central -->
-
+<body>
 <section class="wrapper content">	
 <h3>Estos son tus amigos:</h3>
 
