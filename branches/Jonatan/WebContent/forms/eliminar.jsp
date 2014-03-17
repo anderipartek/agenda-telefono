@@ -16,6 +16,8 @@
 
 // 		while($result_row = mysql_fetch_array($result)){
 		%>
+	
+	<%@include file="buscador.jsp"%>
 
 	<form method="post"
 		action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">
@@ -30,7 +32,4 @@
 		</div>
 	</form>
 
-	<?php
-		}
-		?>
 </div>

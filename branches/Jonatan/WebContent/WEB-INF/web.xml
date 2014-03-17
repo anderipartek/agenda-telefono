@@ -19,4 +19,7 @@
     <servlet-name>MainServlet</servlet-name>
     <url-pattern>/main</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.ipartek.agenda.listeners.InitListener</listener-class>
+  </listener>
 </web-app>

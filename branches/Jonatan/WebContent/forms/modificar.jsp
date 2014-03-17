@@ -16,6 +16,8 @@
 // 		while($result_row = mysql_fetch_array($result)){
 		%>
 		
+		<%@include file="buscador.jsp"%>
+		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="text" placeholder="nombre" name="nombre" value="<?php echo $result_row[1]; ?>">
 			<input type="text" placeholder="apellido" name="apellido" value="<?php echo $result_row[2]; ?>">
@@ -25,7 +27,7 @@
 			<input type="text" placeholder="provincia" name="provincia" value="<?php echo $result_row[6]; ?>">
 			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="<?php echo $result_row[7]; ?>">
 			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<?php echo $result_row[8]; ?>">
-			<textarea name="anotaciones" placeholder="anotaciones"><?php echo $result_row[9]; ?></textarea>
+			<textarea name="anotaciones" placeholder="anotaciones"><!-- <?php echo $result_row[9]; ?> --></textarea>
 			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
 			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">
 			
@@ -35,9 +37,9 @@
 			</div>
 		</form>
 
-		<?php
+<!-- 		<?php
 		}
-		?>
+		?> -->
 	</div>
 
 	

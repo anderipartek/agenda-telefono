@@ -1,7 +1,7 @@
 <%@include file="inc/head.jsp"%>
 
 <h3>Estos son tus amigos:</h3>
-<?php
+<!-- <?php
 	// insertamos las funciones del site
 	include('../abstract/functions.php');
 
@@ -16,7 +16,7 @@
 	if(!$result){
 		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
 	}
-	?>
+	?> -->
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
 		<tr>
@@ -31,10 +31,10 @@
 			<th>anotaciones</th>
 		</tr>
 
-	<?php
+<!-- 	<?php
 	// mostramos los datos de la query
 	while($result_row = mysql_fetch_array($result)){
-	?>
+	?> -->
 		<tr>
 			<td><?php echo $result_row[1]; ?></td>
 			<td><?php echo $result_row[2]; ?></td>

@@ -6,10 +6,11 @@
 			<%@include file="navBar.jsp"%>
 		</c:if>
 
-		<div class="logo">
-			<span>Agenda</span>
-			 <span>online</span>
-		</div>	
-			
+		<a href="index.jsp" title="inicio">
+			<div class="logo">
+				<span>Agenda</span> <span>online</span>
+			</div>
+		</a>
+
 	</div>
 </header>

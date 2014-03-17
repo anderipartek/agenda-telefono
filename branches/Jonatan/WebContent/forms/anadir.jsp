@@ -10,6 +10,7 @@
 			</ul>
 <%-- 		<% } %> --%>
 		
+		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="text" placeholder="nombre" name="nombre" value="<?php if(isset($_POST['nombre'])) echo $_POST['nombre']; ?>">
 			<input type="text" placeholder="apellido" name="apellido" value="<?php if(isset($_POST['apellido'])) echo $_POST['apellido']; ?>">
@@ -19,7 +20,7 @@
 			<input type="text" placeholder="provincia" name="provincia" value="<?php if(isset($_POST['provincia'])) echo $_POST['provincia']; ?>">
 			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="<?php if(isset($_POST['movil'])) echo $_POST['movil']; ?>">
 			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<?php if(isset($_POST['fijo'])) echo $_POST['fijo']; ?>">
-			<textarea name="anotaciones" placeholder="anotaciones"><?php if(isset($_POST['anotaciones'])) echo $_POST['anotaciones']; ?></textarea>
+			<textarea name="anotaciones" placeholder="anotaciones"><!-- <?php if(isset($_POST['anotaciones'])) echo $_POST['anotaciones']; ?> --></textarea>
 			
 			<div class="botones">
 				<a title="" href="main">cancelar</a>
