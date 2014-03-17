@@ -1,12 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="header">
 	<div class="wrapper">
-		<!--  <?php if($seccion != 'index'){ 
-			include('inc/navBar.php');
-		} ?>-->
+
+		<c:set var="seccion" value='<%=request.getAttribute("seccion")%>' />
+		<c:if test="${!empty seccion}">
+			<%@include file="navBar.jsp"%>
+
+		</c:if>
+
+		<a href="index.jsp" title="inicio"></a>
 		<div class="logo">
 			<span>Agenda</span>
-			<span>online</span>			
-		</div>
+			 <span>online</span>
+		</div>	
+			
 	</div>
 </header>
