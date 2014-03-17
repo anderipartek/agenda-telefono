@@ -32,10 +32,12 @@ public class MainServlet extends HttpServlet {
 	public static final String OPERACION = "operacion";
 	public static final String OPERACION_ANADIR = "operacion_anadir";
 	public static final String OPERACION_MODIFICAR = "operacion_modificar";
+	public static final String OPERACION_OBTENER_ALUMNO = "operacion_obtener_alumno";
 	public static final String OPERACION_ELIMINAR = "operacion_eliminar";
 	public static final String OPERACION_VER_TODOS = "operacion_ver_todos";
 	public static final String OPERACION_VER_NOMBRE = "operacion_ver_nombre";
 
+	public static final String AMIGO = "amigo";
 	public static final String LISTA_AMIGOS = "lista_amigos";
 	public static final String NOMBRE_A_BUSCAR = "nombre_a_buscar";
 
@@ -68,6 +70,7 @@ public class MainServlet extends HttpServlet {
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
+			request.setAttribute(LISTA_AMIGOS, getAll());
 			dispatcher = request.getRequestDispatcher("ver.jsp");
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
@@ -91,6 +94,7 @@ public class MainServlet extends HttpServlet {
 		} else if (OPERACION_MODIFICAR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
 			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
+
 		} else if (OPERACION_ELIMINAR.equals(operacion)) {
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
@@ -103,9 +107,16 @@ public class MainServlet extends HttpServlet {
 			request.setAttribute(LISTA_AMIGOS, getAmigoByName(""));
 		} else if (OPERACION_VER_NOMBRE.equals(operacion)) {
 			request.setAttribute(LISTA_AMIGOS, getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
+		} else if (OPERACION_OBTENER_ALUMNO.equals(operacion)) {
+			String id = request.getParameter(DAOAmigo.ID);
+			if (!id.isEmpty()) {
+				request.setAttribute(AMIGO, getAmigoById(Integer.parseInt(id)));
+			} else {
+				log.warn("El id esta vacio al borrar");
+				request.setAttribute(ERROR, ERROR_ID_EMPTY);
+			}
 		}
-
-		dispatcher.forward(request, response);
+		// dispatcher.forward(request, response);
 	}
 
 	private int anadirAmigo(Amigo amigo) {
@@ -124,6 +135,10 @@ public class MainServlet extends HttpServlet {
 		return ConnectionFactory.getInstance().getDAOAmigo().getByName(value);
 	}
 
+	private ArrayList<Amigo> getAll() {
+		return ConnectionFactory.getInstance().getDAOAmigo().getAll();
+	}
+
 	private Amigo getAmigoById(int id) {
 		return ConnectionFactory.getInstance().getDAOAmigo().getById(id);
 	}
@@ -131,7 +146,7 @@ public class MainServlet extends HttpServlet {
 	private Amigo setAmigoFromRequest(HttpServletRequest request) {
 		Amigo amigo = new Amigo();
 		String id = request.getParameter(DAOAmigo.ID);
-		if (!id.isEmpty()) {
+		if ((id != null) && !id.isEmpty()) {
 			amigo.setId(Integer.parseInt(id));
 		}
 		amigo.setNombre(request.getParameter(DAOAmigo.NOMBRE));

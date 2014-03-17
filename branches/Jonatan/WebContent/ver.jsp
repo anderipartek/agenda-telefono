@@ -17,39 +17,41 @@
 		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
 	}
 	?> -->
-	<table>
-		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
-		<tr>
-			<th>nombre</th>
-			<th>apellido</th>
-			<th>calle</th>
-			<th>cp</th>
-			<th>localidad</th>
-			<th>provincia</th>
-			<th>movil</th>
-			<th>fijo</th>
-			<th>anotaciones</th>
-		</tr>
 
-<!-- 	<?php
-	// mostramos los datos de la query
-	while($result_row = mysql_fetch_array($result)){
-	?> -->
+<table id="tabla">
+	<caption>Lista de Alumnos</caption>
+	<thead>
 		<tr>
-			<td><?php echo $result_row[1]; ?></td>
-			<td><?php echo $result_row[2]; ?></td>
-			<td><?php echo $result_row[3]; ?></td>
-			<td><?php echo $result_row[4]; ?></td>
-			<td><?php echo $result_row[5]; ?></td>
-			<td><?php echo $result_row[6]; ?></td>
-			<td><?php echo $result_row[7]; ?></td>
-			<td><?php echo $result_row[8]; ?></td>
-			<td><?php echo $result_row[9]; ?></td>
+			<th scope="col">Id</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Apellido</th>
+			<th scope="col">Calle</th>
+			<th scope="col">CP</th>
+			<th scope="col">Localidad</th>
+			<th scope="col">Provincia</th>
+			<th scope="col">Movil</th>
+			<th scope="col">Fijo</th>
+			<th scope="col">Anotaciones</th>
 		</tr>
-	<?php
-	}
-	?>
-		</table>
-<!-- cerramos db -->
+	</thead>
+	<tbody>
+		<ul>
+			<c:forEach var="amigo" items="${requestScope.lista_amigos}">
+				<tr>
+					<th>${amigo.id}</th>
+					<th>${amigo.nombre}</th>
+					<th>${amigo.apellido}</th>
+					<th>${amigo.calle}</th>
+					<th>${amigo.cp}</th>
+					<th>${amigo.localidad}</th>
+					<th>${amigo.provincia}</th>
+					<th>${amigo.movil}</th>
+					<th>${amigo.fijo}</th>
+					<th>${amigo.anotaciones}</th>
+				</tr>
+			</c:forEach>
+		</ul>
+	</tbody>
+</table>
 
 <%@include file="inc/footer.jsp"%>
