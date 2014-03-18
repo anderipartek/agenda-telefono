@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.excepciones.AmigoExcepcion;
 
 public class TestDAOAmigo {
 
@@ -68,13 +69,17 @@ public class TestDAOAmigo {
 
 	@Test
 	public void testUpdateAmigo() {
-		int id = dao.insertAmigo(a);
-		if (id > 0) {
-			a.setApellido("Fangoria");
-			assertTrue("Actualizado el amigo", dao.updateAmigo(a, id));
-			assertTrue(dao.deleteAmigo(id));
-		} else {
-			fail("No se ha insertado el alumno, testGetAllAmigo");
+		try {
+			int id = dao.insertAmigo(a);
+			if (id > 0) {
+				a.setApellido("Fangoria");
+				assertTrue("Actualizado el amigo", dao.updateAmigo(a, id));
+				assertTrue(dao.deleteAmigo(id));
+			} else {
+				fail("No se ha insertado el alumno, testGetAllAmigo");
+			}
+		} catch (AmigoExcepcion ex) {
+			fail("No se ha podido cambiar el apellido a [Fangoria]");
 		}
 	}
 

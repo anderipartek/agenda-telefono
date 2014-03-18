@@ -10,7 +10,7 @@
 			</ul>
 		<?php } ?>--%>
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		<form method="post" action="a">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
@@ -23,7 +23,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="añadir" name="anadir" class="boton anadir">
+				<input type="submit" value="añadir" name="op" class="boton anadir">
 			</div>
 		</form>
 	</div>

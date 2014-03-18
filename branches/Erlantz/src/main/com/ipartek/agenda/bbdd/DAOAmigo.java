@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.excepciones.AmigoExcepcion;
 import com.ipartek.agenda.interfaces.IAmigable;
 
 public class DAOAmigo implements IAmigable {
@@ -29,7 +30,6 @@ public class DAOAmigo implements IAmigable {
 	private static final String SQL_ONE = "select * from amigos where nombre = ?";
 
 	public DAOAmigo() {
-
 		factory = ConnectionFactory.getInstance();
 	}
 
@@ -199,16 +199,32 @@ public class DAOAmigo implements IAmigable {
 	 * @throws SQLException
 	 */
 	private void datosAmigo() throws SQLException {
-		a.setId(rs.getInt("id"));
-		a.setNombre(rs.getString("nombre"));
-		a.setApellido(rs.getString("apellido"));
-		a.setCalle(rs.getString("calle"));
-		a.setCodigoPostal(rs.getInt("cp"));
-		a.setLocalidad(rs.getString("localidad"));
-		a.setProvincia(rs.getString("provincia"));
-		a.setMTelefono(rs.getString("movil"));
-		a.setFTelefono(rs.getString("fijo"));
-		a.setAnotaciones(rs.getString("anotaciones"));
+		try {
+			a.setId(rs.getInt("id"));
+			a.setNombre(rs.getString("nombre"));
+			a.setApellido(rs.getString("apellido"));
+			a.setCalle(rs.getString("calle"));
+			a.setCodigoPostal(rs.getInt("cp"));
+			a.setLocalidad(rs.getString("localidad"));
+			a.setProvincia(rs.getString("provincia"));
+			a.setMTelefono(rs.getString("movil"));
+			a.setFTelefono(rs.getString("fijo"));
+			a.setAnotaciones(rs.getString("anotaciones"));
+		} catch (AmigoExcepcion ex) {
+			if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_NOMBRE) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR NOMBRE ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_APELLIDO) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR APELLIDO ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_TELEFONO) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR TELEFONO ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_CP) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR CODIGO POSTAL ["
+						+ ex.getMensajeError() + "]");
+			}
+		}
 	}
 
 }
