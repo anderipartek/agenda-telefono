@@ -77,6 +77,19 @@ public class ContactoUtil {
 		return _char + subcadena.toLowerCase();
 	}
 	
+	static public boolean checkCalle(String calle){
+		boolean result = false;
+		if (calle != null) {
+			calle = calle.toLowerCase().trim();
+
+			String pattern = "[a-z\\s-'áéíóúñ]{15,}";
+
+			result = calle.matches(pattern);
+
+		}
+		return result;
+	}
+	
 
 	/**
 	 * Valida el teléfono fijo del contacto sea correcto. Valida las siguientes
@@ -168,6 +181,104 @@ public class ContactoUtil {
 		}
 		return resultado;
 	}
+	
+	
+	
+	/**
+	 * Valida si la localidad del contacto es valido
+	 * @param localidad localidad donde vive el contacto de la agenda
+	 * @return <b>true</b> si cumple con las condiciones, <b>false</b> en caso
+	 *         contrario.
+	 */
+	
+	private static boolean checkLocalidad(String localidad){
+		boolean resultado = false;
+		if (localidad != null) {
+			localidad = localidad.toLowerCase().trim();
+
+			String pattern = "[a-z\\s-'áéíóúñ]{1,}";
+
+			resultado = localidad.matches(pattern);
+
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Valida si la provincia del contacto sea valido
+	 * @param provincia la provincia donde vive el contacto de la agenda
+	 * @return <b>true</b> si cumple con las condiciones, <b>false</b> en caso
+	 *         contrario.
+	 */
+	
+	private static boolean checkProvincia(String provincia){
+		boolean resultado = false;
+		if (provincia != null) {
+			provincia = provincia.toLowerCase().trim();
+
+			String pattern = "[a-z\\s-'áéíóúñ]{2,}";
+
+			resultado = provincia.matches(pattern);
+
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Comprueba si el codigo postal solo posee caracteres numericos
+	 * @param cp Codigo postal de la provincia donde vive el contacto
+	 * @return <b>true</b> si cumple con las condiciones, <b>false</b> en caso
+	 *         contrario.
+	 */
+	
+	private static boolean checkCodigoPostal(String cp){
+		boolean resultado = false;
+		// String pattern = "[a-zA-Z]+";
+		String pattern = "^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$";
+		if (Pattern.matches(pattern, cp)) {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Comprueba que solo tenga caracteres numericos
+	 * @param cp Codigo postal del contacto
+	 * @return <b>true</b> si cumple con las condiciones, <b>false</b> en caso
+	 *         contrario.
+	 */
+	
+	private static boolean isCpOnlyNumeric(String cp) {
+		boolean resultado = false;
+		// String pattern = "[a-zA-Z]+";
+		String pattern = "[0-9]{5}+";
+		if (Pattern.matches(pattern, cp)) {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Comprueba características comunes del codigo postal.
+	 * @param cp codido postal del contacto
+	 * @return <b>true</b> si cumple con las condiciones, <b>false</b> en caso
+	 *         contrario.
+	 */
+	
+	private static boolean isCpCorrect(String cp) {
+		boolean resultado = false;
+		if (cp != null && !cp.isEmpty()) {
+			if (cp.length() == 5) {
+				if (isOnlyNumeric(cp)) {
+					resultado = true;
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	
+
 
 
 

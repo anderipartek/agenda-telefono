@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"
+    %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@page import="com.ipartek.agenda.bean.Contacto"%>
+    <%@page import="java.util.ArrayList"%>
 <h3>Estos son tus amigos:</h3>
 <!--  ?php
 	// insertamos las funciones del site
@@ -28,6 +34,30 @@
 			<th>fijo</th>
 			<th>anotaciones</th>
 		</tr>
+		
+		<%
+ 			ArrayList <Contacto> lContacto = (ArrayList<Contacto>) request.getAttribute("listaContactos");		
+			Contacto c;
+	  		for ( int i=0; i<lContacto.size();i++){
+				c = lContacto.get(i);
+				%>
+				  <tr>
+			     	 <td><%=c.getNombre()%></td>
+			    	 <td><%=c.getApellido()%></td>
+			    	 <td><%=c.getCalle()%></td>
+			    	 <td><%=c.getCp()%></td>
+			    	 <td><%=c.getLocalidad()%></td>
+			    	 <td><%=c.getProvincia()%></td>
+			    	 <td><%=c.getMovil()%></td>
+			    	 <td><%=c.getFijo()%></td>
+			    	 <td><%=c.getAnotaciones()%></td>
+			    </tr>   
+				<%
+			
+			}
+			
+		
+		%>
 
 <!--  ?php
 	// mostramos los datos de la query

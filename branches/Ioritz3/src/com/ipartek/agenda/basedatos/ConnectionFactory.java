@@ -71,7 +71,7 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD
+	 * Obtener el DAO para manipular Contactos, soporta todas las operaciones CRUD
 	 * 
 	 * @return
 	 */
