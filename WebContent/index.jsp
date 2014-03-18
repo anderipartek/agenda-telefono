@@ -18,6 +18,8 @@
 		<%@ include file="eliminar.jsp"%>
 	<% } else if ("ver".equalsIgnoreCase(request.getParameter("seccion"))) { %>
 		<%@ include file="ver.jsp"%>
+	<% } else if ("todoOk".equalsIgnoreCase(request.getParameter("seccion"))) { %>
+		<%@ include file="todoOk.jsp"%>
 	<%} else if (request.getParameter("seccion") == null){ %>
 		<%@ include file="inc/navBar.jsp"%>
 	<%}%>

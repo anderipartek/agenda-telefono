@@ -3,6 +3,7 @@ package com.ipartek.agenda.controller;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ public class AgendaServlet extends HttpServlet {
 	private ModeloAmigo modelo;
 	private int idAmigo;
 	private HashMap<Integer, Amigo> listaAmigos;
+	private RequestDispatcher dispatcher;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,37 +50,44 @@ public class AgendaServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		op = (String) request.getAttribute("op");
+
+		// int todoOk = 0;
+		op = request.getParameter("op");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_ANADIR)) {
-				if (agregar(request, response)) {
-					// TODO AGREGAR
+				if (agregar(request, response) != -1) {
+					dispatcher = request.getRequestDispatcher("main?todoOk");
+					// todoOk = 1;
 				}
 			} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
 				if (modificar(request, response)) {
-					// TODO MODIFICAR
+					dispatcher = request
+							.getRequestDispatcher("modificar.jsp?todoOk=1");
+					// todoOk = 1;
 				}
 			} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
 				if (eliminar(request, response)) {
-					// TODO ELIMINAR
+					dispatcher = request
+							.getRequestDispatcher("eliminar.jsp?todoOk=1");
+					// todoOk = 1;
 				}
 			} else if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
 				if (visualizar(request, response)) {
-
+					// dispatcher = request.getRequestDispatcher("todoOk.jsp");
 				}
 			}
 		}
+		// request.setAttribute("todoOk", todoOk);
+		dispatcher.forward(request, response);
 	}
 
-	private boolean agregar(HttpServletRequest request,
-			HttpServletResponse response) {
+	private int agregar(HttpServletRequest request, HttpServletResponse response) {
 		log.trace("metodo agregar init");
-		boolean result = true;
 		recogerDatosAmigo(request, response);
 		idAmigo = modelo.insertar(a);
 		log.trace("amigo insertado con valores [" + a.toString() + "]");
 		log.trace("metodo agregar final");
-		return result;
+		return idAmigo;
 	}
 
 	private boolean eliminar(HttpServletRequest request,
@@ -132,17 +141,17 @@ public class AgendaServlet extends HttpServlet {
 	private void recogerDatosAmigo(HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			String nombre = (String) request.getAttribute("nombre");
-			String apellido = (String) request.getAttribute("apellido");
-			String calle = (String) request.getAttribute("calle");
-			int cp = (Integer) request.getAttribute("CP");
-			String localidad = (String) request.getAttribute("localidad");
-			String provincia = (String) request.getAttribute("provincia");
-			String mTelefono = (String) request.getAttribute("movil");
-			String fTelefono = (String) request.getAttribute("fijo");
-			String anotaciones = (String) request.getAttribute("anotaciones");
-			if (op != OP_ANADIR) {
-				idAmigo = (Integer) request.getAttribute("id");
+			String nombre = request.getParameter("nombre");
+			String apellido = request.getParameter("apellido");
+			String calle = request.getParameter("calle");
+			int cp = Integer.parseInt(request.getParameter("CP"));
+			String localidad = request.getParameter("localidad");
+			String provincia = request.getParameter("provincia");
+			String mTelefono = request.getParameter("movil");
+			String fTelefono = request.getParameter("fijo");
+			String anotaciones = request.getParameter("anotaciones");
+			if (OP_MODIFICAR.equalsIgnoreCase(op)) {
+				idAmigo = Integer.parseInt(request.getParameter("id"));
 			}
 			a = new Amigo(nombre, apellido, mTelefono, fTelefono, calle,
 					provincia, localidad, cp, anotaciones);
