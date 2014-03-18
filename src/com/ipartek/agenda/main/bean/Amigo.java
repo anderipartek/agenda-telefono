@@ -2,7 +2,7 @@ package com.ipartek.agenda.main.bean;
 /**
  * Clase Amigo donde se gestiona todos los datos de éste
  * @author Saray Carralero
- *
+ * @version 1.0
  */
 public class Amigo {
 	private String nombre;
@@ -14,11 +14,13 @@ public class Amigo {
 	private int cp;
 	private int tFijo;
 	private int tMovil;
+	private int id;
 	
-	public Amigo(String nombre, String apellido, String calle,
+	public Amigo(int id,String nombre, String apellido, String calle,
 			String localidad, String anotaciones, String provincia, int cp,
 			int tFijo, int tMovil) {
 		super();
+		this.setId(id);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setCalle(calle);
@@ -44,6 +46,18 @@ public class Amigo {
 		this.settMovil(tMovil);
 		this.settFijo(tFijo);
 		
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
