@@ -31,7 +31,6 @@ public class Amigo {
 
 	public Amigo(String nombre, String apellido, String calle, int cp, String localidad, String provincia, int movil, int fijo, String anotaciones) {
 		this();
-		this.id = this.id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.calle = calle;

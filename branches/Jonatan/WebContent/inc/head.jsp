@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Incluir librerias jquery -->
+<script type="text/JavaScript" src="js/jquery.js"></script>
 	<title>Agenda Online</title>
 	<link href="theme/css/styles.css" type="text/css" rel="stylesheet">
         <!--[if IE]>

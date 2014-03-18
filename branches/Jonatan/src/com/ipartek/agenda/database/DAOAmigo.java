@@ -36,7 +36,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public int add(Amigo amigo) {
 		String sqlInsert = "INSERT INTO `agenda`.`amigos` (`nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (?,?,?,?,?,?,?,?,?);";
 
-		String sqlId = "select max(id) from agenda;";
+		String sqlId = "select max(id) from `agenda`.`amigos`";
 		int id = -1;
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -88,13 +88,13 @@ public class DAOAmigo implements IDAOAmigo {
 	public ArrayList<Amigo> getByName(String value) {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos where name like ?;";
-
+		String sqlAll = "SELECT * FROM agenda.amigos where agenda.amigos.nombre like ?";
+		value += "%";
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
 			listaAlumnos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAll);
-			pst.setString(1, value + "%");
+			pst.setString(1, value);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				amigo = new Amigo();

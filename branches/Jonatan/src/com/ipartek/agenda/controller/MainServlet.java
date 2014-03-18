@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.database.ConnectionFactory;
 import com.ipartek.agenda.database.DAOAmigo;
@@ -49,7 +50,6 @@ public class MainServlet extends HttpServlet {
 	 */
 	public MainServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -66,7 +66,19 @@ public class MainServlet extends HttpServlet {
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			if (request.getParameter(NOMBRE_A_BUSCAR) != null) {
+				// http://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
+				// Set content type of the response so that jQuery knows what it
+				// can expect.
+				response.setContentType("text/plain");
+				// You want world domination, huh?
+				response.setCharacterEncoding("UTF-8");
+				// Write response body.
+				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
+				response.getWriter().write(obj);
+			} else {
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
+			}
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
@@ -75,8 +87,9 @@ public class MainServlet extends HttpServlet {
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
-
-		dispatcher.forward(request, response);
+		if (dispatcher != null) {
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
@@ -90,7 +103,14 @@ public class MainServlet extends HttpServlet {
 
 		if (OPERACION_ANADIR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
-			request.setAttribute(OPERACION_ANADIR, anadirAmigo(amigo));
+			request.setAttribute(SECCION, ANADIR);
+			if (anadirAmigo(amigo) > -1) {
+				request.setAttribute(OPERACION_ANADIR, amigo);
+			} else {
+				request.setAttribute(ERROR, "No se ha podido añadir el amigo");
+			}
+
+			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (OPERACION_MODIFICAR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
 			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
@@ -116,7 +136,9 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(ERROR, ERROR_ID_EMPTY);
 			}
 		}
-		// dispatcher.forward(request, response);
+		if (dispatcher != null) {
+			dispatcher.forward(request, response);
+		}
 	}
 
 	private int anadirAmigo(Amigo amigo) {
@@ -145,19 +167,24 @@ public class MainServlet extends HttpServlet {
 
 	private Amigo setAmigoFromRequest(HttpServletRequest request) {
 		Amigo amigo = new Amigo();
-		String id = request.getParameter(DAOAmigo.ID);
-		if ((id != null) && !id.isEmpty()) {
-			amigo.setId(Integer.parseInt(id));
-		}
+
+		amigo.setId(parseString(request.getParameter(DAOAmigo.ID)));
 		amigo.setNombre(request.getParameter(DAOAmigo.NOMBRE));
 		amigo.setApellido(request.getParameter(DAOAmigo.APELLIDO));
 		amigo.setCalle(request.getParameter(DAOAmigo.CALLE));
-		amigo.setCp(Integer.parseInt(request.getParameter(DAOAmigo.CP)));
+		amigo.setCp(parseString(request.getParameter(DAOAmigo.CP)));
 		amigo.setLocalidad(request.getParameter(DAOAmigo.LOCALIDAD));
 		amigo.setProvincia(request.getParameter(DAOAmigo.PROVINCIA));
-		amigo.setMovil(Integer.parseInt(request.getParameter(DAOAmigo.MOVIL)));
-		amigo.setFijo(Integer.parseInt(request.getParameter(DAOAmigo.FIJO)));
+		amigo.setMovil(parseString(request.getParameter(DAOAmigo.MOVIL)));
+		amigo.setFijo(parseString(request.getParameter(DAOAmigo.FIJO)));
 		amigo.setAnotaciones(request.getParameter(DAOAmigo.ANOTACIONES));
 		return amigo;
+	}
+
+	private int parseString(String value) {
+		if ((value != null) && !value.isEmpty()) {
+			return Integer.parseInt(value);
+		}
+		return -1;
 	}
 }
