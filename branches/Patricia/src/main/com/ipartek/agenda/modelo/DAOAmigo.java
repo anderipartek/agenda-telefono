@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.interfaces.IDAOAmigo;
 import com.ipartek.agenda.modelo.ConnectionFactory;
 
@@ -302,15 +303,22 @@ public class DAOAmigo implements IDAOAmigo {
 	private void datosAlumno(ResultSet rs) {
 		try {
 			amigo.setId(rs.getInt("id"));
-			amigo.setNombre(rs.getString("nombre"));
-			amigo.setApellido(rs.getString("apellido"));
-			amigo.setCalle(rs.getString("calle"));
-			amigo.setCp(rs.getInt("cp"));
-			amigo.setLocalidad(rs.getString("localidad"));
-			amigo.setProvincia(rs.getString("provincia"));
-			amigo.setMovil(rs.getInt("movil"));
-			amigo.setFijo(rs.getInt("fijo"));
-			amigo.setAnotaciones(rs.getString("anotaciones"));
+			try {
+				amigo.setNombre(rs.getString("nombre"));
+				amigo.setApellido(rs.getString("apellido"));
+				amigo.setCalle(rs.getString("calle"));
+				amigo.setCp(rs.getInt("cp"));
+				amigo.setLocalidad(rs.getString("localidad"));
+				amigo.setProvincia(rs.getString("provincia"));
+				amigo.setMovil(rs.getInt("movil"));
+				amigo.setFijo(rs.getInt("fijo"));
+				amigo.setAnotaciones(rs.getString("anotaciones"));
+			} catch (AmigoException e) {
+				LOG.error("Error al crear el amigo"
+						+ " [ " + e.getMensajeError()+","
+								+ " "+ e.getCodigoError() );
+			}
+			
 			
 			//amigo.setfCreate(rs.getTimestamp("f_create"));
 			//amigo.setfUpdate(rs.getTimestamp("f_update"));
