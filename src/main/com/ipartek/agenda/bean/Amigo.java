@@ -1,5 +1,8 @@
 package com.ipartek.agenda.bean;
 
+import com.ipartek.agenda.excepciones.AmigoExcepcion;
+import com.ipartek.agenda.utiles.AmigoUtil;
+
 /**
  * Clase BEAN para crear amigos de la AgendaOnline con todos los datos requeridos por la aplicacion
  * 
@@ -40,11 +43,14 @@ public class Amigo {
 
 	/**
 	 * Constructor con parametros
+	 * 
+	 * @throws AmigoExcepcion
 	 */
 	public Amigo(final String nombre, final String apellido,
 			final String mTelefono, final String fTelefono, final String calle,
 			final String provincia, final String localidad,
-			final int codigoPostal, final String anotaciones) {
+			final int codigoPostal, final String anotaciones)
+			throws AmigoExcepcion {
 		this();
 		this.setNombre(nombre);
 		this.setApellido(apellido);
@@ -62,20 +68,44 @@ public class Amigo {
 		this.id = id;
 	}
 
-	public void setNombre(final String nombre) {
-		this.nombre = nombre;
+	public void setNombre(final String nombre) throws AmigoExcepcion {
+		if (AmigoUtil.checkNombre(nombre)) {
+			this.nombre = nombre;
+		} else {
+			this.nombre = "NOMBRE";
+			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_NOMBRE,
+					AmigoExcepcion.MSG_ERROR_NOMBRE);
+		}
 	}
 
-	public void setApellido(final String apellido) {
-		this.apellido = apellido;
+	public void setApellido(final String apellido) throws AmigoExcepcion {
+		if (AmigoUtil.checkNombre(apellido)) {
+			this.apellido = apellido;
+		} else {
+			this.apellido = "APELLIDO";
+			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_APELLIDO,
+					AmigoExcepcion.MSG_ERROR_APELLIDO);
+		}
 	}
 
-	public void setMTelefono(final String mTelefono) {
-		this.mTelefono = mTelefono;
+	public void setMTelefono(final String mTelefono) throws AmigoExcepcion {
+		if (AmigoUtil.checkNumeros(mTelefono)) {
+			this.mTelefono = mTelefono;
+		} else {
+			this.mTelefono = "666666666";
+			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
+					AmigoExcepcion.MSG_ERROR_TELEFONO);
+		}
 	}
 
-	public void setFTelefono(final String fTelefono) {
-		this.fTelefono = fTelefono;
+	public void setFTelefono(final String fTelefono) throws AmigoExcepcion {
+		if (AmigoUtil.checkNumeros(fTelefono)) {
+			this.fTelefono = fTelefono;
+		} else {
+			this.fTelefono = "944999999";
+			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
+					AmigoExcepcion.MSG_ERROR_TELEFONO);
+		}
 	}
 
 	public void setCalle(final String calle) {
@@ -90,8 +120,14 @@ public class Amigo {
 		this.localidad = localidad;
 	}
 
-	public void setCodigoPostal(final int codigoPostal) {
-		this.codigoPostal = codigoPostal;
+	public void setCodigoPostal(final int codigoPostal) throws AmigoExcepcion {
+		if (codigoPostal > 48000 && codigoPostal < 48999) {
+			this.codigoPostal = codigoPostal;
+		} else {
+			this.codigoPostal = 48900;
+			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_CP,
+					AmigoExcepcion.MSG_ERROR_CP);
+		}
 	}
 
 	public void setAnotaciones(final String anotaciones) {
