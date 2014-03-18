@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MainServlet
  */
-public class MainServlet extends HttpServlet {
+public class MainServlet extends ServletMaestro {
 	private static final long serialVersionUID = 1L;
 
 	public static final String SECCION = "seccion";
@@ -29,7 +29,8 @@ public class MainServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -39,18 +40,25 @@ public class MainServlet extends HttpServlet {
 
 		request.setAttribute("seccion", seccion);
 		dispatcher = request.getRequestDispatcher("index.jsp");
-		/*
-		 * if (ANADIR.equals(seccion)) { dispatcher = request.getRequestDispatcher("index.jsp"); } else if (MODIFICAR.equals(seccion)) { dispatcher =
-		 * request.getRequestDispatcher("index.jsp"); } else if (ELIMINAR.equals(seccion)) { dispatcher = request.getRequestDispatcher("index.jsp"); }
-		 * else if (VER.equals(seccion)) { dispatcher = request.getRequestDispatcher("index.jsp"); } else { dispatcher =
-		 * request.getRequestDispatcher("index.jsp"); }
-		 */
+
+		if (ANADIR.equals(seccion)) {
+			dispatcher = request.getRequestDispatcher("anadir.jsp");
+		} else if (MODIFICAR.equals(seccion)) {
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		} else if (ELIMINAR.equals(seccion)) {
+			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+		} else if (VER.equals(seccion)) {
+			dispatcher = request.getRequestDispatcher("ver.jsp");
+		} else {
+			dispatcher = request.getRequestDispatcher("index.jsp");
+		}
 
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
