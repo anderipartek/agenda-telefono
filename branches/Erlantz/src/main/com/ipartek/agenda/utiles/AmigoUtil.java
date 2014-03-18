@@ -42,8 +42,9 @@ public class AmigoUtil {
 
 	public static boolean checkNumeros(String telefono) {
 		boolean result = false;
-		if (telefono.startsWith("944") || telefono.startsWith("6")) {
-			if (telefono.length() == 9) {
+		if (telefono.startsWith("9") || telefono.startsWith("6")
+				|| telefono.startsWith("3") || telefono.isEmpty()) {
+			if (telefono.length() == 9 || telefono.isEmpty()) {
 				result = true;
 			}
 		}

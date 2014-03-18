@@ -1,7 +1,19 @@
 <%--@ include file="core/abstract/functions.jsp" --%>
 
+<% 
+	int todOk = 0;
+	if(request.getParameter("todoOk")!=null){
+		 todOk = Integer.parseInt(request.getParameter("todoOk"));
+	}
+ 	if (todOk != 1) {
+%>
 <%@ include file="core/model/forms/anadir.jsp"%>
+
+<%} else { %>
+
 <%@ include file="todoOk.jsp"%>
+
+<%} %>
 
 <!-- ?php
 // insertamos las funciones del site
