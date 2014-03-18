@@ -7,11 +7,9 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-
-
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.interfaces.IDAOAmigo;
-
 
 public class TestDAOAmigo extends TestCase {
 	private final static Logger LOG = Logger.getLogger(DAOAmigo.class);
@@ -19,9 +17,9 @@ public class TestDAOAmigo extends TestCase {
 	Amigo a;
 	ArrayList<Amigo> lista;
 	IDAOAmigo daoAmigo;
-	int telefonoFijo=944444444;
-	int telefonoMovil=62222222;
-	int codigoPostal=48007;
+	int telefonoFijo = 944444444;
+	int telefonoMovil = 62222222;
+	int codigoPostal = 48007;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -30,10 +28,9 @@ public class TestDAOAmigo extends TestCase {
 		ConnectionFactory.getInstance().getDAOAmigo().createTable();
 		lista = new ArrayList<Amigo>();
 		daoAmigo = ConnectionFactory.getInstance().getDAOAmigo();
-		a = new Amigo("Patricia", "Navascues", telefonoMovil, 
-				codigoPostal , "Bilbao", "Bizkaia" , telefonoFijo ,
-				"Mazustegi", "datos importantes del amigo");
-		
+		a = new Amigo("Patricia", "Navascues",  codigoPostal, telefonoMovil, "Bilbao", "Bizkaia", telefonoFijo, "Mazustegi",
+				"datos importantes del amigo");
+
 	}
 
 	@Override
@@ -73,7 +70,7 @@ public class TestDAOAmigo extends TestCase {
 		int id = daoAmigo.insertAmigo(a);
 		assertTrue("Se debería haber insertado un nuevo amigo", id > 0);
 		// Recuperarlo por su ID
-		//assertEquals(id, ((Amigo)daoAmigo.getByNombre(a.getNombre())));
+		// assertEquals(id, ((Amigo)daoAmigo.getByNombre(a.getNombre())));
 		// borrarlo
 		assertTrue(daoAmigo.delete(id));
 
@@ -93,7 +90,7 @@ public class TestDAOAmigo extends TestCase {
 		assertTrue(daoAmigo.delete(id));
 	}
 
-	public void testGetById(){
+	public void testGetById() {
 		int id = daoAmigo.insertAmigo(a);
 		Amigo b = daoAmigo.getById(id);
 		assertEquals(b.getNombre(), a.getNombre());
@@ -109,10 +106,16 @@ public class TestDAOAmigo extends TestCase {
 
 		int id = daoAmigo.insertAmigo(a);
 
-		a.setNombre("Erlantz");
-		a.setApellido("Romero");
-		//a.setEmail("errre@eee.eee");
-		//a.setDni("77121113C");
+		try {
+			a.setNombre("Erlantz");
+			a.setApellido("Romero");
+			// a.setEmail("errre@eee.eee");
+			// a.setDni("77121113C");
+		} catch (AmigoException e) {
+			LOG.error("Error al crear el nuevo amigo [" + e.getMensajeError()
+						+ ", " + e.getCodigoError() + "]");
+			e.printStackTrace();
+		}
 
 		assertTrue(daoAmigo.update(a, id));
 		Amigo b = daoAmigo.getById(id);

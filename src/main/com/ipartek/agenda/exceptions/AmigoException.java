@@ -3,7 +3,7 @@ package com.ipartek.agenda.exceptions;
 import com.ipartek.agenda.bean.Amigo;
 
 /**
- * 
+ * Clase que define los códigos y mensajes de error.
  * @author Patricia Navascués
  * @version 1.0
  * 
@@ -28,21 +28,19 @@ public class AmigoException extends Exception {
 
 	public static final int COD_ERROR_LOCALIDAD = 4;
 	public static final String MSG_ERROR_LOCALIDAD = "La longitud minima para localidad no es correcta";
+	
+	public static final int COD_ERROR_PROVINCIA = 5;
+	public static final String MSG_ERROR_PROVINCIA = "La longitud minima para provincia no es correcta";
 
-	public static final int COD_ERROR_EMAIL = 5;
-	public static final String MSG_ERROR_EMAIL = "Formato de email no valido";
+	
+	public static final int COD_ERROR_FIJO = 6;
+	public static final String MSG_ERROR_FIJO = "Formato de telefono fijo no valido";
 
-	public static final int COD_ERROR_FIJO = 5;
-	public static final String MSG_ERROR_FIJO = "Formato de email no valido";
-
-	public static final int COD_ERROR_MOVIL = 5;
-	public static final String MSG_ERROR_MOVIL = "Formato de email no valido";
-
-	public static final int COD_ERROR_ANOTACIONES = 5;
-	public static final String MSG_ERROR_ANOTACIONES = "Formato de email no valido";
+	public static final int COD_ERROR_MOVIL = 7;
+	public static final String MSG_ERROR_MOVIL = "Formato de telefono móvil no valido";
 
 	/**
-	 * Constructor de las excepciones
+	 * Constructor de las excepciones.
 	 * 
 	 * @param codigoError
 	 * @param mensajeError
