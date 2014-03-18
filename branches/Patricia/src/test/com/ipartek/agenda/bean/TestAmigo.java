@@ -15,7 +15,7 @@ import junit.framework.TestCase;
  * @version 1.0
  * @see com.ipartek.pruebas.bean.Alumno
  */
-public class TestAlumno extends TestCase {
+public class TestAmigo extends TestCase {
 
 	/**
 	 * Ejemplo Amigo amigoTest.
@@ -37,7 +37,7 @@ public class TestAlumno extends TestCase {
 	 * 
 	 * @param name
 	 */
-	public TestAlumno(String name) {
+	public TestAmigo(String name) {
 		super(name);
 	}
 
