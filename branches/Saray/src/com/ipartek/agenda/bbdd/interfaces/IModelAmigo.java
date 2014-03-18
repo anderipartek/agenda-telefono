@@ -19,29 +19,25 @@ public interface IModelAmigo {
 	Amigo getAlumnoByNombre( String nombre);
 	
 	/**
-	 * Modificar alumno seleccionado
-	 * @param a alumno a modificar
-	 * @param identificador del alumno
+	 * Modificar Amigo seleccionado
+	 * @param a Amigo a modificar
+	 * @param nombre del Amigo
 	 * @return true si se a modificado, false en caso contrario
 	 */
-	boolean update( Alumno a, int id );
+	boolean update( Amigo a, String nombre );
+	
+	
 	/**
-	 * Modificar alumno seleccionado
-	 * @param a alumno a modificar
-	 * @param identificador del alumno
-	 * @return true si se a modificado, false en caso contrario
+	 * Insertar amigo nuevo
+	 * @param a Amigo a insertar
+	 * @return el id del amigo nuevo insertado
 	 */
-	boolean update(ArrayList<Calificacion> lista, int id);
+	public int insert(Amigo a);
 	
-	public int insert(Alumno a);
-	public boolean insert(ArrayList<Calificacion> c);
-
-	
-
 	/**
-	 * Eliminar alumno por su identificador
-	 * @param identificador del alumno
+	 * Eliminar Amigo por su identificador
+	 * @param nombre del Amigo
 	 * @return true si se a borrado, false en caso contrario
 	 */
-	boolean delete( int id );	
+	boolean delete( String nombre );	
 }
