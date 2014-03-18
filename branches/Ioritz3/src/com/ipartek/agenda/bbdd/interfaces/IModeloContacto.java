@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import com.ipartek.agenda.bean.Contacto;
 
 
-
-public interface IDAOContacto {
+public interface IModeloContacto {
 	
 	/**
-	 * Obtenemos todos los contactos de la BBDD
-	 * @return [ArrayList<T>] todos los contactos sin filtro
+	 * Obtenemos todos los alumnos de la dao
+	 * @return [ArrayList<T>] todos los alumnos sin filtro
 	 */
 	ArrayList<Contacto> getAll();
 	
