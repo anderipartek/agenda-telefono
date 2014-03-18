@@ -13,7 +13,7 @@
     <description></description>
     <display-name>MainServlet</display-name>
     <servlet-name>MainServlet</servlet-name>
-    <servlet-class>com.ipartek.agenda.controller.MainServlet</servlet-class>
+    <servlet-class>main.com.ipartek.agenda.controller.MainServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MainServlet</servlet-name>
@@ -23,7 +23,7 @@
     <description></description>
     <display-name>AgendaServlet</display-name>
     <servlet-name>AgendaServlet</servlet-name>
-    <servlet-class>com.ipartek.agenda.controller.AgendaServlet</servlet-class>
+    <servlet-class>main.com.ipartek.agenda.controller.AgendaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AgendaServlet</servlet-name>
