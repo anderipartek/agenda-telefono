@@ -13,51 +13,53 @@ import com.ipartek.agenda.bean.Amigo;
 public interface IDAOAmigo {
 	
 	/**
-	 * Crear la tabla amigos siempre que no exista
+	 * Crea la table si no existe, si existe devuelve un error.
+	 * @return <b>true</b> si se crea correctamente, 
+	 * <b>false</b>, en caso contrario
 	 */
 	boolean createTable();
 	
 	/**
-	 * Insertamos un amigo dentro de la tabla
+	 * Insertamos un amigo dentro de la tabla.
 	 * @param a Amigo
 	 * @return [int] identificador del nuevo alumno insertado en la bbdd
 	 */
-	int insertAlumno( Amigo a );
+	int insertAmigo(Amigo amigo);
 	
 	/**
-	 * Obtenemos todos los amigos de la BBDD
+	 * Obtenemos todos los amigos de la BBDD.
 	 * @return [ArrayList<T>] todos los alumnos sin filtro
 	 */
 	ArrayList<Amigo> getAll();
 	
 	/**
-	 * Obtenemos un amigos por su DNI
+	 * Obtenemos un amigos por su DNI.
 	 * @param noombre del alumno
 	 * @return [Alumno] alumno
 	 */
-	Amigo getByNombre( String nombre );
+	ArrayList<Amigo> getByName(String nombre);
 	
 	/**
-	 * Obtenemos un amigo por su ID
+	 * Obtenemos un amigo por su ID.
 	 * @param identificador del amigo
 	 * @return [Amigo] amigo
 	 */
-	Amigo getById( int id );
+	Amigo getById(int idAmigo);
 	
 	/**
-	 * Eliminar alumno por su identificador
+	 * Eliminar alumno por su identificador.
 	 * @param identificador del amigo
 	 * @return true si se a borrado, false en caso contrario
 	 */
-	boolean delete( int id );	
+	boolean delete(int idAmigo);	
 	
 	/**
-	 * Modificar alumno seleccionado
+	 * Modificar alumno seleccionado.
 	 * @param a amigo a modificar
 	 * @param identificador del amigo
 	 * @return true si se a modificado, false en caso contrario
 	 */
-	boolean update( Amigo a, int id );
+	boolean update(Amigo amigo, int idAmigo);
 	
 }
 	

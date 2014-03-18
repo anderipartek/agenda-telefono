@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class MainServlet.
  */
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,6 @@ public class MainServlet extends HttpServlet {
 	 */
 	public MainServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
