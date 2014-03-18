@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.ipartek.agenda.bbdd.interfaces.IDAOAmigo;
-
+/**
+ * Clase donde se gestiona la conexion a la bbdd
+ * @author Saray Carralero	
+ * @version 1.0
+ */
 public class ConnectionFactory {
 	private static Connection conn = null;
 	public static final String DB_NAME = "agenda";
@@ -68,7 +72,7 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD
+	 * Obtener el DAO para manipular Amigos, soporta todas las operaciones CRUD
 	 * 
 	 * @return
 	 */
