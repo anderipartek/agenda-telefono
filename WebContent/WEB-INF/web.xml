@@ -27,6 +27,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AgendaServlet</servlet-name>
-    <url-pattern>/AgendaServlet</url-pattern>
+    <url-pattern>/agenda</url-pattern>
   </servlet-mapping>
 </web-app>
