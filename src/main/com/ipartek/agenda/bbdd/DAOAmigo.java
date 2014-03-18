@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.controller.ServletMaestro;
 import com.ipartek.agenda.exception.AmigoException;
 import com.ipartek.agenda.interfaces.IAmigable;
 
@@ -20,50 +23,15 @@ public class DAOAmigo implements IAmigable {
 	static PreparedStatement pst=null;
 	static ResultSet rs=null;
 	static Amigo a=null;
+	private final static Logger log=Logger.getLogger(DAOAmigo.class);
     public DAOAmigo(){
     	factory=ConnectionFactory.getInstance();
+    	
     }
-	@Override
-	public boolean crearTabla() {
-		boolean result=false;
-		
-		try {
-			con=factory.getConnection();
-			String sql="CREATE TABLE if not exists `amigos` ("
-					+ "`id` int(11) NOT NULL AUTO_INCREMENT,"
-					+ "`nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "`apellido` varchar(50) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "`calle` varchar(150) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "`cp` int(11) NOT NULL,"
-					+ "`localidad` varchar(150) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "`provincia` varchar(150) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "`movil` int(11) NOT NULL,"
-					+ "`fijo` int(11) NOT NULL,"
-					+ "`anotaciones` varchar(300) COLLATE utf8_unicode_ci NOT NULL,"
-					+ "PRIMARY KEY (`id`)"
-					+ ") ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
-			stmt=con.createStatement();
-			stmt.executeUpdate(sql);
-			
-		} catch (SQLException e) {
-			System.out.println("Error creando la tabla Amigo");
-			e.printStackTrace();
-		}finally{
-			try {
-				factory.closeConnection();
-			} catch (SQLException e) {
-				System.out.println("Error al cerrar la conexion");
-				
-			}
-		}
-		
-				
-		
-		return result;
-	}
-
+	
 	@Override
 	public int insertarAmigo(Amigo a) {
+		log.trace("Insertando Alumno...");
 		int id;
 		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?,?,?,?,?)";
 		String sqlId = "select max(id) from amigos;";
@@ -82,36 +50,39 @@ public class DAOAmigo implements IAmigable {
 			pst.setString(9, a.getAnotaciones());
 			if (pst.executeUpdate() > 0) {
 				pst = con.prepareStatement(sqlId);
-				System.out.println(sqlInsert);
 				rs = pst.executeQuery();
 				rs.next();
 				id = (rs.getInt(1));
 				a.setId(id);
 			}
+			log.info("Amigo insertado correctamente");
 			
 		} catch (SQLException ex) {
-			ex.getMessage();
+			log.error("SQLException " + ex.getMessage());
 			id = -1;
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al insertar alumno" + ex.getStackTrace());
+			log.error("Ha ocurrido un error desconocido al insertar alumno" + ex.getMessage());
 			id = -1;
 		} finally {
 
 			try {
 				factory.closeConnection();
+				log.info("Cerrada la conexion");
 			} catch (SQLException e) {
-				System.out.println("Error al cerrar la conexion");
+				log.error("Error al cerrar la conexion");
 				
 			}
 		}
+		log.info("Fin insercion alumno");
 		return id;
-
+        
 		
 		
 	}
 
 	@Override
 	public int delete(int id) {
+		log.trace("Borrando amigo..." );
 		int result = -1;
 		String sqlDelete = "delete from amigos where id = ?";
 		try {
@@ -120,29 +91,33 @@ public class DAOAmigo implements IAmigable {
 			pst.setInt(1, id);
 			if ((pst.executeUpdate()) == 1) {
 				result = id;
+				log.info("Amigo eliminado correctamente");
 			} else {
 				result = -1;
+				log.error("Error al borrar el amigo");
 			}
 		} catch (SQLException ex) {
-			System.out.println("Error al borrar el amigo");
+			log.error("SqlException" + ex.getMessage());
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al borrar.");
+			log.error("Ha ocurrido un error desconocido al borrar" + ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
-				System.out.println("Error al cerrar la conexion");
+				log.error("SqlException" + ex.getMessage());
 			}
 			
 		}
+		log.trace("Fin Delete");
 		return result;
 		
 	}
 
 	@Override
 	public int update(Amigo a, int id) {
+		log.trace("Actualizando amigo... " );
 		int result = -1;
-		String sqlUpdate = "update amigo set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?,movil=?,fijo=?,anotaciones=? where id = ?";
+		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?,movil=?,fijo=?,anotaciones=? where id = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlUpdate);
@@ -155,15 +130,18 @@ public class DAOAmigo implements IAmigable {
 			pst.setInt(7, a.getMovil());
 			pst.setInt(8, a.getFijo());
 			pst.setString(9, a.getAnotaciones());
+			pst.setInt(10, id);
 			if (pst.executeUpdate() == 1) {
 				result = id;
+				log.info("Amigo actualizado");
 			} else {
 				result = -1;
+				log.error("Error al actualizar amigo");
 			}
 		} catch (SQLException ex) {
-			System.out.println("Error al actualizar el amigo");
+			log.error("SQLException" + ex.getMessage());
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al borrar.");
+			log.error("Excepcion desconocida" + ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
@@ -172,12 +150,14 @@ public class DAOAmigo implements IAmigable {
 			}
 			
 		}
+		log.trace("Fin Update");
 		return result;
 		
 	}
 
 	@Override
 	public ArrayList<Amigo> getAll() {
+		log.trace("Obteniendo amigos " );
 		ArrayList<Amigo> listaAlumnos = null;
 		String sqlAll = "select * from amigos";
 		try {
@@ -190,26 +170,28 @@ public class DAOAmigo implements IAmigable {
 				datosAmigo(rs);
 				listaAlumnos.add(a);
 			}
+			log.info("Obtenidos los alumnos de la BD");
 		} catch (SQLException ex) {
-			System.out.println("Error al obtener los amigos de la BD");
+			log.error("SQLException" + ex.getMessage());
 		
 		
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al recoger todos los datos de los amigos");
+			log.error("Excepcion Desconocida" + ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
-				System.out.println("Error al cerrar la conexion");
+				log.error("Error al cerrar la conexion");
 			}
 			
 		}
+		log.trace("Fin getAll");
 		return listaAlumnos;
 	}
 
 	@Override
 	public Amigo obtenerAmigoByID(int id) {
-		
+		log.trace("ObteniendoAmigoById... " );
 		String sqlAmigo = "select * from amigos where id = ?";
 		try {
 			con = factory.getConnection();
@@ -220,16 +202,17 @@ public class DAOAmigo implements IAmigable {
 			while (rs.next()) {
 				datosAmigo(rs);
 			}
+			log.info("Alumno obtenido por ID");
 		 
 		} catch (SQLException ex) {
-			System.out.println("Error al obtener el amigo por id ");
+			log.error("SQLException"+ ex.getMessage());
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al recoger un alumno por id.");
+			log.error("Excepcion Desconocida"+ ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
-				System.out.println("Error al cerrar la conexion");
+				log.error("Error al cerrar la conexion");
 			}
 			
 		}
@@ -237,7 +220,9 @@ public class DAOAmigo implements IAmigable {
 	}
 	
 	private void datosAmigo(ResultSet rs) throws AmigoException {
+		   log.trace("Inicio datosAlumno");
 		try {
+			
 			a.setId(rs.getInt("id"));
 			a.setNombre(rs.getString("nombre"));
 			a.setApellido(rs.getString("apellido"));
@@ -247,17 +232,18 @@ public class DAOAmigo implements IAmigable {
 			a.setProvincia(rs.getString("provincia"));
 			a.setMovil(rs.getInt("movil"));
 			a.setFijo(rs.getInt("fijo"));
-			
+			log.info("Alumno parseado correctamente");
 		
 		} catch (SQLException ex) {
-			System.out.println("Error al parsear los datos del Amigo");
+			log.error("Error al parsear los datos del Amigo");
 		}
+		log.trace("Fin datosAmigo");
 
 	}
 	@Override
 	public Amigo obtenerAmigoByNombre(String nombre) {
-		
-		String sqlAmigo = "select * from amigo where nombre = ?";
+		log.trace("Inicio ObtenerAmigosByNombre");
+		String sqlAmigo = "select * from amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
 			a = new Amigo();
@@ -267,43 +253,23 @@ public class DAOAmigo implements IAmigable {
 			while (rs.next()) {
 				datosAmigo(rs);
 			}
+			log.info("Amigo obtenido por nombre");
 		 
 		} catch (SQLException ex) {
-			System.out.println("Error al obtener el amigo por nombre ");
+			log.error("Error al obtener el amigo por nombre " + ex.getMessage());
 		} catch (Exception ex) {
-			System.out.println("Ha ocurrido un error desconocido al recoger un alumno por nombre.");
+			log.error("Ha ocurrido un error desconocido al recoger un alumno por nombre." + ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
-				System.out.println("Error al cerrar la conexion");
+				log.error("Error al cerrar la conexion");
 			}
 			
 		}
+		log.trace("Fin obtenerAmigoByNombre");
 		return a;
 	}
-	@Override
-	public boolean borrarTabla() {
-		boolean result=false;
-		String sql="DROP TABLE Amigos";
-		try {
-			con = factory.getConnection();
-			stmt=con.createStatement();
-			stmt.executeUpdate(sql);
-			result=true;
-		} catch (SQLException e) {
-			System.out.println("Error al borrar la tabla Amigo");
-			
-		}finally{
-			try {
-				factory.closeConnection();
-			} catch (SQLException ex) {
-				System.out.println("Error al cerrar la conexion");
-			}
-			
-		}
-		
-		return result;
-	}
+	
    
 }

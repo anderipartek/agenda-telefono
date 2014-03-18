@@ -4,6 +4,8 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,17 +14,21 @@ import org.junit.Test;
 
 import com.ipartek.agenda.bbdd.ConnectionFactory;
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.exception.AmigoException;
 import com.ipartek.agenda.interfaces.IAmigable;
 
 public class TestDAOAmigo {
     static ConnectionFactory factory=null;
     static IAmigable dao;
-    Amigo a,a1;
+    static ArrayList<Amigo> amigos;
+    Amigo a=null;
+    Amigo a1=null;		
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		factory=ConnectionFactory.getInstance();
 		dao=factory.getDAOAmigo();
-		dao.crearTabla();
+		amigos=new ArrayList<Amigo>();
+		
 	}
 
 	@AfterClass
@@ -34,14 +40,15 @@ public class TestDAOAmigo {
 	@Before
 	public void setUp() throws Exception {
 		a=new Amigo();
-		a1=new Amigo(12,"Pablo","Motos","Bidebarri",48991,"Algeciras","Levante",999999999,999999999,"Sin anotaciones"); 
+		
 		
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		amigos=null;
 	}
-
+    
 	
 	@Test
 	public void testInsertarAmigo() {
@@ -59,25 +66,37 @@ public class TestDAOAmigo {
 	@Test
 	public void testUpdate() {
 		int id=dao.insertarAmigo(a);
-		int idU=dao.update(a1, id);
-		assertTrue("Se ha modificado amigo", idU != -1);
-		System.out.println(a1.toString());
+		try {
+			a1=new Amigo(id,"Pablo","Motos","Bidebarri",48991,"Algeciras","Levante",999999999,999999999,"Sin anotaciones");
+			int idU=dao.update(a1, id);
+			assertTrue("Se ha modificado amigo", idU != -1);
+			//System.out.println(a1.toString());
+		} catch (AmigoException e) {
+			e.getMessage();
+		} 
+		
 		
 	}
 
 	@Test
 	public void testGetAll() {
-		fail("Not yet implemented");
+		amigos=dao.getAll();
+		assertTrue("Obtenidos todos los amigos de la BD",amigos.size()>0);
+		
 	}
 
 	@Test
 	public void testObtenerAmigoByID() {
-		fail("Not yet implemented");
+		int id=dao.insertarAmigo(a);
+		a1=dao.obtenerAmigoByID(id);
+		assertTrue("testObtenerAmigoById correcto",a1!=null);
 	}
 
 	@Test
 	public void testObtenerAmigoByNombre() {
-		fail("Not yet implemented");
+		int id=dao.insertarAmigo(a);
+		a1=dao.obtenerAmigoByNombre(a.getNombre());
+		assertTrue("testObtenerAmigoByNombre correcto",a1!=null);
 	}
 
 }

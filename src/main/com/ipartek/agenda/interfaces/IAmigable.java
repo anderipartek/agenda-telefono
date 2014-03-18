@@ -9,11 +9,7 @@ import com.ipartek.agenda.bean.Amigo;
  *
  */
 public interface IAmigable {
-	/**
-	 * Metodo que crea la tabla Alumno
-	 * @return true si creada, false en caso contrario
-	 */
-    public boolean crearTabla();
+	
     /**
      * Metodo que inserta un amigo en la base de datos
      * @param a Amigo
@@ -51,7 +47,7 @@ public interface IAmigable {
      */
     public Amigo obtenerAmigoByNombre(String nombre);
     
-    public boolean borrarTabla();
+    
     
     
 }

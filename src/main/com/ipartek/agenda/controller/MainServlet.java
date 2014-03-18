@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class MainServlet
  */
-public class MainServlet extends HttpServlet {
+public class MainServlet extends ServletMaestro {
 	private static final long serialVersionUID = 1L;
 
 	public static final String SECCION = "seccion";
@@ -19,6 +21,7 @@ public class MainServlet extends HttpServlet {
 	public static final String MODIFICAR = "modificar";
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
+	private final static Logger log=Logger.getLogger(MainServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,6 +37,7 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		log.trace("Main Servlet doGet" );
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 
@@ -55,6 +59,7 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		log.trace("MainServlet doPost");
 		doGet(request, response);
 	}
 
