@@ -25,11 +25,11 @@ public class Amigo {
     	nombre="Sinespecificar";
     	apellido="Sinespecificar";
     	calle="Sinespecificar";
-    	cp=0;
+    	cp=11111;
     	localidad="Sin especificar";
     	provincia="Sinespecificar";
-    	movil=0;
-    	fijo=0;
+    	movil=666666666;
+    	fijo=946666666;
     	anotaciones="Sin especificar";
     }
     /**
