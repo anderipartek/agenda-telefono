@@ -25,11 +25,11 @@ public interface IDAOAmigo {
 	ArrayList<Amigo> getAll();
 	
 	/**
-	 * Obtenemos un Amigo por su Nombre
+	 * Obtenemos un listado de Amigo por su Nombre
 	 * @param nombre del Amigo
 	 * @return [Amigo] amigo
 	 */
-	Amigo getByNombre( String nombre );
+	ArrayList<Amigo> getByNombre( String nombre );
 	
 	/**
 	 * Obtenemos el nombre del amigo y lo borramos
@@ -41,9 +41,8 @@ public interface IDAOAmigo {
 	/**
 	 * Modificar alumno seleccionado
 	 * @param a alumno a modificar
-	 * @param identificador del alumno
 	 * @return true si se a modificado, false en caso contrario
 	 */
-	boolean update( Amigo a, String nombre );
+	boolean update( Amigo a);
 	
 }

@@ -16,7 +16,7 @@ public class Amigo {
 	private int tMovil;
 	private int id;
 	
-	public Amigo(int id,String nombre, String apellido, String calle,
+	public Amigo(String nombre, String apellido, String calle,
 			String localidad, String anotaciones, String provincia, int cp,
 			int tFijo, int tMovil) {
 		super();
@@ -36,15 +36,16 @@ public class Amigo {
 
 	public Amigo() {
 		super();
-		this.setNombre(nombre);
-		this.setApellido(apellido);
-		this.setCalle(calle);
-		this.setLocalidad(localidad);
-		this.setAnotaciones(anotaciones);
-		this.setProvincia(provincia);
-		this.setCp(cp);
-		this.settMovil(tMovil);
-		this.settFijo(tFijo);
+		this.id = 1;
+		this.nombre= "";
+		this.apellido= "";
+		this.calle="";
+		this.localidad ="";
+		this.provincia="";
+		this.cp= 0;
+		this.tMovil = 0;
+		this.tFijo = 0;
+		this.anotaciones ="";
 		
 	}
 
@@ -132,6 +133,17 @@ public class Amigo {
 
 	public void settMovil(int tMovil) {
 		this.tMovil = tMovil;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Amigo [nombre=" + nombre + ", apellido=" + apellido
+				+ ", calle=" + calle + ", localidad=" + localidad
+				+ ", anotaciones=" + anotaciones + ", provincia=" + provincia
+				+ ", cp=" + cp + ", tFijo=" + tFijo + ", tMovil=" + tMovil
+				+ ", id=" + id + "]";
 	}
 	
 }

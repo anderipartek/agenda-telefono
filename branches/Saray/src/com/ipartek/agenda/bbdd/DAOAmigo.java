@@ -34,7 +34,7 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	public int insertAmigo(Amigo a) {
-		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sqlInsert = "insert into agenda.amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sqlId = "select max(id) from amigos order by nombre;";
 		int id = -1;
 		try {
@@ -78,7 +78,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public ArrayList<Amigo> getAll() {
 		ArrayList<Amigo> listaAmigos = null;
-		String sqlAll = "select * from amigos order by nombre";
+		String sqlAll = "select * from agenda.amigos order by nombre";
 		try {
 			con = factory.getConnection();
 			listaAmigos = new ArrayList<Amigo>();
@@ -86,7 +86,7 @@ public class DAOAmigo implements IDAOAmigo {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
-				datosAmigo(rs);
+				datosAmigo(rs, a);
 				listaAmigos.add(a);
 			}
 		} catch (SQLException ex) {
@@ -104,19 +104,21 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public Amigo getByNombre(String nombre) {
-		String sqlAmigo = "select * from amigos where nombre = ?";
+	public ArrayList<Amigo> getByNombre(String nombre) {
+		ArrayList<Amigo> listaAmigos = null;
+		String sqlAmigo = "select * from agenda.amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
-			a = new Amigo();
+			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAmigo);
 			pst.setString(1, nombre);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				datosAmigo(rs);
+				a = new Amigo();
+				datosAmigo(a,rs);
+				listaAmigos.add(a);
 			}
-		//} //catch (Exception ex) {
-			//log.warn("Ha ocurrido un error un recoger el amigo por nombre " + nombre);
+		
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
@@ -128,14 +130,14 @@ public class DAOAmigo implements IDAOAmigo {
 				sqlExcepcion(ex);
 			}
 			
-			return a;
+			return listaAmigos;
 	}
 	}
 
 	@Override
 	public boolean delete(String nombre) {
 		boolean borrado = false;
-		String sqlDelete = "update amigos set  where nombre = ?";
+		String sqlDelete = "delete from agenda.amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlDelete);
@@ -162,13 +164,13 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public boolean update(Amigo a, String nombre) {
+	public boolean update(Amigo a) {
 		boolean result = false;
-		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=? fijo=?, anotaciones=? where nombre = ?";
+		String sqlUpdate = "update agenda.amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=? fijo=?, anotaciones=? where nombre = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlUpdate);
-			pst.setString(1, nombre);
+			pst.setString(1, a.getNombre());
 			pst.setString(2, a.getApellido());
 			pst.setString(3, a.getCalle());
 			pst.setInt(4, a.getCp());
@@ -196,7 +198,7 @@ public class DAOAmigo implements IDAOAmigo {
 
 	}
 
-	private void datosAmigo(ResultSet rs) {
+	private void datosAmigo(Amigo a,ResultSet rs) {
 		try {
 			a.setId(rs.getInt("id"));
 			a.setNombre(rs.getString("nombre"));
