@@ -7,15 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.database.interfaces.IDAOAmigo;
 
 public class DAOAmigo implements IDAOAmigo {
 	static final Logger log = Logger.getLogger(DAOAmigo.class);
-	
-	
+
 	static final int ERROR_COD_TABLA = 1050;
 	static PreparedStatement pst;
 	static ResultSet rs;
@@ -38,7 +36,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public int add(Amigo amigo) {
 		String sqlInsert = "INSERT INTO `agenda`.`amigos` (`nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (?,?,?,?,?,?,?,?,?);";
 
-		String sqlId = "select max(id) from agenda;";
+		String sqlId = "select max(id) from amigos;";
 		int id = -1;
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -110,7 +108,6 @@ public class DAOAmigo implements IDAOAmigo {
 		}
 		return listaAlumnos;
 	}
-	
 
 	@Override
 	public Amigo getById(int id) {
