@@ -21,7 +21,7 @@ import com.ipartek.agenda.database.DAOAmigo;
  * Servlet implementation class MainServlet
  */
 public class MainServlet extends HttpServlet {
-	static final Logger log = Logger.getLogger(MainServlet.class);
+	public static final Logger log = Logger.getLogger(MainServlet.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -101,8 +101,14 @@ public class MainServlet extends HttpServlet {
 
 		if ("añadir".equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
-			request.setAttribute(OPERACION_ANADIR, anadirAmigo(amigo));
+			int result = anadirAmigo(amigo);
+			request.setAttribute(OPERACION_ANADIR, result);
+			if (result != -1)
+				request.setAttribute("amigo", amigo);
+			request.setAttribute(SECCION, "anadir");
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
+		} else if ("buscar".equals(operacion)) {
+			ArrayList<Amigo> amigos = getAmigoByName((String) request.getAttribute("nombre"));
 		} else if (OPERACION_MODIFICAR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
 			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
@@ -150,7 +156,7 @@ public class MainServlet extends HttpServlet {
 	private Amigo setAmigoFromRequest(HttpServletRequest request) {
 		Amigo amigo = new Amigo();
 		String id = request.getParameter(DAOAmigo.ID);
-		if (!id.isEmpty()) {
+		if (id != null) {
 			amigo.setId(Integer.parseInt(id));
 		}
 		amigo.setNombre(request.getParameter(DAOAmigo.NOMBRE));

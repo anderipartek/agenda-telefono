@@ -8,11 +8,11 @@
 			</ul>
 		<!--<?php } ?>-->
 
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="text" placeholder="nombre que buscas..." name="nombre" value="<?php if(isset($_POST['nombre'])) echo $_POST['nombre']; ?>">
+		<form method="post" action="main">				
+			<input type="text" placeholder="nombre que buscas..." name="nombre" value="">
 			
 			<div class="botones">
-				<input type="submit" value="buscar" name="buscar" class="boton buscar">
+				<input type="submit" value="buscar" name="operacion" class="boton buscar">
 			</div>
 		</form>
 	</div>
