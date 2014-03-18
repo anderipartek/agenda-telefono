@@ -18,7 +18,7 @@ public class TestDAOAmigo extends TestCase {
 	ArrayList<Amigo> lista;
 	IDAOAmigo daoAmigo;
 	int telefonoFijo = 944444444;
-	int telefonoMovil = 62222222;
+	int telefonoMovil = 622222222;
 	int codigoPostal = 48007;
 
 	@Override
