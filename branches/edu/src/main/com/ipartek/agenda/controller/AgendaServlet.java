@@ -98,7 +98,7 @@ public class AgendaServlet extends ServletMaestro {
 			a.setFijo(Integer.parseInt(request.getParameter("fijo")));
 			a.setAnotaciones(request.getParameter("anotaciones"));
 			model.insertarAmigo(a);
-			dispatcher = request.getRequestDispatcher("AgendaServlet?seccion=ver");
+			dispatcher = request.getRequestDispatcher("AgendaServlet");
 			texto="Añadido";
 			request.setAttribute("Mensaje", texto);
 		} catch (AmigoException e) {
