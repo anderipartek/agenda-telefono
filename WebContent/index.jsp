@@ -1,27 +1,20 @@
+<!DOCTYPE html>
+<%@page import="com.ipartek.agenda.controller.AgendaServlet"%>
+<html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@include file="inc/head.jsp"%>
+<body id="home">  
+   <!-- HEADER -->
+   <%@include file="inc/header.jsp"%>
+  
+   <!-- FOOTER -->
 
-<!-- HEAD -->
+<%@include file="inc/footer.jsp"%>
 
 
-<%@ include file="inc/head.jsp"%>
-<!-- HEADER -->
-<%@ include file="inc/header.jsp" %>
-<section class="wrapper content">
-    <% 
-	
-	if ("anadir".equalsIgnoreCase(request.getParameter("seccion"))) { %>
-		<%@ include file="anadir.jsp"%>	
-	<% } else if ("modificar".equalsIgnoreCase(request.getParameter("seccion"))) { %>
-		<%@ include file="modificar.jsp"%>
-	<% } else if ("eliminar".equalsIgnoreCase(request.getParameter("seccion"))) { %>
-		<%@ include file="eliminar.jsp"%>
-	<% } else if ("ver".equalsIgnoreCase(request.getParameter("seccion"))) { %>
-		<%@ include file="ver.jsp"%>
-	<%} else if (request.getParameter("seccion") == null){ %>
-		<%@ include file="inc/navBar.jsp"%>
-	<%}%>
-</section>
 
-<!-- FOOTER -->
-<%@ include file="inc/footer.jsp"%>
+
+
+
+
