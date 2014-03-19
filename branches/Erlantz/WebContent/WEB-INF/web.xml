@@ -18,7 +18,7 @@
       <param-name>log4j-config</param-name>
       <param-value>WEB-INF/config/log4j.properties</param-value>
     </init-param>
-    <!-- load-on-startup>1</load-on-startup-->
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>MainServlet</servlet-name>

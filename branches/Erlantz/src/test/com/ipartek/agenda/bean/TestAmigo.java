@@ -38,23 +38,23 @@ public class TestAmigo {
 	public void testContructorVacio() {
 		assertEquals("ID = 0 constructor vacio", amigoTestVacio.getId(), 0);
 		assertEquals("Nombre = Nombre constructor vacio",
-				amigoTestVacio.getNombre(), "Nombre");
+				amigoTestVacio.getNombre(), "NOMBRE");
 		assertEquals("Apellido = Apellido constructor vacio",
-				amigoTestVacio.getApellido(), "Apellido");
+				amigoTestVacio.getApellido(), "APELLIDO");
 		assertEquals("Calle = Calle constructor vacio",
-				amigoTestVacio.getCalle(), "Calle");
+				amigoTestVacio.getCalle(), "CALLE");
 		assertEquals("Provincia = Provincia constructor vacio",
-				amigoTestVacio.getProvincia(), "Provincia");
+				amigoTestVacio.getProvincia(), "PROVINCIA");
 		assertEquals("Localidad = Localidad constructor vacio",
-				amigoTestVacio.getLocalidad(), "Localidad");
-		assertEquals("CodigoPostal = 48900 constructor vacio",
-				amigoTestVacio.getCodigoPostal(), 48900);
+				amigoTestVacio.getLocalidad(), "LOCALIDAD");
+		assertEquals("CodigoPostal = 00000 constructor vacio",
+				amigoTestVacio.getCodigoPostal(), 00000);
 		assertEquals("Telefono Fijo = 999999999 constructor vacio",
-				amigoTestVacio.getFTelefono(), "999999999");
+				amigoTestVacio.getFTelefono(), "0");
 		assertEquals("Telefono Movil = 666666666 constructor vacio",
-				amigoTestVacio.getMTelefono(), "666666666");
+				amigoTestVacio.getMTelefono(), "0");
 		assertEquals("Anotaciones = Anotaciones constructor vacio",
-				amigoTestVacio.getAnotaciones(), "Anotaciones");
+				amigoTestVacio.getAnotaciones(), "ANOTACIONES");
 	}
 
 	@Test
@@ -173,12 +173,12 @@ public class TestAmigo {
 
 	@Test(expected = AmigoExcepcion.class)
 	public void testSetTelefonoFijoExcepcion() throws Exception {
-		amigoTestParam.setFTelefono("000000000");
+		amigoTestParam.setFTelefono("0000000000");
 	}
 
 	@Test(expected = AmigoExcepcion.class)
 	public void testSetCodigoPostalExcepcion() throws Exception {
-		amigoTestParam.setCodigoPostal(40500);
+		amigoTestParam.setCodigoPostal(4000000);
 	}
 
 	@AfterClass

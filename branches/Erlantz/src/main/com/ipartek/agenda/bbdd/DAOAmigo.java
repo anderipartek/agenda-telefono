@@ -115,6 +115,7 @@ public class DAOAmigo implements IAmigable {
 	public HashMap<Integer, Amigo> getAllAmigo() {
 		log.trace("Recoger todos los amigos");
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
+		int keyHashMap = 0;
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(SQL_ALL);
@@ -122,7 +123,8 @@ public class DAOAmigo implements IAmigable {
 			while (rs.next()) {
 				a = new Amigo();
 				datosAmigo();
-				amigoMap.put(a.getId(), a);
+				keyHashMap++;
+				amigoMap.put(keyHashMap, a);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -136,6 +138,35 @@ public class DAOAmigo implements IAmigable {
 			return amigoMap;
 		}
 
+	}
+
+	@Override
+	public HashMap<Integer, Amigo> getAllByName(final String nombre) {
+		log.trace("Recoger todos los amigos");
+		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
+		int keyHashMap = 0;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(SQL_ONE);
+			pst.setString(1, nombre);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				a = new Amigo();
+				datosAmigo();
+				keyHashMap++;
+				amigoMap.put(keyHashMap, a);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			log.trace("Fin recoger amigos");
+			return amigoMap;
+		}
 	}
 
 	@Override

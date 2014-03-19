@@ -64,4 +64,10 @@ public class ModeloAmigo implements IModeloAmigable {
 		return amigo;
 	}
 
+	@Override
+	public HashMap<Integer, Amigo> recogerPorNombre(final String nombre) {
+		HashMap<Integer, Amigo> listaPorNombre;
+		listaPorNombre = daoAmigo.getAllByName(nombre);
+		return listaPorNombre;
+	}
 }

@@ -4,7 +4,8 @@ import com.ipartek.agenda.excepciones.AmigoExcepcion;
 import com.ipartek.agenda.utiles.AmigoUtil;
 
 /**
- * Clase BEAN para crear amigos de la AgendaOnline con todos los datos requeridos por la aplicacion
+ * Clase BEAN para crear amigos de la AgendaOnline con todos los datos
+ * requeridos por la aplicacion
  * 
  * @author Erlantz Romero Parra
  * @version 1.0
@@ -12,6 +13,14 @@ import com.ipartek.agenda.utiles.AmigoUtil;
  */
 public class Amigo {
 
+	private static int DEFAULT_TELEFONO_VALUE = 0;
+	private static int DEFAULT_CP_VALUE = 00000;
+	private static String DEFAULT_NOMBRE_VALUE = "NOMBRE";
+	private static String DEFAULT_APELLIDO_VALUE = "APELLIDO";
+	private static String DEFAULT_CALLE_VALUE = "CALLE";
+	private static String DEFAULT_LOCALIDAD_VALUE = "LOCALIDAD";
+	private static String DEFAULT_PROVINCIA_VALUE = "PROVINCIA";
+	private static String DEFAULT_ANTOTACIONES_VALUE = "ANOTACIONES";
 	// ATRIBUTOS
 	private int id; // IDENTIFICADOR BBDD
 	private String nombre;
@@ -30,15 +39,15 @@ public class Amigo {
 	 */
 	public Amigo() {
 		// this.id = 0;
-		this.nombre = "Nombre";
-		this.apellido = "Apellido";
-		this.mTelefono = "666666666";
-		this.fTelefono = "999999999";
-		this.calle = "Calle";
-		this.provincia = "Provincia";
-		this.localidad = "Localidad";
-		this.codigoPostal = 48900;
-		this.anotaciones = "Anotaciones";
+		this.nombre = DEFAULT_NOMBRE_VALUE;
+		this.apellido = DEFAULT_APELLIDO_VALUE;
+		this.mTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
+		this.fTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
+		this.calle = DEFAULT_CALLE_VALUE;
+		this.provincia = DEFAULT_PROVINCIA_VALUE;
+		this.localidad = DEFAULT_LOCALIDAD_VALUE;
+		this.codigoPostal = DEFAULT_CP_VALUE;
+		this.anotaciones = DEFAULT_ANTOTACIONES_VALUE;
 	}
 
 	/**
@@ -72,7 +81,7 @@ public class Amigo {
 		if (AmigoUtil.checkNombre(nombre)) {
 			this.nombre = nombre;
 		} else {
-			this.nombre = "NOMBRE";
+			this.nombre = DEFAULT_NOMBRE_VALUE;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_NOMBRE,
 					AmigoExcepcion.MSG_ERROR_NOMBRE);
 		}
@@ -82,7 +91,7 @@ public class Amigo {
 		if (AmigoUtil.checkNombre(apellido)) {
 			this.apellido = apellido;
 		} else {
-			this.apellido = "APELLIDO";
+			this.apellido = DEFAULT_APELLIDO_VALUE;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_APELLIDO,
 					AmigoExcepcion.MSG_ERROR_APELLIDO);
 		}
@@ -92,7 +101,8 @@ public class Amigo {
 		if (AmigoUtil.checkNumeros(mTelefono)) {
 			this.mTelefono = mTelefono;
 		} else {
-			this.mTelefono = "666666666";
+			// VALOR POR DEFECTO
+			this.mTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
 					AmigoExcepcion.MSG_ERROR_TELEFONO);
 		}
@@ -102,7 +112,8 @@ public class Amigo {
 		if (AmigoUtil.checkNumeros(fTelefono)) {
 			this.fTelefono = fTelefono;
 		} else {
-			this.fTelefono = "944999999";
+			// VALOR POR DEFECTO
+			this.fTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
 					AmigoExcepcion.MSG_ERROR_TELEFONO);
 		}
@@ -121,10 +132,11 @@ public class Amigo {
 	}
 
 	public void setCodigoPostal(final int codigoPostal) throws AmigoExcepcion {
-		if (codigoPostal > 48000 && codigoPostal < 48999) {
+		if (AmigoUtil.checkCP(codigoPostal)) {
 			this.codigoPostal = codigoPostal;
 		} else {
-			this.codigoPostal = 48900;
+			// VALOR POR DEFECTO
+			this.codigoPostal = DEFAULT_CP_VALUE;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_CP,
 					AmigoExcepcion.MSG_ERROR_CP);
 		}

@@ -1,17 +1,7 @@
 <div class="contain">
-		<p class="titulo">Cuales son los datos de tu amigo:</p>
-	<%-- 
-		<?php if($error != false){ ?>
-			<ul class="errores">
-			<?php if($_POST['nombre'] == '') ?>
-				<li><p>Necesitamos saber su nombre</p></li>
-			<?php if($_POST['movil'] == '') ?>
-				<li><p>Necesitamos saber su teléfono móvil</p></li>
-			</ul>
-		<?php } ?>--%>
-		
+		<p class="titulo">Cuales son los datos de tu amigo:</p>		
 		<form method="post" action="agenda">				
-			<input type="text" placeholder="nombre" name="nombre" value="nombre">
+			<input type="text" placeholder="nombre" name="nombre" value="nombre" required>
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
 			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="CP">

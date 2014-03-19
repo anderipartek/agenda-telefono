@@ -39,10 +39,20 @@ public interface IModeloAmigable {
 	public HashMap<Integer, Amigo> recogerTodos();
 
 	/**
+	 * Para obtener todos los amigos que coincidan con un nombre
+	 * 
+	 * @param nombre
+	 * @return
+	 */
+	public HashMap<Integer, Amigo> recogerPorNombre(String nombre);
+
+	/**
 	 * Para poder recoger los datos de un amigo de la agenda
 	 * 
 	 * @param nombre del amigo que queremos buscar
-	 * @return todos los datos del amigo, Devuelve amigo por defecto si no se ha encotrado el amigo
+	 * @return todos los datos del amigo, Devuelve amigo por defecto si no se ha
+	 *         encotrado el amigo
 	 */
 	public Amigo recogerUno(final String nombre);
+
 }
