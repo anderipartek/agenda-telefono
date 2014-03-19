@@ -1,4 +1,7 @@
+<%String msg=(String)request.getAttribute("Mensaje");%>
+
 <div class="contain">
+        <h3><%=msg%></h3>
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
 	<%-- 
 		<?php if($error != false){ ?>
@@ -10,7 +13,8 @@
 			</ul>
 		<?php } ?>--%>
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		
+		<form method="post" action="AgendaServlet">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
