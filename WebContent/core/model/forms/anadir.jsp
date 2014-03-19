@@ -1,14 +1,20 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="contain">
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
-	<%-- 
-		<?php if($error != false){ ?>
+	
 			<ul class="errores">
-			<?php if($_POST['nombre'] == '') ?>
-				<li><p>Necesitamos saber su nombre</p></li>
-			<?php if($_POST['movil'] == '') ?>
-				<li><p>Necesitamos saber su teléfono móvil</p></li>
+			<c:if test="${not empty requestScope.accionAnadir}">
+				<c:if test="${requestScope.accionAnadir == '-1'}">
+					<li><p>Necesitamos saber su nombre</p></li>
+					<li><p>Necesitamos saber su telefono movil</p></li>
+				</c:if>
+				<c:if test="${requestScope.accionAnadir != -'1'}">
+						<li><p>El Amigo ha sido a�adido</p></li>
+					</c:if>
+				</c:if>
 			</ul>
-		<?php } ?>--%>
+		
 		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">

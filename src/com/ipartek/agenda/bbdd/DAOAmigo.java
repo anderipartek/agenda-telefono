@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.agenda.bbdd.interfaces.IDAOAmigo;
-import com.ipartek.agenda.main.bean.Amigo;
+import com.ipartek.agenda.bean.Amigo;
 
 /**
  * Clase que implementa las operaciones basicas CRUD contra la tabla de alumno
@@ -27,7 +27,8 @@ public class DAOAmigo implements IDAOAmigo {
 	PreparedStatement pst;
 	ResultSet rs;
 	Amigo a;
-
+	public static final String ID = "id";
+	
 	public DAOAmigo() {
 		PropertyConfigurator.configure("./config/log4j.properties");
 		factory = ConnectionFactory.getInstance();
@@ -86,7 +87,7 @@ public class DAOAmigo implements IDAOAmigo {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
-				datosAmigo(rs, a);
+				datosAmigo(a,rs);
 				listaAmigos.add(a);
 			}
 		} catch (SQLException ex) {
@@ -101,6 +102,32 @@ public class DAOAmigo implements IDAOAmigo {
 			}
 			return listaAmigos;
 		}
+	}
+	
+	public Amigo getById(int id) {
+		String sqlAmigo = "select * from agenda.amigos where id = ?";
+		try {
+			con = factory.getConnection();
+			a = new Amigo();
+			pst = con.prepareStatement(sqlAmigo);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				datosAmigo(a, rs);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al recoger un alumno por id.");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return a;
+		}
+
 	}
 
 	@Override

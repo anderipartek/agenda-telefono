@@ -2,7 +2,7 @@ package com.ipartek.agenda.bbdd.interfaces;
 
 import java.util.ArrayList;
 
-import com.ipartek.agenda.main.bean.Amigo;
+import com.ipartek.agenda.bean.Amigo;
 
 /**
  * Interface con todos os metodos que se ejecutaran en el DAO
