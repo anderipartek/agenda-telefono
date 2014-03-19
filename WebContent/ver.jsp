@@ -1,7 +1,9 @@
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="inc/head.jsp"%>
 
 <h3>Estos son tus amigos:</h3>
-<?php
+<!--  
 	// insertamos las funciones del site
 	include('../abstract/functions.php');
 
@@ -16,9 +18,15 @@
 	if(!$result){
 		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
 	}
-	?>
+	-->
 	<table>
-		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
+		<colgroup>
+			<col width="10%" span="2">
+			<col width="20%">
+			<col width="5%">
+			<col width="10%" span="4">
+			<col width="15%">
+		</colgroup>
 		<tr>
 			<th>nombre</th>
 			<th>apellido</th>
@@ -31,24 +39,29 @@
 			<th>anotaciones</th>
 		</tr>
 
-	<?php
-	// mostramos los datos de la query
-	while($result_row = mysql_fetch_array($result)){
-	?>
-		<tr>
-			<td><?php echo $result_row[1]; ?></td>
-			<td><?php echo $result_row[2]; ?></td>
-			<td><?php echo $result_row[3]; ?></td>
-			<td><?php echo $result_row[4]; ?></td>
-			<td><?php echo $result_row[5]; ?></td>
-			<td><?php echo $result_row[6]; ?></td>
-			<td><?php echo $result_row[7]; ?></td>
-			<td><?php echo $result_row[8]; ?></td>
-			<td><?php echo $result_row[9]; ?></td>
-		</tr>
-	<?php
-	}
-	?>
+		
+	<%
+		ArrayList <Amigo> lAmigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
+  		Amigo a; 
+		for ( int i=0; i<lAmigos.size();i++){
+			a = lAmigos.get(i);
+			%>
+			
+			  <tr>
+		     	 <td align="center"><%=a.getNombre()%></td>
+		    	 <td align="center"><%=a.getApellido()%></td>
+		   	 	 <td align="center"><%=a.getCalle()%></td>
+		   	 	 <td align="center"><%=a.getCp()%></td>
+		    	 <td align="center"><%=a.getLocalidad()%></td>
+		   	 	 <td align="center"><%=a.getProvincia()%></td>
+		   	 	 <td align="center"><%=a.getMovil()%></td>
+		    	 <td align="center"><%=a.getFijo()%></td>
+		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
+		    </tr>   
+		    
+			<%		
+		}	
+	%>
 		</table>
 <!-- cerramos db -->
 
