@@ -19,4 +19,14 @@
     <servlet-name>MainServlet</servlet-name>
     <url-pattern>/main</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AgendaServletMaestro</display-name>
+    <servlet-name>AgendaServletMaestro</servlet-name>
+    <servlet-class>com.ipartek.agenda.controller.AgendaServletMaestro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AgendaServletMaestro</servlet-name>
+    <url-pattern>/AgendaServletMaestro</url-pattern>
+  </servlet-mapping>
 </web-app>
