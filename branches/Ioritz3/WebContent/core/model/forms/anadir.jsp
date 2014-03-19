@@ -10,7 +10,7 @@
 			</ul>
 		<?php } ?>--%>
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		<form method="post" action="main">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
