@@ -97,8 +97,45 @@ public class DAOContacto implements IDAOContacto{
 
 		@Override
 		public int insertContacto(Contacto c) {
-			// TODO Auto-generated method stub
-			return 0;
+			String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sqlId = "select max(id) from amigos;";
+			int id = -1;
+			try {
+				con = factory.getConnection();
+				pst = con.prepareStatement(sqlInsert);
+				pst.setString(1, c.getNombre());
+				pst.setString(2, c.getApellido());
+				pst.setString(3, c.getCalle());
+				pst.setInt(4, c.getCp());
+				pst.setString(5, c.getLocalidad());
+				pst.setString(6, c.getProvincia());
+				pst.setInt(7, c.getMovil());
+				pst.setInt(8, c.getFijo());
+				pst.setString(9, c.getAnotaciones());
+				if (pst.executeUpdate() > 0) {
+					pst = con.prepareStatement(sqlId);
+					rs = pst.executeQuery();
+					rs.next();
+					id = (rs.getInt(1));
+					c.setId(id);
+				}
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+				id = -1;
+			} catch (Exception ex) {
+				log.warn("Ha ocurrido un error desconocido al insertar alumno"
+						+ ex.getStackTrace());
+				id = -1;
+			} finally {
+
+				try {
+					factory.closeConnection();
+				} catch (SQLException ex) {
+					sqlExcepcion(ex);
+				}
+				return id;
+
+			}
 		}
 
 		@Override
