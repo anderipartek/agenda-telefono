@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.agenda.bbdd.interfaces.IAmigo;
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.excepciones.AmigoExcepcion;
 
 
 public class DAOAmigo implements IAmigo{
@@ -32,7 +33,7 @@ public class DAOAmigo implements IAmigo{
 	
 	@Override
 	public int insertarAmigo(Amigo a) {
-		
+		log.trace("Insert de amigo [" + a.toString() + "]");
 		int id = -1;
 		try {
 			con = factory.getConnection();
@@ -84,12 +85,6 @@ public class DAOAmigo implements IAmigo{
 	}
 
 
-	@Override
-	public boolean modificarAmigo(Amigo a, int id) {
-		log.trace("Actualizar amigo [" + a.toString() + "]");
-		
-		return false;
-	}
 
 	@Override
 	public HashMap<Integer, Amigo> getAllAmigo() {
@@ -153,17 +148,39 @@ public class DAOAmigo implements IAmigo{
 	 * 
 	 * @throws SQLException
 	 */
-	private void datosAmigo() throws SQLException {
-		a.setId(rs.getInt("id"));
-		a.setNombre(rs.getString("nombre"));
-		a.setApellido(rs.getString("apellido"));
-		a.setCalle(rs.getString("calle"));
-		a.setCodigoPostal(rs.getInt("cp"));
-		a.setLocalidad(rs.getString("localidad"));
-		a.setProvincia(rs.getString("provincia"));
-		a.setMTelefono(rs.getString("movil"));
-		a.setFTelefono(rs.getString("fijo"));
-		a.setAnotaciones(rs.getString("anotaciones"));
+	private void datosAmigo() throws SQLException{
+		try {
+			a.setId(rs.getInt("id"));
+			a.setNombre(rs.getString("nombre"));
+			a.setApellido(rs.getString("apellido"));
+			a.setCalle(rs.getString("calle"));
+			a.setCodigoPostal(rs.getInt("cp"));
+			a.setLocalidad(rs.getString("localidad"));
+			a.setProvincia(rs.getString("provincia"));
+			a.setMTelefono(rs.getString("movil"));
+			a.setFTelefono(rs.getString("fijo"));
+			a.setAnotaciones(rs.getString("anotaciones"));
+		} catch (AmigoExcepcion ex) {
+			if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_NOMBRE) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR NOMBRE ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_APELLIDO) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR APELLIDO ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_TELEFONO) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR TELEFONO ["
+						+ ex.getMensajeError() + "]");
+			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_CP) {
+				log.warn("Excepcion capturada por AmigoExcepcion ERROR CODIGO POSTAL ["
+						+ ex.getMensajeError() + "]");
+			}
+		}
+	}
+
+	@Override
+	public boolean modificarAmigo(Amigo a, int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

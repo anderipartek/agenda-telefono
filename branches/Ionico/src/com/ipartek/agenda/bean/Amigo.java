@@ -1,5 +1,7 @@
 package com.ipartek.agenda.bean;
 
+import com.ipartek.agenda.excepciones.AmigoExcepcion;
+
 public class Amigo {
 
 	// ATRIBUTOS
@@ -37,8 +39,9 @@ public class Amigo {
 	public Amigo(final String nombre, final String apellido,
 			final String mTelefono, final String fTelefono, final String calle,
 			final String provincia, final String localidad,
-			final int codigoPostal, final String anotaciones) {
+			final int codigoPostal, final String anotaciones) throws AmigoExcepcion{
 		this();
+		this.setId(id);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setMTelefono(mTelefono);
@@ -51,43 +54,43 @@ public class Amigo {
 	}
 
 	//SETTERS
-	public void setId(final int id) {
+	public void setId(final int id) throws AmigoExcepcion {
 		this.id = id;
 	}
 
-	public void setNombre(final String nombre) {
+	public void setNombre(final String nombre) throws AmigoExcepcion  {
 		this.nombre = nombre;
 	}
 
-	public void setApellido(final String apellido) {
+	public void setApellido(final String apellido) throws AmigoExcepcion  {
 		this.apellido = apellido;
 	}
 
-	public void setMTelefono(final String mTelefono) {
+	public void setMTelefono(final String mTelefono) throws AmigoExcepcion  {
 		this.mTelefono = mTelefono;
 	}
 
-	public void setFTelefono(final String fTelefono) {
+	public void setFTelefono(final String fTelefono) throws AmigoExcepcion  {
 		this.fTelefono = fTelefono;
 	}
 
-	public void setCalle(final String calle) {
+	public void setCalle(final String calle) throws AmigoExcepcion   {
 		this.calle = calle;
 	}
 
-	public void setProvincia(final String provincia) {
+	public void setProvincia(final String provincia) throws AmigoExcepcion   {
 		this.provincia = provincia;
 	}
 
-	public void setLocalidad(final String localidad) {
+	public void setLocalidad(final String localidad) throws AmigoExcepcion   {
 		this.localidad = localidad;
 	}
 
-	public void setCodigoPostal(final int codigoPostal) {
+	public void setCodigoPostal(final int codigoPostal) throws AmigoExcepcion   {
 		this.codigoPostal = codigoPostal;
 	}
 
-	public void setAnotaciones(final String anotaciones) {
+	public void setAnotaciones(final String anotaciones) throws AmigoExcepcion   {
 		this.anotaciones = anotaciones;
 	}
 	//_------------------------------------------------------------------------------

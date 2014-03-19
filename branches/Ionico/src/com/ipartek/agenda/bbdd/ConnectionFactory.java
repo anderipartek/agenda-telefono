@@ -11,8 +11,7 @@ public class ConnectionFactory {
 
 	private static Connection conn = null;
 	public static final String DB_NAME = "agenda";
-	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME
-			+ "?allowMultiQueries=true";
+	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME + "?allowMultiQueries=true";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
 	static final String PASS = "root";
@@ -71,7 +70,8 @@ public class ConnectionFactory {
 	}
 
 	public IAmigo getDAOAmigo() {
-	
-		return new DAOAmigo;
+		
+		return new DAOAmigo();
+		
 	}
 }

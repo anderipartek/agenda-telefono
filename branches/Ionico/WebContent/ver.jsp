@@ -1,8 +1,7 @@
 <%@include file="inc/head.jsp"%>
 
 <h3>Estos son tus amigos:</h3>
-
-<!--  <?php
+<!-- <?php
 	// insertamos las funciones del site
 	include('../abstract/functions.php');
 
@@ -17,54 +16,42 @@
 	if(!$result){
 		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
 	}
-	?>
-	-->
-		<!--  Incluir librerias jsQuery -->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	
-	<link type="text/css" rel="stylesheet" href="js/css/jquery.dataTables.css">
-	
-	<table id="amigos">
-	
-	<table>
-		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
+	?> -->
+
+<table id="tabla">
+	<caption>Lista de Alumnos</caption>
+	<thead>
 		<tr>
-			<th>nombre</th>
-			<th>apellido</th>
-			<th>calle</th>
-			<th>cp</th>
-			<th>localidad</th>
-			<th>provincia</th>
-			<th>movil</th>
-			<th>fijo</th>
-			<th>anotaciones</th>
+			<th scope="col">Id</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Apellido</th>
+			<th scope="col">Calle</th>
+			<th scope="col">CP</th>
+			<th scope="col">Localidad</th>
+			<th scope="col">Provincia</th>
+			<th scope="col">Movil</th>
+			<th scope="col">Fijo</th>
+			<th scope="col">Anotaciones</th>
 		</tr>
-
- 
-	<!-- // mostramos los datos de la query
-	while($result_row = mysql_fetch_array($result)){
-	 -->
-		<tr>
-			<td>${amigo.getnombre}</td>
-			<td>${amigo.getapellido}</td>
-			<td>${amigo.getcalle}</td>
-			<td>${amigo.getcp}</td>
-			<td>${amigo.getlocalidad}</td>
-			<td>${amigo.getprovincia}</td>
-			<td>${amigo.getmovil}</td>
-			<td>${amigo.getfijo}</td>
-			<td>${amigo.getanotaciones}</td>
-		</tr>
-
-	<!-- }
-	-->
-
-		</table>
-<!-- cerramos db -->
-
-	
-
-
+	</thead>
+	<tbody>
+		<ul>
+			<c:forEach var="amigo" items="${requestScope.lista_amigos}">
+				<tr>
+					<th>${a.getId}</th>
+					<th>${a.getNombre}</th>
+					<th>${a.getApellido}</th>
+					<th>${a.getCalle}</th>
+					<th>${a.getCodigoPostal}</th>
+					<th>${a.getLocalidad}</th>
+					<th>${a.getProvincia}</th>
+					<th>${a.getMTelefono}</th>
+					<th>${a.getFTelefono}</th>
+					<th>${a.getAnotaciones}</th>
+				</tr>
+			</c:forEach>
+		</ul>
+	</tbody>
+</table>
 
 <%@include file="inc/footer.jsp"%>
