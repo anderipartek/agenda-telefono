@@ -11,7 +11,7 @@ public interface IDAOAmigo {
 	 * @param a Amigo
 	 * @return [int] identificador del nuevo amigo insertado en la bbdd, en caso de fallo retorna -1
 	 */
-	int insertAlumno( Amigo a );
+	int insertAmigo( Amigo a );
 	
 	/**
 	 * Obtenemos todos los amigos de la BBDD

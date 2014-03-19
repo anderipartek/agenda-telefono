@@ -24,10 +24,11 @@ public class Amigo {
 	private String calle;
 	private String localidad;
 	private String provincia;
-	private StringBuilder anotaciones;
+	private String anotaciones;
 	private String fijo;
 	private String movil;
 	private int cp;
+	private int id;
 	
 	
 	public String getNombre() {
@@ -60,10 +61,10 @@ public class Amigo {
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-	public StringBuilder getAnotaciones() {
+	public String getAnotaciones() {
 		return anotaciones;
 	}
-	public void setAnotaciones(StringBuilder anotaciones) {
+	public void setAnotaciones(String anotaciones) {
 		this.anotaciones = anotaciones;
 	}
 	public String getFijo() {
@@ -83,6 +84,10 @@ public class Amigo {
 	}
 	public void setCp(int cp) {
 		this.cp = cp;
+	}
+	public void setId(int id) {
+		this.id = id;
+		
 	}
 	
 

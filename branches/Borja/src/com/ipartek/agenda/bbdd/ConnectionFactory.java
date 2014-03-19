@@ -4,23 +4,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.ipartek.agenda.bbdd.interfaces.IDAOAmigo;
 
-public class MySqlDAOFactory extends DAOFactory {
+
+
+
+public class ConnectionFactory {
 	
 	private static Connection conn = null;
-	public static final String DB_NAME = "agenda";
-	static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
-			//+ "?allowMultiQueries=true";
+	public static final String DB_NAME = "amigos";
+	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME
+			+ "?allowMultiQueries=true";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
 	static final String PASS = "";
 
-	private static MySqlDAOFactory mysqldaofac;
+	private static ConnectionFactory connectionFactory = null;
 
 	/**
 	 * Constructor privado para poder crear patron Singleton
 	 */
-	public MySqlDAOFactory() {
+	private ConnectionFactory() {
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
@@ -28,21 +32,17 @@ public class MySqlDAOFactory extends DAOFactory {
 		}
 	}
 
-	
 	/**
 	 * Obtener una instancia de la clase, siguiendo el patron singleton
 	 * 
 	 * @return conexion a la bbdd
 	 */
-	/*
-	public static MySqlDAOFactory getInstance() {
-		if (mysqldaofac  == null) {
-			mysqldaofac = new MySqlDAOFactory ();
+	public static ConnectionFactory getInstance() {
+		if (connectionFactory == null) {
+			connectionFactory = new ConnectionFactory();
 		}
-		return mysqldaofac;
-	}*/
-	
-	
+		return connectionFactory;
+	}
 
 	/**
 	 * Obtener conexion a la BBDD
@@ -52,7 +52,7 @@ public class MySqlDAOFactory extends DAOFactory {
 	 */
 	public Connection getConnection() throws SQLException {
 		if (conn == null) {
-			conn = DriverManager.getConnection(CONNECTION_URL, USER, PASS);
+			conn = DriverManager.getConnection(URL_CONEXION, USER, PASS);
 		}
 		return conn;
 	}
@@ -70,10 +70,14 @@ public class MySqlDAOFactory extends DAOFactory {
 		}
 
 	}
-	
-	public DAOAmigo getDAOAmigo() {
-		    
-		    return new DAOAmigo();
+
+	/**
+	 * Obtener el DAO para manipular Amigos, soporta todas las operaciones CRUD
+	 * 
+	 * @return
+	 */
+	public IDAOAmigo getDAOAmigo() {
+		return new DAOAmigo();
 	}
 
 
