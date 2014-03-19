@@ -46,6 +46,9 @@
 	<%
 		ArrayList <Amigo> lAmigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
   		Amigo a; 
+  		if (lAmigos == null){
+  			
+  		}else{
 		for ( int i=0; i<lAmigos.size();i++){
 			a = lAmigos.get(i);
 			%>
@@ -62,7 +65,7 @@
 		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
 		    </tr>   
 		    
-			<%		
+			<%		}
 		}	
 	%>
 </table>

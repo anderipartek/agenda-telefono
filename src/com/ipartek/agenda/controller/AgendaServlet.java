@@ -48,8 +48,7 @@ public class AgendaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		op = (String) request.getAttribute("op");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_ANADIR)) {

@@ -21,7 +21,7 @@ public class Amigo {
 	 * Constructor por defecto
 	 */
 	public Amigo() {
-		// this.id = 0;
+		//this.id = 0;
 		this.nombre = "Nombre";
 		this.apellido = "Apellido";
 		this.mTelefono = "618715100";
@@ -41,7 +41,6 @@ public class Amigo {
 			final String provincia, final String localidad,
 			final int codigoPostal, final String anotaciones) throws AmigoExcepcion{
 		this();
-		this.setId(id);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setMTelefono(mTelefono);

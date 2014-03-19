@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.ipartek.agenda.bbdd.ConnectionFactory;
+import com.ipartek.agenda.bbdd.DAOAmigo;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.controller.AgendaServlet;
 import com.ipartek.agenda.bbdd.interfaces.IAmigo;
