@@ -1,4 +1,13 @@
-<%String msg=(String)request.getAttribute("Mensaje");%>
+<!DOCTYPE html>
+<%@ include file="../../../inc/head.jsp"%>
+<!-- HEADER -->
+<%@ include file="../../../inc/header.jsp" %>
+<body>
+<%String msg=(String)request.getAttribute("Mensaje");
+  if (msg==null){
+	  msg="";
+  }
+%>
 
 <div class="contain">
         <h3><%=msg%></h3>
@@ -14,7 +23,7 @@
 		<?php } ?>--%>
 		
 		
-		<form method="post" action="AgendaServlet">				
+		<form method="post" action="agenda?operacion=anadir">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
@@ -30,4 +39,7 @@
 				<input type="submit" value="añadir" name="anadir" class="boton anadir">
 			</div>
 		</form>
-	</div>
+</div>
+<!-- FOOTER -->
+
+<%@include file="../../../inc/footer.jsp"%>
