@@ -3,13 +3,13 @@
 
 <nav class="navBar">
 	<ul>
-		<li id="anadir" <%if(AgendaServlet.ANADIR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="AgendaServlet?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.ANADIR %>" title="">Añadir
+		<li id="anadir" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.ANADIR %>" title="">Añadir
 				amigo</a></li>
-		<li id="modificar" <%if(AgendaServlet.MODIFICAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="AgendaServlet?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.MODIFICAR %>" title="">Modificar
+		<li id="modificar" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.MODIFICAR %>" title="">Modificar
 				amigo</a></li>
-		<li id="eliminar" <%if(AgendaServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="AgendaServlet?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.ELIMINAR %>" title="">Eliminar
+		<li id="eliminar" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.ELIMINAR %>" title="">Eliminar
 				amigo</a></li>
-		<li id="ver" <%if(AgendaServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="AgendaServlet?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.VER %>" title="">Ver
+		<li id="ver" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.VER %>" title="">Ver
 				todos</a></li>
 	</ul>
 </nav>
