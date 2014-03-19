@@ -1,5 +1,6 @@
 package com.ipartek.agenda.bbdd.interfaces;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.ipartek.agenda.bean.Amigo;
@@ -34,7 +35,7 @@ public interface IAmigo {
 	 * 
 	 * @return HashMap con todos los alumnos
 	 */
-	public HashMap<Integer, Amigo> getAllAmigo();
+	ArrayList<Amigo> getAll();
 
 
 }

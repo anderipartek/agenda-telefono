@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -84,34 +85,6 @@ public class DAOAmigo implements IAmigo{
 		}
 	}
 
-
-
-	@Override
-	public HashMap<Integer, Amigo> getAllAmigo() {
-		log.trace("Recoger todos los amigos");
-		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
-		try {
-			con = factory.getConnection();
-			pst = con.prepareStatement(sql_vertodos);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				a = new Amigo();
-				datosAmigo();
-				amigoMap.put(a.getId(), a);
-			}
-		} catch (SQLException ex) {
-			sqlExcepcion(ex);
-		} finally {
-			try {
-				factory.closeConnection();
-			} catch (SQLException ex) {
-				sqlExcepcion(ex);
-			}
-			log.trace("Fin recoger amigos");
-			return amigoMap;
-		}
-	}
-
 	/**
 	 * 
 	 * @param ex
@@ -181,6 +154,34 @@ public class DAOAmigo implements IAmigo{
 	public boolean modificarAmigo(Amigo a, int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Amigo> getAll() {
+		ArrayList<Amigo> listaAmigos = null;
+		String sqlAll = "select * from amigos";
+		try {
+			con = factory.getConnection();
+			listaAmigos = new ArrayList<Amigo>();
+			pst = con.prepareStatement(sqlAll);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				a = new Amigo();
+				datosAmigo();
+				listaAmigos.add(a);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de amigos");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return listaAmigos;
+		}
 	}
 
 

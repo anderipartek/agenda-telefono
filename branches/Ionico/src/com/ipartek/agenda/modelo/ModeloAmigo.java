@@ -1,5 +1,6 @@
 package com.ipartek.agenda.modelo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -45,8 +46,9 @@ public class ModeloAmigo{
 		return result;
 	}
 
-	public HashMap<Integer, Amigo> recogerTodos() {
-		HashMap<Integer, Amigo> listaAmigos = daoAmigo.getAllAmigo();
+	public ArrayList<Amigo> getAll() {
+		ArrayList<Amigo> listaAmigos = new ArrayList<Amigo>();
+		listaAmigos = daoAmigo.getAll();
 		return listaAmigos;
 	}
 }

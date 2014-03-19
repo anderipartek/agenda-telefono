@@ -1,6 +1,7 @@
 package com.ipartek.agenda.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +33,7 @@ public class AgendaServlet extends HttpServlet {
 	private Amigo a;
 	private ModeloAmigo modelo;
 	private int idAmigo;
-	private HashMap<Integer, Amigo> listaAmigos;
+	private ArrayList<Amigo> listaAmigos;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -117,7 +118,7 @@ public class AgendaServlet extends HttpServlet {
 	private boolean visualizar(HttpServletRequest request,
 			HttpServletResponse response) {
 		boolean result = false;
-		listaAmigos = modelo.recogerTodos();
+		listaAmigos = modelo.getAll();
 		if (listaAmigos.size() > 0) {
 			result = true;
 		}
