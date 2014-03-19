@@ -169,8 +169,9 @@ public class DAOAmigo implements IAmigable {
 				a = new Amigo();
 				datosAmigo(rs);
 				listaAlumnos.add(a);
+				log.info("Obtenidos los alumnos de la BD");
 			}
-			log.info("Obtenidos los alumnos de la BD");
+			
 		} catch (SQLException ex) {
 			log.error("SQLException" + ex.getMessage());
 		
@@ -220,7 +221,7 @@ public class DAOAmigo implements IAmigable {
 	}
 	
 	private void datosAmigo(ResultSet rs) throws AmigoException {
-		   log.trace("Inicio datosAlumno");
+		   log.trace("Inicio datosAmigo");
 		try {
 			
 			a.setId(rs.getInt("id"));

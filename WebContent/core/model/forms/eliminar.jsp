@@ -1,35 +1,48 @@
+<%@page import="com.ipartek.agenda.bbdd.ModeloAmigo"%>
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html>
+<%@ include file="../../../inc/head.jsp"%>
+<!-- HEADER -->
+<%@ include file="../../../inc/header.jsp" %>
+<body>
+<%@ include file="buscador.jsp"%>
 <div class="contain">
-		<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
-
-		<!--  ?php
-
-		// enviamos la query
-		$id = comillas_inteligentes($_POST['id']);
-		$query = "SELECT * FROM amigos WHERE nombre LIKE $nombre and id = $id";
-
-		$result = mysql_query($query);
-		//comprobamos si la query ha ido bien
-		if(!$result){
-			die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
-		}
-
-		while($result_row = mysql_fetch_array($result)){
-		?-->
-		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
-			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">			
-			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
+			<p class="txt">Seleccionalo de la lista</p>
+			<ul class="amigos del">
 			
-			<div class="botones">
-				<a title="" href="index.jsp">cancelar</a>
-				<a title="" href="todoOk.jsp">
-				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
-				</a>
-			</div>
-		</form>
-		<!-- ?php
-		}
-		?-->
-	</div>
+			<%
+			Amigo a=(Amigo)request.getAttribute("Amigo");
+			String nombre="";
+			String apellidos="";
+			if (a==null){
+			  nombre="";
+			  apellidos="";
+			}
+			else{
+				nombre=a.getNombre();
+				apellidos=a.getApellido();
+			}
+				
+			
+			%>
+				<li>
+					<form action="agenda?operacion=borrar" method="post">
+					
+						<input type="submit" name="amigo" value='<%=nombre+"  "+ apellidos%>'>
+						
+						
+					</form>
+				</li>
+				
+			
+			</ul>
+</div>
+
+<!-- FOOTER -->
+
+<%@include file="../../../inc/footer.jsp"%>
 

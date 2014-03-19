@@ -11,23 +11,13 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>MainServlet</display-name>
-    <servlet-name>MainServlet</servlet-name>
-    <servlet-class>com.ipartek.agenda.controller.MainServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MainServlet</servlet-name>
-    <url-pattern>/main</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>AgendaServlet</display-name>
     <servlet-name>AgendaServlet</servlet-name>
     <servlet-class>com.ipartek.agenda.controller.AgendaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AgendaServlet</servlet-name>
-    <url-pattern>/AgendaServlet</url-pattern>
+    <url-pattern>/agenda</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

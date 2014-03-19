@@ -3,13 +3,13 @@
 
 <nav class="navBar">
 	<ul>
-		<li id="anadir" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.ANADIR %>" title="">Añadir
+		<li id="anadir" class="sel"><a href="agenda?operacion=anadir" title="">Añadir
 				amigo</a></li>
-		<li id="modificar" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.MODIFICAR %>" title="">Modificar
+		<li id="modificar" class="sel"><a href="agenda?operacion=modificar" title="">Modificar
 				amigo</a></li>
-		<li id="eliminar" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.ELIMINAR %>" title="">Eliminar
+		<li id="eliminar" class="sel"><a href="agenda?operacion=eliminar" title="">Eliminar
 				amigo</a></li>
-		<li id="ver" class="sel"><a href="AgendaServlet?<%=AgendaServlet.SECCION %><%=AgendaServlet.VER %>" title="">Ver
+		<li id="ver" class="sel"><a href="agenda?operacion=ver" title="">Ver
 				todos</a></li>
 	</ul>
 </nav>
