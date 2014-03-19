@@ -88,7 +88,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public ArrayList<Amigo> getByName(String value) {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos where name like ?;";
+		String sqlAll = "SELECT * FROM agenda.amigos where nombre like ?;";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();

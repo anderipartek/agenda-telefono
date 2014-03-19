@@ -16,21 +16,22 @@
 			<th>fijo</th>
 			<th>anotaciones</th>
 		</tr>
-
-		<c:forEach var="amigo" items="${requestScope.lista_amigos}">
-			<tr>
-				<td>${amigo.nombre}</td>
-				<td>${amigo.apellido}</td>
-				<td>${amigo.calle}</td>
-				<td>${amigo.cp}</td>
-				<td>${amigo.localidad}</td>
-				<td>${amigo.provincia}</td>
-				<td>${amigo.movil}</td>
-				<td>${amigo.fijo}</td>
-				<td>${amigo.anotaciones}</td>
-			</tr>
-		</c:forEach>
-		</table>
+		<tbody>
+			<c:forEach var="amigo" items="${requestScope.lista_amigos}">
+				<tr>
+					<td>${amigo.nombre}</td>
+					<td>${amigo.apellido}</td>
+					<td>${amigo.calle}</td>
+					<td>${amigo.cp}</td>
+					<td>${amigo.localidad}</td>
+					<td>${amigo.provincia}</td>
+					<td>${amigo.movil}</td>
+					<td>${amigo.fijo}</td>
+					<td>${amigo.anotaciones}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 <!-- cerramos db -->
 
 <%@include file="inc/footer.jsp"%>

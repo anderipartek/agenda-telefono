@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.google.gson.Gson;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.database.ConnectionFactory;
 import com.ipartek.agenda.database.DAOAmigo;
@@ -77,7 +78,19 @@ public class MainServlet extends HttpServlet {
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			if (request.getParameter(NOMBRE_A_BUSCAR) != null && request.getParameter(NOMBRE_A_BUSCAR) != "") {
+				// http://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
+				// Set content type of the response so that jQuery knows what it
+				// can expect.
+				response.setContentType("text/plain");
+				// You want world domination, huh?
+				response.setCharacterEncoding("UTF-8");
+				// Write response body.
+				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
+				response.getWriter().write(obj);
+			} else {
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
+			}
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
@@ -86,8 +99,9 @@ public class MainServlet extends HttpServlet {
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
-
-		dispatcher.forward(request, response);
+		if (dispatcher != null){
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
@@ -107,12 +121,34 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("amigo", amigo);
 			request.setAttribute(SECCION, "anadir");
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if ("buscar".equals(operacion)) {
-			ArrayList<Amigo> amigos = getAmigoByName((String) request.getAttribute("nombre"));
-		} else if (OPERACION_MODIFICAR.equals(operacion)) {
+		} else if ("mostrar".equals(operacion)) {
+			String id = request.getParameter("id");
+			if (id != null) {
+				int idAmigo = Integer.parseInt(id);
+				Amigo amigo = getAmigoById(idAmigo);
+				request.setAttribute("amigo", amigo);
+			}
+			request.setAttribute(SECCION, "modificar");
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		} else if ("mostrarEliminar".equals(operacion)) {
+				String id = request.getParameter("id");
+				if (id != null) {
+					int idAmigo = Integer.parseInt(id);
+					Amigo amigo = getAmigoById(idAmigo);
+					request.setAttribute("amigo", amigo);
+				}
+				request.setAttribute(SECCION, "eliminar");
+				dispatcher = request.getRequestDispatcher("eliminar.jsp");
+		} else if (MODIFICAR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
-			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
-		} else if (OPERACION_ELIMINAR.equals(operacion)) {
+			if (modificarAmigo(amigo))
+			{
+				request.setAttribute("amigo", amigo);
+				request.setAttribute(OPERACION_MODIFICAR, "ok");
+			}
+			request.setAttribute(SECCION, "modificar");
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		} else if (ELIMINAR.equals(operacion)) {
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
 				request.setAttribute(OPERACION_ELIMINAR, eliminarAmigo(Integer.parseInt(id)));
@@ -120,13 +156,17 @@ public class MainServlet extends HttpServlet {
 				log.warn("El id esta vacio al borrar");
 				request.setAttribute(ERROR, ERROR_ID_EMPTY);
 			}
+			request.setAttribute(LISTA_AMIGOS, getAll());
+			request.setAttribute(SECCION, "ver");
+			dispatcher = request.getRequestDispatcher("ver.jsp");
 		} else if (OPERACION_VER_TODOS.equals(operacion)) {
 			request.setAttribute(LISTA_AMIGOS, getAmigoByName(""));
 		} else if (OPERACION_VER_NOMBRE.equals(operacion)) {
 			request.setAttribute(LISTA_AMIGOS, getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
 		}
-
-		dispatcher.forward(request, response);
+		if (dispatcher != null){
+			dispatcher.forward(request, response);
+		}
 	}
 
 	private int anadirAmigo(Amigo amigo) {
