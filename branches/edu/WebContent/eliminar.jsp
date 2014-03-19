@@ -33,4 +33,3 @@
 			</ul>
 		</div>
 <%@ include file="core/model/forms/eliminar.jsp"%>
-<%@ include file="todoOk.jsp"%>
