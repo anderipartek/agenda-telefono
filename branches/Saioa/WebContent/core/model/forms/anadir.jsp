@@ -1,16 +1,8 @@
 <div class="contain">
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
-	<%-- 
-		<?php if($error != false){ ?>
-			<ul class="errores">
-			<?php if($_POST['nombre'] == '') ?>
-				<li><p>Necesitamos saber su nombre</p></li>
-			<?php if($_POST['movil'] == '') ?>
-				<li><p>Necesitamos saber su teléfono móvil</p></li>
-			</ul>
-		<?php } ?>--%>
+
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		<form method="post" action="main">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">

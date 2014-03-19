@@ -8,30 +8,33 @@ import com.ipartek.agenda.util.UtilAmigo;
  *
  */
 public class Amigo {
-    private int id;
-    private String nombre;
-    private String apellido;
-    private String calle;
-    private int cp;
-    private String localidad;
-    private String provincia;
-    private int movil;
-    private int fijo;
-    private String anotaciones;
-    /**
-     * Constructor sin parametros
-     */
-    public Amigo(){
-    	nombre="Sinespecificar";
-    	apellido="Sinespecificar";
-    	calle="Sinespecificar";
-    	cp=11111;
-    	localidad="Sin especificar";
-    	provincia="Sinespecificar";
-    	movil=666666666;
-    	fijo=946666666;
-    	anotaciones="Sin especificar";
-    }
+	//---------------ATRIBUTOS----------------------
+	    private int id;
+	    private String nombre;
+	    private String apellido;
+	    private String calle;
+	    private int cp;
+	    private String localidad;
+	    private String provincia;
+	    private int movil;
+	    private int fijo;
+	    private String anotaciones;
+	//---------------------CONSTRUCTORES-------------------
+	    /**
+	     * Constructor sin parametros
+	     */
+	    public Amigo(){
+	    	nombre="Sinespecificar";
+	    	apellido="Sinespecificar";
+	    	calle="Sinespecificar";
+	    	cp=11111;
+	    	localidad="Sin especificar";
+	    	provincia="Sinespecificar";
+	    	movil=666666666;
+	    	fijo=946666666;
+	    	anotaciones="Sin especificar";
+	    }
+	    
     /**
      * Constructor con parametros
      * @param id

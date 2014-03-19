@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.ipartek.agenda.interfaces.IAmigable;
+import com.ipartek.agenda.interfaces.IDAOAmigo;
 
 public class ConnectionFactory {
+
 	private static Connection conn = null;
-	 
 	private static final String DB_NAME = "agenda";
-	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME ;
+	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME;
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
 	static final String PASS = "root";
@@ -68,14 +68,12 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener el DAO para manipular Amigos, soporta todas las operaciones CRUD
+	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD
 	 * 
 	 * @return
 	 */
-	public IAmigable getDAOAmigo() {
+	public IDAOAmigo getDAOAmigo() {
 		return new DAOAmigo();
 	}
-
-	
 
 }

@@ -15,11 +15,11 @@ import org.junit.Test;
 import com.ipartek.agenda.bbdd.ConnectionFactory;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.exception.AmigoException;
-import com.ipartek.agenda.interfaces.IAmigable;
+import com.ipartek.agenda.interfaces.IDAOAmigo;
 
 public class TestDAOAmigo {
     static ConnectionFactory factory=null;
-    static IAmigable dao;
+    static IDAOAmigo dao;
     static ArrayList<Amigo> amigos;
     Amigo a=null;
     Amigo a1=null;		
