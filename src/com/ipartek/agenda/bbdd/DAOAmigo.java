@@ -28,6 +28,15 @@ public class DAOAmigo implements IDAOAmigo {
 	ResultSet rs;
 	Amigo a;
 	public static final String ID = "id";
+	public static final String NOMBRE = "nombre";
+	public static final String APELLIDO = "apellido";
+	public static final String CALLE = "calle";
+	public static final String CP = "cp";
+	public static final String LOCALIDAD = "localidad";
+	public static final String PROVINCIA = "provincia";
+	public static final String FIJO = "fijo";
+	public static final String MOVIL = "movil";
+	public static final String ANOTACIONES = "anotaciones";
 	
 	public DAOAmigo() {
 		PropertyConfigurator.configure("./config/log4j.properties");
@@ -227,16 +236,16 @@ public class DAOAmigo implements IDAOAmigo {
 
 	private void datosAmigo(Amigo a,ResultSet rs) {
 		try {
-			a.setId(rs.getInt("id"));
-			a.setNombre(rs.getString("nombre"));
-			a.setApellido(rs.getString("apellido"));
-			a.setCalle(rs.getString("calle"));
-			a.setCp(rs.getInt("cp"));
-			a.setLocalidad(rs.getString("localidad"));
-			a.setProvincia(rs.getString("provincia"));
-			a.settFijo(rs.getInt("fijo"));
-			a.settMovil(rs.getInt("movil"));
-			a.setAnotaciones(rs.getString("anotaciones"));
+			a.setId(rs.getInt(ID));
+			a.setNombre(rs.getString(NOMBRE));
+			a.setApellido(rs.getString(APELLIDO));
+			a.setCalle(rs.getString(CALLE));
+			a.setCp(rs.getInt(CP));
+			a.setLocalidad(rs.getString(LOCALIDAD));
+			a.setProvincia(rs.getString(PROVINCIA));
+			a.settFijo(rs.getInt(FIJO));
+			a.settMovil(rs.getInt(MOVIL));
+			a.setAnotaciones(rs.getString(ANOTACIONES));
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 

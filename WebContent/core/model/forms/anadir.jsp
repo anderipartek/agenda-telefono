@@ -14,7 +14,13 @@
 					</c:if>
 				</c:if>
 			</ul>
-		
+		<%
+			Amigo a = (Amigo)request.getAttribute("amigo");
+
+		   	if (a == null){
+		   		a = new Amigo();
+		   	}
+		%>
 		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">
@@ -29,7 +35,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="añadir" name="anadir" class="boton anadir">
+				<input type="submit" value="añadir" name="accion" class="boton anadir">
 			</div>
 		</form>
 	</div>
