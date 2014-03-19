@@ -1,7 +1,24 @@
 <%--@ include file="core/abstract/functions.jsp" --%>
 
 <%@ include file="core/model/forms/anadir.jsp"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"
+    %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@page import="com.ipartek.agenda.bean.Contacto"%>
+    <%@page import="java.util.ArrayList"%>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<!-- Incluir JQuery y data table -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="js/css/jquery.dataTables.css">
+</head>
+<body>
 <!-- ?php
 // insertamos las funciones del site
 include('../abstract/functions.php');
@@ -59,3 +76,4 @@ else{
 
 }
 ? -->
+</body>

@@ -39,17 +39,17 @@ public class DAOContacto implements IDAOContacto{
 	}
 	
 	public ArrayList<Contacto> getAll() {
-		ArrayList<Contacto> listaContactos = null;
+		ArrayList<Contacto> lContactos = null;
 		String sqlAll = "select * from amigos";
 		try {
 			con = factory.getConnection();
-			listaContactos = new ArrayList<Contacto>();
+			lContactos = new ArrayList<Contacto>();
 			pst = con.prepareStatement(sqlAll);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				c = new Contacto();
 				datosContacto(rs);
-				listaContactos.add(c);
+				lContactos.add(c);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -61,7 +61,7 @@ public class DAOContacto implements IDAOContacto{
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			return listaContactos;
+			return lContactos;
 		}
 	}
 		
@@ -73,12 +73,11 @@ public class DAOContacto implements IDAOContacto{
 				c.setCalle(rs.getString("calle"));
 				c.setCp(rs.getInt("cp"));
 				c.setLocalidad(rs.getString("localidad"));
-				c.setProvincia(rs.getString("Provincia"));
+				c.setProvincia(rs.getString("provincia"));
 				c.setMovil(rs.getInt("movil"));
 				c.setFijo(rs.getInt("fijo"));
 				c.setAnotaciones(rs.getString("anotaciones"));
 			} catch (ContactoException ex){
-				log.error("No se ha podido crear el contacto " + ex.getMensajeError());
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
@@ -94,6 +93,30 @@ public class DAOContacto implements IDAOContacto{
 				ex = ex.getNextException();
 			}
 
+		}
+
+		@Override
+		public int insertContacto(Contacto c) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public Contacto getById(int id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean delete(int id) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean update(Contacto c, int id) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 

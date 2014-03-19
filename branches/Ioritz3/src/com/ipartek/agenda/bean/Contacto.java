@@ -44,14 +44,14 @@ public class Contacto {
 	public Contacto() throws ContactoException{
 		super();
 		this.setNombre("Sin especificar");
-		this.setApellido("Sin especificar");
-		this.setCalle("Sin especificar");
-		this.setCp(48200);
-		this.setLocalidad("Sin especificar");
-		this.setProvincia("Sin especificar");
-		this.setMovil(666666666);
-		this.setFijo(946555555);
-		this.setAnotaciones("Sin especificar");
+		this.setApellido("Sin especificar"); 
+		this.setCalle(calle);
+		this.setCp(cp);
+		this.setLocalidad(localidad);
+		this.setProvincia(provincia);
+		this.setMovil(movil);
+		this.setFijo(fijo);
+		this.setAnotaciones(anotaciones);
 		
 	}
 	
@@ -94,7 +94,7 @@ public class Contacto {
 	public String getApellido() {
 		return apellido;
 	}
-	public void setApellido(String apellido)throws ContactoException {
+	public void setApellido(String apellido) throws ContactoException{
 		if (ContactoUtil.checkNombre(apellido)) {
 			this.apellido = ContactoUtil.toCapitalCase(apellido);
 		} else {
@@ -104,12 +104,8 @@ public class Contacto {
 	public String getCalle() {
 		return calle;
 	}
-	public void setCalle(String calle) throws ContactoException {
-		if (ContactoUtil.checkCalle(calle)) {
-			this.calle = ContactoUtil.toCapitalCase(calle);
-		} else {
-			throw new ContactoException(ContactoException.COD_ERROR_CALLE, ContactoException.MSG_ERROR_CALLE);
-		}
+	public void setCalle(String calle) {
+		this.calle = calle;
 	}
 	public int getCp() {
 		return cp;

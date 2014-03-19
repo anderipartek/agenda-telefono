@@ -4,6 +4,18 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@page import="com.ipartek.agenda.bean.Contacto"%>
     <%@page import="java.util.ArrayList"%>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<!-- Incluir JQuery y data table -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="js/css/jquery.dataTables.css">
+</head>
+<body>
 <h3>Estos son tus amigos:</h3>
 <!--  ?php
 	// insertamos las funciones del site
@@ -36,25 +48,41 @@
 		</tr>
 		
 		<%
- 			ArrayList <Contacto> lContacto = (ArrayList<Contacto>) request.getAttribute("listaContactos");		
-			Contacto c;
-	  		for ( int i=0; i<lContacto.size();i++){
-				c = lContacto.get(i);
-				%>
-				  <tr>
-			     	 <td><%=c.getNombre()%></td>
-			    	 <td><%=c.getApellido()%></td>
-			    	 <td><%=c.getCalle()%></td>
-			    	 <td><%=c.getCp()%></td>
-			    	 <td><%=c.getLocalidad()%></td>
-			    	 <td><%=c.getProvincia()%></td>
-			    	 <td><%=c.getMovil()%></td>
-			    	 <td><%=c.getFijo()%></td>
-			    	 <td><%=c.getAnotaciones()%></td>
-			    </tr>   
-				<%
-			
-			}
+ 			ArrayList <Contacto> lContactos = (ArrayList<Contacto>) request.getAttribute("listaContactos");
+			if ( lContactos != null ){
+					Contacto c;
+			  		for (int i=0; i<lContactos.size();i++){
+						c = lContactos.get(i);
+						%>
+						  <tr>
+					     	 <td><%=c.getNombre()%></td>
+					    	 <td><%=c.getApellido()%></td>
+					    	 <td><%=c.getCalle()%></td>
+					    	 <td><%=c.getCp()%></td>
+					    	 <td><%=c.getLocalidad()%></td>
+					    	 <td><%=c.getProvincia()%></td>
+					    	 <td><%=c.getMovil()%></td>
+					    	 <td><%=c.getFijo()%></td>
+					    	 <td><%=c.getAnotaciones()%></td>
+					    </tr>   
+						<%
+					
+					}//end for
+				}else{
+					%>
+					  <tr>
+				     	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    	 <td>vacio</td>
+				    </tr>   
+					<%
+				}	
 			
 		
 		%>

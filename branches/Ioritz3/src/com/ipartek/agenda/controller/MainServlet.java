@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+
 
 
 
@@ -52,18 +54,49 @@ public class MainServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		log.trace("Iniciar Servicio");
+		super.service(request, response);
+		log.trace("Destruir Servicio");
+	}
+	
+	 public void init(ServletConfig config) throws ServletException  {
+	    	super.init(config);
+	    	modeloContacto = new ModeloContacto();
+	    }
+	 
+	 public void destroy(){
+		 super.destroy();
+		 modeloContacto = null;
+	 }
+	 
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 
 		request.setAttribute("seccion", seccion);
 		dispatcher = request.getRequestDispatcher("index.jsp");
+		
+		if (ANADIR.equals(seccion)){
+			dispatcher = request.getRequestDispatcher("anadir.jsp");
+		}else if (MODIFICAR.equals(seccion)){
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		}else if (ELIMINAR.equals(seccion)){
+			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+		}else if (VER.equals(seccion)){
+			listarContactos(request, response);
+		}else{
+			dispatcher = request.getRequestDispatcher("index.jsp");
+		}
+		
 		/*
 		 * if (ANADIR.equals(seccion)) { dispatcher = request.getRequestDispatcher("index.jsp"); } else if (MODIFICAR.equals(seccion)) { dispatcher =
 		 * request.getRequestDispatcher("index.jsp"); } else if (ELIMINAR.equals(seccion)) { dispatcher = request.getRequestDispatcher("index.jsp"); }
@@ -95,9 +128,7 @@ public class MainServlet extends HttpServlet {
 
 		request.setAttribute("listaContactos", lContacto);
 		
-		if ( ELIMINAR.equalsIgnoreCase(op)){
-			request.setAttribute("msg", new Mensaje("Alumno Eliminado Correctamente", 200, Mensaje.TIPO_MENSAJE.INFO));
-		}
+		log.trace("Listado contactos salir");
 
 	}
 
