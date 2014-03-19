@@ -13,7 +13,7 @@
 
 	<form method="get" onSubmit="return false" id="formBuscador">
 		<input type="text" placeholder="nombre que buscas..." name="nombre"
-			value="${amigo.nombre}" id="textbuscar">
+			value="${amigo.nombre}" id="textbuscar" autocomplete="off">
 			
 		<input type="hidden" name=<%=MainServlet.SECCION%>
 			value=<%=MainServlet.OPERACION_MODIFICAR%>> 

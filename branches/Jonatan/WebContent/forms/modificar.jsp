@@ -29,7 +29,7 @@
 
 	<%@include file="buscador.jsp"%>
 	<div class="contain" id="listContainer">
-		<p class="txt">Seleccionalo de la lista</p>
+		<p id="listContainerTitle" class="txt"></p>
 		<ul class="amigos modify" id="listaAmigosModificar">
 		</ul>
 	</div>
@@ -79,7 +79,6 @@
 		
 		function search(){
 			$.get('main?<%=MainServlet.SECCION%>=<%=MainServlet.MODIFICAR%>&<%=MainServlet.NOMBRE_A_BUSCAR%>=' + $('#textbuscar').val(), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...	
-				console.log(responseText);
 				fillList(responseText)
 			});
 		}
@@ -88,8 +87,14 @@
 			$("#listaAmigosModificar").empty();
 
 			list = jQuery.parseJSON(data);
-			for (var i=0; i < list.length; i++){
-				fillItem(list[i], i);
+			if (list.length > 0) {
+				$("#listContainerTitle").empty().append('Seleccionalo de la lista');
+				
+				for (var i=0; i < list.length; i++){
+					fillItem(list[i], i);
+				}
+			} else {
+				$("#listContainerTitle").empty().append('Lista vacia');
 			}
 		};
 		
@@ -107,6 +112,10 @@
 				.append('<input type="hidden" name="nombre" value="' + data.nombre + '">')
 				.append('<input type="hidden" name="id" value="' +  + '">')
 				.append('<input type="hidden" name="pos" value="' + pos + '">');
+		}
+		
+		function drawListEmpty(){
+			
 		}
 		
 // 		$("form").submit(function( form ) {
