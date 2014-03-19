@@ -45,14 +45,22 @@ public interface IAmigable {
 	public boolean updateAmigo(Amigo a, int id);
 
 	/**
-	 * Para recoger todos los datos de los alumno
+	 * Para recoger todos los datos de los amigo
 	 * 
-	 * @return HashMap con todos los alumnos
+	 * @return HashMap con todos los amigo
 	 */
 	public HashMap<Integer, Amigo> getAllAmigo();
 
 	/**
-	 * Para recoger los datos de un alumno
+	 * Para recoger todos los datos de amigos que coincidan con el nombre
+	 * 
+	 * @return Una lista de la gente que coincida con el nombre / NULL en caso
+	 *         de no encontrar nada
+	 */
+	public HashMap<Integer, Amigo> getAllByName(String nombre);
+
+	/**
+	 * Para recoger los datos de un amigo
 	 * 
 	 * @param nombre Nombre del amigo
 	 * @return [Amigo] buscado / null en caso de error

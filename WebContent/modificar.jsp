@@ -3,11 +3,7 @@
 <div class="contain">
 			<p class="txt">Seleccionalo de la lista</p>
 			<ul class="amigos modify">
-			<!-- ?php
-			// mostramos los datos de la query
-			while($result_row = mysql_fetch_array($result)){
 			
-			?-->
 			<%
 			ArrayList<String> lista = new ArrayList<String>();
 			lista.add("Erlantz Romero");

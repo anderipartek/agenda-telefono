@@ -57,7 +57,7 @@ public class TestDAOAmigo {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			lista = dao.getAllAmigo();
-			Amigo b = lista.get(id);
+			Amigo b = lista.get(lista.size());
 			assertEquals("Se han recuperado todos los amigos de la BBDD",
 					b.toString(), a.toString());
 			assertTrue(dao.deleteAmigo(id));
@@ -72,7 +72,7 @@ public class TestDAOAmigo {
 		try {
 			int id = dao.insertAmigo(a);
 			if (id > 0) {
-				a.setApellido("Fangoria");
+				a.setApellido("fangoria");
 				assertTrue("Actualizado el amigo", dao.updateAmigo(a, id));
 				assertTrue(dao.deleteAmigo(id));
 			} else {
@@ -88,6 +88,20 @@ public class TestDAOAmigo {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			Amigo b = dao.getAmigoByName(a.getNombre());
+			assertEquals("Recuperado amigo por nombre", b.toString(),
+					a.toString());
+			assertTrue(dao.deleteAmigo(id));
+		} else {
+			fail("No se ha insertado el alumno, testGetAllAmigo");
+		}
+	}
+
+	@Test
+	public void testGetAllByName() {
+		int id = dao.insertAmigo(a);
+		if (id > 0) {
+			lista = dao.getAllByName(a.getNombre());
+			Amigo b = lista.get(lista.size());
 			assertEquals("Recuperado amigo por nombre", b.toString(),
 					a.toString());
 			assertTrue(dao.deleteAmigo(id));

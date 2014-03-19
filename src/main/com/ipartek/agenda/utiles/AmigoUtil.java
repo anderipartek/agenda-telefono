@@ -3,8 +3,9 @@ package com.ipartek.agenda.utiles;
 public class AmigoUtil {
 
 	/**
-	 * Se hace un trim antes de validar (quitar blancos delante y detrás del nombre) Se contemplan tildes y ñ Se hace un toLowerCase() del nombre
-	 * Validar las siguientes condiciones del nombre y apellido del alumno
+	 * Se hace un trim antes de validar (quitar blancos delante y detrás del
+	 * nombre) Se contemplan tildes y ñ Se hace un toLowerCase() del nombre
+	 * Validar las siguientes condiciones del nombre y apellido del amigo
 	 * <ol>
 	 * <li>Que no sea null.</li>
 	 * <li>La longitud minima de 2</li>
@@ -15,38 +16,54 @@ public class AmigoUtil {
 	 * <li>Permitir solo caracteres <b>'</b> <b>-</b></li>
 	 * </ol>
 	 * 
-	 * @param nombre del alumno a chequear
-	 * @return <b>True</b> si cumple las condiciones <b>False</b> en caso de no cumplirlas
+	 * @param nombre del amigo a chequear
+	 * @return <b>True</b> si cumple las condiciones <b>False</b> en caso de no
+	 *         cumplirlas
 	 */
-	public static boolean checkNombre(String nombre) {
-
+	public static boolean checkNombre(final String nombre) {
 		boolean resul = false;
-		if (nombre != null) {
-			nombre = nombre.toLowerCase().trim();
-			resul = nombre.matches("[a-z\\s-'áéíóúñ]{2,}");
+		String nombreC = nombre;
+		if (nombreC != null) {
+			nombreC = nombreC.toLowerCase().trim();
+			resul = nombreC.matches("[a-z-'áéíóúñ]{2,}");
 		}
 		return resul;
 	}
 
 	/**
-	 * Metodo que pone la letra capital en mayuscula
+	 * Metodo para validar los numeros de telefono. Deben empezar por
+	 * <ul>
+	 * <li>Contenga numero del 0-9</li>
+	 * <li>Tenga un tamaño de 9 dígitos</li>
+	 * </ul>
 	 * 
-	 * @param cadena de texto
-	 * @return cadena de texto con la letra inicial en Mayuscula
+	 * @param telefono del amigo
+	 * @return <b>TRUE</b> si es correcto y cumple los parametros / <b>FALSE</b>
+	 *         si no se cumplen los parametros
 	 */
-	public static String toCapitalCase(String cadena) {
-		char _char = Character.toUpperCase(cadena.charAt(0));
-		String subCadena = cadena.substring(1, cadena.length());
-		return _char + subCadena.toLowerCase();
+	public static boolean checkNumeros(final String telefono) {
+		boolean result = false;
+		if (telefono.matches("[0-9]{9}")) {
+			result = true;
+		}
+		return result;
 	}
 
-	public static boolean checkNumeros(String telefono) {
+	/**
+	 * Metodo para validar el Codigo Postal
+	 * <ul>
+	 * <li>Deben estar comprendidos entre 0 -9</li>
+	 * <li>Debe tener una longitud de 5</li>
+	 * </ul>
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	public static boolean checkCP(final int cp) {
 		boolean result = false;
-		if (telefono.startsWith("9") || telefono.startsWith("6")
-				|| telefono.startsWith("3") || telefono.isEmpty()) {
-			if (telefono.length() == 9 || telefono.isEmpty()) {
-				result = true;
-			}
+		String codigo = String.valueOf(cp);
+		if (codigo.matches("[0-9]{5}")) {
+			result = true;
 		}
 		return result;
 	}

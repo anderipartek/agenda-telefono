@@ -6,9 +6,14 @@
 				amigo</a></li>
 		<li id="modificar" <%if(MainServlet.MODIFICAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" title="">Modificar
 				amigo</a></li>
-		<li id="eliminar" <%if(MainServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ELIMINAR %>" title="">Eliminar
+		<li id="eliminar" <%if(MainServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?op=eliminar" title="">Eliminar
 				amigo</a></li>
-		<li id="ver" <%if(MainServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" title="">Ver
-				todos</a></li>
+		<li id="ver" <%if(MainServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?op=ver" title="">Ver
+				todos <input type="hidden" name="op" value="ver"/></a></li>
+	
 	</ul>
 </nav>
+<!-- a href="main?<%--=MainServlet.SECCION %>=<%=MainServlet.VER --%>" title="">Ver
+href="agenda" name="op" value="ver" title=""
+
+				todos</a-->

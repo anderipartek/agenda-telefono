@@ -57,7 +57,7 @@ public class TestModeloAmigo {
 		int id = modelo.insertar(a);
 		if (id > 0) {
 			lista = modelo.recogerTodos();
-			Amigo b = lista.get(id);
+			Amigo b = lista.get(lista.size());
 			assertEquals("Se han recuperado todos los amigos de la BBDD",
 					b.toString(), a.toString());
 			assertTrue(modelo.eliminar(id));
@@ -72,7 +72,7 @@ public class TestModeloAmigo {
 		try {
 			int id = modelo.insertar(a);
 			if (id > 0) {
-				a.setApellido("Fangoria");
+				a.setApellido("fangoria");
 				assertTrue("Actualizado el amigo", modelo.modificar(a, id));
 				assertTrue(modelo.eliminar(id));
 			} else {

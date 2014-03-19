@@ -36,51 +36,113 @@ public class AgendaServlet extends HttpServlet {
 	private RequestDispatcher dispatcher;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		op = request.getParameter("op");
+		if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
+			// if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
+			if (visualizar(request, response)) {
+				dispatcher = request.getRequestDispatcher("main?seccion=ver");
+				request.setAttribute("lista", listaAmigos);
+			}
+		} else if (op.equalsIgnoreCase("eliminar")) {
+			String amigo = "";
+			if (request.getParameter("id") != null) {
+				idAmigo = Integer.parseInt(request.getParameter("id"));
+				amigo = request.getParameter("amigo");
+				request.setAttribute("amigo", amigo);
+				request.setAttribute("id", idAmigo);
+			}
+
+			dispatcher = request.getRequestDispatcher("main?seccion=eliminar");
+		}
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		// int todoOk = 0;
+		int todoOk = 0;
 		op = request.getParameter("op");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_ANADIR)) {
 				if (agregar(request, response) != -1) {
-					dispatcher = request.getRequestDispatcher("main?todoOk");
-					// todoOk = 1;
+					dispatcher = request
+							.getRequestDispatcher("main?seccion=anadir");
+					todoOk = 1;
+					request.setAttribute("amigo", (a.getNombre().toUpperCase()
+							+ " " + a.getApellido().toUpperCase()));
 				}
 			} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
 				if (modificar(request, response)) {
 					dispatcher = request
-							.getRequestDispatcher("modificar.jsp?todoOk=1");
-					// todoOk = 1;
+							.getRequestDispatcher("main?seccion=modificar");
+					todoOk = 1;
+					request.setAttribute("amigo",
+							(a.getNombre() + " " + a.getApellido()));
 				}
 			} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
 				if (eliminar(request, response)) {
 					dispatcher = request
-							.getRequestDispatcher("eliminar.jsp?todoOk=1");
-					// todoOk = 1;
+							.getRequestDispatcher("main?seccion=eliminar");
+					todoOk = 1;
+					request.setAttribute("amigo", (a.getNombre().toUpperCase()
+							+ " " + a.getApellido().toUpperCase()));
 				}
-			} else if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
-				if (visualizar(request, response)) {
-					// dispatcher = request.getRequestDispatcher("todoOk.jsp");
-				}
+			} else {
+				buscador(request, response);
+				request.setAttribute("listaAmigos", listaAmigos);
+				dispatcher = request
+						.getRequestDispatcher("main?seccion=eliminar");
+				todoOk = 1;
+			}
+		} else if (request.getParameter("id") != null) {
+			idAmigo = Integer.parseInt(request.getParameter("id"));
+			if (eliminar(request, response)) {
+				dispatcher = request
+						.getRequestDispatcher("main?seccion=eliminar");
+				todoOk = 1;
 			}
 		}
-		// request.setAttribute("todoOk", todoOk);
+		if (todoOk == 1) {
+			request.setAttribute("todoOk", todoOk);
+		}
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * Metodo para la búsqueda de amigos en la agenda que coincidan en nombre
+	 * 
+	 * @param request
+	 * @param response
+	 * @return TRUE si hay datos, FALSE si no hay datos
+	 */
+	private boolean buscador(HttpServletRequest request,
+			HttpServletResponse response) {
+		boolean result = false;
+		String nombreBusqueda = request.getParameter("nombreBusqueda");
+		listaAmigos = modelo.recogerPorNombre(nombreBusqueda);
+		if (listaAmigos.size() > 0) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * Metodo para agregar a los amigos a la Agenda
+	 * 
+	 * @param request
+	 * @param response
+	 * @return id del alumno (-1 en caso de error)
+	 */
 	private int agregar(HttpServletRequest request, HttpServletResponse response) {
 		log.trace("metodo agregar init");
 		recogerDatosAmigo(request, response);
@@ -90,11 +152,19 @@ public class AgendaServlet extends HttpServlet {
 		return idAmigo;
 	}
 
+	/**
+	 * Metodo para eliminar a un amigo de la Agenda
+	 * 
+	 * @param request
+	 * @param response
+	 * @return TRUE si se ha eliminado, FALSE si se ha podido eliminar
+	 */
 	private boolean eliminar(HttpServletRequest request,
 			HttpServletResponse response) {
 		log.trace("metodo eliminar init");
+		op = OP_ELIMINAR;
 		boolean result = true;
-		recogerDatosAmigo(request, response);
+		// recogerDatosAmigo(request, response);
 		if (!modelo.eliminar(idAmigo)) {
 			result = false;
 			log.warn("ATENCION no se ha podido eliminar el amigo con id ["
@@ -106,6 +176,14 @@ public class AgendaServlet extends HttpServlet {
 		return result;
 	}
 
+	/**
+	 * Metodo para modificar amigos de la Agenda
+	 * 
+	 * @param request
+	 * @param response
+	 * @return TRUE si se ha modificado, FALSE si no se ha podido modificar el
+	 *         amigo
+	 */
 	private boolean modificar(HttpServletRequest request,
 			HttpServletResponse response) {
 		log.trace("metodo modificar init");
@@ -122,6 +200,13 @@ public class AgendaServlet extends HttpServlet {
 		return result;
 	}
 
+	/**
+	 * Metodo para visualizar todos los amigos de la Agenda
+	 * 
+	 * @param request
+	 * @param response
+	 * @return TRUE si hay amigos en la Agenda, FALSE en caso contrario
+	 */
 	private boolean visualizar(HttpServletRequest request,
 			HttpServletResponse response) {
 		boolean result = false;
@@ -133,7 +218,8 @@ public class AgendaServlet extends HttpServlet {
 	}
 
 	/**
-	 * Metodo privado para recoger los datos del amigo del formulario
+	 * Metodo privado para recoger los datos del amigo del formulario. Valido
+	 * para modificar, agregar o eliminar
 	 * 
 	 * @param request
 	 * @param response
@@ -150,7 +236,8 @@ public class AgendaServlet extends HttpServlet {
 			String mTelefono = request.getParameter("movil");
 			String fTelefono = request.getParameter("fijo");
 			String anotaciones = request.getParameter("anotaciones");
-			if (OP_MODIFICAR.equalsIgnoreCase(op)) {
+			if (op.equalsIgnoreCase(OP_MODIFICAR)
+					|| op.equalsIgnoreCase(OP_ELIMINAR)) {
 				idAmigo = Integer.parseInt(request.getParameter("id"));
 			}
 			a = new Amigo(nombre, apellido, mTelefono, fTelefono, calle,
@@ -185,5 +272,6 @@ public class AgendaServlet extends HttpServlet {
 		super.destroy();
 		modelo = null;
 		a = null;
+		listaAmigos = null;
 	}
 }
