@@ -59,7 +59,6 @@
 			});
 		}
 		
-		
 		var list;
 		function fillList(data) {
 			$("#listaAmigosModificar").empty();
@@ -77,12 +76,12 @@
 		}
 		
 		function fillItem(data) {
-			$("#listaAmigosModificar").append('<li><form method="post" onSubmit="return loadAmigoInfo(this)">')
+			$("#listaAmigosModificar").append('<li><form method="post" onSubmit="return loadAmigoInfo(this)"></form></li>');
+			$('#listaAmigosModificar li:last-child form')
 				.append('<input type="submit" name="amigo" value="' + data.nombre + ' ' + data.apellido  + '">')
 				.append('<input type="hidden" name="buscar" value="ok">')
 				.append('<input type="hidden" name="nombre" value="' + data.nombre + '">')
 				.append('<input type="hidden" name="id" value="' + data.id + '">')
-			.append('</form></li>');
 		}
 		
 		function loadAmigoInfo(form){

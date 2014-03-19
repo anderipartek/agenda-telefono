@@ -10,7 +10,7 @@
 	<!-- 	</ul> -->
 	<!--<?php } ?>-->
 
-	<form method="get" onSubmit="return false";>
+	<form method="get" onSubmit="return false">
 		<input type="text" placeholder="nombre que buscas..." name="nombre"
 			value="" id="textbuscar">
 			
