@@ -35,6 +35,7 @@ public class MainServlet extends ServletMaestro {
 	
 	DAOAmigo daoAmigo;
 	RequestDispatcher dispatcher = null;
+	ConnectionFactory factory;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,7 +47,8 @@ public class MainServlet extends ServletMaestro {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		ConnectionFactory factory = ConnectionFactory.getInstance();
+		factory = ConnectionFactory.getInstance();
+		
 	}
 
 	/**
@@ -85,22 +87,35 @@ public class MainServlet extends ServletMaestro {
 		String accion = request.getParameter(ACCION);
 		request.setAttribute("accion", accion);
 		
-		if("anadir".equals(ACCION)){
-			Amigo a  = setAmigo(request);
+		if("anadir".equals(ACCION)){	
+			Amigo a = crearAmigo(request);
+			int resul = añadirAmigo(a);
+			request.setAttribute(ACCION_ANADIR, resul);
+		}else if("modificar".equals(ACCION)){
 			
 		}
 	}
 
-	private Amigo setAmigo(HttpServletRequest request) {
+	private int añadirAmigo(Amigo a) {
+		return factory.getDAOAmigo().insertAmigo(a);
+	}
+
+	private Amigo crearAmigo(HttpServletRequest request) {
 		Amigo a = new Amigo();
 		String id = request.getParameter(daoAmigo.ID);
 		if(id !=null){
 			a.setId(Integer.parseInt(id));
 		}	
-			a.setNombre(request.getParameter(a.getNombre()));
-			a.setApellido(request.getParameter(a.getApellido()));
-			a.setCalle(request.getParameter(a.getCalle()));
-			a.setCp(request.getParameter(Integer.parseInt(a.getCalle())));
+		
+			a.setNombre(request.getParameter(daoAmigo.NOMBRE));
+			a.setApellido(request.getParameter(daoAmigo.APELLIDO));
+			a.setCalle(request.getParameter(daoAmigo.CALLE));
+			a.setCp(request.getParameter(daoAmigo.CP));
+			a.setLocalidad(request.getParameter(daoAmigo.LOCALIDAD));
+			a.setProvincia(request.getParameter(daoAmigo.PROVINCIA));
+			a.settMovil(request.getParameter(daoAmigo.MOVIL));
+			a.settFijo(request.getParameter(daoAmigo.FIJO));
+			
 		
 		return a;
 	}
