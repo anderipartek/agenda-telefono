@@ -106,6 +106,10 @@ public class AgendaServlet extends ServletMaestro {
 			buscar(request,response);
 			
 		}
+		//submit eliminar
+		else if ("eliminar".equals(operacion)){
+			delete(request,response);
+		}
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -113,6 +117,16 @@ public class AgendaServlet extends ServletMaestro {
 			texto="ServletException";
 			log.error("ServletException/IOException" + e.getMessage());
 		}
+		
+	}
+
+	private void delete(HttpServletRequest request, HttpServletResponse response) {
+		log.trace("eliminando Amigo");
+		String idAmigo=request.getParameter("id");
+		int id=Integer.parseInt(idAmigo);
+		model.delete(id);
+		request.setAttribute("Mensaje", texto);
+		dispatcher = request.getRequestDispatcher("core/model/forms/ver.jsp");
 		
 	}
 
