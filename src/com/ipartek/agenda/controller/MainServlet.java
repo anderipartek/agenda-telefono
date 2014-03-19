@@ -28,6 +28,8 @@ public class MainServlet extends AgendaServletMaestro {
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
 	
+	public static String modo;
+	
 	RequestDispatcher dispatcher = null;
 	ModeloAmigo modelAmigo;
 
@@ -58,12 +60,11 @@ public class MainServlet extends AgendaServletMaestro {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String seccion = request.getParameter(SECCION);
-
 		request.setAttribute("seccion", seccion);
 
 		if (ANADIR.equals(seccion)) {
+			modo="anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-			crearAmigo(request, response);
 		} else if (MODIFICAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (ELIMINAR.equals(seccion)) {
@@ -73,7 +74,6 @@ public class MainServlet extends AgendaServletMaestro {
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
-
 		dispatcher.forward(request, response);
 	}
 
@@ -83,7 +83,9 @@ public class MainServlet extends AgendaServletMaestro {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		if (modo=="anadir"){
+			crearAmigo(request, response);
+		}
 		
 	}
 

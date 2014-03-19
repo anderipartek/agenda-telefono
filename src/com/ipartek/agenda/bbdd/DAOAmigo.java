@@ -38,7 +38,7 @@ public class DAOAmigo implements IDAOAmigo {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
-				datosAlumno(rs);
+				datosAmigo(rs);
 				listaAmigos.add(a);
 			}
 		} catch (SQLException ex) {
@@ -56,7 +56,7 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	
-	private void datosAlumno(ResultSet rs) {
+	private void datosAmigo(ResultSet rs) {
 		try {
 			a.setId(rs.getInt("id"));
 			a.setNombre(rs.getString("nombre"));
