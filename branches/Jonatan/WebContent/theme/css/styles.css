@@ -91,3 +91,29 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
 /* FIN NAVBAR */
 
+/* UPDATE EN LISTA */
+.imgUpdateClass { 
+    background-image: url(../../theme/img/update.png);
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
+}
+
+/* DELETE EN LISTA */
+.imgDeleteClass { 
+    background-image: url(../../theme/img/delete.png);
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    background-color: none;
+    cursor: pointer;
+    outline: 0;
+}
+

@@ -1,4 +1,5 @@
 <%@include file="inc/head.jsp"%>
+<%@page import="com.ipartek.agenda.controller.MainServlet"%>
 
 <h3>Estos son tus amigos:</h3>
 <!-- <?php
@@ -47,7 +48,12 @@
 					<th>${amigo.provincia}</th>
 					<th>${amigo.movil}</th>
 					<th>${amigo.fijo}</th>
-					<th>${amigo.anotaciones}</th>
+<%-- 					<th>${amigo.anotaciones} <img src="theme/img/update.png" onSubmitonClick="onUpdate(this)"><img src="theme/img/delete.png" onClick="onDelete(this)"></th> --%>
+					<th>
+						${amigo.anotaciones}<
+						<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>&id=${amigo.id}"><img class="imgUpdateClass"></a>
+						<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ELIMINAR %>&id=${amigo.id}"><img class="imgDeleteClass"></a>
+					</th>
 				</tr>
 			</c:forEach>
 		</ul>
@@ -55,3 +61,28 @@
 </table>
 
 <%@include file="inc/footer.jsp"%>
+
+	<script type="text/javascript">
+	
+		function setOperacion(id, operacion) {
+			if (operacion == 'update')
+			{
+				console.log(id);
+				var href = 
+				$.get(href);
+<%-- 				form.action = "main?" + <%=MainServlet.OPERACION%> + "=" + <%=MainServlet.MODIFICAR%>; --%>
+<%-- 				form.operacion.value = "<%=MainServlet.OPERACION_MODIFICAR%>"; --%>
+<%-- 				form.seccion.value = "<%=MainServlet.MODIFICAR%>"; --%>
+			}
+			else if (operacion == 'delete')
+			{
+				form.action = "main?" + <%=MainServlet.OPERACION%> + "=" + <%=MainServlet.ELIMINAR%>;
+				form.operacion.value = <%=MainServlet.OPERACION_ELIMINAR%>
+				form.seccion.value = <%=MainServlet.ELIMINAR%>
+			}
+		}
+	
+		$(document).ready(function() {
+			$('#tabla').dataTable();
+		});
+	</script>

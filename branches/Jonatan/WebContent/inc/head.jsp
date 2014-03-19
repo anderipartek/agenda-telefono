@@ -9,6 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Incluir librerias jquery -->
 <script type="text/JavaScript" src="js/jquery.js"></script>
+<script type="text/JavaScript" src="js/jquery.dataTables.min.js"></script>
+<link href="js/css/jquery.dataTables.css" rel="stylesheet">
 	<title>Agenda Online</title>
 	<link href="theme/css/styles.css" type="text/css" rel="stylesheet">
         <!--[if IE]>

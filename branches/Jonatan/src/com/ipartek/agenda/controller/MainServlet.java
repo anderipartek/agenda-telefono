@@ -77,9 +77,23 @@ public class MainServlet extends HttpServlet {
 				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
 				response.getWriter().write(obj);
 			} else {
+				if (request.getParameter("id") != null) {
+					try {
+						int id = Integer.parseInt(request.getParameter("id"));
+						request.setAttribute(AMIGO, getAmigoById(id));
+					} catch (Exception e) {
+					}
+				}
 				dispatcher = request.getRequestDispatcher("modificar.jsp");
 			}
 		} else if (ELIMINAR.equals(seccion)) {
+			if (request.getParameter("id") != null) {
+				try {
+					int id = Integer.parseInt(request.getParameter("id"));
+					request.setAttribute(AMIGO, getAmigoById(id));
+				} catch (Exception e) {
+				}
+			}
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
 			request.setAttribute(LISTA_AMIGOS, getAll());
@@ -113,8 +127,10 @@ public class MainServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (OPERACION_MODIFICAR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
+			request.setAttribute(SECCION, MODIFICAR);
 			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
-
+			request.setAttribute(AMIGO, amigo);
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (OPERACION_ELIMINAR.equals(operacion)) {
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
@@ -123,6 +139,8 @@ public class MainServlet extends HttpServlet {
 				log.warn("El id esta vacio al borrar");
 				request.setAttribute(ERROR, ERROR_ID_EMPTY);
 			}
+			request.setAttribute(SECCION, ELIMINAR);
+			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (OPERACION_VER_TODOS.equals(operacion)) {
 			request.setAttribute(LISTA_AMIGOS, getAmigoByName(""));
 		} else if (OPERACION_VER_NOMBRE.equals(operacion)) {

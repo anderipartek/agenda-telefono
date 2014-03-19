@@ -9,10 +9,11 @@
 	<!-- 		<li><p>El campo nombre lo necesitamos</p></li> -->
 	<!-- 	</ul> -->
 	<!--<?php } ?>-->
+	<c:set var="amigo" value='<%=request.getAttribute(MainServlet.AMIGO)%>' />
 
-	<form method="get" onSubmit="return false">
+	<form method="get" onSubmit="return false" id="formBuscador">
 		<input type="text" placeholder="nombre que buscas..." name="nombre"
-			value="" id="textbuscar">
+			value="${amigo.nombre}" id="textbuscar">
 			
 		<input type="hidden" name=<%=MainServlet.SECCION%>
 			value=<%=MainServlet.OPERACION_MODIFICAR%>> 
