@@ -1,5 +1,5 @@
 <div class="contain">
-		<p class="titulo">Cuales son los datos de tu amigo:</p>
+		<p class="titulo">Estos son los datos de tu amigo:</p>
 	<%-- 
 		<?php if($error != false){ ?>
 			<ul class="errores">

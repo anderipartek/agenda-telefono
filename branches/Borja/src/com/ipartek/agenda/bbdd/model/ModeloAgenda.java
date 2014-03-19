@@ -18,7 +18,7 @@ public class ModeloAgenda implements IModeloAgenda {
 
 	public ModeloAgenda() {
 		
-		daoAmigo = ConnectionFactory.getInstance().getDAOAmigo();
+		daoAmigo = factoria.getInstance().getDAOAmigo();
 		
 	}
 
