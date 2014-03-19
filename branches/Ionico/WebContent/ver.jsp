@@ -1,7 +1,8 @@
 <%@include file="inc/head.jsp"%>
 
 <h3>Estos son tus amigos:</h3>
-<?php
+
+<!--  <?php
 	// insertamos las funciones del site
 	include('../abstract/functions.php');
 
@@ -17,6 +18,15 @@
 		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
 	}
 	?>
+	-->
+		<!--  Incluir librerias jsQuery -->
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="js/css/jquery.dataTables.css">
+	
+	<table id="amigos">
+	
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
 		<tr>
@@ -31,25 +41,30 @@
 			<th>anotaciones</th>
 		</tr>
 
-	<?php
-	// mostramos los datos de la query
+ 
+	<!-- // mostramos los datos de la query
 	while($result_row = mysql_fetch_array($result)){
-	?>
+	 -->
 		<tr>
-			<td><?php echo $result_row[1]; ?></td>
-			<td><?php echo $result_row[2]; ?></td>
-			<td><?php echo $result_row[3]; ?></td>
-			<td><?php echo $result_row[4]; ?></td>
-			<td><?php echo $result_row[5]; ?></td>
-			<td><?php echo $result_row[6]; ?></td>
-			<td><?php echo $result_row[7]; ?></td>
-			<td><?php echo $result_row[8]; ?></td>
-			<td><?php echo $result_row[9]; ?></td>
+			<td>${amigo.getnombre}</td>
+			<td>${amigo.getapellido}</td>
+			<td>${amigo.getcalle}</td>
+			<td>${amigo.getcp}</td>
+			<td>${amigo.getlocalidad}</td>
+			<td>${amigo.getprovincia}</td>
+			<td>${amigo.getmovil}</td>
+			<td>${amigo.getfijo}</td>
+			<td>${amigo.getanotaciones}</td>
 		</tr>
-	<?php
-	}
-	?>
+
+	<!-- }
+	-->
+
 		</table>
 <!-- cerramos db -->
+
+	
+
+
 
 <%@include file="inc/footer.jsp"%>
