@@ -1,4 +1,7 @@
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="inc/head.jsp"%>
+
 
 <h3>Estos son tus amigos:</h3>
 <!-- <?php
@@ -18,40 +21,50 @@
 	}
 	?> -->
 
-<table id="tabla">
-	<caption>Lista de Alumnos</caption>
-	<thead>
+<table>
+		<colgroup>
+			<col width="10%" span="2">
+			<col width="20%">
+			<col width="5%">
+			<col width="10%" span="4">
+			<col width="15%">
+		</colgroup>
 		<tr>
-			<th scope="col">Id</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">Apellido</th>
-			<th scope="col">Calle</th>
-			<th scope="col">CP</th>
-			<th scope="col">Localidad</th>
-			<th scope="col">Provincia</th>
-			<th scope="col">Movil</th>
-			<th scope="col">Fijo</th>
-			<th scope="col">Anotaciones</th>
+			<th>id</th>
+			<th>nombre</th>
+			<th>apellido</th>
+			<th>calle</th>
+			<th>cp</th>
+			<th>localidad</th>
+			<th>provincia</th>
+			<th>movil</th>
+			<th>fijo</th>
+			<th>anotaciones</th>
 		</tr>
-	</thead>
-	<tbody>
-		<ul>
-			<c:forEach var="amigo" items="${requestScope.lista_amigos}">
-				<tr>
-					<th>${a.getId}</th>
-					<th>${a.getNombre}</th>
-					<th>${a.getApellido}</th>
-					<th>${a.getCalle}</th>
-					<th>${a.getCodigoPostal}</th>
-					<th>${a.getLocalidad}</th>
-					<th>${a.getProvincia}</th>
-					<th>${a.getMTelefono}</th>
-					<th>${a.getFTelefono}</th>
-					<th>${a.getAnotaciones}</th>
-				</tr>
-			</c:forEach>
-		</ul>
-	</tbody>
+
+		
+	<%
+		ArrayList <Amigo> lAmigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
+  		Amigo a; 
+		for ( int i=0; i<lAmigos.size();i++){
+			a = lAmigos.get(i);
+			%>
+			
+			  <tr>
+		     	 <td align="center"><%=a.getNombre()%></td>
+		    	 <td align="center"><%=a.getApellido()%></td>
+		   	 	 <td align="center"><%=a.getCalle()%></td>
+		   	 	 <td align="center"><%=a.getCodigoPostal()%></td>
+		    	 <td align="center"><%=a.getLocalidad()%></td>
+		   	 	 <td align="center"><%=a.getProvincia()%></td>
+		   	 	 <td align="center"><%=a.getMTelefono()%></td>
+		    	 <td align="center"><%=a.getFTelefono()%></td>
+		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
+		    </tr>   
+		    
+			<%		
+		}	
+	%>
 </table>
 
 <%@include file="inc/footer.jsp"%>
