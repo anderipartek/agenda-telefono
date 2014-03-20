@@ -15,8 +15,6 @@ public class ConnectionFactory {
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
 	static final String PASS = "root";
-	private static final IAmigo DAOAmigo = null;
-
 	private static ConnectionFactory connectionFactory = null;
 
 	/**

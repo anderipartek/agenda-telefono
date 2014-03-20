@@ -30,7 +30,6 @@
 			<col width="15%">
 		</colgroup>
 		<tr>
-			<th>id</th>
 			<th>nombre</th>
 			<th>apellido</th>
 			<th>calle</th>
@@ -46,9 +45,6 @@
 	<%
 		ArrayList <Amigo> lAmigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
   		Amigo a; 
-  		if (lAmigos == null){
-  			
-  		}else{
 		for ( int i=0; i<lAmigos.size();i++){
 			a = lAmigos.get(i);
 			%>
@@ -57,17 +53,19 @@
 		     	 <td align="center"><%=a.getNombre()%></td>
 		    	 <td align="center"><%=a.getApellido()%></td>
 		   	 	 <td align="center"><%=a.getCalle()%></td>
-		   	 	 <td align="center"><%=a.getCodigoPostal()%></td>
+		   	 	 <td align="center"><%=a.getCp()%></td>
 		    	 <td align="center"><%=a.getLocalidad()%></td>
 		   	 	 <td align="center"><%=a.getProvincia()%></td>
-		   	 	 <td align="center"><%=a.getMTelefono()%></td>
-		    	 <td align="center"><%=a.getFTelefono()%></td>
+		   	 	 <td align="center"><%=a.getMovil()%></td>
+		    	 <td align="center"><%=a.getFijo()%></td>
 		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
 		    </tr>   
 		    
-			<%		}
-		}	
+			<%		
+				
+  		}
 	%>
+
 </table>
 
 <%@include file="inc/footer.jsp"%>
