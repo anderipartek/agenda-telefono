@@ -14,10 +14,10 @@ public class UtilAmigo {
 	public static boolean checkNombre(String nombre){
 		boolean result = false;
 		if (nombre != null) {
-			nombre = nombre.toLowerCase().trim();
+			nombre = nombre.trim();
 
 			// TODO comprobar mas de un espacio en blanco
-			String pattern = "[A-Za-z\\s-'αινσϊρ]{2,}";
+			String pattern = "[A-Za-z]{2,}";
 
 			result = nombre.matches(pattern);
 
