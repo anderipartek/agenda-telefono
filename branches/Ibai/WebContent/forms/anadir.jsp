@@ -11,7 +11,7 @@
 		   	if (amigo == null){
 		   		amigo = new Amigo();
 		   	}else{
-		   		%><p class="titulo">Amigo añadido</p><%
+		   		%><p class="titulo correcto">Amigo añadido</p><%
 		   	}
 		%>
 	

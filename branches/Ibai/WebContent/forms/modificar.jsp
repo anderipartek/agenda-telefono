@@ -3,7 +3,7 @@
 <div class="contain">
 	<%
 		if (request.getAttribute("operacion_modificar")!= null && request.getAttribute("operacion_modificar") == "ok"){
-			%><p class="titulo">Amigo modificado</p><%
+			%><p class="titulo correcto">Los datos del amigo se han modificado correctamente</p><%
 		}
 	
 	%>
