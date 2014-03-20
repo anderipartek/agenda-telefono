@@ -110,7 +110,7 @@ public class DAOAmigo implements IAmigable{
 	@Override
 	public ArrayList<Amigo> getByNombre(String nombre) {
 		ArrayList<Amigo> listaAmigos = null;
-		String sqlAmigo = "select * from amigos where nombre like '%=?%'";
+		String sqlAmigo = "select * from amigos where nombre=?";
 		try {
 			con = factory.getConnection();
 			listaAmigos = new ArrayList<Amigo>();

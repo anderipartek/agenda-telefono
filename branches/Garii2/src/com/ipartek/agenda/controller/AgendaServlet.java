@@ -157,8 +157,11 @@ public class AgendaServlet extends ServletMaestro {
 			
 			    ArrayList<Amigo> abuscar= new ArrayList<Amigo>();
 			    abuscar=modelAmigo.getByNombre(nombre);
-			    request.setAttribute("buscarAmigo", abuscar);
-			    this.doGet(request, response);
+			    request.setAttribute("listaAmigo", abuscar);
+			    dispatcher = request.getRequestDispatcher("ver.jsp");		   
+				
+				// Redireccionar a la JSP
+				dispatcher.forward(request, response);
 				
 			 		
 			
