@@ -205,7 +205,7 @@ public class AgendaServlet extends ServletMaestro {
 			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
 		}
 		else if ("Del".equals(form)){
-			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
+			dispatcher = request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 		}
 		
 		
@@ -227,7 +227,7 @@ public class AgendaServlet extends ServletMaestro {
 			a.setAnotaciones(request.getParameter("anotaciones"));
 			model.insertarAmigo(a);
 			dispatcher = request.getRequestDispatcher("core/model/forms/anadir.jsp");
-			texto="Añadido";
+			texto="Añadido a la BD";
 			request.setAttribute("Mensaje", texto);
 		} catch (AmigoException e) {
 			texto=e.getMensaje();
