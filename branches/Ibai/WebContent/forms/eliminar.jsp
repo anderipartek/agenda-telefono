@@ -39,7 +39,7 @@
 		});
 		
 		function search(){
-			$.get('main?<%=MainServlet.SECCION%>=<%=MainServlet.MODIFICAR%>&<%=MainServlet.NOMBRE_A_BUSCAR%>=' + $('#textbuscar').val(), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...	
+			$.get('main?<%=MainServlet.SECCION%>=<%=MainServlet.BUSCAR%>&<%=MainServlet.NOMBRE_A_BUSCAR%>=' + $('#textbuscar').val(), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...	
 				console.log(responseText);
 				fillList(responseText)
 			});
@@ -48,8 +48,9 @@
 		var list;
 		function fillList(data) {
 			$("#listContainer").empty();
-			drawContainer();
+			
 			list = jQuery.parseJSON(data);
+			drawContainer();
 			for (var i=0; i < list.length; i++){
 				fillItem(list[i]);
 			}
