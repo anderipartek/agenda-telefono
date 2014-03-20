@@ -171,30 +171,31 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 		String apellido = (String)request.getParameter("apellido");
 		String calle = (String)request.getParameter("calle");
 		String cp = (String)request.getParameter("cp");
-		int CP = Integer.parseInt(cp);
+		int codigo = 0;
+		codigo = Integer.parseInt(cp);
 		String localidad = (String)request.getParameter("localidad");
 		String provincia = (String)request.getParameter("provincia");
 		String movil = (String)request.getParameter("movil");
-		int MOVIL = Integer.parseInt(movil);
+		int numeroMovil = Integer.parseInt(movil);
 		String fijo = (String)request.getParameter("fijo");
-		int FIJO = Integer.parseInt(fijo);
+		int numeroFijo = Integer.parseInt(fijo);
 		String anotaciones = (String)request.getParameter("anotaciones");
 		
 		//apellido
 		//calle
 		//cp
-		
+		//no poner inicializar variables en mayusculas porque se confunde con clase
 		//crear contacto
 		try {
 			contacto = new Contacto();
 			contacto.setNombre(nombre);
 			contacto.setApellido(apellido);
 			contacto.setCalle(calle);
-			contacto.setCp(CP);
+			contacto.setCp(codigo);
 			contacto.setLocalidad(localidad);
 			contacto.setProvincia(provincia);
-			contacto.setMovil(MOVIL);
-			contacto.setFijo(FIJO);
+			contacto.setMovil(numeroMovil);
+			contacto.setFijo(numeroFijo);
 			contacto.setAnotaciones(anotaciones);
 			//INSERT INTO DDBB
 			modeloContacto.insert(contacto);

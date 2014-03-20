@@ -16,7 +16,7 @@
 		while($result_row = mysql_fetch_array($result)){
 		?-->
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		<form method="post" action="main">				
 			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
 			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">			
 			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
