@@ -1,60 +1,25 @@
-<%@include file="core/model/forms/anadir.jsp"%>
-<%@include file="core/abstract/functions.jsp"%>
+<%@include file="inc/head.jsp"%>
 
-<!--  <?php
-// insertamos las funciones del site
-include('../abstract/functions.php');
+<div class="contain">
+		<p class="titulo">Cuales son los datos de tu amigo:</p>
 
-$error = false;
-
-//comprobamos si hemos enviado al añadir
-if(isset($_POST['anadir'])){
-
-	// si hay errores
-	if($_POST['nombre'] == '' || $_POST['movil'] == ''){
-		$error = true;
 		
-		include('forms/anadir.php');
+		<form method="post" action="agenda">				
+			<input type="text" placeholder="nombre" name="nombre" value="nombre">
+			<input type="text" placeholder="apellido" name="apellido" value="apellido">
+			<input type="text" placeholder="calle" name="calle" value="calle">
+			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp" value="CP">
+			<input type="text" placeholder="localidad" name="localidad" value="localidad">
+			<input type="text" placeholder="provincia" name="provincia" value="provincia">
+			<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999" name="movil" value="teléfono movil">
+			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="teléfono fijo">
+			<textarea name="anotaciones" placeholder="anotaciones">anotaciones</textarea>
+			
+			<div class="botones">
+				<a title="" href="index.jsp">cancelar</a>
+				<input type="submit" value="añadir" name="op" class="boton anadir">
+			</div>
+		</form>
+	</div>
 
-	}
-	// si no hay errores y esta todo ok
-	else{
-		$error = false;	
-
-		// guardamos en variables
-		$nombre = comillas_inteligentes($_POST['nombre']);
-		$apellido = comillas_inteligentes($_POST['apellido']);
-		$calle = comillas_inteligentes($_POST['calle']);
-		$cp = comillas_inteligentes($_POST['CP']);
-		$localidad = comillas_inteligentes($_POST['localidad']);
-		$provincia = comillas_inteligentes($_POST['provincia']);
-		$movil = comillas_inteligentes($_POST['movil']);
-		$fijo = comillas_inteligentes($_POST['fijo']);
-		$anotaciones = comillas_inteligentes($_POST['anotaciones']);
-
-		// realizamos la insercion en la BBDD
-		$connection = connectDB($db_host, $db_username, $db_password,$db_database);
-
-		// enviamos la query
-		$query = "INSERT INTO amigos VALUES (null,$nombre,$apellido,$calle,$cp,$localidad,$provincia,$movil,$fijo,$anotaciones)";
-
-		$result = mysql_query($query);
-		//comprobamos si la query ha ido bien
-		if(!$result){
-			die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
-		}
-
-		// cerramos la conexion
-		closeDB($connection);
-
-		// se ha añadido correctamente
-		include('todoOk.php');
-	}
-}
-// la primera carga
-else{
-
-	include('forms/anadir.php');
-
-}
-?>-->
+<%@include file="inc/footer.jsp"%>

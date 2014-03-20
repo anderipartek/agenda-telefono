@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<div class="contain">
+		<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 
-</body>
-</html>
+		
+		<form method="post" action="agenda">				
+			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
+			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">			
+			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
+			
+			<div class="botones">
+				<a title="" href="index.jsp">cancelar</a>
+				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
+			</div>
+		</form>
+
+		
+	</div>

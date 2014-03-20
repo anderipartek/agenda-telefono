@@ -16,9 +16,6 @@
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 </head>
-
-<body>
-
-	<%@include file="header.jsp"%>
+<body  <%if(request.getAttribute("seccion") == null){%> id="home" <%} else {}%>>
 
 
