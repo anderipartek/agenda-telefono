@@ -218,10 +218,10 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 		//dispatcher
 		dispatcher = request.getRequestDispatcher("todoOk.jsp");
 		
-		log.trace("FIN - Insertar contacto");
 		
 		
-		dispatcher.forward(request, response);
+		
+		
 		log.trace("Fin crear contacto");	
 		
 	}
@@ -318,7 +318,6 @@ private void modificarContacto(HttpServletRequest request, HttpServletResponse r
 	log.trace("FIN - Modificar contacto");
 	
 	
-	dispatcher.forward(request, response);
 	log.trace("Fin modificar contacto");
 	
 	
