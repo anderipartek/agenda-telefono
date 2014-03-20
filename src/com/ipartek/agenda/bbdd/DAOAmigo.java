@@ -87,8 +87,8 @@ public class DAOAmigo implements IAmigo {
 
 	}
 
-/*	@Override
-	public int insertAmigo(Amigo a) {
+	
+	public int insertarAmigo(Amigo a) {
 		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sqlId = "select max(id) from amigos;";
 		int id = -1;
@@ -116,8 +116,7 @@ public class DAOAmigo implements IAmigo {
 			sqlExcepcion(ex);
 			id = -1;
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al insertar alumno"
-					+ ex.getStackTrace());
+			log.warn("Ha ocurrido un error desconocido al insertar alumno" + ex.getStackTrace());
 			id = -1;
 		} finally {
 
@@ -129,6 +128,6 @@ public class DAOAmigo implements IAmigo {
 			return id;
 
 		}
-	}*/
+	}
 
 }

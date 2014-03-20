@@ -6,14 +6,14 @@ import com.ipartek.agenda.bean.Amigo;
 
 public interface IAmigo {
 	
-/*	*//**
-	 * Inserta un amigo
+	/**
+	 * Inserta un amigo en la base de datos
 	 * @param a es el Amigo
 	 * @return [int] -1 si ha ocurrido un error / identificador del amigo
-	 *//*
+	 */
 	public int insertarAmigo(Amigo a);
 
-	*//**
+	/**
 	 * Elimina un amigo
 	 * @param id Identificador del amigo
 	 * @return TRUE si se ha borrado / FALSE si no se ha podido borrar
@@ -35,6 +35,8 @@ public interface IAmigo {
 	 * @return HashMap con todos los alumnos
 	 */
 	ArrayList<Amigo> getAll();
+
+
 
 
 }
