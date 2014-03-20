@@ -305,7 +305,7 @@ private void modificarContacto(HttpServletRequest request, HttpServletResponse r
 		request.setAttribute("msg", new Mensaje("Excepcion general", 0, Mensaje.TIPO_MENSAJE.ERROR));
 	}
 	
-	//enviar alumno a la JSP
+	//enviar contacto a la JSP
 	request.setAttribute("todook", contacto);
 	
 	//titulo para la JSP
