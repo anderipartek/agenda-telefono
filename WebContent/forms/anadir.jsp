@@ -3,26 +3,21 @@
 	
 	
 	<div class="contain">
-		<p class="titulo">Cuales son los datos de tu amigo:</p>
-			<ul class="errores">
-				<c:if test="${not empty requestScope.operacion_anadir}">
-					<c:if test="${requestScope.operacion_anadir == '-1'}">
-						<li><p>Error al guardar el amigo</p></li>
-						<li><p>Necesitamos saber su nombre</p></li>
-						<li><p>Necesitamos saber su teléfono móvil</p></li>
-					</c:if>
-					<c:if test="${requestScope.operacion_anadir != -'1'}">
-						<li><p>Amigo añadido</p></li>
-					</c:if>
-				</c:if>
-			</ul>
+		<%@include file="../mensaje.jsp"%>	
+			
 		<%
 			Amigo amigo = (Amigo)request.getAttribute("amigo");
 
 		   	if (amigo == null){
 		   		amigo = new Amigo();
+		   	}else{
+		   		%><p class="titulo">Amigo añadido</p><%
 		   	}
 		%>
+	
+		<p class="titulo">Cuales son los datos de tu amigo:</p>
+	
+		
 		<form method="post" action="main">				
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
