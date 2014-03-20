@@ -54,8 +54,9 @@ public class AgendaServlet extends HttpServlet {
 	private RequestDispatcher dispatcher;
 
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		op = request.getParameter("op");
 		if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
 			if (visualizar(request, response)) {
@@ -76,8 +77,9 @@ public class AgendaServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		int todoOk = 0;
 		int borradoSi = 0;
 		int modificadoSi = 0;
@@ -118,9 +120,6 @@ public class AgendaServlet extends HttpServlet {
 					dispatcher = request.getRequestDispatcher("main?seccion="
 							+ seccion);
 					todoOk = 1;
-					if (seccion.equalsIgnoreCase(OP_MODIFICAR)) {
-
-					}
 				} else {
 					todoOk = 2;
 					dispatcher = request.getRequestDispatcher("main?seccion="
@@ -144,11 +143,11 @@ public class AgendaServlet extends HttpServlet {
 	/**
 	 * Metodo para recoger los datos del amigo seleccionado en la busqueda
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request el parametro de la request
+	 * @param response el parametro del respones
 	 */
-	private void getRecogerSelecionado(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void getRecogerSelecionado(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		String amigo = "";
 		if (request.getParameter("id") != null) {
 			idAmigo = Integer.parseInt(request.getParameter("id"));
@@ -161,12 +160,12 @@ public class AgendaServlet extends HttpServlet {
 	/**
 	 * Metodo para la búsqueda de amigos en la agenda que coincidan en nombre
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request el parametro de la request
+	 * @param response el parametro del respones
 	 * @return TRUE si hay datos, FALSE si no hay datos
 	 */
-	private boolean buscador(HttpServletRequest request,
-			HttpServletResponse response) {
+	private boolean buscador(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		boolean result = false;
 		String nombreBusqueda = request.getParameter("nombreBusqueda");
 		listaAmigos = modelo.recogerPorNombre(nombreBusqueda);
@@ -179,11 +178,12 @@ public class AgendaServlet extends HttpServlet {
 	/**
 	 * Metodo para agregar a los amigos a la Agenda
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request el parametro de la request
+	 * @param response el parametro del respones
 	 * @return id del alumno (-1 en caso de error)
 	 */
-	private int agregar(HttpServletRequest request, HttpServletResponse response) {
+	private int agregar(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		log.trace("metodo agregar init");
 		recogerDatosAmigo(request, response);
 		idAmigo = modelo.insertar(a);
@@ -199,8 +199,8 @@ public class AgendaServlet extends HttpServlet {
 	 * @param response
 	 * @return TRUE si se ha eliminado, FALSE si se ha podido eliminar
 	 */
-	private boolean eliminar(HttpServletRequest request,
-			HttpServletResponse response) {
+	private boolean eliminar(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		log.trace("metodo eliminar init");
 		boolean result = true;
 		if (!modelo.eliminar(idAmigo)) {
@@ -222,8 +222,8 @@ public class AgendaServlet extends HttpServlet {
 	 * @return TRUE si se ha modificado, FALSE si no se ha podido modificar el
 	 *         amigo
 	 */
-	private boolean modificar(HttpServletRequest request,
-			HttpServletResponse response) {
+	private boolean modificar(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		log.trace("metodo modificar init");
 		boolean result = true;
 		recogerDatosAmigo(request, response);
@@ -241,12 +241,12 @@ public class AgendaServlet extends HttpServlet {
 	/**
 	 * Metodo para visualizar todos los amigos de la Agenda
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request el parametro de la request
+	 * @param response el parametro del respones
 	 * @return TRUE si hay amigos en la Agenda, FALSE en caso contrario
 	 */
-	private boolean visualizar(HttpServletRequest request,
-			HttpServletResponse response) {
+	private boolean visualizar(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		boolean result = false;
 		listaAmigos = modelo.recogerTodos();
 		if (listaAmigos.size() > 0) {
@@ -259,11 +259,11 @@ public class AgendaServlet extends HttpServlet {
 	 * Metodo privado para recoger los datos del amigo del formulario. Valido
 	 * para modificar, agregar o eliminar
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request el parametro de la request
+	 * @param response el parametro del respones
 	 */
-	private void recogerDatosAmigo(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void recogerDatosAmigo(final HttpServletRequest request,
+			final HttpServletResponse response) {
 		try {
 			String nombre = request.getParameter("nombre");
 			String apellido = request.getParameter("apellido");
