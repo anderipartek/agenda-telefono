@@ -54,7 +54,7 @@ public class DAOContacto implements IDAOContacto{
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		}  catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de alumnos");
+			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de contacto");
 		} finally {
 			try {
 				factory.closeConnection();
@@ -123,7 +123,7 @@ public class DAOContacto implements IDAOContacto{
 				sqlExcepcion(ex);
 				id = -1;
 			} catch (Exception ex) {
-				log.warn("Ha ocurrido un error desconocido al insertar alumno"
+				log.warn("Ha ocurrido un error desconocido al insertar contacto"
 						+ ex.getStackTrace());
 				id = -1;
 			} finally {
