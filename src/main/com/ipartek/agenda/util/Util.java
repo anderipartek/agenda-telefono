@@ -3,6 +3,8 @@ package com.ipartek.agenda.util;
 import java.util.ArrayList;
 
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.interfaces.IDAOAmigo;
+import com.ipartek.agenda.modelo.ConnectionFactory;
 
 /**
  * Clase util en donde se realizan las tareas necesarias para la búsuqeda de
@@ -13,6 +15,9 @@ import com.ipartek.agenda.bean.Amigo;
  * 
  */
 public class Util {
+	
+	private static ArrayList<Amigo> amigosBusqueda;
+	private static IDAOAmigo modeloAmigo;
 
 	/**
 	 * Método para realizar la busqueda de amigos.
@@ -23,8 +28,15 @@ public class Util {
 	 *            return listaAmigos
 	 */
 	public static ArrayList<Amigo> getAmigoBusqueda(String nombre) {
+		
+		amigosBusqueda= new ArrayList<Amigo>();
+		if(nombre!=null){
+			modeloAmigo=ConnectionFactory.getInstance().getDAOAmigo();
+			
+			amigosBusqueda= modeloAmigo.getByName(nombre);
+		}
 
-		return new ArrayList<Amigo>();
+		return amigosBusqueda;
 	}
 
 }
