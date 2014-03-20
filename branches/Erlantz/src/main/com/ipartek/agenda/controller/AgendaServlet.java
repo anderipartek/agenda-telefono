@@ -16,7 +16,24 @@ import com.ipartek.agenda.excepciones.AmigoExcepcion;
 import com.ipartek.agenda.modelo.ModeloAmigo;
 
 /**
- * Servlet implementation class AgendaServlet
+ * Servlet que nos permite recoger datos para realizar las siguientes
+ * operaciones
+ * <ul>
+ * <li>AÑADIR</li>
+ * <li>MODIFICAR</li>
+ * <li>ELIMINAR</li>
+ * <li>VER</li>
+ * <li>BUSQUEDA</li>
+ * </ul>
+ * Mediante los doGet realizamos las operaciones de VER y recogida de datos de
+ * amigo seleccionado para ELIMINAR Y MODIFICAR
+ * 
+ * Mediante los doPost realizamos el resto de operaciones AÑADIMOS; MODIFICAMOS;
+ * ELIMINAMOS; BUSCAMOS
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
  */
 public class AgendaServlet extends HttpServlet {
 	static final Logger log = Logger.getLogger(AgendaServlet.class);
@@ -36,16 +53,11 @@ public class AgendaServlet extends HttpServlet {
 	private HashMap<Integer, Amigo> listaAmigos;
 	private RequestDispatcher dispatcher;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		op = request.getParameter("op");
 		if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
-			// if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
 			if (visualizar(request, response)) {
 				dispatcher = request.getRequestDispatcher("main?seccion=ver");
 				request.setAttribute("lista", listaAmigos);
@@ -63,10 +75,6 @@ public class AgendaServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -88,7 +96,7 @@ public class AgendaServlet extends HttpServlet {
 				if (modificar(request, response)) {
 					dispatcher = request
 							.getRequestDispatcher("main?seccion=modificar");
-					todoOk = 1;
+					idAmigo = -1;
 					modificadoSi = 1;
 					request.setAttribute("modificadoSi", modificadoSi);
 					request.setAttribute("id", idAmigo);
@@ -134,7 +142,7 @@ public class AgendaServlet extends HttpServlet {
 	}
 
 	/**
-	 * Metodo para recoger los datos del amigo seleccionado en busqueda
+	 * Metodo para recoger los datos del amigo seleccionado en la busqueda
 	 * 
 	 * @param request
 	 * @param response
