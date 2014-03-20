@@ -1,7 +1,7 @@
 <div class="contain">
 		<p class="titulo">Estos son los datos de tu amigo:</p>
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
+		<form method="post" action="agenda">				
 			<input type="text" placeholder="nombre" name="nombre" value="">
 			<input type="text" placeholder="apellido" name="apellido" value="">
 			<input type="text" placeholder="calle" name="calle" value="">
