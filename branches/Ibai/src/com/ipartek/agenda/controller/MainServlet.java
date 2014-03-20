@@ -18,6 +18,7 @@ import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.bean.Mensaje;
 import com.ipartek.agenda.database.ConnectionFactory;
 import com.ipartek.agenda.database.DAOAmigo;
+import com.ipartek.agenda.database.ModeloAmigo;
 import com.ipartek.agenda.enumeration.TIPO_MENSAJE;
 
 /**
@@ -51,6 +52,8 @@ public class MainServlet extends HttpServlet {
 
 	public static final String ERROR = "error";
 	public static final String ERROR_ID_EMPTY = "error_id_empty";
+	
+	public ModeloAmigo modeloAmigo;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -69,6 +72,7 @@ public class MainServlet extends HttpServlet {
     	if (log4jpath != null){
         	PropertyConfigurator.configure(prefix+log4jpath);
     	}
+    	modeloAmigo = new ModeloAmigo();
 	}
 	
 	/**
@@ -82,11 +86,11 @@ public class MainServlet extends HttpServlet {
 
 		request.setAttribute(SECCION, seccion);
 
-		if (ANADIR.equals(seccion)) {
+		if (ANADIR.equals(seccion)) { //redireccion a la pagina de añadir amigo
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)) {
+		} else if (MODIFICAR.equals(seccion)) { //redirecion a la pagina de modificar amigo
 			dispatcher = request.getRequestDispatcher("modificar.jsp");	
-		} else if (BUSCAR.equals(seccion)) {	
+		} else if (BUSCAR.equals(seccion)) { //funcion para la busqueda dinamica de amigos
 			if (request.getParameter(NOMBRE_A_BUSCAR) != null && request.getParameter(NOMBRE_A_BUSCAR) != "") {
 				// http://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
 				// Set content type of the response so that jQuery knows what it
@@ -98,12 +102,12 @@ public class MainServlet extends HttpServlet {
 				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
 				response.getWriter().write(obj);
 			}
-		} else if (ELIMINAR.equals(seccion)) {
+		} else if (ELIMINAR.equals(seccion)) { //redireccion a la pagina de elimnar amigo
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
-		} else if (VER.equals(seccion)) {
+		} else if (VER.equals(seccion)) { // redireccion a la pagina de ver todos los amigos
 			request.setAttribute(LISTA_AMIGOS, getAll());
 			dispatcher = request.getRequestDispatcher("ver.jsp");
-		} else {
+		} else { // redireccion al index
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
 		if (dispatcher != null){
@@ -120,18 +124,24 @@ public class MainServlet extends HttpServlet {
 		String operacion = request.getParameter(OPERACION);
 		RequestDispatcher dispatcher = null;
 
-		if (ANADIR.equals(operacion)) {
-			Amigo amigo = setAmigoFromRequest(request);
+		if (ANADIR.equals(operacion)) { //enviamos el amigo a añadir
+			Amigo amigo = null;
+			try {
+				amigo = setAmigoFromRequest(request);
+			} catch (Exception e) {
+				log.error("Error al insertar alumno");
+				request.setAttribute("msg", new Mensaje("Error al insertar el alumno, comprueba que los datos sean correctos", 200, TIPO_MENSAJE.INFO));
+			}
 			int result = anadirAmigo(amigo);
 			if (result != -1){
 				request.setAttribute("amigo", amigo);
 			}else{
 				log.error("Error al añadir amigo");
-				request.setAttribute("msg", new Mensaje("Error al añadir amigo", 200, TIPO_MENSAJE.WARNING));
+				request.setAttribute("msg", new Mensaje("Error al añadir amigo, comprueba que los datos sean correctos", 200, TIPO_MENSAJE.WARNING));
 			}
 			request.setAttribute(SECCION, "anadir");
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MOSTRAR.equals(operacion)) {
+		} else if (MOSTRAR.equals(operacion)) { //recivimos el id del alumno de los datos a mostrar
 			String id = request.getParameter("id");
 			if (id != null) {
 				int idAmigo = Integer.parseInt(id);
@@ -143,7 +153,7 @@ public class MainServlet extends HttpServlet {
 			}
 			request.setAttribute(SECCION, "modificar");
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
-		} else if (MOSTRARELIMINAR.equals(operacion)) {
+		} else if (MOSTRARELIMINAR.equals(operacion)) { //recivimos el id del alumno a eliminar para comprobar que existe
 				String id = request.getParameter("id");
 				if (id != null) {
 					int idAmigo = Integer.parseInt(id);
@@ -155,8 +165,14 @@ public class MainServlet extends HttpServlet {
 				}
 				request.setAttribute(SECCION, "eliminar");
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
-		} else if (MODIFICAR.equals(operacion)) {
-			Amigo amigo = setAmigoFromRequest(request);
+		} else if (MODIFICAR.equals(operacion)) { //recivimos el amigo a modificar
+			Amigo amigo = null;
+			try{
+				amigo = setAmigoFromRequest(request);
+			}catch(Exception e){
+				log.error("Error al modificar el amigo");
+				request.setAttribute("msg", new Mensaje("Error al modificar el amigo, comprueba que los datos sean correctos", 200, TIPO_MENSAJE.INFO));
+			}
 			if (modificarAmigo(amigo))
 			{
 				request.setAttribute("amigo", amigo);
@@ -167,7 +183,7 @@ public class MainServlet extends HttpServlet {
 			}
 			request.setAttribute(SECCION, "modificar");
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
-		} else if (ELIMINAR.equals(operacion)) {
+		} else if (ELIMINAR.equals(operacion)) { //revimos el amigo a eliminar
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
 				request.setAttribute(OPERACION_ELIMINAR, eliminarAmigo(Integer.parseInt(id)));
@@ -189,30 +205,30 @@ public class MainServlet extends HttpServlet {
 	}
 
 	private int anadirAmigo(Amigo amigo) {
-		return ConnectionFactory.getInstance().getDAOAmigo().add(amigo);
+		return modeloAmigo.add(amigo);
 	}
 
 	private boolean modificarAmigo(Amigo amigo) {
-		return ConnectionFactory.getInstance().getDAOAmigo().update(amigo);
+		return modeloAmigo.update(amigo);
 	}
 
 	private boolean eliminarAmigo(int id) {
-		return ConnectionFactory.getInstance().getDAOAmigo().delete(id);
+		return modeloAmigo.delete(id);
 	}
 
 	private ArrayList<Amigo> getAmigoByName(String value) {
-		return ConnectionFactory.getInstance().getDAOAmigo().getByName(value);
+		return modeloAmigo.getByName(value);
 	}
 	
 	private ArrayList<Amigo> getAll() {
-		return ConnectionFactory.getInstance().getDAOAmigo().getAll();
+		return modeloAmigo.getAll();
 	}
 
 	private Amigo getAmigoById(int id) {
-		return ConnectionFactory.getInstance().getDAOAmigo().getById(id);
+		return modeloAmigo.getById(id);
 	}
 
-	private Amigo setAmigoFromRequest(HttpServletRequest request) {
+	private Amigo setAmigoFromRequest(HttpServletRequest request) throws Exception{
 		Amigo amigo = new Amigo();
 		String id = request.getParameter(DAOAmigo.ID);
 		if (id != null) {
@@ -224,8 +240,10 @@ public class MainServlet extends HttpServlet {
 		amigo.setCp(Integer.parseInt(request.getParameter(DAOAmigo.CP)));
 		amigo.setLocalidad(request.getParameter(DAOAmigo.LOCALIDAD));
 		amigo.setProvincia(request.getParameter(DAOAmigo.PROVINCIA));
-		amigo.setMovil(Integer.parseInt(request.getParameter(DAOAmigo.MOVIL)));
-		amigo.setFijo(Integer.parseInt(request.getParameter(DAOAmigo.FIJO)));
+		if (request.getParameter(DAOAmigo.MOVIL)!= "")
+			amigo.setMovil(Integer.parseInt(request.getParameter(DAOAmigo.MOVIL)));
+		if (request.getParameter(DAOAmigo.FIJO)!= "")
+			amigo.setFijo(Integer.parseInt(request.getParameter(DAOAmigo.FIJO)));
 		amigo.setAnotaciones(request.getParameter(DAOAmigo.ANOTACIONES));
 		return amigo;
 	}

@@ -16,8 +16,8 @@
 		if (request.getAttribute("amigo") != null){
 			Amigo amigo = (Amigo)request.getAttribute("amigo");
 			%>		
-				<p class="titulo">Modifica sus datos:</p>
-				<form method="post">
+				<form id="datosAlumno" method="post">
+					<p class="titulo">Modifica sus datos:</p>
 					<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
 					<input type="text" placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
 					<input type="text" placeholder="calle" name="calle" value="<%=amigo.getCalle()%>">
@@ -67,6 +67,7 @@
 		var list;
 		function fillList(data) {
 			$("#listContainer").empty();
+			$("#datosAlumno").empty();
 
 			list = jQuery.parseJSON(data);
 			drawContainer();

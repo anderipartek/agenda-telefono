@@ -5,7 +5,7 @@
 	Mensaje msg = (Mensaje)request.getAttribute("msg");
 	if (msg != null){
 		out.println("<ul class='errores'>");
-		out.println("<li><p>"+msg.getMsg()+"</li></p>");
+		out.println("<li><p class='txt'>"+msg.getMsg()+"</li></p>");
 		out.println("</ul>");
 	}	
 	
