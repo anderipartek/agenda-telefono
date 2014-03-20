@@ -1,7 +1,7 @@
 <%@include file="inc/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h3>Estos son tus amigos:</h3>
+<p class="txt">Estos son tus amigos:</p>
 
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>

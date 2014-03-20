@@ -7,26 +7,16 @@
 		}
 	
 	%>
-	<p class="titulo">Cuales son los datos de tu amigo:</p>
 		<%@include file="buscador.jsp"%>
 		<div class="contain" id="listContainer">
-			<p class="txt">Seleccionalo de la lista</p>
-			<ul class="amigos modify" id="listaAmigosModificar">
-<!-- 				<li> -->
-<%-- 					<form action="<?php htmlentities($_SERVER['PHP_SELF']); ?>" method="post"> --%>
-<%-- 						<input type="submit" name="amigo" value="<?php echo $result_row[1] . ' ' . $result_row[2]; ?>"> --%>
-<!-- 						<input type="hidden" name="buscar" value="ok"> -->
-<%-- 						<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>"> --%>
-<%-- 						<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>"> --%>
-<!-- 					</form> -->
-<!-- 				</li> -->
-			</ul>
+
 		</div>
 	
 	<%
 		if (request.getAttribute("amigo") != null){
 			Amigo amigo = (Amigo)request.getAttribute("amigo");
 			%>		
+				<p class="titulo">Modifica sus datos:</p>
 				<form method="post">
 					<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
 					<input type="text" placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
@@ -76,9 +66,10 @@
 		
 		var list;
 		function fillList(data) {
-			$("#listaAmigosModificar").empty();
+			$("#listContainer").empty();
 
 			list = jQuery.parseJSON(data);
+			drawContainer();
 			for (var i=0; i < list.length; i++){
 				fillItem(list[i]);
 			}
@@ -87,7 +78,7 @@
 		function drawContainer(){
 			$('#listContainer').append('<p class="txt">Seleccionalo de la lista</p>')
 				.append('<ul class="amigos modify" id="listaAmigosModificar">')
-				.append('</ul');
+				.append('</ul>');
 		}
 		
 		function fillItem(data) {

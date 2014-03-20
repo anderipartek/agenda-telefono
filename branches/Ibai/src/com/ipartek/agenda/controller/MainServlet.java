@@ -15,8 +15,10 @@ import org.apache.log4j.PropertyConfigurator;
 
 import com.google.gson.Gson;
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.bean.Mensaje;
 import com.ipartek.agenda.database.ConnectionFactory;
 import com.ipartek.agenda.database.DAOAmigo;
+import com.ipartek.agenda.enumeration.TIPO_MENSAJE;
 
 /**
  * Servlet implementation class MainServlet
@@ -31,6 +33,9 @@ public class MainServlet extends HttpServlet {
 	public static final String MODIFICAR = "modificar";
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
+	public static final String MOSTRAR = "mostrar";
+	public static final String MOSTRARELIMINAR = "mostrarEliminar";
+
 
 	public static final String OPERACION = "operacion";
 	public static final String OPERACION_ANADIR = "operacion_anadir";
@@ -38,6 +43,7 @@ public class MainServlet extends HttpServlet {
 	public static final String OPERACION_ELIMINAR = "operacion_eliminar";
 	public static final String OPERACION_VER_TODOS = "operacion_ver_todos";
 	public static final String OPERACION_VER_NOMBRE = "operacion_ver_nombre";
+	
 
 	public static final String LISTA_AMIGOS = "lista_amigos";
 	public static final String NOMBRE_A_BUSCAR = "nombre_a_buscar";
@@ -113,29 +119,38 @@ public class MainServlet extends HttpServlet {
 		String operacion = request.getParameter(OPERACION);
 		RequestDispatcher dispatcher = null;
 
-		if ("añadir".equals(operacion)) {
+		if (ANADIR.equals(operacion)) {
 			Amigo amigo = setAmigoFromRequest(request);
 			int result = anadirAmigo(amigo);
-			request.setAttribute(OPERACION_ANADIR, result);
-			if (result != -1)
+			if (result != -1){
 				request.setAttribute("amigo", amigo);
+			}else{
+				log.error("Error al añadir amigo");
+				request.setAttribute("msg", new Mensaje("Error al añadir amigo", 200, TIPO_MENSAJE.WARNING));
+			}
 			request.setAttribute(SECCION, "anadir");
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if ("mostrar".equals(operacion)) {
+		} else if (MOSTRAR.equals(operacion)) {
 			String id = request.getParameter("id");
 			if (id != null) {
 				int idAmigo = Integer.parseInt(id);
 				Amigo amigo = getAmigoById(idAmigo);
 				request.setAttribute("amigo", amigo);
+			}else{
+				log.error("No se pueden obtener los datos del amigo a modificar");
+				request.setAttribute("msg", new Mensaje("No se pueden obtener los datos del amigo a modificar", 200, TIPO_MENSAJE.INFO));
 			}
 			request.setAttribute(SECCION, "modificar");
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
-		} else if ("mostrarEliminar".equals(operacion)) {
+		} else if (MOSTRARELIMINAR.equals(operacion)) {
 				String id = request.getParameter("id");
 				if (id != null) {
 					int idAmigo = Integer.parseInt(id);
 					Amigo amigo = getAmigoById(idAmigo);
 					request.setAttribute("amigo", amigo);
+				}else{
+					log.error("No se pueden obtener los datos del amigo a eliminar");
+					request.setAttribute("msg", new Mensaje("No se pueden obtener los datos del amigo a eliminar", 200, TIPO_MENSAJE.INFO));	
 				}
 				request.setAttribute(SECCION, "eliminar");
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
@@ -145,6 +160,9 @@ public class MainServlet extends HttpServlet {
 			{
 				request.setAttribute("amigo", amigo);
 				request.setAttribute(OPERACION_MODIFICAR, "ok");
+			}else{
+				log.error("Error al modificar el amigo");
+				request.setAttribute("msg", new Mensaje("Error al modificar el amigo", 200, TIPO_MENSAJE.INFO));
 			}
 			request.setAttribute(SECCION, "modificar");
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
@@ -154,7 +172,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(OPERACION_ELIMINAR, eliminarAmigo(Integer.parseInt(id)));
 			} else {
 				log.warn("El id esta vacio al borrar");
-				request.setAttribute(ERROR, ERROR_ID_EMPTY);
+				request.setAttribute("msg", new Mensaje("No se puede eliminar el amigo", 200, TIPO_MENSAJE.INFO));
 			}
 			request.setAttribute(LISTA_AMIGOS, getAll());
 			request.setAttribute(SECCION, "ver");
