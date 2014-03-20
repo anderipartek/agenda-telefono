@@ -70,9 +70,11 @@
 			$("#datosAlumno").empty();
 
 			list = jQuery.parseJSON(data);
-			drawContainer();
-			for (var i=0; i < list.length; i++){
-				fillItem(list[i]);
+			if (list.length > 0){
+				drawContainer();
+				for (var i=0; i < list.length; i++){
+					fillItem(list[i]);
+				}
 			}
 		};
 		
