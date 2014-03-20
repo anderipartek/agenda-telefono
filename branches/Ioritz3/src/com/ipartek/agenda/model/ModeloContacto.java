@@ -6,6 +6,8 @@ import com.ipartek.agenda.bbdd.interfaces.IModeloContacto;
 import com.ipartek.agenda.basedatos.DAOContacto;
 import com.ipartek.agenda.bean.Contacto;
 import com.ipartek.agenda.basedatos.ConnectionFactory;
+import com.ipartek.pruebas.bean.Alumno;
+import com.ipartek.pruebas.bean.Calificacion;
 
 
 public class ModeloContacto implements IModeloContacto{
@@ -33,14 +35,16 @@ public class ModeloContacto implements IModeloContacto{
 
 	@Override
 	public boolean update(Contacto c, int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = daoContacto.update(c, id);
+		return result;
 	}
 
 	@Override
 	public int insert(Contacto c) {
-		// TODO Auto-generated method stub
-		return 0;
+		boolean result = false;
+		int insertado = -1;
+		insertado = daoContacto.insertContacto(c);
+		return insertado;
 	}
 
 	@Override
@@ -51,8 +55,22 @@ public class ModeloContacto implements IModeloContacto{
 
 	@Override
 	public boolean delete(int id) {
+		boolean result = false;
+		result = daoContacto.delete(id);
+		return result;
+	}
+
+	@Override
+	public Contacto getByNombre(String nombre) {
+		Contacto c = null;
+		c = daoContacto.getByNombre(nombre);
+		return c;
+	}
+
+	@Override
+	public Contacto getById(int id) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 }

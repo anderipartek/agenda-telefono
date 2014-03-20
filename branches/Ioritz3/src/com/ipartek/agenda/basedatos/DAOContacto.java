@@ -10,7 +10,7 @@ import com.ipartek.agenda.basedatos.ConnectionFactory;
 
 
 import com.ipartek.agenda.exception.ContactoException;
-import com.ipartek.pruebas.exception.AlumnoException;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -146,14 +146,93 @@ public class DAOContacto implements IDAOContacto{
 
 		@Override
 		public boolean delete(int id) {
-			// TODO Auto-generated method stub
-			return false;
+			boolean result = false;
+			String sqlDelete = "delete from amigos where id = ?";
+			try {
+				con = factory.getConnection();
+				pst = con.prepareStatement(sqlDelete);
+				pst.setInt(1, id);
+				if ((pst.executeUpdate()) == 1) {
+					result = true;
+				} else {
+					result = false;
+				}
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			} catch (Exception ex) {
+				log.warn("Ha ocurrido un error desconocido al borrar.");
+			} finally {
+				try {
+					factory.closeConnection();
+				} catch (SQLException ex) {
+					sqlExcepcion(ex);
+				}
+				return result;
+			}
 		}
 
 		@Override
 		public boolean update(Contacto c, int id) {
-			// TODO Auto-generated method stub
-			return false;
+			boolean result = false;
+			String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=?, fijo=?, anotaciones=? where id = ?";
+			try {
+				con = factory.getConnection();
+				pst = con.prepareStatement(sqlUpdate);
+				pst.setString(1, c.getNombre());
+				pst.setString(2, c.getApellido());
+				pst.setString(3, c.getCalle());
+				pst.setInt(4, c.getCp());
+				pst.setString(5, c.getLocalidad());
+				pst.setString(6, c.getProvincia());
+				pst.setInt(7, c.getMovil());
+				pst.setInt(8, c.getFijo());
+				pst.setString(9, c.getAnotaciones());
+				pst.setInt(10, id);
+				if (pst.executeUpdate() == 1) {
+					result = true;
+				} else {
+					result = false;
+				}
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			} catch (Exception ex) {
+				log.warn("Ha ocurrido un error desconocido al modificar.");
+			} finally {
+				try {
+					factory.closeConnection();
+				} catch (SQLException ex) {
+					sqlExcepcion(ex);
+				}
+				return result;
+			}
+		}
+
+		@Override
+		public Contacto getByNombre(String nombre) {
+			String sqlContacto = "select * from amigos where nombre = ?";
+			try {
+				con = factory.getConnection();
+				c = new Contacto();
+				pst = con.prepareStatement(sqlContacto);
+				pst.setString(1, nombre);
+				rs = pst.executeQuery();
+				while (rs.next()) {
+					datosContacto(rs);
+				}
+			} catch (ContactoException ex) {
+				log.warn("Ha ocurrido un error al recoger un contacto por su nombre " + nombre);
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			} catch (Exception ex) {
+				log.warn("Ha ocurrido un error desconocido al recoger un contacto por nombre.");
+			} finally {
+				try {
+					factory.closeConnection();
+				} catch (SQLException ex) {
+					sqlExcepcion(ex);
+				}
+				return c;
+			}
 		}
 
 

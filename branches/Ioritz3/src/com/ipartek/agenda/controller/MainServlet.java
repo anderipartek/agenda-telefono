@@ -26,13 +26,13 @@ import org.apache.log4j.Logger;
 
 
 
+
+
 import com.ipartek.agenda.bean.Contacto;
 import com.ipartek.agenda.bean.Mensaje;
 import com.ipartek.agenda.exception.ContactoException;
 import com.ipartek.agenda.model.ModeloContacto;
 import com.ipartek.agenda.bean.Mensaje.TIPO_MENSAJE;
-import com.ipartek.pruebas.bean.Alumno;
-import com.ipartek.pruebas.exception.AlumnoException;
 
 
 /**
@@ -66,12 +66,7 @@ public class MainServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 	
-protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		log.trace("Iniciar Servicio");
-		super.service(request, response);
-		log.trace("Destruir Servicio");
-	}
+
 	
 	 public void init(ServletConfig config) throws ServletException  {
 	    	super.init(config);
@@ -126,6 +121,9 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
+		String seccion = request.getParameter(SECCION);
+		request.setAttribute("seccion", seccion);
+		
 		//doGet(request, response);
 				//obtener dispatcher
 				log.trace("doPost");
@@ -140,8 +138,9 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 				}else if (ELIMINAR.equalsIgnoreCase(op)){
 					eliminarContacto(request, response);
 				}else{
-					throw new ServletException("Operacion no soportada" + op);
+					throw new ServletException("Operacion no soportada " + op);
 				}
+				dispatcher.forward(request, response);
 				
 				log.trace("doPost - Fin ");
 	}

@@ -57,6 +57,14 @@ public interface IModeloContacto {
 	 * @return
 	 */
 	Contacto getByNombre( String nombre );
+	
+	/**
+	 * Obtenemos un contacto por su ID
+	 * @param identificador del alumno
+	 * @return [Alumno] alumno
+	 */
+	Contacto getById( int id );
+	
 
 	
 }
