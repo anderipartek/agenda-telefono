@@ -91,7 +91,7 @@ public class MainServlet extends HttpServlet {
 		} else if (MODIFICAR.equals(seccion)) { //redirecion a la pagina de modificar amigo
 			String id = (String)request.getParameter("id");
 			if (id != null){
-				Amigo a = getAmigoById(Integer.parseInt(id));
+				Amigo a = modeloAmigo.getById(Integer.parseInt(id));
 				request.setAttribute("amigo", a);
 			}
 			dispatcher = request.getRequestDispatcher("modificar.jsp");	
@@ -104,18 +104,18 @@ public class MainServlet extends HttpServlet {
 				// You want world domination, huh?
 				response.setCharacterEncoding("UTF-8");
 				// Write response body.
-				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
+				String obj = new Gson().toJson(modeloAmigo.getByName(request.getParameter(NOMBRE_A_BUSCAR)));
 				response.getWriter().write(obj);
 			}
 		} else if (ELIMINAR.equals(seccion)) { //redireccion a la pagina de elimnar amigo
 			String id = (String)request.getParameter("id");
 			if (id != null){
-				Amigo a = getAmigoById(Integer.parseInt(id));
+				Amigo a = modeloAmigo.getById(Integer.parseInt(id));
 				request.setAttribute("amigo", a);
 			}
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) { // redireccion a la pagina de ver todos los amigos
-			request.setAttribute(LISTA_AMIGOS, getAll());
+			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
 			dispatcher = request.getRequestDispatcher("ver.jsp");
 		} else { // redireccion al index
 			dispatcher = request.getRequestDispatcher("index.jsp");
@@ -142,7 +142,7 @@ public class MainServlet extends HttpServlet {
 				log.error("Error al insertar alumno");
 				request.setAttribute("msg", new Mensaje("Error al insertar el alumno, comprueba que los datos sean correctos", 200, TIPO_MENSAJE.INFO));
 			}
-			int result = anadirAmigo(amigo);
+			int result = modeloAmigo.add(amigo);
 			if (result != -1){
 				request.setAttribute("amigo", amigo);
 			}else{
@@ -155,7 +155,7 @@ public class MainServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			if (id != null) {
 				int idAmigo = Integer.parseInt(id);
-				Amigo amigo = getAmigoById(idAmigo);
+				Amigo amigo = modeloAmigo.getById(idAmigo);
 				request.setAttribute("amigo", amigo);
 			}else{
 				log.error("No se pueden obtener los datos del amigo a modificar");
@@ -167,7 +167,7 @@ public class MainServlet extends HttpServlet {
 				String id = request.getParameter("id");
 				if (id != null) {
 					int idAmigo = Integer.parseInt(id);
-					Amigo amigo = getAmigoById(idAmigo);
+					Amigo amigo = modeloAmigo.getById(idAmigo);
 					request.setAttribute("amigo", amigo);
 				}else{
 					log.error("No se pueden obtener los datos del amigo a eliminar");
@@ -183,7 +183,7 @@ public class MainServlet extends HttpServlet {
 				log.error("Error al modificar el amigo");
 				request.setAttribute("msg", new Mensaje("Error al modificar el amigo, comprueba que los datos sean correctos", 200, TIPO_MENSAJE.INFO));
 			}
-			if (modificarAmigo(amigo))
+			if (modeloAmigo.update(amigo))
 			{
 				request.setAttribute("amigo", amigo);
 				request.setAttribute(OPERACION_MODIFICAR, "ok");
@@ -196,47 +196,27 @@ public class MainServlet extends HttpServlet {
 		} else if (ELIMINAR.equals(operacion)) { //revimos el amigo a eliminar
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
-				request.setAttribute(OPERACION_ELIMINAR, eliminarAmigo(Integer.parseInt(id)));
+				request.setAttribute(OPERACION_ELIMINAR, modeloAmigo.delete(Integer.parseInt(id)));
 			} else {
 				log.warn("El id esta vacio al borrar");
 				request.setAttribute("msg", new Mensaje("No se puede eliminar el amigo", 200, TIPO_MENSAJE.INFO));
 			}
-			request.setAttribute(LISTA_AMIGOS, getAll());
+			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
 			request.setAttribute(SECCION, "ver");
 			dispatcher = request.getRequestDispatcher("ver.jsp");
 		} else if (OPERACION_VER_TODOS.equals(operacion)) {
-			request.setAttribute(LISTA_AMIGOS, getAmigoByName(""));
+			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getByName(""));
 		} else if (OPERACION_VER_NOMBRE.equals(operacion)) {
-			request.setAttribute(LISTA_AMIGOS, getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
+			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getByName(request.getParameter(NOMBRE_A_BUSCAR)));
 		}
 		if (dispatcher != null){
 			dispatcher.forward(request, response);
 		}
 	}
 
-	private int anadirAmigo(Amigo amigo) {
-		return modeloAmigo.add(amigo);
-	}
 
-	private boolean modificarAmigo(Amigo amigo) {
-		return modeloAmigo.update(amigo);
-	}
 
-	private boolean eliminarAmigo(int id) {
-		return modeloAmigo.delete(id);
-	}
 
-	private ArrayList<Amigo> getAmigoByName(String value) {
-		return modeloAmigo.getByName(value);
-	}
-	
-	private ArrayList<Amigo> getAll() {
-		return modeloAmigo.getAll();
-	}
-
-	private Amigo getAmigoById(int id) {
-		return modeloAmigo.getById(id);
-	}
 
 	private Amigo setAmigoFromRequest(HttpServletRequest request) throws Exception{
 		Amigo amigo = new Amigo();
