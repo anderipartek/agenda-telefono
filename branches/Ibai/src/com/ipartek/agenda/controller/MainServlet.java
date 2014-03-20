@@ -1,7 +1,6 @@
 package com.ipartek.agenda.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -16,7 +15,6 @@ import org.apache.log4j.PropertyConfigurator;
 import com.google.gson.Gson;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.bean.Mensaje;
-import com.ipartek.agenda.database.ConnectionFactory;
 import com.ipartek.agenda.database.DAOAmigo;
 import com.ipartek.agenda.database.ModeloAmigo;
 import com.ipartek.agenda.enumeration.TIPO_MENSAJE;
@@ -60,12 +58,10 @@ public class MainServlet extends HttpServlet {
 	 */
 	public MainServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
 		super.init(config);
 		String prefix = getServletContext().getRealPath("/"); //obtiene la ruta del peoyecto
     	String log4jpath = getInitParameter("log4j-config"); //obtiene el nombre del archivo
