@@ -48,8 +48,6 @@ public class MainServlet extends HttpServlet {
 	public static final String LISTA_AMIGOS = "lista_amigos";
 	public static final String NOMBRE_A_BUSCAR = "nombre_a_buscar";
 
-	public static final String ERROR = "error";
-	public static final String ERROR_ID_EMPTY = "error_id_empty";
 	
 	public ModeloAmigo modeloAmigo;
 
