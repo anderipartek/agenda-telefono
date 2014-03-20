@@ -223,7 +223,7 @@ public class DAOAmigo implements IAmigable {
 	private void datosAmigo(ResultSet rs) throws AmigoException {
 		   log.trace("Inicio datosAmigo");
 		try {
-			
+			a=new Amigo();
 			a.setId(rs.getInt("id"));
 			a.setNombre(rs.getString("nombre"));
 			a.setApellido(rs.getString("apellido"));
@@ -247,14 +247,15 @@ public class DAOAmigo implements IAmigable {
 		String sqlAmigo = "select * from amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
-			a = new Amigo();
+			
 			pst = con.prepareStatement(sqlAmigo);
 			pst.setString(1, nombre);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				datosAmigo(rs);
+				log.info("Amigo obtenido por nombre");
 			}
-			log.info("Amigo obtenido por nombre");
+			
 		 
 		} catch (SQLException ex) {
 			log.error("Error al obtener el amigo por nombre " + ex.getMessage());
