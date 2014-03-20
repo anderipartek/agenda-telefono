@@ -2,8 +2,7 @@
 <%--!public static String seccion; --%>
 
 <%@ include file="inc/head.jsp"%>
-<!-- HEADER -->
-<%@ include file="inc/header.jsp" %>
+
 <section class="wrapper content">
 
 <%@page import="java.util.ArrayList"%>
@@ -19,18 +18,22 @@
 			?-->
 			
 				<li>
-				
-						<input type="submit" name="amigo" value="">
+									<%	Amigo amigos = (Amigo) request.getAttribute("amigomodificar");
+		if(amigos!=null){
+		%>
+						<input type="submit" name="amigo" value="<%=amigos.getNombre()%>">
+						<%} %>
 						<input type="hidden" name="buscar" value="ok">
 						<input type="hidden" name="nombre" value="">
 						<input type="hidden" name="id" value="">
 				
 				</li>
-				
+				<%@ include file="mensaje.jsp" %>
 			<!-- ?php
 			}
 			?-->
 			</ul>
 		</div>
 <%@ include file="core/model/forms/modificar.jsp"%>
-<%@ include file="todoOk.jsp"%>
+
+

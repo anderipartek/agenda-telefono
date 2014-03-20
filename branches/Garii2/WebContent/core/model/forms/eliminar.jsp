@@ -17,8 +17,11 @@
 
 		while($result_row = mysql_fetch_array($result)){
 		?-->
+		
 	<%
 		Amigo amigo = (Amigo) request.getAttribute("amigoeliminar");
+	if(amigo!=null){
+
 	%>
 	<td><%=amigo.getNombre()%></td>
 	<td><%=amigo.getApellido()%></td>
@@ -28,11 +31,13 @@
 			type="hidden" name="nombre" value="<%=amigo.getNombre()%>"> <input
 			type="hidden" name="apellido" value="<%=amigo.getApellido()%>">
 		<input type="hidden" name="op" value="eliminar">
+	
+	<%}%>
 
 		<div class="botones">
 			<a title="" href="index.jsp">cancelar</a> <a title=""
 				href="todoOk.jsp"> 
-				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
+				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar" onClick="if(!confirm('¿Seguro que deseas eliminar > ?')){return false;}" >
 			</a>
 		</div>
 	</form>

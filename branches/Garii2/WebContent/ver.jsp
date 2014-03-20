@@ -63,7 +63,7 @@
 					   	 	  <td><%=lista.get(i).getFijo() %></td>
 					   	 	  <td><%=lista.get(i).getAnotaciones() %> 
 					   	 	  <a href="agenda?IDEL=<%=lista.get(i).getId()%>"><img src="C:/Desarrollo/AgendaTelefonicaGari/WebContent/theme/img/btnEliminar.gif" height="20" width="20" alt="eliminar" ></a>
-					   	 	  <a href="agenda?IMOD=<%=lista.get(i).getId()%>"><img src="../theme/img/modificar.gif" height="20" width="20" alt="modificar" ></a>	</td>		   	 	   
+					   	 	  <a href="agenda?IMOD=<%=lista.get(i).getId()%>"><img src="C:/Desarrollo/AgendaTelefonicaGari/WebContent/theme/img/modificar.gif" height="20" width="20" alt="modificar" ></a>	</td>		   	 	   
 					   	 	
 					   	 	 
 

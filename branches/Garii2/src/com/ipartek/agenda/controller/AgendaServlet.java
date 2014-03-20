@@ -31,6 +31,7 @@ public class AgendaServlet extends ServletMaestro {
 	public static final String OP_MODIFICAR_AMIGO="modificar";
 	public static final String OP_ELIMINAR_AMIGO="eliminar";
 	public static final String OP_DETALLE_AMIGO="detalle";
+	public static final String OP_BUSCAR_AMIGO="buscar";
 	public static final String OP_LISTAR_AMIGO="listar";
 	
 	HttpSession session;
@@ -98,6 +99,7 @@ public class AgendaServlet extends ServletMaestro {
 				//Titulo para la jsp
 				amigo=modelAmigo.getById(Integer.valueOf(idel));
 				request.setAttribute("amigoeliminar", amigo);
+				
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
 				// Redireccionar a la JSP
 				dispatcher.forward(request, response);
@@ -129,13 +131,13 @@ public class AgendaServlet extends ServletMaestro {
 			RequestDispatcher dispatcher = null;
 			
 			if(OP_NUEVO_AMIGO.equalsIgnoreCase(op)){
-				crearAlumno(request,response);
+				crearAmigo(request,response);
 			}else if (OP_MODIFICAR_AMIGO.equalsIgnoreCase(op)){
-				modificarAlumno(request,response);
+				modificarAmigo(request,response);
 			}else if (OP_ELIMINAR_AMIGO.equalsIgnoreCase(op)){
-				eliminarAlumno(request,response);
-			}else if (OP_ELIMINAR_AMIGO.equalsIgnoreCase(op)){
-				eliminarAlumno(request,response);
+				eliminarAmigo(request,response);
+			}else if (OP_BUSCAR_AMIGO.equalsIgnoreCase(op)){
+				buscarAmigo(request,response);
 			}else {
 				throw new ServletException ("operacion no soportada "+op);
 			}
@@ -148,7 +150,21 @@ public class AgendaServlet extends ServletMaestro {
 				
 			}
 		
-		private void eliminarAlumno(HttpServletRequest request,
+		private void buscarAmigo(HttpServletRequest request,
+				HttpServletResponse response) throws ServletException, IOException {
+			
+			String nombre = request.getParameter("nombre");
+			
+			    ArrayList<Amigo> abuscar= new ArrayList<Amigo>();
+			    abuscar=modelAmigo.getByNombre(nombre);
+			    request.setAttribute("buscarAmigo", abuscar);
+			    this.doGet(request, response);
+				
+			 		
+			
+		}
+
+		private void eliminarAmigo(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
 			log.trace("eliminar Amigo");
 			
@@ -185,7 +201,7 @@ public class AgendaServlet extends ServletMaestro {
 			//dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			//dispatcher.forward(request, response);			
 				
-				this.doGet(request, response);
+				this.doPost(request, response);
 				
 				log.trace("fin eliminar Amigo");
 			
@@ -194,7 +210,7 @@ public class AgendaServlet extends ServletMaestro {
 			
 		
 
-		private void modificarAlumno(HttpServletRequest request,
+		private void modificarAmigo(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
 			log.trace("modificar Alumno");
 			
@@ -245,6 +261,8 @@ public class AgendaServlet extends ServletMaestro {
 				
 				request.setAttribute("amigomodificar", amodi);
 				
+				
+				
 							
 				dispatcher = request.getRequestDispatcher("modificar.jsp");
 				dispatcher.forward(request, response);
@@ -257,7 +275,7 @@ public class AgendaServlet extends ServletMaestro {
 			
 		
 
-		private void crearAlumno(HttpServletRequest request,
+		private void crearAmigo(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
 			
 			

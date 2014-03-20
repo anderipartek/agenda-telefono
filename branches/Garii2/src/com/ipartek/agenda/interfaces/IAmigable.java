@@ -27,7 +27,7 @@ public interface IAmigable {
 	 * @param nombre del amigo
 	 * @return [Amigo] amigo
 	 */
-	Amigo getByNombre( String nombre );
+	ArrayList<Amigo> getByNombre( String nombre );
 	
 	/**
 	 * Obtenemos un amigo por su ID

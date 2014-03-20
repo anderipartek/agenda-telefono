@@ -54,8 +54,8 @@ public class ModeloAmigo implements IAmigable {
 	}
 
 	@Override
-	public Amigo getByNombre(String nombre) {
-		Amigo a = null;
+	public ArrayList<Amigo> getByNombre(String nombre) {
+		ArrayList<Amigo> a = null;
 		a = daoAmigo.getByNombre(nombre);
 				
 		return a;

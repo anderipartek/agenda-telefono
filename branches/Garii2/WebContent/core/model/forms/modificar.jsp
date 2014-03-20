@@ -18,7 +18,8 @@
 		while($result_row = mysql_fetch_array($result)){
 		?-->
 		<%
-			Amigo amigo =(Amigo) request.getAttribute("amigomodificar");%>
+			Amigo amigo =(Amigo) request.getAttribute("amigomodificar");
+			if(amigo!=null){%>
 		
 		<form method="post" action="agenda">				
 			<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre() %>">
@@ -32,7 +33,32 @@
 			<textarea name="anotaciones" placeholder="anotaciones"><%=amigo.getAnotaciones() %></textarea>
 			
 			
+			
+			
 			<input type="hidden" name="id" value="<%=amigo.getId() %>">
+			<input type="hidden" name="op" value="modificar">
+			
+			<div class="botones">
+				<a title="" href="index.jsp">cancelar</a>
+				<input type="submit" value="modificar" name="modificar" class="boton modificar"  >
+			</div>
+		</form>
+		<%}else{%>
+		
+		<form method="post" action="agenda">				
+			<input type="text" placeholder="nombre" name="nombre" value="">
+			<input type="text" placeholder="apellido" name="apellido" value="">
+			<input type="text" placeholder="calle" name="calle" value="">
+			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="">
+			<input type="text" placeholder="localidad" name="localidad" value="">
+			<input type="text" placeholder="provincia" name="provincia" value="">
+			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="">
+			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="">
+			<textarea name="anotaciones" placeholder="anotaciones"></textarea>
+			
+			
+			
+			<input type="hidden" name="id" value="">
 			<input type="hidden" name="op" value="modificar">
 			
 			<div class="botones">
@@ -40,8 +66,12 @@
 				<input type="submit" value="modificar" name="modificar" class="boton modificar">
 			</div>
 		</form>
+		<%} %>
 
 		<?php
 		}
 		?>
 	</div>
+	
+	
+	

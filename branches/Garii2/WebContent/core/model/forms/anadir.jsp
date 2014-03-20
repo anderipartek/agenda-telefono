@@ -24,26 +24,60 @@
 		
 		if(amigo!=null){%>
 		
-		<%@ include file="../../../inc/head.jsp"%>
-			<!-- HEADER -->
-		<%@ include file="../../../inc/header.jsp" %>
+		
 
-		<table>
+
+	<table>
+		<colgroup>
+			<col width="10%" span="2">
+			<col width="20%">
+			<col width="5%">
+			<col width="10%" span="4">
+			<col width="15%">
+		</colgroup>
 		<tr>
-		 <td><%=amigo.getNombre() %></td>
-		 <td><%=amigo.getApellido() %></td>
-		 <td><%=amigo.getCalle() %></td>
-		 <td><%=amigo.getCp() %></td>
-		 <td><%=amigo.getLocalidad() %></td>
-		 <td><%=amigo.getProvincia() %></td>
-		 <td><%=amigo.getMovil() %></td>	
-		 <td><%=amigo.getFijo() %></td>	
-		 <td><%=amigo.getAnotaciones() %></td>	
-			
+			<th>NOMBRE</th>
+			<th>APELLIDO</th>
+			<th>CALLE</th>
+			<th>C.POSTAL</th>
+			<th>LOCALIDAD</th>
+			<th>PROVINCIA</th>
+			<th>TELEFONO MOVIL</th>
+			<th>TELEFONO FIJO</th>
+			<th>ANOTACIONES</th>
+
+
+		</tr>
+		<tbody>
+
+
+			<tr>
+				<td><%=amigo.getNombre() %></td>
+				<td><%=amigo.getApellido() %></td>
+				<td><%=amigo.getCalle() %></td>
+				<td><%=amigo.getCp() %></td>
+				<td><%=amigo.getLocalidad() %></td>
+				<td><%=amigo.getProvincia() %></td>
+				<td><%=amigo.getMovil() %></td>
+				<td><%=amigo.getFijo() %></td>
+				<td><%=amigo.getAnotaciones() %></td>
+
+				<% request.getAttribute("msgmodificado");%>
+
+
+
 			</tr>
-			
-			</table>
-		<%}else{%>
+		
+		</tbody>
+	</table>
+
+
+	<%}else{%>
+
+
+
+
+
 				
 		<form method="post" action="agenda?op=nuevo">				
 			<input type="text" placeholder="nombre" name="nombre" value="nombre">

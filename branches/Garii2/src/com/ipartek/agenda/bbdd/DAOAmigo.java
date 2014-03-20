@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.interfaces.IAmigable;
@@ -28,7 +27,7 @@ public class DAOAmigo implements IAmigable{
 	static ConnectionFactory factory;
 
 	public DAOAmigo() {
-		PropertyConfigurator.configure("./config/log4j.properties");
+		
 
 		factory = ConnectionFactory.getInstance();
 	}
@@ -107,33 +106,38 @@ public class DAOAmigo implements IAmigable{
 		}
 
 	}
-
+	
 	@Override
-	public Amigo getByNombre(String nombre) {
-		String sqlAmigo = "select * from amigos where nombre = ?";
+	public ArrayList<Amigo> getByNombre(String nombre) {
+		ArrayList<Amigo> listaAmigos = null;
+		String sqlAmigo = "select * from amigos where nombre like '%=?%'";
 		try {
 			con = factory.getConnection();
-			a = new Amigo();
+			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAmigo);
 			pst.setString(1, nombre);
 			rs = pst.executeQuery();
 			while (rs.next()) {
+				a = new Amigo();
 				datosAmigo(rs);
+				listaAmigos.add(a);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger un amigo por dni.");
+			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de amigo");
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			return a;
+			return listaAmigos;
 		}
 
 	}
+
+
 
 	@Override
 	public Amigo getById(int id) {

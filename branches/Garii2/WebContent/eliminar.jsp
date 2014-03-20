@@ -3,8 +3,6 @@
 <%--!public static String seccion; --%>
 
 <%@ include file="inc/head.jsp"%>
-<!-- HEADER -->
-<%@ include file="inc/header.jsp" %>
 <section class="wrapper content">
 
 <%@page import="java.util.ArrayList"%>
@@ -22,12 +20,15 @@
 		
 			
 				<li>
+					<%	Amigo amigos = (Amigo) request.getAttribute("amigoeliminar");
+		if(amigos!=null){
+		%>
 					
-					
-						<input type="submit" name="amigo" value="">
+						<input type="submit" name="amigo" value="<%=amigos.getNombre()%>">
+						<%} %>
 						<input type="hidden" name="buscar" value="ok">
-						<input type="hidden" name="nombre" value="Erlantz">
-						<input type="hidden" name="id" value="kaka">
+						<input type="hidden" name="nombre" value="">
+						<input type="hidden" name="id" value="">
 				
 				</li>
 				
@@ -38,4 +39,3 @@
 			</ul>
 		</div>
 <%@ include file="core/model/forms/eliminar.jsp"%>
-<%@ include file="todoOk.jsp"%>
