@@ -44,5 +44,13 @@ public interface IDAOContacto {
 	 */
 	boolean update( Contacto c, int id );
 	
+	
+	/**
+	 * Buscar por nombre el contacto
+	 * @param nombre nombre del contacto
+	 * @return
+	 */
+	Contacto getByNombre( String nombre );
+	
 
 }

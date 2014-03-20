@@ -50,6 +50,13 @@ public interface IModeloContacto {
 	 * @return true si se a borrado, false en caso contrario
 	 */
 	boolean delete( int id );	
+	
+	/**
+	 * Buscar por nombre el contacto
+	 * @param nombre nombre del contacto
+	 * @return
+	 */
+	Contacto getByNombre( String nombre );
 
 	
 }
