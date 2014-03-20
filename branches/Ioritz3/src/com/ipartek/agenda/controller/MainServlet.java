@@ -141,7 +141,7 @@ public class MainServlet extends HttpServlet {
 				}else{
 					throw new ServletException("Operacion no soportada " + op);
 				}
-				dispatcher.forward(request, response);
+				//dispatcher.forward(request, response);
 				
 				log.trace("doPost - Fin ");
 	}
