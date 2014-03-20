@@ -4,8 +4,7 @@ import com.ipartek.agenda.excepciones.AmigoExcepcion;
 import com.ipartek.agenda.utiles.AmigoUtil;
 
 /**
- * Clase BEAN para crear amigos de la AgendaOnline con todos los datos
- * requeridos por la aplicacion
+ * @
  * 
  * @author Erlantz Romero Parra
  * @version 1.0
@@ -13,14 +12,14 @@ import com.ipartek.agenda.utiles.AmigoUtil;
  */
 public class Amigo {
 
-	private static int DEFAULT_TELEFONO_VALUE = 0;
-	private static int DEFAULT_CP_VALUE = 00000;
-	private static String DEFAULT_NOMBRE_VALUE = "NOMBRE";
-	private static String DEFAULT_APELLIDO_VALUE = "APELLIDO";
-	private static String DEFAULT_CALLE_VALUE = "CALLE";
-	private static String DEFAULT_LOCALIDAD_VALUE = "LOCALIDAD";
-	private static String DEFAULT_PROVINCIA_VALUE = "PROVINCIA";
-	private static String DEFAULT_ANTOTACIONES_VALUE = "ANOTACIONES";
+	private static final int DEFAULT_TELEFONO_VALUE = 0;
+	private static final int DEFAULT_CP_VALUE = 00000;
+	private static final String DEFAULT_NOMBRE_VALUE = "NOMBRE";
+	private static final String DEFAULT_APELLIDO_VALUE = "APELLIDO";
+	private static final String DEFAULT_CALLE_VALUE = "CALLE";
+	private static final String DEFAULT_LOCALIDAD_VALUE = "LOCALIDAD";
+	private static final String DEFAULT_PROVINCIA_VALUE = "PROVINCIA";
+	private static final String DEFAULT_ANTOTACIONES_VALUE = "ANOTACIONES";
 	// ATRIBUTOS
 	private int id; // IDENTIFICADOR BBDD
 	private String nombre;
@@ -35,7 +34,7 @@ public class Amigo {
 
 	// CONSTRUCTORES
 	/**
-	 * Constructor por defecto
+	 * Constructor por defecto.
 	 */
 	public Amigo() {
 		// this.id = 0;
@@ -51,7 +50,7 @@ public class Amigo {
 	}
 
 	/**
-	 * Constructor con parametros
+	 * Constructor con parametros.
 	 * 
 	 * @throws AmigoExcepcion
 	 */
@@ -87,7 +86,7 @@ public class Amigo {
 		}
 	}
 
-	public void setApellido(final String apellido) throws AmigoExcepcion {
+	public final void setApellido(final String apellido) throws AmigoExcepcion {
 		if (AmigoUtil.checkNombre(apellido)) {
 			this.apellido = apellido;
 		} else {
