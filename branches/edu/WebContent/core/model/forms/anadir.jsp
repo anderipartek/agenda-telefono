@@ -1,16 +1,17 @@
-<!DOCTYPE html>
+
 <%@ include file="../../../inc/head.jsp"%>
 <!-- HEADER -->
-<%@ include file="../../../inc/header.jsp" %>
 <body>
+<%@ include file="../../../inc/header.jsp" %>
+
 <%String msg=(String)request.getAttribute("Mensaje");
   if (msg==null){
 	  msg="";
   }
 %>
-<p class="errores"><%=msg%></p>	
+
 <div class="contain">
-        
+        <p class="errores"><%=msg%></p>	
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
 	<%-- 
 		<?php if($error != false){ ?>

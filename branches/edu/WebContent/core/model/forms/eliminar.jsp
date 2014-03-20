@@ -4,11 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<!DOCTYPE html>
+
 <%@ include file="../../../inc/head.jsp"%>
 <!-- HEADER -->
-<%@ include file="../../../inc/header.jsp" %>
 <body>
+<%@ include file="../../../inc/header.jsp" %>
+
 <%@ include file="buscador.jsp"%>
 <%String msg=(String)request.getAttribute("Mensaje");
               if (msg==null){
@@ -16,11 +17,11 @@
               }
             
             %>
-<p class="errores"><%=msg%></p>	
+	
 <div class="contain">
      
             
-            
+            <p class="errores"><%=msg%></p>	
 			<p class="txt">Seleccionalo de la lista</p>
 			<ul class="amigos del">
 			
@@ -68,8 +69,9 @@
 				
 				
 				<div class="botones">
-					<a title="" href="">cancelar</a>
-					<input type="submit" value="eliminar" name="op" class="boton eliminar">
+					
+					<input type="submit" value="eliminar" name="op" class="boton eliminar"
+					onClick="if(!confirm('¿Seguro que deseas eliminar el amigo seleccionado?')){return false;}">
 					</a>
 				</div>
 			</form>

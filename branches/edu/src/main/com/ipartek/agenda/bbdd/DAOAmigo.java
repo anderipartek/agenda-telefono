@@ -233,6 +233,7 @@ public class DAOAmigo implements IAmigable {
 			a.setProvincia(rs.getString("provincia"));
 			a.setMovil(rs.getInt("movil"));
 			a.setFijo(rs.getInt("fijo"));
+			a.setAnotaciones(rs.getString("anotaciones"));
 			log.info("Alumno parseado correctamente");
 		
 		} catch (SQLException ex) {
