@@ -213,11 +213,7 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 			request.setAttribute("msg", new Mensaje("Excepcion general", 0, Mensaje.TIPO_MENSAJE.ERROR));
 		}
 		
-		//enviar contacto a la JSP
-		request.setAttribute("todook", contacto);
 		
-		//titulo para la JSP
-		request.setAttribute("title", "Insertar Contacto");
 		
 		//dispatcher
 		dispatcher = request.getRequestDispatcher("todoOk.jsp");
