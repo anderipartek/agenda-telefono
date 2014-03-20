@@ -67,7 +67,7 @@
 		<p class="titulo">Cuales son los nuevos datos de tu amigo:</p>
 			<%Amigo amigo = (Amigo) request.getAttribute("amigoDatos");%>
 			<form method="post" action="agenda">				
-				<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
+				<input type="text" placeholder="nombre (minimo 2 caracteres)" requiered name="nombre" value="<%=amigo.getNombre()%>">
 				<input type="text" placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
 				<input type="text" placeholder="calle" name="calle" value="<%=amigo.getCalle()%>">
 				<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="<%=amigo.getCodigoPostal()%>">
