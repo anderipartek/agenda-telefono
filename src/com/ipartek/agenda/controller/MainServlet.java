@@ -33,6 +33,7 @@ public class MainServlet extends HttpServlet {
 	public static final String MODIFICAR = "modificar";
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
+	public static final String BUSCAR = "buscar";
 	public static final String MOSTRAR = "mostrar";
 	public static final String MOSTRARELIMINAR = "mostrarEliminar";
 
@@ -84,6 +85,8 @@ public class MainServlet extends HttpServlet {
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
+			dispatcher = request.getRequestDispatcher("modificar.jsp");	
+		} else if (BUSCAR.equals(seccion)) {	
 			if (request.getParameter(NOMBRE_A_BUSCAR) != null && request.getParameter(NOMBRE_A_BUSCAR) != "") {
 				// http://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
 				// Set content type of the response so that jQuery knows what it
@@ -94,8 +97,6 @@ public class MainServlet extends HttpServlet {
 				// Write response body.
 				String obj = new Gson().toJson(getAmigoByName(request.getParameter(NOMBRE_A_BUSCAR)));
 				response.getWriter().write(obj);
-			} else {
-				dispatcher = request.getRequestDispatcher("modificar.jsp");
 			}
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
