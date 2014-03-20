@@ -9,7 +9,7 @@
 		<?php } ?-->
 
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="text" placeholder="nombre que buscas..." name="nombre" value="erlantz">
+			<input type="text" placeholder="nombre que buscas..." name="nombre" value="nombre">
 			
 			<div class="botones">
 				<input type="submit" value="buscar" name="buscar" class="boton buscar">

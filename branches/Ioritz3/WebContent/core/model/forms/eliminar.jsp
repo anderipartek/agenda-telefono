@@ -18,9 +18,9 @@
 		
 		<form method="post" action="main">
 			<input type="hidden" name="op" value="eliminar">				
-			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
-			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">			
-			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
+			<input type="hidden" name="nombre" value="nombre">
+			<input type="hidden" name="id" value="id">			
+			<input type="hidden" name="apellido" value="apellido">
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
