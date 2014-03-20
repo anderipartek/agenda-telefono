@@ -1,4 +1,4 @@
-
+<section class="wrapper content">
 <%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <nav class="navBar">
 	<ul>
@@ -12,3 +12,4 @@
 				todos</a></li>
 	</ul>
 </nav>
+</section>

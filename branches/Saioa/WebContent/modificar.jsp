@@ -1,4 +1,8 @@
 <%@page import="java.util.ArrayList"%>
+<%@ include file="inc/head.jsp"%>
+<body >
+<!-- HEADER -->
+<%@ include file="inc/header.jsp" %>
 <%@ include file="core/model/forms/buscador.jsp"%>
 <div class="contain">
 			<p class="txt">Seleccionalo de la lista</p>

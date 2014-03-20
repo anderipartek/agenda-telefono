@@ -23,7 +23,7 @@ import com.ipartek.agenda.modelo.ModeloAmigo;
 /**
  * Servlet implementation class MainServlet
  */
-public class MainServlet extends HttpServlet {
+public class MainServlet extends ServletMaestro {
 	private static final long serialVersionUID = 1L;
 
 	public static final String SECCION = "seccion";
@@ -94,34 +94,11 @@ public void destroy() {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 		
 	}
 	
-	private void crearAmigo(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		log.trace("crearAmigo");
-		Amigo a = null;
-		// crear Amigo
-		try {
-			a = recogerDatos(request, response);		
-			// Insert into DDBB
-			modelAmigo.insert(a);
-			log.info("Amigo insertado " + a.toString());
-		} catch (Exception e) {
-			log.warn("Excepcion general " + e.getMessage());
-		}
-		// enviar alumno a la JSP
-		//request.setAttribute("detalleAlumno", a);
-		// titulo para la JSP
-		//request.setAttribute("title", "Insertar Alumno");
-		// dispatcher
-		
-		dispatcher = request.getRequestDispatcher("todoOk.jsp");
-		dispatcher.forward(request, response);
-		log.trace("crearAmigo - Fin");
-		
-	}
-	
+
 	private void listarAmigos(HttpServletRequest request, HttpServletResponse response) {
 		// listando
 		log.trace("Listado Amigos");
@@ -139,35 +116,70 @@ public void destroy() {
 		}
 
 	}
-	
-	private Amigo recogerDatos(HttpServletRequest request,
-			HttpServletResponse response) throws AmigoException {
-		log.trace("Init recoger datos alumno");
-		Amigo amigoNuevo =  new Amigo();
+	private void crearAmigo(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		log.trace("crearAmigo");
 		
-		//coger datos del formulario
-		String nom=(String) request.getParameter("nombre");
-		String ape=(String) request.getParameter("apellido");
-		String call=(String) request.getParameter("calle");
-		int codigop = Integer.parseInt(request.getParameter("cp"));
-		String loc=(String) request.getParameter("localidad");
-		String prov=(String) request.getParameter("provincia");
-		int mov = Integer.parseInt(request.getParameter("movil"));
-		int fij = Integer.parseInt(request.getParameter("fijo"));
-		String anot=(String) request.getParameter("anotaciones");
+		Amigo Amigo = null;
+		//TODO recoger parametros del formulario
+		String nombre = (String)request.getParameter("nombre");
+		String apellido = (String)request.getParameter("apellido");
+		String calle = (String)request.getParameter("calle");
+		String cp = (String)request.getParameter("cp");
+		int codigo = 0;
+		codigo = Integer.parseInt(cp);
+		String localidad = (String)request.getParameter("localidad");
+		String provincia = (String)request.getParameter("provincia");
+		String movil = (String)request.getParameter("movil");
+		int numeroMovil = Integer.parseInt(movil);
+		String fijo = (String)request.getParameter("fijo");
+		int numeroFijo = Integer.parseInt(fijo);
+		String anotaciones = (String)request.getParameter("anotaciones");
 		
-		//meter los datos nuevos en el nuevo amigo
-		amigoNuevo.setNombre(nom);
-		amigoNuevo.setApellido(ape);
-		amigoNuevo.setCalle(call);
-		amigoNuevo.setCp(codigop);
-		amigoNuevo.setLocalidad(loc);
-		amigoNuevo.setProvincia(prov);
-		amigoNuevo.setMovil(mov);
-		amigoNuevo.setFijo(fij);
-		amigoNuevo.setAnotaciones(anot);
+		//apellido
+		//calle
+		//cp
+		//no poner inicializar variables en mayusculas porque se confunde con clase
+		//crear Amigo
+		try {
+			Amigo = new Amigo();
+			Amigo.setNombre(nombre);
+			Amigo.setApellido(apellido);
+			Amigo.setCalle(calle);
+			Amigo.setCp(codigo);
+			Amigo.setLocalidad(localidad);
+			Amigo.setProvincia(provincia);
+			Amigo.setMovil(numeroMovil);
+			Amigo.setFijo(numeroFijo);
+			Amigo.setAnotaciones(anotaciones);
+			//INSERT INTO DDBB
+			modelAmigo.insert(Amigo);
+			log.info("Amigo insertado " + Amigo.toString());
+			request.setAttribute("msg",new Mensaje("Amigo insertado", 200, Mensaje.TIPO_MENSAJE.INFO));
+		} catch (AmigoException e) {
+			log.warn("Datos del Amigo no validos " + e.getMessage());
+			//Mensaje de error
+			request.setAttribute("msg", new Mensaje(e.getMensaje(), e.getCodigo(), Mensaje.TIPO_MENSAJE.ERROR));
 		
-		log.trace("Retorno de recoger datos amigo");
-		return amigoNuevo;
+			
+		} catch (Exception e) {
+			log.warn("Excepcion general " + e.getMessage());
+			//Mensaje de error
+			request.setAttribute("msg", new Mensaje("Excepcion general", 0, Mensaje.TIPO_MENSAJE.ERROR));
+		}
+		
+		
+		
+		//dispatcher
+		dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		
+		
+		
+		
+		
+		log.trace("Fin crear Amigo");	
+		
 	}
+	
+
 }

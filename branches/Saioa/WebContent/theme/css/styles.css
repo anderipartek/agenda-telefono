@@ -78,7 +78,7 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 /* NAVBAR */
 
 	#home .navBar { float: none; width: 75%; margin: 0 auto; text-align: center;}
-		#home .navBar li { display: inline-block; width: 49%; margin: 3em 0 0 0; font-size: 1.8em;}
+		#home .navBar li { display: inline-block; width: 49%; margin: 5em 0 0 0; font-size: 1.8em;}
 			#home .navBar li a { display:inline-block; width: 9.6em; min-height: 8.7em; padding: 0; background-position: center bottom !important; background-size: auto !important; color: #fff; text-decoration: none; font-style: italic; }
 
 	.navBar { float: left; margin: 4.1em 0 0 0;}

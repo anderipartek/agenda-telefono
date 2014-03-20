@@ -1,9 +1,12 @@
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="inc/head.jsp" %>
+<%@ include file="inc/head.jsp"%>
+<body>
+<!-- HEADER -->
 <%@ include file="inc/header.jsp" %>
 
+<div class="contain">
 <h3>Estos son tus amigos:</h3>
 
 	<table>
@@ -45,4 +48,4 @@
 		%>
 
 </table>
-
+</div>

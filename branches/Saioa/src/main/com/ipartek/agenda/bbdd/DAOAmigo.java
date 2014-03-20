@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -24,7 +28,7 @@ public class DAOAmigo implements IDAOAmigo {
 	static ConnectionFactory factory;
 	
 	public DAOAmigo() {
-		PropertyConfigurator.configure("./config/log4j.properties");
+		
 		factory = ConnectionFactory.getInstance();
 	}
 	
@@ -55,7 +59,7 @@ public class DAOAmigo implements IDAOAmigo {
 			return listaAmigos;
 		}
 	}
-
+	
 	
 	private void datosAlumno(ResultSet rs) {
 		try {
@@ -93,8 +97,45 @@ public class DAOAmigo implements IDAOAmigo {
 
 	@Override
 	public int insertarAmigo(Amigo a) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sqlId = "select max(id) from amigos;";
+		int id = -1;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(sqlInsert);
+			pst.setString(1, a.getNombre());
+			pst.setString(2, a.getApellido());
+			pst.setString(3, a.getCalle());
+			pst.setInt(4, a.getCp());
+			pst.setString(5, a.getLocalidad());
+			pst.setString(6,a.getProvincia());
+			pst.setInt(7, a.getMovil());
+			pst.setInt(8,a.getFijo());
+			pst.setString(9, a.getAnotaciones());
+			if (pst.executeUpdate() > 0) {
+				pst = con.prepareStatement(sqlId);
+				rs = pst.executeQuery();
+				rs.next();
+				id = (rs.getInt(1));
+				a.setId(id);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+			id = -1;
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al insertar contacto"
+					+ ex.getStackTrace());
+			id = -1;
+		} finally {
+
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return id;
+
+		}
 	}
 
 	@Override
