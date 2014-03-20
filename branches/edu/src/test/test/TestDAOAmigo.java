@@ -93,10 +93,10 @@ public class TestDAOAmigo {
 	}
 
 	@Test
-	public void testObtenerAmigoByNombre() {
+	public void testObtenerAmigosByNombre() {
 		int id=dao.insertarAmigo(a);
-		a1=dao.obtenerAmigoByNombre(a.getNombre());
-		assertTrue("testObtenerAmigoByNombre correcto",a1!=null);
+		amigos=dao.obtenerAmigosByNombre(a.getNombre());
+		assertTrue("testObtenerAmigoByNombre correcto",amigos!=null);
 	}
 
 }

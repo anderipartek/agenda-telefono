@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Agenda Online</title>
 	<link href="theme/css/styles.css" type="text/css" rel="stylesheet">

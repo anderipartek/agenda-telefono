@@ -5,28 +5,29 @@ import java.util.ArrayList;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.interfaces.IAmigable;
 /**
- * Clase que esconde al usuario la conexion a la factoría y al DAOAmigo
+ * Clase que esconde al usuario la conexion a la factorï¿½a y al DAOAmigo
  * @author Eduardo Monterrubio
  *
  */
 public class ModeloAmigo{
 	static ConnectionFactory factoria;
 	static IAmigable daoAmigo;
+	static ArrayList<Amigo> amigos;
 	
 	public ModeloAmigo() {
 		factoria = ConnectionFactory.getInstance(); 
 		daoAmigo = factoria.getDAOAmigo();
 	}	
 	
-	public Amigo getAlumnoByNombre(String nombre) {
+	public ArrayList<Amigo> getAlumnosByNombre(String nombre) {
 		
-		Amigo a = null;
-		a=daoAmigo.obtenerAmigoByNombre(nombre);
-		return a;
+		amigos=null;
+		amigos=daoAmigo.obtenerAmigosByNombre(nombre);
+		return amigos;
 	}
 
 	
-	public Amigo getAlumnoById(int id) {
+	public Amigo getAmigoById(int id) {
 		Amigo a = null;
 		a = daoAmigo.obtenerAmigoByID(id);
 		return a;

@@ -1,8 +1,8 @@
 <%@page import="com.ipartek.agenda.bbdd.ModeloAmigo"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf8"
+    pageEncoding="utf8"%>
 
 
 <%@ include file="../../../inc/head.jsp"%>
@@ -71,7 +71,7 @@
 				<div class="botones">
 					
 					<input type="submit" value="eliminar" name="op" class="boton eliminar"
-					onClick="if(!confirm('¿Seguro que deseas eliminar el amigo seleccionado?')){return false;}">
+					onClick="if(!confirm('Â¿Seguro que deseas eliminar el amigo seleccionado?')){return false;}">
 					</a>
 				</div>
 			</form>

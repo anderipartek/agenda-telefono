@@ -26,6 +26,7 @@ public class AgendaServlet extends ServletMaestro {
 	
 	private final static Logger log=Logger.getLogger(AgendaServlet.class);
 	static Amigo a;
+	static ArrayList<Amigo> amigos;
 	static ModeloAmigo model;
 	RequestDispatcher dispatcher;
 	String operacion,texto;
@@ -53,7 +54,7 @@ public class AgendaServlet extends ServletMaestro {
 		ArrayList<Amigo> amigos= new ArrayList<Amigo>();
 		String operacion = request.getParameter("operacion");
 		RequestDispatcher dispatcher = null;
-
+        int idAmigo;
 		//redirigir a ver todos
 		if ("ver".equals(operacion)){
 			log.trace("Redirigiendo a ver.jsp" );
@@ -106,6 +107,7 @@ public class AgendaServlet extends ServletMaestro {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.trace("AgendaServlet doPost");
 		operacion = request.getParameter("operacion");
+		
 		//submit insertar
 		if ("anadir".equals(operacion)){
 		   	
@@ -126,6 +128,15 @@ public class AgendaServlet extends ServletMaestro {
 			String id=request.getParameter("id");
 			modificar(request,response,id);
 		}
+		//submit datos
+		else if("datos".equals(operacion)){
+			log.trace("Cargando datos en el formulario");
+			int idAmigo=Integer.parseInt(request.getParameter("id"));
+			a=model.getAmigoById(idAmigo);
+			request.setAttribute("Amigo",a );
+			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
+		}
+		
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -147,7 +158,7 @@ public class AgendaServlet extends ServletMaestro {
 				if (model.update(a, id)){
 					texto="Alumno modificado correctamente";
 					request.setAttribute("Mensaje", texto);
-					request.setAttribute("Amigo", a);
+					
 					
 			    }
 			} catch (AmigoException e) {
@@ -155,6 +166,8 @@ public class AgendaServlet extends ServletMaestro {
 				request.setAttribute("Mensaje", texto);
 				
 			}
+		    //tanto si el amigo es correcto como si salta la excepcion llevarle el alumno original 
+		    request.setAttribute("Amigo", a);
 		    
 		    dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
 	}
@@ -194,13 +207,13 @@ public class AgendaServlet extends ServletMaestro {
 
 	private void buscar(HttpServletRequest request, HttpServletResponse response,String form) {
 		log.trace("buscando");
-		a=model.getAlumnoByNombre(request.getParameter("nombre"));
-		request.setAttribute("Amigo", a);
-		if (a==null){
+		amigos=model.getAlumnosByNombre(request.getParameter("nombre"));
+		request.setAttribute("Amigos", amigos);
+		if (amigos==null){
 			texto="No se ha encontrado ningun amigo con ese nombre";
 			request.setAttribute("Mensaje", texto);
 		}
-		//en función de que formulario venga
+		//en funcion de que formulario venga
 		if ("Mod".equals(form)){
 			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
 		}
@@ -227,7 +240,7 @@ public class AgendaServlet extends ServletMaestro {
 			a.setAnotaciones(request.getParameter("anotaciones"));
 			model.insertarAmigo(a);
 			dispatcher = request.getRequestDispatcher("core/model/forms/anadir.jsp");
-			texto="Añadido a la BD";
+			texto="Alumno insertado correctamente";
 			request.setAttribute("Mensaje", texto);
 		} catch (AmigoException e) {
 			texto=e.getMensaje();
