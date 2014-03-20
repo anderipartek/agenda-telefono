@@ -15,6 +15,7 @@
 			<th>movil</th>
 			<th>fijo</th>
 			<th>anotaciones</th>
+			<th>acciones</th>
 		</tr>
 		<tbody>
 			<c:forEach var="amigo" items="${requestScope.lista_amigos}">
@@ -28,6 +29,7 @@
 					<td>${amigo.movil}</td>
 					<td>${amigo.fijo}</td>
 					<td>${amigo.anotaciones}</td>
+					<td><a href="main?seccion=modificar&id=${amigo.id}">modificar</a> <a href="main?seccion=eliminar&id=${amigo.id}">eliminar</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -15,7 +15,7 @@
 			if (amigo != null){
 			%>		
 				<form method="post">
-					<p>¿Desea eliminar realmente a su amigo?</p>
+					<p class="titulo">¿Desea eliminar realmente a su amigo ${requestScope.amigo.nombre} ${requestScope.amigo.apellido}?</p>
 					<input type="hidden" name="nombre" value="<%=amigo.getNombre()%>"> <input
 						type="hidden" name="id" value="<%=amigo.getId()%>">
 			

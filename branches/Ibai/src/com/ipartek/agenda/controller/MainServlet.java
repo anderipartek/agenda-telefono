@@ -89,6 +89,11 @@ public class MainServlet extends HttpServlet {
 		if (ANADIR.equals(seccion)) { //redireccion a la pagina de añadir amigo
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) { //redirecion a la pagina de modificar amigo
+			String id = (String)request.getParameter("id");
+			if (id != null){
+				Amigo a = getAmigoById(Integer.parseInt(id));
+				request.setAttribute("amigo", a);
+			}
 			dispatcher = request.getRequestDispatcher("modificar.jsp");	
 		} else if (BUSCAR.equals(seccion)) { //funcion para la busqueda dinamica de amigos
 			if (request.getParameter(NOMBRE_A_BUSCAR) != null && request.getParameter(NOMBRE_A_BUSCAR) != "") {
@@ -103,6 +108,11 @@ public class MainServlet extends HttpServlet {
 				response.getWriter().write(obj);
 			}
 		} else if (ELIMINAR.equals(seccion)) { //redireccion a la pagina de elimnar amigo
+			String id = (String)request.getParameter("id");
+			if (id != null){
+				Amigo a = getAmigoById(Integer.parseInt(id));
+				request.setAttribute("amigo", a);
+			}
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) { // redireccion a la pagina de ver todos los amigos
 			request.setAttribute(LISTA_AMIGOS, getAll());

@@ -59,7 +59,7 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 				.contain p span { font-size: 1.3em;}
 			.contain h3 { font-size: 1.8em; margin-bottom: 1em;}
 
-		table { margin: 2em auto; width: 100%; font-size: .8em;}
+		table { margin: auto;  margin-top: 2em; width: auto; font-size: .8em;}
 			table th, table td { padding: .5em; vertical-align: middle;}
 			table th { background: #000; color: #fff; font-size: 1.2em;}
 			table td { vertical-align: top; border-bottom: 1px solid #d5d5d5;}
