@@ -42,11 +42,12 @@
             %>
             <p class="errores"><%=msg%></p>	
             
-			<p class="txt">Seleccionalo de la lista</p>
+			
 			<ul class="amigos modify">
 			
 			<%
 		if (amigos!=null){%>
+		    <p class="txt">Seleccionalo de la lista</p>
 			<li>
 			<form action="agenda?operacion=datos" method="post">
 			<% for (int i = 0 ; i < amigos.size(); i++) { 

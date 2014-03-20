@@ -1,6 +1,7 @@
 <%@page import="com.ipartek.agenda.bbdd.ModeloAmigo"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
 
@@ -22,7 +23,7 @@
      
             
             <p class="errores"><%=msg%></p>	
-			<p class="txt">Seleccionalo de la lista</p>
+			
 			<ul class="amigos del">
 			
 			<%
@@ -40,32 +41,38 @@
 			}
 				
 			
-			%>
-				<li>
-					<form action="agenda?operacion=borrar" method="post">
-					
-						<input type="submit" name="amigo" value='<%=nombreApe%>'>
-						
-						
-					</form>
-				</li>
+			ArrayList<Amigo> amigos=(ArrayList<Amigo>)request.getAttribute("Amigos");
 				
 			
+			if (amigos!=null){%>
+			<p class="txt">Seleccionalo de la lista</p>
+			<li>
+			<form action="agenda?operacion=confirmacion" method="post">
+			<% for (int i = 0 ; i < amigos.size(); i++) { 
+				Amigo amigo = amigos.get(i);
+				nombreApe = amigo.getNombre() + " " + amigo.getApellido();
+			%>
+				<input type="submit" name="amigo" value="<%=nombreApe%>">
+				<input type="hidden" name="idB" value="<%=amigo.getId()%>">
+						
+			</form>
+				</li>
+			<%} // END FOR%>
+			<%}//END IF%>
 			</ul>
 </div>
-<%@page import="com.ipartek.agenda.bean.Amigo"%>
+
 <div class="contain">
 		
 
 		<%
 		
-			if (request.getAttribute("Amigo")!=null){
-				
+			if (request.getAttribute("amigo")!=null){
+				String idB=(String)request.getAttribute("amigo");
 			%>
 			<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 			<form method="post" action="agenda?operacion=eliminar">				
-				<input type="hidden" name="nombre" value=<%=a.getNombre()%>>
-				<input type="hidden" name="id" value=<%=a.getId()%>>			
+				<input type="hidden" name="id" value=<%=idB%>>			
 				
 				
 				<div class="botones">

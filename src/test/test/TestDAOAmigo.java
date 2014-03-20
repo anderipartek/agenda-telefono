@@ -70,7 +70,7 @@ public class TestDAOAmigo {
 			a1=new Amigo(id,"Pablo","Motos","Bidebarri",48991,"Algeciras","Levante",999999999,999999999,"Sin anotaciones");
 			int idU=dao.update(a1, id);
 			assertTrue("Se ha modificado amigo", idU != -1);
-			//System.out.println(a1.toString());
+			
 		} catch (AmigoException e) {
 			e.getMessage();
 		} 

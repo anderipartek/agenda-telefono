@@ -78,6 +78,7 @@ public class AgendaServlet extends ServletMaestro {
 			log.trace("Redirigiendo a eliminar.jsp" );
 			String form="Del";
 			request.setAttribute("form",form );
+			
 			dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 			
 		}
@@ -136,7 +137,13 @@ public class AgendaServlet extends ServletMaestro {
 			request.setAttribute("Amigo",a );
 			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
 		}
-		
+		//submit confirmacion borrar
+		else if("confirmacion".equals(operacion)){
+			log.trace("Confirmacion borrar");
+			String idB=request.getParameter("idB");
+			request.setAttribute("amigo",idB);
+			dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
+		}
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -209,7 +216,7 @@ public class AgendaServlet extends ServletMaestro {
 		log.trace("buscando");
 		amigos=model.getAlumnosByNombre(request.getParameter("nombre"));
 		request.setAttribute("Amigos", amigos);
-		if (amigos==null){
+		if (amigos.size()==0){
 			texto="No se ha encontrado ningun amigo con ese nombre";
 			request.setAttribute("Mensaje", texto);
 		}
