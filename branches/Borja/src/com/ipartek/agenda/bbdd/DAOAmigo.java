@@ -285,6 +285,7 @@ public class DAOAmigo implements IDAOAmigo {
 
 	private void sqlExcepcion(SQLException ex) {
 		while (ex != null) {
+			
 			/*
 			log.error("Message:> " + ex.getMessage());
 			log.error("SQL State:> " + ex.getSQLState());

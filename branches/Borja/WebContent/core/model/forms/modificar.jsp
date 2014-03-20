@@ -1,21 +1,6 @@
 <div class="contain">
 		<p class="titulo">Estos son los datos de tu amigo:</p>
 
-		<!--  ? php
-
-		// enviamos la query
-		$id = comillas_inteligentes($_POST['id']);
-		$query = "SELECT * FROM amigos WHERE nombre LIKE $nombre and id = $id";
-
-		$result = mysql_query($query);
-		//comprobamos si la query ha ido bien
-		if(!$result){
-			die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
-		}
-
-		while($result_row = mysql_fetch_array($result)){
-		?-->
-		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
 			<input type="text" placeholder="nombre" name="nombre" value="erlantz">
 			<input type="text" placeholder="apellido" name="apellido" value="romero">

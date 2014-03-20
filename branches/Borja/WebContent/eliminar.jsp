@@ -7,17 +7,14 @@
 <div class="contain">
 			<p class="txt">Seleccionalo de la lista</p>
 			<ul class="amigos modify">
-			<!-- ?php
-			// mostramos los datos de la query
-			while($result_row = mysql_fetch_array($result)){
-			
-			?-->
+	
 			<%
+			ArrayList<Amigo> listaAmigos = null;
 			ModeloAgenda modeloAgenda = new ModeloAgenda();
 			if (modeloAgenda.getAll()!=null){
-				ArrayList<Amigo> listaAmigos = modeloAgenda.getAll();
+				listaAmigos = modeloAgenda.getAll();
 			}else{
-				
+				System.out.println("Es null");
 			}
 			
 			for (int i = 0 ; i < listaAmigos.size(); i++) { %>
@@ -31,9 +28,7 @@
 					</form>
 				</li>
 				<%} %>
-			<!-- ?php
-			}
-			?-->
+			
 			</ul>
 		</div>
 <%@ include file="core/model/forms/eliminar.jsp"%>

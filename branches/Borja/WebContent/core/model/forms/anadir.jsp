@@ -1,25 +1,16 @@
 <div class="contain">
 		<p class="titulo">Estos son los datos de tu amigo:</p>
-	<%-- 
-		<?php if($error != false){ ?>
-			<ul class="errores">
-			<?php if($_POST['nombre'] == '') ?>
-				<li><p>Necesitamos saber su nombre</p></li>
-			<?php if($_POST['movil'] == '') ?>
-				<li><p>Necesitamos saber su tel√©fono m√≥vil</p></li>
-			</ul>
-		<?php } ?>--%>
 		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="text" placeholder="nombre" name="nombre" value="nombre">
-			<input type="text" placeholder="apellido" name="apellido" value="apellido">
-			<input type="text" placeholder="calle" name="calle" value="calle">
-			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="CP">
-			<input type="text" placeholder="localidad" name="localidad" value="localidad">
-			<input type="text" placeholder="provincia" name="provincia" value="provincia">
-			<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999" name="movil" value="telÈfono movil">
-			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="telÈfono fijo">
-			<textarea name="anotaciones" placeholder="anotaciones">anotaciones</textarea>
+			<input type="text" placeholder="nombre" name="nombre" value="">
+			<input type="text" placeholder="apellido" name="apellido" value="">
+			<input type="text" placeholder="calle" name="calle" value="">
+			<input type="text" pattern="[0-9]{5}" placeholder="codigo postal" name="CP" value="">
+			<input type="text" placeholder="localidad" name="localidad" value="">
+			<input type="text" placeholder="provincia" name="provincia" value="">
+			<input type="text" pattern="[0-9]{9}" placeholder="n∫ de telefono movil" name="movil" value="">
+			<input type="text" pattern="[0-9]{9}" placeholder="n∫ de telefono fijo" name="fijo" value="">
+			<textarea name="anotaciones" placeholder="anotaciones"></textarea>
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
