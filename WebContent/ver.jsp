@@ -34,6 +34,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
-<!-- cerramos db -->
 
 <%@include file="inc/footer.jsp"%>
