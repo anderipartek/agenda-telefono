@@ -13,7 +13,8 @@
               }
             
             %>
-            <h4><%=msg%></h4>
+            <p class="errores"><%=msg%></p>	
+            
 			<p class="txt">Seleccionalo de la lista</p>
 			<ul class="amigos modify">
 			

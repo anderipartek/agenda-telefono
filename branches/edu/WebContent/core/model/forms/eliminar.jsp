@@ -10,14 +10,17 @@
 <%@ include file="../../../inc/header.jsp" %>
 <body>
 <%@ include file="buscador.jsp"%>
-<div class="contain">
-            <%String msg=(String)request.getAttribute("Mensaje");
+<%String msg=(String)request.getAttribute("Mensaje");
               if (msg==null){
             	  msg="";
               }
             
             %>
-            <h4><%=msg%></h4>
+<p class="errores"><%=msg%></p>	
+<div class="contain">
+     
+            
+            
 			<p class="txt">Seleccionalo de la lista</p>
 			<ul class="amigos del">
 			
@@ -65,7 +68,7 @@
 				
 				
 				<div class="botones">
-					<a title="" href="eliminar.jsp">cancelar</a>
+					<a title="" href="">cancelar</a>
 					<input type="submit" value="eliminar" name="op" class="boton eliminar">
 					</a>
 				</div>
