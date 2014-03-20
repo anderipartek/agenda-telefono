@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.apache.log4j.Logger;
 
 
@@ -169,11 +170,14 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 		String nombre = (String)request.getParameter("nombre");
 		String apellido = (String)request.getParameter("apellido");
 		String calle = (String)request.getParameter("calle");
-		int cp = Integer.parseInt(request.getParameter("cp"));
+		String cp = (String)request.getParameter("cp");
+		int CP = Integer.parseInt(cp);
 		String localidad = (String)request.getParameter("localidad");
 		String provincia = (String)request.getParameter("provincia");
-		int movil = Integer.parseInt(request.getParameter("movil"));
-		int fijo = Integer.parseInt(request.getParameter("fijo"));
+		String movil = (String)request.getParameter("movil");
+		int MOVIL = Integer.parseInt(movil);
+		String fijo = (String)request.getParameter("fijo");
+		int FIJO = Integer.parseInt(fijo);
 		String anotaciones = (String)request.getParameter("anotaciones");
 		
 		//apellido
@@ -186,11 +190,11 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 			contacto.setNombre(nombre);
 			contacto.setApellido(apellido);
 			contacto.setCalle(calle);
-			contacto.setCp(cp);
+			contacto.setCp(CP);
 			contacto.setLocalidad(localidad);
 			contacto.setProvincia(provincia);
-			contacto.setMovil(movil);
-			contacto.setFijo(fijo);
+			contacto.setMovil(MOVIL);
+			contacto.setFijo(FIJO);
 			contacto.setAnotaciones(anotaciones);
 			//INSERT INTO DDBB
 			modeloContacto.insert(contacto);
