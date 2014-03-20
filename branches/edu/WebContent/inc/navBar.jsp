@@ -3,7 +3,7 @@
 
 <nav class="navBar">
 	<ul>
-		<li id="anadir" class="sel"><a href="agenda?operacion=anadir" title="">Añadir
+		<li id="anadir" class="sel"><a href="agenda?operacion=anadir" title="">Insertar
 				amigo</a></li>
 		<li id="modificar" class="sel"><a href="agenda?operacion=modificar" title="">Modificar
 				amigo</a></li>
