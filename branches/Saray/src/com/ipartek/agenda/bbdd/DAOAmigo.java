@@ -45,19 +45,20 @@ public class DAOAmigo implements IDAOAmigo {
 
 	public int insertAmigo(Amigo a) {
 		String sqlInsert = "insert into agenda.amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		String sqlId = "select max(id) from amigos order by nombre;";
+		String sqlId = "select max(id) from amigos;";
 		int id = -1;
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlInsert);
 			pst.setString(1, a.getNombre());
 			pst.setString(2, a.getApellido());
-			pst.setInt(3, a.getCp());
-			pst.setString(4, a.getLocalidad());
-			pst.setString(5, a.getProvincia());
-			pst.setInt(6, a.gettMovil());
-			pst.setInt(7, a.gettFijo());
-			pst.setString(6, a.getAnotaciones());
+			pst.setString(3, a.getCalle());
+			pst.setInt(4, a.getCp());
+			pst.setString(5, a.getLocalidad());
+			pst.setString(6, a.getProvincia());
+			pst.setInt(7, a.gettMovil());
+			pst.setInt(8, a.gettFijo());
+			pst.setString(9, a.getAnotaciones());
 			if (pst.executeUpdate() > 0) {
 				pst = con.prepareStatement(sqlId);
 				rs = pst.executeQuery();
