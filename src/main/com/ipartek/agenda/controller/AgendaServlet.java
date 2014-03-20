@@ -26,6 +26,7 @@ public class AgendaServlet extends HttpServlet {
 	public static final String OP_MODIFICAR = "modificar";
 	public static final String OP_ELIMINAR = "eliminar";
 	public static final String OP_VISUALIZAR = "ver";
+	public static final String OP_BUSCAR = "buscar";
 	// OPERACION A REALIZAR
 	private static String op;
 	// AMIGO
@@ -49,16 +50,15 @@ public class AgendaServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("main?seccion=ver");
 				request.setAttribute("lista", listaAmigos);
 			}
-		} else if (op.equalsIgnoreCase("eliminar")) {
-			String amigo = "";
-			if (request.getParameter("id") != null) {
-				idAmigo = Integer.parseInt(request.getParameter("id"));
-				amigo = request.getParameter("amigo");
-				request.setAttribute("amigo", amigo);
-				request.setAttribute("id", idAmigo);
-			}
-
+		} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
+			getRecogerSelecionado(request, response);
 			dispatcher = request.getRequestDispatcher("main?seccion=eliminar");
+		} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
+			getRecogerSelecionado(request, response);
+			String nombre = request.getParameter("nombre");
+			a = modelo.recogerUno(nombre);
+			request.setAttribute("amigoDatos", a);
+			dispatcher = request.getRequestDispatcher("main?seccion=modificar");
 		}
 		dispatcher.forward(request, response);
 	}
@@ -71,7 +71,10 @@ public class AgendaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int todoOk = 0;
+		int borradoSi = 0;
+		int modificadoSi = 0;
 		op = request.getParameter("op");
+		String seccion = request.getParameter("busqueda");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_ANADIR)) {
 				if (agregar(request, response) != -1) {
@@ -86,6 +89,9 @@ public class AgendaServlet extends HttpServlet {
 					dispatcher = request
 							.getRequestDispatcher("main?seccion=modificar");
 					todoOk = 1;
+					modificadoSi = 1;
+					request.setAttribute("modificadoSi", modificadoSi);
+					request.setAttribute("id", idAmigo);
 					request.setAttribute("amigo",
 							(a.getNombre() + " " + a.getApellido()));
 				}
@@ -93,16 +99,25 @@ public class AgendaServlet extends HttpServlet {
 				if (eliminar(request, response)) {
 					dispatcher = request
 							.getRequestDispatcher("main?seccion=eliminar");
-					todoOk = 1;
-					request.setAttribute("amigo", (a.getNombre().toUpperCase()
-							+ " " + a.getApellido().toUpperCase()));
+					idAmigo = -1;
+					borradoSi = 1;
+					request.setAttribute("borradoSi", borradoSi);
+					request.setAttribute("id", idAmigo);
 				}
-			} else {
-				buscador(request, response);
-				request.setAttribute("listaAmigos", listaAmigos);
-				dispatcher = request
-						.getRequestDispatcher("main?seccion=eliminar");
-				todoOk = 1;
+			} else if (op.equalsIgnoreCase(OP_BUSCAR)) {
+				if (buscador(request, response)) {
+					request.setAttribute("listaAmigos", listaAmigos);
+					dispatcher = request.getRequestDispatcher("main?seccion="
+							+ seccion);
+					todoOk = 1;
+					if (seccion.equalsIgnoreCase(OP_MODIFICAR)) {
+
+					}
+				} else {
+					todoOk = 2;
+					dispatcher = request.getRequestDispatcher("main?seccion="
+							+ seccion);
+				}
 			}
 		} else if (request.getParameter("id") != null) {
 			idAmigo = Integer.parseInt(request.getParameter("id"));
@@ -112,10 +127,27 @@ public class AgendaServlet extends HttpServlet {
 				todoOk = 1;
 			}
 		}
-		if (todoOk == 1) {
+		if (todoOk > 0) {
 			request.setAttribute("todoOk", todoOk);
 		}
 		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * Metodo para recoger los datos del amigo seleccionado en busqueda
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	private void getRecogerSelecionado(HttpServletRequest request,
+			HttpServletResponse response) {
+		String amigo = "";
+		if (request.getParameter("id") != null) {
+			idAmigo = Integer.parseInt(request.getParameter("id"));
+			amigo = request.getParameter("amigo");
+			request.setAttribute("amigo", amigo);
+			request.setAttribute("id", idAmigo);
+		}
 	}
 
 	/**
@@ -162,9 +194,7 @@ public class AgendaServlet extends HttpServlet {
 	private boolean eliminar(HttpServletRequest request,
 			HttpServletResponse response) {
 		log.trace("metodo eliminar init");
-		op = OP_ELIMINAR;
 		boolean result = true;
-		// recogerDatosAmigo(request, response);
 		if (!modelo.eliminar(idAmigo)) {
 			result = false;
 			log.warn("ATENCION no se ha podido eliminar el amigo con id ["

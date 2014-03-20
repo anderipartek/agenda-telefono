@@ -12,9 +12,6 @@
 	<%} else { 
 		String amigo = (String) request.getAttribute("amigo");
 	%>	
-		<p>Se ha añadido correctamente a <%=amigo %> a la agenda</p>
+		<p class="txt">Se ha añadido correctamente a <%=amigo %> a la agenda</p>
 		<%@ include file="core/model/forms/anadir.jsp"%>
-		<%--<%@ include file="todoOk.jsp"%>
-		<span>todoOK = <%=todOk%></span>
-			--%>
-		<%} %>
+	<%} %>
