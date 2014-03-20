@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.agenda.bbdd.ConnectionFactory;
 import com.ipartek.agenda.bbdd.DAOAmigo;
 import com.ipartek.agenda.bean.Amigo;
+import com.ipartek.agenda.exception.AmigoException;
 
 /**
  * Servlet implementation class MainServlet
@@ -28,7 +29,7 @@ public class MainServlet extends ServletMaestro {
 	DAOAmigo daoAmigo;
 	RequestDispatcher dispatcher = null;
 	ConnectionFactory factory;
-
+	String textoError;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -56,8 +57,12 @@ public class MainServlet extends ServletMaestro {
 		request.setAttribute("seccion", seccion);
 
 		if (ANADIR.equals(seccion)) {
+			
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
+			//nombre del formulario al buscar
+			String form="modificar";
+			request.setAttribute("form",form );
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
@@ -81,42 +86,43 @@ public class MainServlet extends ServletMaestro {
 		request.setAttribute("accion", accion);
 
 		if ("anadir".equals(accion)) {
-			crearAmigo(request, response);
+			crearAmigo(request,response);
+
+		} else if ("modificar".equals(accion)) {
 			
-		}else if("modificar".equals(accion)){
-			modificarAmigo(request,response);
+			String id=request.getParameter("id");
+			modificarAmigo(request, response,id);
 		}
-		
+
 		dispatcher.forward(request, response);
 	}
 
 	private void modificarAmigo(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,String id) {
 		Amigo a = new Amigo();
-		String id = request.getParameter(daoAmigo.ID);
-		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
-		String calle = request.getParameter("calle");
-		int cp = Integer.parseInt(request.getParameter("CP"));
-		String localidad = request.getParameter("localidad");
-		String provincia = request.getParameter("provincia");
-		int movil = Integer.parseInt(request.getParameter("movil"));
-		int fijo = Integer.parseInt(request.getParameter("fijo"));
+		int idAmigo = Integer.parseInt(request.getParameter(id));
+		a.setId(idAmigo);
+		
+		a.setNombre(request.getParameter("nombre"));
+		a.setApellido(request.getParameter("apellido"));
+		a.setCalle(request.getParameter("calle"));
+		a.setCp(Integer.parseInt(request.getParameter("CP")));
+		a.setLocalidad(request.getParameter("localidad"));
+		a.setProvincia(request.getParameter("provincia"));
+		a.settMovil(Integer.parseInt(request.getParameter("movil")));
+		a.settFijo(Integer.parseInt(request.getParameter("fijo")));
 
-		a.setNombre(nombre);
-		a.setApellido(apellido);
-		a.setCalle(calle);
-		a.setCp(cp);
-		a.setLocalidad(localidad);
-		a.setProvincia(provincia);
-		a.settFijo(fijo);
-		a.settMovil(movil);
 		boolean result = factory.getDAOAmigo().update(a);
-		if(result){
-			
+		if (result) {
+			request.setAttribute("amigo", a);
+			dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		}else{
+			textoError="Error en la modificacion del contacto";
+			request.setAttribute("mensaje", textoError);
 		}
 		
-		
+		dispatcher = request.getRequestDispatcher("modificar.jsp");
+
 	}
 
 	/*
@@ -125,28 +131,18 @@ public class MainServlet extends ServletMaestro {
 	 * }
 	 */
 
-	private void crearAmigo(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
+	private void crearAmigo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		Amigo a = new Amigo();
-		// String id = request.getParameter(daoAmigo.ID);
-		String nombre = request.getParameter("nombre");
-		String apellido = request.getParameter("apellido");
-		String calle = request.getParameter("calle");
-		int cp = Integer.parseInt(request.getParameter("CP"));
-		String localidad = request.getParameter("localidad");
-		String provincia = request.getParameter("provincia");
-		int movil = Integer.parseInt(request.getParameter("movil"));
-		int fijo = Integer.parseInt(request.getParameter("fijo"));
-
-		a.setNombre(nombre);
-		a.setApellido(apellido);
-		a.setCalle(calle);
-		a.setCp(cp);
-		a.setLocalidad(localidad);
-		a.setProvincia(provincia);
-		a.settFijo(fijo);
-		a.settMovil(movil);
+		a.setNombre(request.getParameter("nombre"));
+		a.setApellido(request.getParameter("apellido"));
+		a.setCalle(request.getParameter("calle"));
+		a.setCp(Integer.parseInt(request.getParameter("CP")));
+		a.setLocalidad(request.getParameter("localidad"));
+		a.setProvincia(request.getParameter("provincia"));
+		a.settMovil(Integer.parseInt(request.getParameter("movil")));
+		a.settFijo(Integer.parseInt(request.getParameter("fijo")));
+		
 		int result = factory.getDAOAmigo().insertAmigo(a);
 		
 		if(result != -1){
@@ -162,8 +158,5 @@ public class MainServlet extends ServletMaestro {
 			request.setAttribute("telefono", telefonoError);
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		}
-
 	}
-
-	
 }

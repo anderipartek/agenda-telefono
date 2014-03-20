@@ -14,7 +14,7 @@
 	<ul class="links">
 		<li><a href="main?seccion=anadir" class="boton anadir">añadir a un amigo</a></li>
 		<li><a href="main?seccion=modificar" class="boton modificar">modificar a un amigo</a></li>
-		<li><a href="index.jsp?seccion=eliminar" class="boton eliminar">eliminar a un amigo</a></li>
+		<li><a href="main?seccion=eliminar" class="boton eliminar">eliminar a un amigo</a></li>
 	</ul>
 </div>
 

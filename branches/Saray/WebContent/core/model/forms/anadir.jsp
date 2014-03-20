@@ -29,7 +29,7 @@
 		   	}
 		%>
 		
-		<form method="post" action="main">				
+		<form method="post" action="main?seccion=anadir">				
 			<input type="text" placeholder="nombre" name="nombre" value=<%=a.getNombre() %>>
 			<input type="text" placeholder="apellido" name="apellido" value="<%=a.getApellido() %>">
 			<input type="text" placeholder="calle" name="calle" value="<%=a.getCalle() %>">
