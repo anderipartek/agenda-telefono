@@ -36,6 +36,15 @@ public class Amigo {
 
 	public Amigo() {
 		super();
+		this.nombre = "Nombre";
+		this.apellido = "Apellido";
+		this.calle = "Calle";
+		this.cp = 00000;
+		this.localidad = "Localidad";
+		this.provincia = "Provincia";
+		this.tMovil = 609999999;
+		this.tFijo = 999999999;
+		this.anotaciones = "Anotaciones";
 		
 	}
 
