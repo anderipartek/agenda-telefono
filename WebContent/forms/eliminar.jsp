@@ -61,7 +61,7 @@
 		
 		function drawContainer(){
 			$('#listContainer').append('<p class="txt">Seleccionalo de la lista</p>')
-				.append('<ul class="amigos modify" id="listaAmigosModificar">')
+				.append('<ul class="amigos del" id="listaAmigosModificar">')
 				.append('</ul');
 		}
 		
