@@ -1,7 +1,6 @@
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.agenda.bbdd.ModeloAmigo"%>
-<!DOCTYPE html>
 <%@ include file="inc/head.jsp"%>
 <!-- HEADER -->
 <%@ include file="inc/header.jsp" %>

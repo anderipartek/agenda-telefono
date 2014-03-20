@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.ipartek.agenda.bean.Amigo;
 /**
- * Interfaz que declara los métodos que podrá utilizar la clase DAOAmigo
+ * Interfaz que declara los mï¿½todos que podrï¿½ utilizar la clase DAOAmigo
  * @author Eduardo Monterrubio
  *
  */
@@ -41,11 +41,11 @@ public interface IAmigable {
      */
     public Amigo obtenerAmigoByID(int id);
     /**
-     * Metodo que obtiene un Amigo por nombre
+     * Metodo que obtiene Amigos por nombre
      * @param nombre a buscar
-     * @return Amigo a
+     * @return ArrayList<Amigo> amigos
      */
-    public Amigo obtenerAmigoByNombre(String nombre);
+    public ArrayList<Amigo> obtenerAmigosByNombre(String nombre);
     
     
     

@@ -23,6 +23,7 @@ public class DAOAmigo implements IAmigable {
 	static PreparedStatement pst=null;
 	static ResultSet rs=null;
 	static Amigo a=null;
+	static ArrayList<Amigo> amigos;
 	private final static Logger log=Logger.getLogger(DAOAmigo.class);
     public DAOAmigo(){
     	factory=ConnectionFactory.getInstance();
@@ -243,8 +244,9 @@ public class DAOAmigo implements IAmigable {
 
 	}
 	@Override
-	public Amigo obtenerAmigoByNombre(String nombre) {
+	public ArrayList<Amigo> obtenerAmigosByNombre(String nombre) {
 		log.trace("Inicio ObtenerAmigosByNombre");
+		amigos=new ArrayList<Amigo>();
 		String sqlAmigo = "select * from amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
@@ -255,6 +257,9 @@ public class DAOAmigo implements IAmigable {
 			while (rs.next()) {
 				datosAmigo(rs);
 				log.info("Amigo obtenido por nombre");
+				amigos.add(a);
+				log.info("Amigo añadido a la lista de Amigos que coinciden con el mismo nombre");
+				
 			}
 			
 		 
@@ -271,7 +276,7 @@ public class DAOAmigo implements IAmigable {
 			
 		}
 		log.trace("Fin obtenerAmigoByNombre");
-		return a;
+		return amigos;
 	}
 	
    

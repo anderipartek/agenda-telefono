@@ -1,6 +1,6 @@
 
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf8"
+    pageEncoding="utf8"%>
 <%@include file="inc/head.jsp"%>
   
    <!-- HEADER -->
