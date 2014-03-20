@@ -1,10 +1,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
-<!DOCTYPE html>
+
 <%@ include file="../../../inc/head.jsp"%>
 <!-- HEADER -->
-<%@ include file="../../../inc/header.jsp" %>
 <body>
+<%@ include file="../../../inc/header.jsp" %>
+
 <%@ include file="buscador.jsp"%>
 <div class="contain">
             <%String msg=(String)request.getAttribute("Mensaje");
@@ -87,7 +88,7 @@
 			
 			
 			<div class="botones">
-				<a title="" href="core/model/forms/modificar.jsp">cancelar</a>
+				
 				<input type="submit" value="modificar" name="modificar" class="boton modificar">
 			</div>
 		</form>
