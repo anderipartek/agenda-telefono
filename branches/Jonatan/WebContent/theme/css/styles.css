@@ -27,7 +27,7 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 	.content { margin-top: 3em;}
 
 		form { }
-			form input[type=text], form textarea { width: 49%; height: 2.5em; border:0; opacity: 0.9; padding: .3em .5em; color:#aaa9bf; background-color: #d5d3f0; border-radius: 0.3em; margin-right: .5em; margin-top: 2em; display: inline-block; font:1em/1 'Raleway'; }
+			form input[type=text], form textarea { width: 49%; height: 2.5em; border:0; opacity: 0.9; padding: .3em .5em; color:#000; placeholder-color:#aaa9bf; background-color: #d5d3f0; border-radius: 0.3em; margin-right: .5em; margin-top: 2em; display: inline-block; font:1em/1 'Raleway'; }
 			form textarea { width: 99.5%; height: 5em; resize: none; }
 
 			form input[type=text]:nth-child(2n+2) { margin-right: 0; }
@@ -59,10 +59,10 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 				.contain p span { font-size: 1.3em;}
 			.contain h3 { font-size: 1.8em; margin-bottom: 1em;}
 
-		table { margin: 2em auto; width: 100%; font-size: .8em;}
-			table th, table td { padding: .5em; vertical-align: middle;}
-			table th { background: #000; color: #fff; font-size: 1.2em;}
-			table td { vertical-align: top; border-bottom: 1px solid #d5d5d5;}
+/* 		table { margin: 2em auto; width: 100%; font-size: .8em;} */
+/* 			table th, table td { padding: .5em; vertical-align: middle;} */
+/* 			table th { background: #000; color: #fff; font-size: 1.2em;} */
+/* 			table td { vertical-align: top; border-bottom: 1px solid #d5d5d5;} */
 
 		.amigos { margin-top: 2em;}
 			.amigos li { display: block; margin-bottom:1em; }
