@@ -22,16 +22,16 @@
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="calle" name="calle" value="<%=amigo.getCalle()%>">
-			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp" value="<%=amigo.getCp()%>">
+			<input type="text" pattern="[0-9]{5}" placeholder="cp" name="cp" value="<%if(amigo.getCp()!=0){%><%=amigo.getCp() %><%}%>">
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="localidad" name="localidad" value="<%=amigo.getLocalidad()%>">
 			<input type="text" pattern=[A-Za-z]{2,25} placeholder="provincia" name="provincia" value="<%=amigo.getProvincia()%>">
-			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="<%=amigo.getMovil()%>">
-			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<%=amigo.getFijo()%>">
+			<input type="text" pattern="[0-9]{9}" placeholder="móvil " name="movil" value="<%if(amigo.getMovil()!=0){%><%=amigo.getMovil() %><%}%>">
+			<input type="text" pattern="[0-9]{9}" placeholder="fijo " name="fijo" value="<%if(amigo.getFijo()!=0){%><%=amigo.getFijo() %><%}%>">
 			<textarea name="anotaciones" placeholder="anotaciones"></textarea>
 			
 			<div class="botones">
 				<a title="" href="main">cancelar</a>
-				<input type="submit" value="añadir" name="operacion" class="boton anadir">
+				<input type="submit" value="anadir" name="operacion" class="boton anadir">
 			</div>
 		</form>
 	</div>

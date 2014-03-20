@@ -12,6 +12,7 @@
 		<%
 		if (request.getAttribute("amigo") != null){
 			Amigo amigo = (Amigo)request.getAttribute("amigo");
+			if (amigo != null){
 			%>		
 				<form method="post">
 					<p>¿Desea eliminar realmente a su amigo?</p>
@@ -23,7 +24,7 @@
 							value="eliminar" name="operacion" class="boton modificar">
 					</div>
 				</form>		
-			<%
+			<%}
 		}
 	%>
 	
