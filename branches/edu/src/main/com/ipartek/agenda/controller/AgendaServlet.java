@@ -75,8 +75,18 @@ public class AgendaServlet extends ServletMaestro {
 		//redirigir a borrar
 		else if("eliminar".equals(operacion)){
 			log.trace("Redirigiendo a eliminar.jsp" );
+			String form="Del";
+			request.setAttribute("form",form );
 			dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 			
+		}
+		//redirigir a modificar
+		else if("modificar".equals(operacion)){
+			log.trace("Redirigiendo a modificar.jsp");
+			//Para saber de que formulario llama a buscar
+			String form="Mod";
+			request.setAttribute("form",form );
+			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
 		}
 		
 		//redirigir a index
@@ -103,12 +113,18 @@ public class AgendaServlet extends ServletMaestro {
 		}
 		//submit buscar
 		else if ("buscar".equals(operacion)){
-			buscar(request,response);
+		  String form=request.getParameter("op");	
+		  buscar(request,response,form);
 			
 		}
 		//submit eliminar
 		else if ("eliminar".equals(operacion)){
 			delete(request,response);
+		}
+		//submit modificar
+		else if ("modificar".equals(operacion)){
+			String id=request.getParameter("id");
+			modificar(request,response,id);
 		}
 		try {
 			dispatcher.forward(request, response);
@@ -120,21 +136,78 @@ public class AgendaServlet extends ServletMaestro {
 		
 	}
 
+	private void modificar(HttpServletRequest request,
+			HttpServletResponse response,String idAmigo) {
+		    log.trace("Modificando Amigo");
+		    //parseo amigo
+		    
+		    int id=Integer.parseInt(idAmigo);
+		    try {
+				a=parsearAmigo(request,id);
+				if (model.update(a, id)){
+					texto="Alumno modificado correctamente";
+					request.setAttribute("Mensaje", texto);
+					request.setAttribute("Amigo", a);
+					
+			    }
+			} catch (AmigoException e) {
+				texto=e.getMensaje();
+				request.setAttribute("Mensaje", texto);
+				
+			}
+		    
+		    dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
+	}
+
+	private Amigo parsearAmigo(HttpServletRequest request,int id) throws AmigoException {
+		log.trace("Parseando Amigo desde formulario");
+		int cp;
+		a.setId(id);
+		a.setNombre(request.getParameter("nombre"));
+		a.setApellido(request.getParameter("apellido"));
+		a.setCalle(request.getParameter("calle"));
+		cp=Integer.parseInt(request.getParameter("cp"));
+		a.setCp(cp);
+		a.setFijo(Integer.parseInt(request.getParameter("fijo")));
+		a.setMovil(Integer.parseInt(request.getParameter("movil")));
+		a.setLocalidad(request.getParameter("localidad"));
+		a.setProvincia(request.getParameter("provincia"));
+		a.setAnotaciones(request.getParameter("anotaciones"));
+		log.info("Amigo parseado correctamente");
+		
+		return a;
+		
+	}
+		
+	
+
 	private void delete(HttpServletRequest request, HttpServletResponse response) {
 		log.trace("eliminando Amigo");
 		String idAmigo=request.getParameter("id");
 		int id=Integer.parseInt(idAmigo);
 		model.delete(id);
+		texto="Amigo eliminado correctamente";
 		request.setAttribute("Mensaje", texto);
-		dispatcher = request.getRequestDispatcher("core/model/forms/ver.jsp");
+		dispatcher = request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 		
 	}
 
-	private void buscar(HttpServletRequest request, HttpServletResponse response) {
+	private void buscar(HttpServletRequest request, HttpServletResponse response,String form) {
 		log.trace("buscando");
 		a=model.getAlumnoByNombre(request.getParameter("nombre"));
 		request.setAttribute("Amigo", a);
-		dispatcher = request.getRequestDispatcher("core/model/forms/eliminar.jsp");
+		if (a==null){
+			texto="No se ha encontrado ningun amigo con ese nombre";
+			request.setAttribute("Mensaje", texto);
+		}
+		//en función de que formulario venga
+		if ("Mod".equals(form)){
+			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
+		}
+		else if ("Del".equals(form)){
+			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
+		}
+		
 		
 	}
 
