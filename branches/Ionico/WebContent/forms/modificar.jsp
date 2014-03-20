@@ -17,15 +17,15 @@
 		%>
 		
 		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="text" placeholder="nombre" name="nombre" value="<?php echo $result_row[1]; ?>">
-			<input type="text" placeholder="apellido" name="apellido" value="<?php echo $result_row[2]; ?>">
-			<input type="text" placeholder="calle" name="calle" value="<?php echo $result_row[3]; ?>">
-			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="<?php echo $result_row[4]; ?>">
-			<input type="text" placeholder="localidad" name="localidad" value="<?php echo $result_row[5]; ?>">
-			<input type="text" placeholder="provincia" name="provincia" value="<?php echo $result_row[6]; ?>">
-			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="<?php echo $result_row[7]; ?>">
-			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<?php echo $result_row[8]; ?>">
-			<textarea name="anotaciones" placeholder="anotaciones"><?php echo $result_row[9]; ?></textarea>
+			<input type="text" placeholder="nombre"">
+			<input type="text" placeholder="apellido"">
+			<input type="text" placeholder="calle"">
+			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP"">
+			<input type="text" placeholder="localidad" name="localidad">
+			<input type="text" placeholder="provincia" name="provincia">
+			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil">
+			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo">
+			<textarea name="anotaciones" placeholder="anotaciones"></textarea>
 			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
 			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">
 			
