@@ -69,7 +69,7 @@ public class DAOAmigo implements IDAOAmigo {
 			id = -1;
 		} catch (Exception ex) {
 			log.warn("Ha ocurrido un error desconocido al insertar alumno"
-					+ ex.getStackTrace());
+					+ ex.getMessage());
 			id = -1;
 		}
 
@@ -119,7 +119,8 @@ public class DAOAmigo implements IDAOAmigo {
 				datosAmigo(rs, amigo);
 				listaAmigos.add(amigo);
 			}
-			log.trace("Obtenidos " + listaAmigos.size() + " amigos con nombre " + nombre);
+			log.trace("Obtenidos " + listaAmigos.size() 
+					+ " amigos con nombre " + nombre);
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
