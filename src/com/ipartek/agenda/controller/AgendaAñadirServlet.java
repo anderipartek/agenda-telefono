@@ -39,7 +39,7 @@ public class AgendaAñadirServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -63,6 +63,7 @@ public class AgendaAñadirServlet extends HttpServlet {
 		int movil = Integer.parseInt(request.getParameter("movil"));
 		int fijo = Integer.parseInt(request.getParameter("fijo"));
 		String anotaciones = request.getParameter("anotaciones");
+		String añadir = request.getParameter("anadir");
 		
 		//metemos los datos en un objeto de tipo amigo
 		Amigo amigoDePrueba = new Amigo();
@@ -76,15 +77,16 @@ public class AgendaAñadirServlet extends HttpServlet {
 		amigoDePrueba.setNumFijo(fijo);
 		amigoDePrueba.setAnotaciones(anotaciones);
 		
+		request.setAttribute("añadido", amigoDePrueba);
 		//insertamos el amigo en la bd
-	/*	if(amigoDePrueba!= null){
+		if(amigoDePrueba!= null){
 			if(dao.insertarAmigo(amigoDePrueba)!= -1){
-				request.setAttribute("detalleAlumno", amigoDePrueba);
+				request.setAttribute("amigoDePrueba", amigoDePrueba);
 			}
 		}
-	*/	
 		
-		dao.insertarAmigo(amigoDePrueba);
+		
+		
 		//si se inserta bien, vamos a ver.jsp para ver el resultado 
 			dispatcher  = request.getRequestDispatcher("ver.jsp");
 			dispatcher.forward(request, response);
