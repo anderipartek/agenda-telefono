@@ -1,6 +1,18 @@
 package com.ipartek.agenda.utiles;
 
-public class AmigoUtil {
+/**
+ * Clase para realizar validaciones tales como nombre, apellido, cp y telefonos.
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
+ */
+public final class AmigoUtil {
+	/**
+	 * Constructor final sin uso.
+	 */
+	private AmigoUtil() {
+	}
 
 	/**
 	 * Se hace un trim antes de validar (quitar blancos delante y detrás del
@@ -17,7 +29,7 @@ public class AmigoUtil {
 	 * </ol>
 	 * 
 	 * @param nombre del amigo a chequear
-	 * @return <b>True</b> si cumple las condiciones <b>False</b> en caso de no
+	 * @return <b>TRUE</b> si cumple las condiciones <b>FALSE</b> en caso de no
 	 *         cumplirlas
 	 */
 	public static boolean checkNombre(final String nombre) {
@@ -50,14 +62,15 @@ public class AmigoUtil {
 	}
 
 	/**
-	 * Metodo para validar el Codigo Postal
+	 * Metodo para validar el Codigo Postal.
 	 * <ul>
 	 * <li>Deben estar comprendidos entre 0 -9</li>
 	 * <li>Debe tener una longitud de 5</li>
 	 * </ul>
 	 * 
-	 * @param cp
-	 * @return
+	 * @param cp codigo postal
+	 * @return <b>TRUE</b> si es correcto el CP / <b>FALSE</b> si no es correcto
+	 *         el CP
 	 */
 	public static boolean checkCP(final int cp) {
 		boolean result = false;

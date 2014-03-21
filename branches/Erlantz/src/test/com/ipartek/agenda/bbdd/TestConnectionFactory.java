@@ -16,34 +16,70 @@ import org.junit.Test;
 
 import com.ipartek.agenda.interfaces.IAmigable;
 
+/**
+ * Test de la clase ConnectionFactory.
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
+ */
 public class TestConnectionFactory {
 
+	/**
+	 * 
+	 */
 	static ConnectionFactory factory;
+	/**
+	 * 
+	 */
 	static Connection con;
 
+	/**
+	 * se ejecuta al principio del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		//
 	}
 
+	/**
+	 * se ejecuta al final del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		con.close();
 		factory.closeConnection();
 	}
 
+	/**
+	 * Se ejecuta antes de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public final void setUp() throws Exception {
 		factory = ConnectionFactory.getInstance();
 	}
 
+	/**
+	 * Se ejecuta después de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@After
-	public void tearDown() throws Exception {
+	public final void tearDown() throws Exception {
 		//
 	}
 
+	/**
+	 * test para comprobar el metodo getConnection.
+	 */
 	@Test
-	public void testGetConnection() {
+	public final void testGetConnection() {
 		try {
 			con = factory.getConnection();
 			assertNotNull(con);
@@ -52,14 +88,20 @@ public class TestConnectionFactory {
 		}
 	}
 
+	/**
+	 * Test para comprobar el método getInstance.
+	 */
 	@Test
-	public void testGetInstance() {
+	public final void testGetInstance() {
 		factory = ConnectionFactory.getInstance();
 		assertSame(factory, ConnectionFactory.getInstance());
 	}
 
+	/**
+	 * Test para comprobar el método closeConnection.
+	 */
 	@Test
-	public void testCloseConnection() {
+	public final void testCloseConnection() {
 		try {
 			factory.closeConnection();
 			assertTrue(true);
@@ -68,8 +110,13 @@ public class TestConnectionFactory {
 		}
 	}
 
+	/**
+	 * Test para comprobar el método getDAOAmigo.
+	 * 
+	 * @throws SQLException excepcion SQL
+	 */
 	@Test
-	public void testGetDAOAmigo() throws SQLException {
+	public final void testGetDAOAmigo() throws SQLException {
 
 		IAmigable daoAmigo = factory.getDAOAmigo();
 		factory.getConnection();

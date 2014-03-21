@@ -15,12 +15,33 @@ import org.junit.Test;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.excepciones.AmigoExcepcion;
 
+/**
+ * Test para modelo amigo.
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
+ */
 public class TestModeloAmigo {
 
+	/**
+	 * 
+	 */
 	static ModeloAmigo modelo;
+	/**
+	 * 
+	 */
 	static Amigo a;
+	/**
+	 * 
+	 */
 	static HashMap<Integer, Amigo> lista;
 
+	/**
+	 * se ejecuta al principio del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		modelo = new ModeloAmigo();
@@ -28,32 +49,53 @@ public class TestModeloAmigo {
 		a = new Amigo();
 	}
 
+	/**
+	 * se ejecuta al final del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	/**
+	 * Se ejecuta antes de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public final void setUp() throws Exception {
 		if (a == null) {
 			a = new Amigo();
 		}
 	}
 
+	/**
+	 * Se ejecuta después de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@After
-	public void tearDown() throws Exception {
+	public final void tearDown() throws Exception {
 		a = null;
 	}
 
+	/**
+	 * test de insertar amigo.
+	 */
 	@Test
-	public void testInsertAmigo() {
+	public final void testInsertAmigo() {
 		int id = modelo.insertar(a);
 		assertTrue("Se ha insertado el amigo", id > 0);
 		assertEquals(id, a.getId());
 		assertTrue(modelo.eliminar(id));
 	}
 
+	/**
+	 * test de recoger todos los amigos.
+	 */
 	@Test
-	public void testGetAllAmigo() {
+	public final void testGetAllAmigo() {
 		int id = modelo.insertar(a);
 		if (id > 0) {
 			lista = modelo.recogerTodos();
@@ -67,8 +109,11 @@ public class TestModeloAmigo {
 
 	}
 
+	/**
+	 * test de modificar amigos.
+	 */
 	@Test
-	public void testUpdateAmigo() {
+	public final void testUpdateAmigo() {
 		try {
 			int id = modelo.insertar(a);
 			if (id > 0) {
@@ -83,8 +128,11 @@ public class TestModeloAmigo {
 		}
 	}
 
+	/**
+	 * test de recoger amigos por nombre.
+	 */
 	@Test
-	public void testGetAlumnoByName() {
+	public final void testGetAlumnoByName() {
 		int id = modelo.insertar(a);
 		if (id > 0) {
 			Amigo b = modelo.recogerUno(a.getNombre());

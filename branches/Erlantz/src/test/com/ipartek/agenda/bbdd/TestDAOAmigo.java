@@ -15,12 +15,33 @@ import org.junit.Test;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.excepciones.AmigoExcepcion;
 
+/**
+ * Test para DAOAmigo.
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
+ */
 public class TestDAOAmigo {
 
+	/**
+	 * 
+	 */
 	static DAOAmigo dao;
+	/**
+	 * 
+	 */
 	static Amigo a;
+	/**
+	 * 
+	 */
 	static HashMap<Integer, Amigo> lista;
 
+	/**
+	 * se ejecuta al principio del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		dao = new DAOAmigo();
@@ -28,32 +49,53 @@ public class TestDAOAmigo {
 		a = new Amigo();
 	}
 
+	/**
+	 * se ejecuta al final del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	/**
+	 * Se ejecuta antes de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public final void setUp() throws Exception {
 		if (a == null) {
 			a = new Amigo();
 		}
 	}
 
+	/**
+	 * Se ejecuta después de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@After
-	public void tearDown() throws Exception {
+	public final void tearDown() throws Exception {
 		a = null;
 	}
 
+	/**
+	 * testeo de insertar.
+	 */
 	@Test
-	public void testInsertAmigo() {
+	public final void testInsertAmigo() {
 		int id = dao.insertAmigo(a);
 		assertTrue("Se ha insertado el amigo", id > 0);
 		assertEquals(id, a.getId());
 		assertTrue(dao.deleteAmigo(id));
 	}
 
+	/**
+	 * testeo de recoger todos los amigos.
+	 */
 	@Test
-	public void testGetAllAmigo() {
+	public final void testGetAllAmigo() {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			lista = dao.getAllAmigo();
@@ -67,8 +109,11 @@ public class TestDAOAmigo {
 
 	}
 
+	/**
+	 * testeo de modificacion de amigo.
+	 */
 	@Test
-	public void testUpdateAmigo() {
+	public final void testUpdateAmigo() {
 		try {
 			int id = dao.insertAmigo(a);
 			if (id > 0) {
@@ -83,8 +128,11 @@ public class TestDAOAmigo {
 		}
 	}
 
+	/**
+	 * testeo de recoger amigo por nombre.
+	 */
 	@Test
-	public void testGetAlumnoByName() {
+	public final void testGetAlumnoByName() {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			Amigo b = dao.getAmigoByName(a.getNombre());
@@ -96,8 +144,11 @@ public class TestDAOAmigo {
 		}
 	}
 
+	/**
+	 * testeo de recoger todos los amigos por un nombre.
+	 */
 	@Test
-	public void testGetAllByName() {
+	public final void testGetAllByName() {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			lista = dao.getAllByName(a.getNombre());
