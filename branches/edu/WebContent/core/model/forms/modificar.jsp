@@ -44,23 +44,27 @@
             
 			
 			<ul class="amigos modify">
-			
+			<li>
 			<%
 		if (amigos!=null){%>
 		    <p class="txt">Seleccionalo de la lista</p>
-			<li>
+			
 			<form action="agenda?operacion=datos" method="post">
-			<% for (int i = 0 ; i < amigos.size(); i++) { 
-				Amigo amigo = amigos.get(i);
+			<% for (int i = 0 ; i < amigos.size(); i++) {%> 
+				
+				<% Amigo amigo = amigos.get(i);
 				nombreApe = amigo.getNombre() + " " + amigo.getApellido();
-			%>
+				%>
+			    
 				<input type="submit" name="amigo" value="<%=nombreApe%>">
 				<input type="hidden" name="id" value="<%=amigo.getId()%>">
 						
-			</form>
-				</li>
+			
+				
 			<%} // END FOR%>
+			</form>
 			<%}//END IF%>
+			</li>
 			</ul>
 		
 			
