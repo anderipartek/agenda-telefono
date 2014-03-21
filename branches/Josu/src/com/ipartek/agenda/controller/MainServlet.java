@@ -140,7 +140,7 @@ public class MainServlet extends AgendaServletMaestro {
 		// obtener Alumnos
 		Amigo a = modelAmigo.getAmigoById(idAmigo);
 		// enviar datos en la request a la JSP
-		request.setAttribute("detalleAmigo(HttpServletRequest, HttpServletResponse)", a);
+		request.setAttribute("detalleAmigo", a);
 		// post method
 		request.setAttribute("method", "post");
 		request.setAttribute("title", "Modificar amigo");
