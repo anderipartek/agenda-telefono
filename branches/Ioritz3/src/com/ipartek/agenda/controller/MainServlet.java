@@ -216,7 +216,7 @@ private void crearContacto(HttpServletRequest request, HttpServletResponse respo
 		
 		
 		//dispatcher
-		dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		dispatcher = request.getRequestDispatcher("index.jsp");
 		
 		
 		
