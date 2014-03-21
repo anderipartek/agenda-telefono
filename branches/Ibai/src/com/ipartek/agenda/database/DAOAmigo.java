@@ -61,6 +61,7 @@ public class DAOAmigo implements IDAOAmigo {
 				rs.next();
 				id = (rs.getInt(1));
 				amigo.setId(id);
+				log.trace("Amigo " + amigo.getNombre() + " insertado");
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -76,53 +77,55 @@ public class DAOAmigo implements IDAOAmigo {
 
 	@Override
 	public final ArrayList<Amigo> getAll() {
-		ArrayList<Amigo> listaAlumnos = null;
+		ArrayList<Amigo> listaAmigos = null;
 		Amigo amigo;
 		sqlAll = "SELECT * FROM agenda.amigos";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
-			listaAlumnos = new ArrayList<Amigo>();
+			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAll);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				amigo = new Amigo();
 				datosAmigo(rs, amigo);
-				listaAlumnos.add(amigo);
+				listaAmigos.add(amigo);
 			}
+			log.trace("Obtenidos " + listaAmigos.size() + " amigos");
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
 			log.warn("Ha ocurrido un error desconocido"
 					+ " al recoger todos los datos de alumnos");
 		}
-		return listaAlumnos;
+		return listaAmigos;
 	}
 
 	@Override
-	public final ArrayList<Amigo> getByName(final String value) {
-		ArrayList<Amigo> listaAlumnos = null;
+	public final ArrayList<Amigo> getByName(final String nombre) {
+		ArrayList<Amigo> listaAmigos = null;
 		Amigo amigo;
 		sqlAll = "SELECT * FROM agenda.amigos where nombre like ?;";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
-			listaAlumnos = new ArrayList<Amigo>();
+			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAll);
-			pst.setString(1, value + "%");
+			pst.setString(1, nombre + "%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				amigo = new Amigo();
 				datosAmigo(rs, amigo);
-				listaAlumnos.add(amigo);
+				listaAmigos.add(amigo);
 			}
+			log.trace("Obtenidos " + listaAmigos.size() + " amigos con nombre " + nombre);
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
 			log.warn("Ha ocurrido un error desconocido"
 					+ " al recoger todos los datos de alumnos");
 		}
-		return listaAlumnos;
+		return listaAmigos;
 	}
 
 	@Override
@@ -161,8 +164,10 @@ public class DAOAmigo implements IDAOAmigo {
 			setPst(amigo);
 			if (pst.executeUpdate() == 1) {
 				result = true;
+				log.trace(amigo.getNombre() + " modificado");
 			} else {
 				result = false;
+				log.error("Error al modificar el amigo " + amigo.getNombre());
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -183,8 +188,10 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setInt(1, id);
 			if ((pst.executeUpdate()) == 1) {
 				result = true;
+				log.trace("Amigo con id " + id + " eliminado");
 			} else {
 				result = false;
+				log.error("Error ale limnar amigo con id " + id);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
