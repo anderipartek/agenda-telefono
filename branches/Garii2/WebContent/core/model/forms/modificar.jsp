@@ -20,7 +20,9 @@
 		<%
 			Amigo amigo =(Amigo) request.getAttribute("amigomodificar");
 			if(amigo!=null){%>
-		
+			
+			
+		<%@ include file="../../../mensaje.jsp" %>
 		<form method="post" action="agenda">				
 			<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre() %>">
 			<input type="text" placeholder="apellido" name="apellido" value="<%=amigo.getApellido() %>">

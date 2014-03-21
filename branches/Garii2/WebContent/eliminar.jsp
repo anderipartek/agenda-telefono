@@ -20,6 +20,7 @@
 		
 			
 				<li>
+				
 					<%	Amigo amigos = (Amigo) request.getAttribute("amigoeliminar");
 		if(amigos!=null){
 		%>

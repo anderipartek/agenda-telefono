@@ -62,7 +62,7 @@
 				<td><%=amigo.getFijo() %></td>
 				<td><%=amigo.getAnotaciones() %></td>
 
-				<% request.getAttribute("msgmodificado");%>
+				<% request.getAttribute("msg");%>
 
 
 

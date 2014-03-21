@@ -191,7 +191,7 @@ public class AgendaServlet extends ServletMaestro {
 					request.setAttribute("msg", new Mensaje("No se ha podido eliminar el amigo, por favor consulte con el administrador",0,Mensaje.TIPO_MENSAJE.INFO));
 
 				}else{
-				log.info("Alumno elimador");
+				log.info("Alumno elimado");
 				request.setAttribute("msg", new Mensaje("Amigo eliminado",200,Mensaje.TIPO_MENSAJE.INFO));
 				}		
 				
@@ -199,12 +199,12 @@ public class AgendaServlet extends ServletMaestro {
 				log.warn("DAtos Amigo no eliminado"+e.getMessage());
 				request.setAttribute("msg", new Mensaje("Datos de amigo no valido",0,Mensaje.TIPO_MENSAJE.INFO));
 			}
-
 			
-			//dispatcher = request.getRequestDispatcher("eliminar.jsp");
-			//dispatcher.forward(request, response);			
+			request.setAttribute("amigoeliminado", aborrar);
+			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			dispatcher.forward(request, response);			
 				
-				this.doPost(request, response);
+				
 				
 				log.trace("fin eliminar Amigo");
 			
@@ -321,7 +321,7 @@ public class AgendaServlet extends ServletMaestro {
 			}
 
 				
-				
+			    request.setAttribute("seccion", "modificar");
 				request.setAttribute("anadido", acrear);
 				dispatcher = request.getRequestDispatcher("anadir.jsp");
 				dispatcher.forward(request, response);

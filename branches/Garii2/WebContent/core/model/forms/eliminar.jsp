@@ -23,16 +23,24 @@
 	if(amigo!=null){
 
 	%>
-	<td><%=amigo.getNombre()%></td>
-	<td><%=amigo.getApellido()%></td>
+	<%=amigo.getNombre() %> <%=amigo.getApellido() %></td>
+	
+	
 
 	<form method="post" action="agenda">
 		<input type="hidden" name="id" value="<%=amigo.getId()%>"> <input
 			type="hidden" name="nombre" value="<%=amigo.getNombre()%>"> <input
 			type="hidden" name="apellido" value="<%=amigo.getApellido()%>">
 		<input type="hidden" name="op" value="eliminar">
+		
 	
 	<%}%>
+	
+	<%Amigo mensaje = (Amigo) request.getAttribute("amigoeliminado");
+	if(mensaje!=null){%>
+	<%@ include file="../../../mensaje.jsp" %>
+	
+	<%} %>
 
 		<div class="botones">
 			<a title="" href="index.jsp">cancelar</a> <a title=""
