@@ -129,9 +129,16 @@ public class AgendaServlet extends MainServlet {
 		if (amigoEncontrado != null) {
 			// Se ha encontrado sin problema
 			// devolver el amigo encontrado
-			request.setAttribute("amigo", amigoEncontrado);
+			// Obtener si se elimina o si se modifica el alumno
+			String accion = (String) request.getAttribute("name");
 			
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			request.setAttribute("amigo", amigoEncontrado);
+			if (MainServlet.OP_MODIFICAR.equalsIgnoreCase(accion)) {
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
+			}else{
+				request.setAttribute("eliminando", amigoEncontrado.getId());
+				dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			}
 
 		} else {
 			// No se ha encontrado el amigo
