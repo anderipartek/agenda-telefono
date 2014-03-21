@@ -1,3 +1,6 @@
+
+
+
 <div class="contain">
 		<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 
@@ -23,7 +26,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar">
+				<input type="submit" value="eliminar" name="accion" class="boton eliminar">
 			</div>
 		</form>
 

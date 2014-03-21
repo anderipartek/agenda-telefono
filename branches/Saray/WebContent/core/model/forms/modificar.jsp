@@ -12,49 +12,27 @@
 	<p class="txt">Seleccionalo de la lista</p>
 	<ul class="amigos modify">
 
-		<%
-			Amigo a = (Amigo) request.getAttribute("Amigo");
-			String nombre = "";
-			String apellido = "";
-			String calle = "";
-			String cp = "";
-			String localidad = "";
-			String provincia = "";
-			String movil = "";
-			String fijo = "";
-			String anotaciones = "";
-			String nombreCompleto = nombre + "  " + apellido;
-			int id = 0;
-			if (a == null) {
-				nombreCompleto = "";
 
-			} else {
-				nombreCompleto = a.getNombre() + " " + a.getApellido();
-				nombre = a.getNombre();
-				apellido = a.getApellido();
-				calle = a.getCalle();
-				cp = String.valueOf(a.getCp());
-				localidad = a.getLocalidad();
-				provincia = a.getProvincia();
-				movil = String.valueOf(a.gettMovil());
-				fijo = String.valueOf(a.gettFijo());
-				anotaciones = a.getAnotaciones();
-				id = a.getId();
 
-			}
-		%>
 		<li>
-			<form action="main?seccion=buscar" method="post">
-
-				<input type="submit" name="amigo" value='<%=nombreCompleto%>'>
-
-
+			<form action="main" method="post">
+			
+			<% 
+			
+ArrayList<Amigo> listaAmigosBuscador = (ArrayList<Amigo>) request.getAttribute("listaAmigosBuscador");
+			if(listaAmigosBuscador != null){
+			if (listaAmigosBuscador.size() > 0) {
+				for (int i = 0; i < listaAmigosBuscador.size(); i++) {
+	%>
+	<input type="submit" name="accion" value="<%=listaAmigosBuscador.get(i).getNombre()%>" onclick="mostrarDetalle()">
+			
+				
 			</form>
 		</li>
 
-
 	</ul>
 </div>
+
 
 
 
@@ -65,20 +43,20 @@
 	<form method="post" action="main?seccion=modificar">
 
 		<input type="text" placeholder="nombre" name="nombre"
-			value="<%=nombre%>"> <input type="text"
-			placeholder="apellido" name="apellido" value="<%=apellido%>">
+			value="<%=listaAmigosBuscador.get(i).getNombre()%>"> <input type="text"
+			placeholder="apellido" name="apellido" value="<%=listaAmigosBuscador.get(i).getApellido()%>">
 		<input type="text" placeholder="calle" name="calle"
-			value="<%=calle%>"> <input type="text" pattern="[0-9]{5}"
-			placeholder="cp 48004" name="cp" value="<%=cp%>"> <input
-			type="text" placeholder="localidad" name="localidad"
-			value="<%=localidad%>"> <input type="text"
-			placeholder="provincia" name="provincia" value="<%=provincia%>">
+			value="<%=listaAmigosBuscador.get(i).getCalle()%>"> <input type="text" pattern="[0-9]{5}"
+			placeholder="cp 48004" name="cp" value="<%=listaAmigosBuscador.get(i).getCp()%>"> 
+			<input type="text" placeholder="localidad" name="localidad"
+			value="<%=listaAmigosBuscador.get(i).getLocalidad()%>"> <input type="text"
+			placeholder="provincia" name="provincia" value="<%=listaAmigosBuscador.get(i).getProvincia()%>">
 		<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999"
-			name="movil" value="<%=movil%>"> <input type="text"
+			name="movil" value="<%=listaAmigosBuscador.get(i).gettMovil()%>"> <input type="text"
 			pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo"
-			value="<%=fijo%>">
-		<textarea name="anotaciones" placeholder="anotaciones">"<%=anotaciones%>"</textarea>
-		<input type="hidden" name="id" value="<%=id%>">
+			value="<%=listaAmigosBuscador.get(i).gettFijo()%>">
+		<textarea name="anotaciones" placeholder="anotaciones">"<%=listaAmigosBuscador.get(i).getAnotaciones()%>"</textarea>
+		<input type="hidden" name="id" value="<%=listaAmigosBuscador.get(i).getId()%>">
 
 
 
@@ -86,10 +64,15 @@
 
 			<input type="submit" value="modificar" name="accion"
 				class="boton modificar">
+				<input type="hidden" name="seccion" value="buscar">
 		</div>
-	</form>
-
-	<?php
+		
+	
+		<%
+				}}else{
+			out.println("no hay datos del amigo");
 		}
-		?>
+		
+	}%>
+	</form>
 </div>

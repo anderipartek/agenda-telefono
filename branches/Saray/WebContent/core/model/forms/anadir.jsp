@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="contain">
+
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
-		<%String mensaje = (String)request.getAttribute("mensaje"); 
+		<%
+		
+		String mensaje = (String)request.getAttribute("mensaje"); 
 			String nombre = (String)request.getAttribute("nombre");
 			String telefono =  (String)request.getAttribute("telefono");
 		%>

@@ -24,6 +24,11 @@
     <display-name>ServletMaestro</display-name>
     <servlet-name>ServletMaestro</servlet-name>
     <servlet-class>com.ipartek.agenda.controller.ServletMaestro</servlet-class>
+     <init-param>
+      <param-name>log4j-config</param-name>
+      <param-value>WEB-INF/config/log4j.properties</param-value>
+    </init-param>
+    <load-on-startup></load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletMaestro</servlet-name>

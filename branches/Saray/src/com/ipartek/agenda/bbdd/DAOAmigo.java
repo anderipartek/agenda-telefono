@@ -201,9 +201,9 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public boolean update(Amigo a) {
+	public boolean update(Amigo a, int id) {
 		boolean result = false;
-		String sqlUpdate = "update agenda.amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=? fijo=?, anotaciones=? where nombre = ?";
+		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=? fijo=?, anotaciones=? where id = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlUpdate);
@@ -213,8 +213,11 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setInt(4, a.getCp());
 			pst.setString(5, a.getLocalidad());
 			pst.setString(6, a.getProvincia());
-			pst.setInt(6, a.gettMovil());
-			pst.setInt(6, a.gettFijo());
+			pst.setInt(7, a.gettMovil());
+			pst.setInt(8, a.gettFijo());
+			pst.setString(9, a.getAnotaciones());
+			pst.setInt(10, id);
+			
 			if (pst.executeUpdate() == 1) {
 				result = true;
 			} else {
