@@ -132,7 +132,7 @@ public class TestDAOAmigo {
 	 * testeo de recoger amigo por nombre.
 	 */
 	@Test
-	public final void testGetAlumnoByName() {
+	public final void testGetAAmigoByName() {
 		int id = dao.insertAmigo(a);
 		if (id > 0) {
 			Amigo b = dao.getAmigoByName(a.getNombre());
@@ -153,6 +153,22 @@ public class TestDAOAmigo {
 		if (id > 0) {
 			lista = dao.getAllByName(a.getNombre());
 			Amigo b = lista.get(lista.size());
+			assertEquals("Recuperado amigo por nombre", b.toString(),
+					a.toString());
+			assertTrue(dao.deleteAmigo(id));
+		} else {
+			fail("No se ha insertado el alumno, testGetAllAmigo");
+		}
+	}
+
+	/**
+	 * testeo de recoger amigo por nombre.
+	 */
+	@Test
+	public final void testGetAmigoById() {
+		int id = dao.insertAmigo(a);
+		if (id > 0) {
+			Amigo b = dao.getAmigoById(id);
 			assertEquals("Recuperado amigo por nombre", b.toString(),
 					a.toString());
 			assertTrue(dao.deleteAmigo(id));

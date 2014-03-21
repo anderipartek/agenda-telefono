@@ -68,4 +68,11 @@ public interface IAmigable {
 	 */
 	Amigo getAmigoByName(String nombre);
 
+	/**
+	 * 
+	 * @param id Identificador del amigo
+	 * @return amigo a retornar de la BBDD
+	 */
+	Amigo getAmigoById(int id);
+
 }
