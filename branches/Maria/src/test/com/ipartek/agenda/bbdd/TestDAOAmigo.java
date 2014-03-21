@@ -93,4 +93,19 @@ public class TestDAOAmigo {
 		}
 	}
 
+	/**
+	 * testeo de recoger todos los amigos por un nombre.
+	 */
+	@Test
+	public final void testGetAllByName() {
+		int id = dao.insertAmigo(a);
+		if (id > 0) {
+			lista = dao.getAllByName(a.getNombre());
+			Amigo b = lista.get(lista.size());
+			assertEquals("Recuperado amigo por nombre", b.toString(), a.toString());
+			assertTrue(dao.delete(id));
+		} else {
+			fail("No se ha insertado el alumno, testGetAllAmigo");
+		}
+	}
 }

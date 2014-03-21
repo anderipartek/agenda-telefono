@@ -1,0 +1,7 @@
+com.ipartek.agenda.bbdd
+com.ipartek.agenda.bean
+com.ipartek.agenda.controller
+com.ipartek.agenda.exception
+com.ipartek.agenda.interfaces
+com.ipartek.agenda.model
+com.ipartek.agenda.util

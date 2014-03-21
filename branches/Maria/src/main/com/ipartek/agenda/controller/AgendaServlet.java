@@ -25,7 +25,6 @@ public class AgendaServlet extends MainServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private Amigo amigo;
 	static final Logger log = Logger.getLogger(AgendaServlet.class);
 
 	// OPCIONES RECIBIDAS DESDE EL FORMULARIO
@@ -33,11 +32,16 @@ public class AgendaServlet extends MainServlet {
 	public static final String OP_MODIFICAR = "modificar";
 	public static final String OP_ELIMINAR = "eliminar";
 	public static final String OP_VER = "ver";
+	public static final String OP_BUSCAR = "buscar";
 
 	// parametros de la request
 	private static int idAmigo;
+	private Amigo amigo;
 	public static String op;
+	public static String buscadorSeccion;
+	public static String nombre;
 	private HashMap<Integer, Amigo> listaAmigos;
+	private HashMap<Integer, Amigo> listaNombres;
 
 	RequestDispatcher dispatcher;
 	HttpSession session;
@@ -174,6 +178,17 @@ public class AgendaServlet extends MainServlet {
 		return result;
 	}
 
+	private boolean buscarAmigos(HttpServletRequest request, HttpServletResponse response) {
+
+		boolean result = false;
+		nombre = request.getParameter("nombre");
+		listaNombres = model.recogerTodosNombre(nombre);
+		if (listaNombres.size() > 0) {
+			result = true;
+		}
+		return result;
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -200,25 +215,34 @@ public class AgendaServlet extends MainServlet {
 	}
 
 	/**
+	 * @throws AmigoException
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		op = request.getParameter("op");
+		buscadorSeccion = request.getParameter("buscador");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_ANADIR)) {
 				if (insertarAmigo(request, response) != -1) {
-					dispatcher = request.getRequestDispatcher("todoOk.jsp");
+					dispatcher = request.getRequestDispatcher("main");
 
 				}
 			} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
 				if (modificarAmigo(request, response)) {
-					dispatcher = request.getRequestDispatcher("todoOk.jsp");
+					dispatcher = request.getRequestDispatcher("main");
 
 				}
 			} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
 				if (eliminarAmigo(request, response)) {
-					dispatcher = request.getRequestDispatcher("todoOk.jsp");
+					dispatcher = request.getRequestDispatcher("main");
+
+				}
+			} else if (op.equalsIgnoreCase(OP_BUSCAR)) {
+				if (buscarAmigos(request, response)) {
+					dispatcher = request.getRequestDispatcher("main?seccion=" + buscadorSeccion);
+					// enviar datos en la request a la JSP
+					request.setAttribute("listaNombre", listaNombres);
 
 				}
 			}

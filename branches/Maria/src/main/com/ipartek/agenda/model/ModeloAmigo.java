@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import com.ipartek.agenda.bbdd.ConnectionFactory;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.controller.AgendaServlet;
-import com.ipartek.agenda.exception.AmigoException;
 import com.ipartek.agenda.interfaces.IAmigable;
 import com.ipartek.agenda.interfaces.IModeloAmigo;
 
@@ -57,7 +56,14 @@ public class ModeloAmigo implements IModeloAmigo {
 	}
 
 	@Override
-	public Amigo recogerUno(final String nombre) throws AmigoException {
+	public HashMap<Integer, Amigo> recogerTodosNombre(final String nombre) {
+		HashMap<Integer, Amigo> listaPorNombre;
+		listaPorNombre = daoAmigo.getAllByName(nombre);
+		return listaPorNombre;
+	}
+
+	@Override
+	public Amigo recogerUno(final String nombre) {
 		Amigo amigo = daoAmigo.getAmigoByName(nombre);
 		if (amigo == null) {
 			amigo = new Amigo();
