@@ -1,31 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList" %>  
+<%@ page import="com.ipartek.agenda.bean.Amigo" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@include file="inc/head.jsp"%>
 <title>Insert title here</title>
+
 </head>
 <body>
 
 
 <h3>Estos son tus amigos:</h3>
-<?php
-	// insertamos las funciones del site
-	include('../abstract/functions.php');
 
-	// realizamos la insercion en la BBDD
-	$connection = connectDB($db_host, $db_username, $db_password,$db_database);
-
-	// enviamos la query
-	$query = 'SELECT * FROM amigos';
-
-	$result = mysql_query($query);
-	//comprobamos si la query ha ido bien
-	if(!$result){
-		die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
-	}
-	?>
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
 		<tr>
@@ -41,27 +30,25 @@
 		</tr>
 
 	<%
-	// mostramos los datos de la query
-	while($result_row = mysql_fetch_array($result)){%>
-		<tr>
-			<td><?php echo $result_row[1]; ?></td>
-			<td><?php echo $result_row[2]; ?></td>
-			<td><?php echo $result_row[3]; ?></td>
-			<td><?php echo $result_row[4]; ?></td>
-			<td><?php echo $result_row[5]; ?></td>
-			<td><?php echo $result_row[6]; ?></td>
-			<td><?php echo $result_row[7]; ?></td>
-			<td><?php echo $result_row[8]; ?></td>
-			<td><?php echo $result_row[9]; ?></td>
+	ArrayList<Amigo> lista = (ArrayList<Amigo>)request.getAttribute("lista");
+	// mostramos los datos de la query	
+	if(lista != null){
+		for(int i = 0; i<lista.size(); i++){%>
+		
+		 <tr>
+			<td><%=lista.get(i).getNombre() %></td>
+			<td><%=lista.get(i).getApellido() %></td>
+			<td><%=lista.get(i).getCalle() %></td>
+			<td><%=lista.get(i).getCp() %></td>
+			<td><%=lista.get(i).getLocalidad() %></td>
+			<td><%=lista.get(i).getProvincia() %></td>
+			<td><%=lista.get(i).getNumMovil() %></td>
+			<td><%=lista.get(i).getNumFijo() %></td>				
+			<td><%=lista.get(i).getAnotaciones() %></td>
 		</tr>
-	<?php
-	}
-	?>
+		<%} %>
+	<%} %>
 		</table>
-<?php
-	// cerramos la conexion
-	closeDB($connection);
-?>
-
+	<button ></button>
 </body>
 </html>
