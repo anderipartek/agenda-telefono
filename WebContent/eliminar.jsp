@@ -71,7 +71,6 @@
 							<div class="botones">
 								<a title="" href="index.jsp">cancelar</a>
 								<input type="submit" value="eliminar" name="op" class="boton eliminar">
-								</a>
 							</div>
 						</form>
 					
