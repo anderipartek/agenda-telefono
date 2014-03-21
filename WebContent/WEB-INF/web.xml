@@ -14,6 +14,11 @@
     <display-name>MainServlet</display-name>
     <servlet-name>MainServlet</servlet-name>
     <servlet-class>com.ipartek.agenda.controller.MainServlet</servlet-class>
+    <init-param>
+      <param-name>log4j-config</param-name>
+      <param-value>WEB-INF/config/log4j.properties</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>MainServlet</servlet-name>

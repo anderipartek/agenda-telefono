@@ -7,6 +7,8 @@ import com.ipartek.agenda.enumeration.TIPO_MENSAJE;
  * 
  * @author Ibai Sainz-Aja Depardieu
  * @version 1.0
+ * 
+ * 
  */
 public class Mensaje {
 
