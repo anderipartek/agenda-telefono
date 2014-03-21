@@ -61,7 +61,8 @@ public class DAOAmigo implements IDAOAmigo {
 				rs.next();
 				id = (rs.getInt(1));
 				amigo.setId(id);
-				log.trace("Amigo " + amigo.getNombre() + " insertado");
+				log.trace("Amigo " + amigo.getNombre() + " " 
+				+ amigo.getApellido() + " insertado");
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
