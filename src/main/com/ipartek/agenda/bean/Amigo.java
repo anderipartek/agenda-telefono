@@ -12,24 +12,79 @@ import com.ipartek.agenda.utiles.AmigoUtil;
  */
 public class Amigo {
 
+	/**
+	 * 
+	 */
 	private static final int DEFAULT_TELEFONO_VALUE = 0;
+	/**
+	 * 
+	 */
 	private static final int DEFAULT_CP_VALUE = 00000;
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_NOMBRE_VALUE = "NOMBRE";
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_APELLIDO_VALUE = "APELLIDO";
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_CALLE_VALUE = "CALLE";
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_LOCALIDAD_VALUE = "LOCALIDAD";
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_PROVINCIA_VALUE = "PROVINCIA";
+	/**
+	 * 
+	 */
 	private static final String DEFAULT_ANTOTACIONES_VALUE = "ANOTACIONES";
+
 	// ATRIBUTOS
+	/**
+	 * 
+	 */
 	private int id; // IDENTIFICADOR BBDD
+	/**
+	 * 
+	 */
 	private String nombre;
+	/**
+	 * 
+	 */
 	private String apellido;
+	/**
+	 * 
+	 */
 	private String mTelefono; // TELEFONO MOVIL
+	/**
+	 * 
+	 */
 	private String fTelefono; // TELEFONO FIJO
+	/**
+	 * 
+	 */
 	private String calle;
+	/**
+	 * 
+	 */
 	private String provincia;
+	/**
+	 * 
+	 */
 	private String localidad;
+	/**
+	 * 
+	 */
 	private int codigoPostal; // POR DEFECTO 48900
+	/**
+	 * 
+	 */
 	private String anotaciones; // COMENTARIOS SOBRE EL AMIGO
 
 	// CONSTRUCTORES
@@ -52,33 +107,53 @@ public class Amigo {
 	/**
 	 * Constructor con parametros.
 	 * 
-	 * @throws AmigoExcepcion
+	 * @param cNombre Nombre del amigo
+	 * @param cApellido Apellido del amigo
+	 * @param cMTelefono Móvil
+	 * @param cFTelefono Fijo
+	 * @param cCalle Calle
+	 * @param cProvincia Provincia
+	 * @param cLocalidad Localidad
+	 * @param cCodigoPostal Codigo Postal
+	 * @param cAnotaciones Comentarios
+	 * @throws AmigoExcepcion Excepciones para nombre/apellido telefonos y
+	 *             codigo postal
 	 */
-	public Amigo(final String nombre, final String apellido,
-			final String mTelefono, final String fTelefono, final String calle,
-			final String provincia, final String localidad,
-			final int codigoPostal, final String anotaciones)
-			throws AmigoExcepcion {
+	public Amigo(final String cNombre, final String cApellido,
+			final String cMTelefono, final String cFTelefono,
+			final String cCalle, final String cProvincia,
+			final String cLocalidad, final int cCodigoPostal,
+			final String cAnotaciones) throws AmigoExcepcion {
 		this();
-		this.setNombre(nombre);
-		this.setApellido(apellido);
-		this.setMTelefono(mTelefono);
-		this.setFTelefono(fTelefono);
-		this.setCalle(calle);
-		this.setProvincia(provincia);
-		this.setLocalidad(localidad);
-		this.setCodigoPostal(codigoPostal);
-		this.setAnotaciones(anotaciones);
+		this.setNombre(cNombre);
+		this.setApellido(cApellido);
+		this.setMTelefono(cMTelefono);
+		this.setFTelefono(cFTelefono);
+		this.setCalle(cCalle);
+		this.setProvincia(cProvincia);
+		this.setLocalidad(cLocalidad);
+		this.setCodigoPostal(cCodigoPostal);
+		this.setAnotaciones(cAnotaciones);
 	}
 
 	// GETTERS - SETTERS
-	public void setId(final int id) {
-		this.id = id;
+	/**
+	 * 
+	 * @param cId Identificador
+	 */
+	public final void setId(final int cId) {
+		this.id = cId;
 	}
 
-	public void setNombre(final String nombre) throws AmigoExcepcion {
-		if (AmigoUtil.checkNombre(nombre)) {
-			this.nombre = nombre;
+	/**
+	 * 
+	 * @param cNombre nombre del amigo
+	 * @throws AmigoExcepcion Excepcion en caso de no cumplir los parametros
+	 *             establecidos en el checkNombre
+	 */
+	public final void setNombre(final String cNombre) throws AmigoExcepcion {
+		if (AmigoUtil.checkNombre(cNombre)) {
+			this.nombre = cNombre;
 		} else {
 			this.nombre = DEFAULT_NOMBRE_VALUE;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_NOMBRE,
@@ -86,9 +161,15 @@ public class Amigo {
 		}
 	}
 
-	public final void setApellido(final String apellido) throws AmigoExcepcion {
-		if (AmigoUtil.checkNombre(apellido)) {
-			this.apellido = apellido;
+	/**
+	 * 
+	 * @param cApellido apellido del amigo
+	 * @throws AmigoExcepcion Excepcion en caso de no cumplir los parametros
+	 *             establecidos en el checkNombre
+	 */
+	public final void setApellido(final String cApellido) throws AmigoExcepcion {
+		if (AmigoUtil.checkNombre(cApellido)) {
+			this.apellido = cApellido;
 		} else {
 			this.apellido = DEFAULT_APELLIDO_VALUE;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_APELLIDO,
@@ -96,9 +177,16 @@ public class Amigo {
 		}
 	}
 
-	public void setMTelefono(final String mTelefono) throws AmigoExcepcion {
-		if (AmigoUtil.checkNumeros(mTelefono)) {
-			this.mTelefono = mTelefono;
+	/**
+	 * 
+	 * @param cMTelefono Telefono movil
+	 * @throws AmigoExcepcion Excepcion en caso de no cumplir los parametros
+	 *             establecidos en el checkNumeros
+	 */
+	public final void setMTelefono(final String cMTelefono)
+			throws AmigoExcepcion {
+		if (AmigoUtil.checkNumeros(cMTelefono)) {
+			this.mTelefono = cMTelefono;
 		} else {
 			// VALOR POR DEFECTO
 			this.mTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
@@ -107,9 +195,16 @@ public class Amigo {
 		}
 	}
 
-	public void setFTelefono(final String fTelefono) throws AmigoExcepcion {
-		if (AmigoUtil.checkNumeros(fTelefono)) {
-			this.fTelefono = fTelefono;
+	/**
+	 * 
+	 * @param cFTelefono Telefono fijo
+	 * @throws AmigoExcepcion Excepcion en caso de no cumplir los parametros
+	 *             establecidos en el checkNumeros
+	 */
+	public final void setFTelefono(final String cFTelefono)
+			throws AmigoExcepcion {
+		if (AmigoUtil.checkNumeros(cFTelefono)) {
+			this.fTelefono = cFTelefono;
 		} else {
 			// VALOR POR DEFECTO
 			this.fTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
@@ -118,21 +213,40 @@ public class Amigo {
 		}
 	}
 
-	public void setCalle(final String calle) {
-		this.calle = calle;
+	/**
+	 * 
+	 * @param cCalle calle
+	 */
+	public final void setCalle(final String cCalle) {
+		this.calle = cCalle;
 	}
 
-	public void setProvincia(final String provincia) {
-		this.provincia = provincia;
+	/**
+	 * 
+	 * @param cProvincia provincia
+	 */
+	public final void setProvincia(final String cProvincia) {
+		this.provincia = cProvincia;
 	}
 
-	public void setLocalidad(final String localidad) {
-		this.localidad = localidad;
+	/**
+	 * 
+	 * @param cLocalidad localidad
+	 */
+	public final void setLocalidad(final String cLocalidad) {
+		this.localidad = cLocalidad;
 	}
 
-	public void setCodigoPostal(final int codigoPostal) throws AmigoExcepcion {
-		if (AmigoUtil.checkCP(codigoPostal)) {
-			this.codigoPostal = codigoPostal;
+	/**
+	 * 
+	 * @param cCodigoPostal codigo postal
+	 * @throws AmigoExcepcion Excepcion en caso de no cumplir los parametros
+	 *             establecidos en el checkCP
+	 */
+	public final void setCodigoPostal(final int cCodigoPostal)
+			throws AmigoExcepcion {
+		if (AmigoUtil.checkCP(cCodigoPostal)) {
+			this.codigoPostal = cCodigoPostal;
 		} else {
 			// VALOR POR DEFECTO
 			this.codigoPostal = DEFAULT_CP_VALUE;
@@ -141,52 +255,96 @@ public class Amigo {
 		}
 	}
 
-	public void setAnotaciones(final String anotaciones) {
-		this.anotaciones = anotaciones;
+	/**
+	 * 
+	 * @param cAnotaciones comentarios sobre el amigo
+	 */
+	public final void setAnotaciones(final String cAnotaciones) {
+		this.anotaciones = cAnotaciones;
 	}
 
-	public int getId() {
+	/**
+	 * 
+	 * @return [INT] identificador
+	 */
+	public final int getId() {
 		return id;
 	}
 
-	public String getNombre() {
+	/**
+	 * 
+	 * @return [STRING] nombre
+	 */
+	public final String getNombre() {
 		return nombre;
 	}
 
-	public String getApellido() {
+	/**
+	 * 
+	 * @return [STRING] apellido
+	 */
+	public final String getApellido() {
 		return apellido;
 	}
 
-	public String getMTelefono() {
+	/**
+	 * 
+	 * @return [STRING] telefono movil
+	 */
+	public final String getMTelefono() {
 		return mTelefono;
 	}
 
-	public String getFTelefono() {
+	/**
+	 * 
+	 * @return [STRING] telefono fijo
+	 */
+	public final String getFTelefono() {
 		return fTelefono;
 	}
 
-	public String getCalle() {
+	/**
+	 * 
+	 * @return [STRING] calle
+	 */
+	public final String getCalle() {
 		return calle;
 	}
 
-	public String getProvincia() {
+	/**
+	 * 
+	 * @return [STRING] provincia
+	 */
+	public final String getProvincia() {
 		return provincia;
 	}
 
-	public String getLocalidad() {
+	/**
+	 * 
+	 * @return [STRING] localidad
+	 */
+	public final String getLocalidad() {
 		return localidad;
 	}
 
-	public int getCodigoPostal() {
+	/**
+	 * 
+	 * @return [INT] codigo postal
+	 */
+	public final int getCodigoPostal() {
 		return codigoPostal;
 	}
 
-	public String getAnotaciones() {
+	/**
+	 * 
+	 * @return [STRING] anotaciones
+	 */
+	public final String getAnotaciones() {
 		return anotaciones;
 	}
 
 	@Override
-	public String toString() {
+	public final String toString() {
 		return "Amigo [nombre=" + this.nombre + ", this.apellido="
 				+ this.apellido + ", mTelefono=" + this.mTelefono
 				+ ", fTelefono=" + this.fTelefono + ", calle=" + this.calle

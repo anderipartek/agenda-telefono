@@ -11,31 +11,62 @@ import org.junit.Test;
 
 import com.ipartek.agenda.excepciones.AmigoExcepcion;
 
+/**
+ * Test de la clase bean AMIGO.
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * 
+ */
 public class TestAmigo {
 
+	/**
+	 * 
+	 */
 	static Amigo amigoTestVacio;
+	/**
+	 * 
+	 */
 	static Amigo amigoTestParam;
 
+	/**
+	 * se ejecuta al principio del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
+	/**
+	 * Se ejecuta antes de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public final void setUp() throws Exception {
 		amigoTestVacio = new Amigo();
 		amigoTestParam = new Amigo("Manola", "Gisasola", "669877555",
 				"944654321", "La Parca", "Nisu", "Suni", 48970,
 				"Aqui las anotaciones");
 	}
 
+	/**
+	 * Se ejecuta después de cada test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@After
-	public void tearDown() throws Exception {
+	public final void tearDown() throws Exception {
 		amigoTestVacio = null;
 		amigoTestParam = null;
 	}
 
+	/**
+	 * test de constructor vacio.
+	 */
 	@Test
-	public void testContructorVacio() {
+	public final void testContructorVacio() {
 		assertEquals("ID = 0 constructor vacio", amigoTestVacio.getId(), 0);
 		assertEquals("Nombre = Nombre constructor vacio",
 				amigoTestVacio.getNombre(), "NOMBRE");
@@ -57,8 +88,11 @@ public class TestAmigo {
 				amigoTestVacio.getAnotaciones(), "ANOTACIONES");
 	}
 
+	/**
+	 * test de constructor con parametros.
+	 */
 	@Test
-	public void testConstructorParametros() {
+	public final void testConstructorParametros() {
 		try {
 			Amigo amigoTest = new Amigo("Manola", "Gisasola", "669877555",
 					"944654321", "La Parca", "Nisu", "Suni", 48970,
@@ -82,9 +116,9 @@ public class TestAmigo {
 			assertEquals(
 					"[Telefono Movil = 669877555] constructor con parametros",
 					amigoTest.getMTelefono(), "669877555");
-			assertEquals(
-					"[Anotaciones = Anotaciones del amigo aqui] constructor con parametros",
-					amigoTest.getAnotaciones(), "Anotaciones del amigo aqui");
+			assertEquals("[Anotaciones = Anotaciones del amigo aqui] "
+					+ "constructor con parametros", amigoTest.getAnotaciones(),
+					"Anotaciones del amigo aqui");
 		} catch (AmigoExcepcion ex) {
 			if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_NOMBRE) {
 				fail("Excepcion capturada por AmigoExcepcion ERROR NOMBRE ["
@@ -102,8 +136,11 @@ public class TestAmigo {
 		}
 	}
 
+	/**
+	 * test de setters.
+	 */
 	@Test
-	public void testSetters() {
+	public final void testSetters() {
 		try {
 			amigoTestParam.setId(5);
 			amigoTestParam.setNombre("Manolito");
@@ -134,8 +171,8 @@ public class TestAmigo {
 					amigoTestParam.getLocalidad(), "Nisu");
 			assertEquals("[CodigoPostal = 48971] constructor con parametros",
 					amigoTestParam.getCodigoPostal(), 48971);
-			assertEquals(
-					"[Anotaciones = Anotaciones del amigo aqui] constructor con parametros",
+			assertEquals("[Anotaciones = Anotaciones del amigo aqui] "
+					+ "constructor con parametros",
 					amigoTestParam.getAnotaciones(),
 					"Anotaciones del amigo aqui");
 		} catch (AmigoExcepcion ex) {
@@ -156,31 +193,61 @@ public class TestAmigo {
 
 	}
 
+	/**
+	 * test de excepciones con nombre.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Test(expected = AmigoExcepcion.class)
-	public void testSetNombreExcepcion() throws Exception {
+	public final void testSetNombreExcepcion() throws Exception {
 		amigoTestParam.setNombre("a");
 	}
 
+	/**
+	 * test de excepciones con apellido.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Test(expected = AmigoExcepcion.class)
-	public void testSetApellidoExcepcion() throws Exception {
+	public final void testSetApellidoExcepcion() throws Exception {
 		amigoTestParam.setApellido("a");
 	}
 
+	/**
+	 * test de excepciones de telefono.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Test(expected = AmigoExcepcion.class)
-	public void testSetTelefonoMovilExcepcion() throws Exception {
+	public final void testSetTelefonoMovilExcepcion() throws Exception {
 		amigoTestParam.setMTelefono("00");
 	}
 
+	/**
+	 * test de excepciones de telefono.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Test(expected = AmigoExcepcion.class)
-	public void testSetTelefonoFijoExcepcion() throws Exception {
+	public final void testSetTelefonoFijoExcepcion() throws Exception {
 		amigoTestParam.setFTelefono("0000000000");
 	}
 
+	/**
+	 * test de excepciones de codigo postal.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@Test(expected = AmigoExcepcion.class)
-	public void testSetCodigoPostalExcepcion() throws Exception {
+	public final void testSetCodigoPostalExcepcion() throws Exception {
 		amigoTestParam.setCodigoPostal(4000000);
 	}
 
+	/**
+	 * se ejecuta al final del test.
+	 * 
+	 * @throws Exception excepcion general
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}

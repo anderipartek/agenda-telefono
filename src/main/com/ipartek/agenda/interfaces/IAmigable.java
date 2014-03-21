@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.ipartek.agenda.bean.Amigo;
 
 /**
- * Interfaz de acceso a BBDD para:
+ * Interfaz de acceso a BBDD para.
  * <ul>
  * <li>INSERTAR</li>
  * <li>ELIMINAR</li>
@@ -20,51 +20,52 @@ import com.ipartek.agenda.bean.Amigo;
 public interface IAmigable {
 
 	/**
-	 * Para insertar un amigo a la agenda
+	 * Para insertar un amigo a la agenda.
 	 * 
 	 * @param a es el Amigo
 	 * @return [int] -1 si ha ocurrido un error / identificador del amigo
 	 */
-	public int insertAmigo(Amigo a);
+	int insertAmigo(Amigo a);
 
 	/**
-	 * Para eliminar un amigo de la lista
+	 * Para eliminar un amigo de la lista.
 	 * 
 	 * @param id Identificador del amigo
 	 * @return TRUE si se ha borrado / FALSE si no se ha podido borrar
 	 */
-	public boolean deleteAmigo(int id);
+	boolean deleteAmigo(int id);
 
 	/**
-	 * Para modificar los datos de un amigo
+	 * Para modificar los datos de un amigo.
 	 * 
 	 * @param a es el Amigo
 	 * @param id Identificador del amigo a modificar
 	 * @return TRUE si se ha modificado / FALSE si no se ha podido modificar
 	 */
-	public boolean updateAmigo(Amigo a, int id);
+	boolean updateAmigo(Amigo a, int id);
 
 	/**
-	 * Para recoger todos los datos de los amigo
+	 * Para recoger todos los datos de los amigo.
 	 * 
 	 * @return HashMap con todos los amigo
 	 */
-	public HashMap<Integer, Amigo> getAllAmigo();
+	HashMap<Integer, Amigo> getAllAmigo();
 
 	/**
-	 * Para recoger todos los datos de amigos que coincidan con el nombre
+	 * Para recoger todos los datos de amigos que coincidan con el nombre.
 	 * 
 	 * @return Una lista de la gente que coincida con el nombre / NULL en caso
 	 *         de no encontrar nada
+	 * @param nombre del amigo
 	 */
-	public HashMap<Integer, Amigo> getAllByName(String nombre);
+	HashMap<Integer, Amigo> getAllByName(String nombre);
 
 	/**
-	 * Para recoger los datos de un amigo
+	 * Para recoger los datos de un amigo.
 	 * 
 	 * @param nombre Nombre del amigo
 	 * @return [Amigo] buscado / null en caso de error
 	 */
-	public Amigo getAmigoByName(String nombre);
+	Amigo getAmigoByName(String nombre);
 
 }

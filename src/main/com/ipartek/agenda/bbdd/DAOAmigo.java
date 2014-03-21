@@ -12,41 +12,95 @@ import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.excepciones.AmigoExcepcion;
 import com.ipartek.agenda.interfaces.IAmigable;
 
+/**
+ * Clase que realiza las operaciones principales de insercion, modificacion,
+ * eliminacion y busqueda directamente sobre la BBDD.
+ * 
+ * Implementa la interfaz IAmigable
+ * 
+ * @author Erlantz Romero Parra
+ * @version 1.0
+ * @see com.ipartek.agenda.interfaces.IAmigable
+ * 
+ */
 public class DAOAmigo implements IAmigable {
 
-	static final Logger log = Logger.getLogger(DAOAmigo.class);
+	/**
+	 * 
+	 */
+	static final Logger LOG = Logger.getLogger(DAOAmigo.class);
+	/**
+	 * 
+	 */
 	private static PreparedStatement pst;
+	/**
+	 * 
+	 */
 	private static ResultSet rs;
+	/**
+	 * 
+	 */
 	private static Connection con;
+	/**
+	 * 
+	 */
 	private static Amigo a;
+	/**
+	 * 
+	 */
 	private static ConnectionFactory factory;
+	/**
+	 * 
+	 */
 	private static final String SQL_GETID = "select max(id) from amigos";
-	private static final String SQL_INSERT = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) "
-			+ "value ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "update amigos set nombre = ?, apellido = ?, calle = ?, cp = ?, localidad = ?, provincia = ?, "
+	/**
+	 * 
+	 */
+	private static final String SQL_INSERT = "insert into amigos "
+			+ "(nombre,apellido,calle,cp,localidad,provincia,movil,"
+			+ "fijo,anotaciones) " + "value ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	/**
+	 * 
+	 */
+	private static final String SQL_UPDATE = "update amigos set "
+			+ "nombre = ?, apellido = ?, calle = ?, cp = ?, "
+			+ "localidad = ?, provincia = ?, "
 			+ "movil = ?, fijo = ?, anotaciones = ? where id = ?";
+	/**
+	 * 
+	 */
 	private static final String SQL_DELETE = "delete from amigos where id = ?";
+	/**
+	 * 
+	 */
 	private static final String SQL_ALL = "select * from amigos";
-	private static final String SQL_ONE = "select * from amigos where nombre = ?";
+	/**
+	 * 
+	 */
+	private static final String SQL_ONE = "select * from "
+			+ "amigos where nombre = ?";
 
+	/**
+	 * Constructor que crea una instancia a la conexion de la BBDD.
+	 */
 	public DAOAmigo() {
 		factory = ConnectionFactory.getInstance();
 	}
 
 	@Override
-	public int insertAmigo(final Amigo a) {
-		log.trace("Insert de amigo [" + a.toString() + "]");
+	public final int insertAmigo(final Amigo amigo) {
+		LOG.trace("Insert de amigo [" + amigo.toString() + "]");
 		int id = -1;
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(SQL_INSERT);
-			prepareStatment(a);
+			prepareStatment(amigo);
 			if (pst.executeUpdate() == 1) {
 				pst = con.prepareStatement(SQL_GETID);
 				rs = pst.executeQuery();
 				rs.next();
 				id = (rs.getInt(1));
-				a.setId(id);
+				amigo.setId(id);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -56,15 +110,15 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			log.trace("Fin insert");
+			LOG.trace("Fin insert");
 			return id;
 		}
 
 	}
 
 	@Override
-	public boolean deleteAmigo(final int id) {
-		log.trace("Inicio delete [ID = " + id + "]");
+	public final boolean deleteAmigo(final int id) {
+		LOG.trace("Inicio delete [ID = " + id + "]");
 		boolean resul = false;
 		try {
 			con = factory.getConnection();
@@ -81,19 +135,19 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			log.trace("Fin delete");
+			LOG.trace("Fin delete");
 			return resul;
 		}
 	}
 
 	@Override
-	public boolean updateAmigo(final Amigo a, final int id) {
-		log.trace("Actualizar amigo [" + a.toString() + "]");
+	public final boolean updateAmigo(final Amigo amigo, final int id) {
+		LOG.trace("Actualizar amigo [" + amigo.toString() + "]");
 		boolean result = false;
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(SQL_UPDATE);
-			prepareStatment(a);
+			prepareStatment(amigo);
 			pst.setInt(10, id);
 			if (pst.executeUpdate() == 1) {
 				result = true;
@@ -106,14 +160,14 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			log.trace("Fin actualizar");
+			LOG.trace("Fin actualizar");
 			return result;
 		}
 	}
 
 	@Override
-	public HashMap<Integer, Amigo> getAllAmigo() {
-		log.trace("Recoger todos los amigos");
+	public final HashMap<Integer, Amigo> getAllAmigo() {
+		LOG.trace("Recoger todos los amigos");
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
 		int keyHashMap = 0;
 		try {
@@ -134,15 +188,15 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			log.trace("Fin recoger amigos");
+			LOG.trace("Fin recoger amigos");
 			return amigoMap;
 		}
 
 	}
 
 	@Override
-	public HashMap<Integer, Amigo> getAllByName(final String nombre) {
-		log.trace("Recoger todos los amigos");
+	public final HashMap<Integer, Amigo> getAllByName(final String nombre) {
+		LOG.trace("Recoger todos los amigos");
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
 		int keyHashMap = 0;
 		try {
@@ -164,13 +218,13 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			log.trace("Fin recoger amigos");
+			LOG.trace("Fin recoger amigos");
 			return amigoMap;
 		}
 	}
 
 	@Override
-	public Amigo getAmigoByName(final String nombre) {
+	public final Amigo getAmigoByName(final String nombre) {
 		try {
 			a = new Amigo();
 			con = factory.getConnection();
@@ -195,39 +249,41 @@ public class DAOAmigo implements IAmigable {
 
 	/**
 	 * 
-	 * @param ex
+	 * @param e excepcion que se captura
 	 */
-	private void sqlExcepcion(SQLException ex) {
+	private void sqlExcepcion(final SQLException e) {
+		SQLException ex = e;
 		while (ex != null) {
-			log.error("Message:> " + ex.getMessage());
-			log.error("SQL State:> " + ex.getSQLState());
-			log.error("Error Code:> " + ex.getErrorCode());
-			log.error("Cause:> " + ex.getCause());
+			LOG.error("Message:> " + ex.getMessage());
+			LOG.error("SQL State:> " + ex.getSQLState());
+			LOG.error("Error Code:> " + ex.getErrorCode());
+			LOG.error("Cause:> " + ex.getCause());
 			ex = ex.getNextException();
 		}
 	}
 
 	/**
-	 * Metodo para rellenar el prepareStatment con los datos del amigo
+	 * Metodo para rellenar el prepareStatment con los datos del amigo.
 	 * 
-	 * @throws SQLException
+	 * @param amigo del cual se recogen los datos a insertar en el pst
+	 * @throws SQLException excepcion que captura en caso de error
 	 */
-	private void prepareStatment(Amigo a) throws SQLException {
-		pst.setString(1, a.getNombre());
-		pst.setString(2, a.getApellido());
-		pst.setString(3, a.getCalle());
-		pst.setInt(4, a.getCodigoPostal());
-		pst.setString(5, a.getLocalidad());
-		pst.setString(6, a.getProvincia());
-		pst.setString(7, a.getMTelefono());
-		pst.setString(8, a.getFTelefono());
-		pst.setString(9, a.getAnotaciones());
+	private void prepareStatment(final Amigo amigo) throws SQLException {
+		pst.setString(1, amigo.getNombre());
+		pst.setString(2, amigo.getApellido());
+		pst.setString(3, amigo.getCalle());
+		pst.setInt(4, amigo.getCodigoPostal());
+		pst.setString(5, amigo.getLocalidad());
+		pst.setString(6, amigo.getProvincia());
+		pst.setString(7, amigo.getMTelefono());
+		pst.setString(8, amigo.getFTelefono());
+		pst.setString(9, amigo.getAnotaciones());
 	}
 
 	/**
-	 * Metodo para recoger los datos de un amigo de un ResultSet
+	 * Metodo para recoger los datos de un amigo de un ResultSet.
 	 * 
-	 * @throws SQLException
+	 * @throws SQLException excepcion que captura en caso de error
 	 */
 	private void datosAmigo() throws SQLException {
 		try {
@@ -243,16 +299,16 @@ public class DAOAmigo implements IAmigable {
 			a.setAnotaciones(rs.getString("anotaciones"));
 		} catch (AmigoExcepcion ex) {
 			if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_NOMBRE) {
-				log.warn("Excepcion capturada por AmigoExcepcion ERROR NOMBRE ["
+				LOG.warn("Excepcion capturada por AmigoExcepcion ERROR NOMBRE ["
 						+ ex.getMensajeError() + "]");
 			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_APELLIDO) {
-				log.warn("Excepcion capturada por AmigoExcepcion ERROR APELLIDO ["
+				LOG.warn("Excepcion capturada por AmigoExcepcion ERROR APELLIDO ["
 						+ ex.getMensajeError() + "]");
 			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_TELEFONO) {
-				log.warn("Excepcion capturada por AmigoExcepcion ERROR TELEFONO ["
+				LOG.warn("Excepcion capturada por AmigoExcepcion ERROR TELEFONO ["
 						+ ex.getMensajeError() + "]");
 			} else if (ex.getCodigoError() == AmigoExcepcion.COD_ERROR_CP) {
-				log.warn("Excepcion capturada por AmigoExcepcion ERROR CODIGO POSTAL ["
+				LOG.warn("Excepcion capturada por AmigoExcepcion ERROR CODIGO POSTAL ["
 						+ ex.getMensajeError() + "]");
 			}
 		}

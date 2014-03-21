@@ -12,23 +12,45 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class MainServlet. Para cambiar de jsp e
+ * inicizalizador del LOG
  */
 public class MainServlet extends HttpServlet {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	// LOGGER
-	static final Logger log = Logger.getLogger(MainServlet.class);
+	// LOGGER /////////////////////////////////////////
+	/**
+	 * 
+	 */
+	static final Logger LOG = Logger.getLogger(MainServlet.class);
 
+	/**
+	 * 
+	 */
 	public static final String SECCION = "seccion";
+	/**
+	 * 
+	 */
 	public static final String ANADIR = "anadir";
+	/**
+	 * 
+	 */
 	public static final String MODIFICAR = "modificar";
+	/**
+	 * 
+	 */
 	public static final String ELIMINAR = "eliminar";
+	/**
+	 * 
+	 */
 	public static final String VER = "ver";
 
 	@Override
-	public void init() throws ServletException {
+	public final void init() throws ServletException {
 		super.init();
-		// configuracion básica del log
+		// configuracion básica del LOG
 		// recoge la ruta dinámicamente hasta donde se encuentra el proyecto
 		String prefix = getServletContext().getRealPath("/");
 		// recoger el nombre del parametro init
@@ -36,16 +58,21 @@ public class MainServlet extends HttpServlet {
 		if (log4jPath != null) {
 			PropertyConfigurator.configure(prefix + log4jPath);
 		}
-		log.trace("Init " + getServletName());
+		LOG.trace("Init " + getServletName());
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request request
+	 * @param response response
+	 * @throws ServletException excepcion de servlet
+	 * @throws IOException excepcion de entrada y salida
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected final void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 
@@ -57,10 +84,15 @@ public class MainServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * @param request request
+	 * @param response response
+	 * @throws ServletException excepcion de servlet
+	 * @throws IOException excepcion de entrada y salida
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected final void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		doGet(request, response);
 	}
 
