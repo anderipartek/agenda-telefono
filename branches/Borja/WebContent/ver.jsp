@@ -5,9 +5,9 @@
   			Amigo a; 
 			
   			if (lAmigos.isEmpty()){
-  				%><h3>Estos son tus amigos:</h3><% 
-  			}else{
   				%><h3>Lo siento no tienes amigos :-(</h3><% 
+  			}else{
+  				%><h3></h3><% 
   			}
 %>
 
@@ -28,23 +28,28 @@
 			<th>fijo</th>
 			<th>anotaciones</th>
 		</tr>
+		
+		<%	
+			if (!lAmigos.isEmpty()){ %>
 		<%
 
 			for ( int i=0; i<lAmigos.size();i++){
 				a = lAmigos.get(i);
 		
 		%>
+		
 		<tr>
 			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
-			<td><%=a.getNombre() %></td>
+			<td><%=a.getApellido() %></td>
+			<td><%=a.getCalle() %></td>
+			<td><%=a.getCp() %></td>
+			<td><%=a.getLocalidad() %></td>
+			<td><%=a.getProvincia() %></td>
+			<td><%=a.getMovil() %></td>
+			<td><%=a.getFijo() %></td>
+			<td><%=a.getAnotaciones() %></td>
 		</tr>
+		<%}%>
 		<%}%>
 	
 	</table>

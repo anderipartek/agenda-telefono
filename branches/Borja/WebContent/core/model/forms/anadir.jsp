@@ -14,7 +14,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="añadir" name="anadir" class="boton anadir">
+				<input type="submit" value="añadir" name="op" class="boton anadir">
 			</div>
 		</form>
 	</div>

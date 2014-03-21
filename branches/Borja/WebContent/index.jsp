@@ -9,7 +9,7 @@
 <%@ include file="inc/header.jsp" %>
 <section class="wrapper content">
  
-	<%//seccion = (String) session.getAttribute("seccion")
+	<%
 	if ("anadir".equalsIgnoreCase(request.getParameter("seccion"))) { %>
 		<%@ include file="anadir.jsp"%>	
 	<% } else if ("modificar".equalsIgnoreCase(request.getParameter("seccion"))) { %>

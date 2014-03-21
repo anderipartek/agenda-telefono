@@ -19,7 +19,7 @@
 			
 			for (int i = 0 ; i < listaAmigos.size(); i++) { %>
 				<li>
-					<form action="<?php htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+					<form action="agenda" method="post">
 					
 						<input type="submit" name="amigo" value="<%=listaAmigos.get(i).getNombre()%>">
 						<input type="hidden" name="buscar" value="ok">

@@ -1,14 +1,14 @@
 
-<%@page import="com.ipartek.agenda.controller.MainServlet"%>
+<%@page import="com.ipartek.agenda.controller.AgendaServlet"%>
 <nav class="navBar">
 	<ul>
-		<li id="anadir" <%if(MainServlet.ANADIR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" title="">Añadir
+		<li id="anadir" <%if(AgendaServlet.ANADIR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.ANADIR %>" title="">Añadir
 				amigo</a></li>
-		<li id="modificar" <%if(MainServlet.MODIFICAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" title="">Modificar
+		<li id="modificar" <%if(AgendaServlet.MODIFICAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.MODIFICAR %>" title="">Modificar
 				amigo</a></li>
-		<li id="eliminar" <%if(MainServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ELIMINAR %>" title="">Eliminar
+		<li id="eliminar" <%if(AgendaServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.ELIMINAR %>" title="">Eliminar
 				amigo</a></li>
-		<li id="ver" <%if(MainServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" title="">Ver
+		<li id="ver" <%if(AgendaServlet.VER.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="agenda?<%=AgendaServlet.SECCION %>=<%=AgendaServlet.VER %>" title="">Ver
 				todos</a></li>
 	</ul>
 </nav>
