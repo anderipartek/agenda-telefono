@@ -4,7 +4,7 @@ import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.util.AmigoUtil;
 
 /**
- * Clase para definir las caracteristicas de un Amigo
+ * Clase para definir las caracteristicas de un Amigo.
  * 
  * @author Patricia Navascués
  * @version 1.0

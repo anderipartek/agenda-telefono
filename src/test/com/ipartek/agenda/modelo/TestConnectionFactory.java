@@ -9,8 +9,8 @@ import junit.framework.TestCase;
 
 public class TestConnectionFactory extends TestCase {
 
-	ConnectionFactory factory;
-	Connection con;
+	private ConnectionFactory factory;
+	private Connection con;
 
 	public TestConnectionFactory(String name) {
 		super(name);

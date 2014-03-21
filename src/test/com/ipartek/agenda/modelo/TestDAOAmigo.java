@@ -10,16 +10,23 @@ import org.apache.log4j.PropertyConfigurator;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.interfaces.IDAOAmigo;
-
+/**
+ * Clase para testear el funcionamiento de DAOAmigo.
+ * 
+ * 
+ * @author Patricia Navascués
+ * @version 1.0
+ *
+ */
 public class TestDAOAmigo extends TestCase {
 	private final static Logger LOG = Logger.getLogger(DAOAmigo.class);
 
-	Amigo a;
-	ArrayList<Amigo> lista;
-	IDAOAmigo daoAmigo;
-	int telefonoFijo = 944444444;
-	int telefonoMovil = 622222222;
-	int codigoPostal = 48007;
+	private Amigo a;
+	private ArrayList<Amigo> lista;
+	private IDAOAmigo daoAmigo;
+	private int telefonoFijo = 944444444;
+	private int telefonoMovil = 622222222;
+	private int codigoPostal = 48007;
 
 	@Override
 	protected void setUp() throws Exception {

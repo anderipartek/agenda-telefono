@@ -4,6 +4,17 @@ import java.util.regex.Pattern;
 
 /**
  * Clase de utilidades para Amigo.
+ * Se comprueban las siguinetes caracteristicas de un amigo:
+ * <ol>
+ * 	<li>Nombre</li>
+ * 	<li>Apellido</li>
+ * 	<li>Calle</li>
+ * 	<li>Población</li>
+ * 	<li>Provincia</li>
+ * 	<li>Código Postal</li>
+ * 	<li>Teléfono fijo</li>
+ * 	<li>Teléfono móvil</li>
+ * </ol>
  * 
  * @author Patricia Navascués Vega
  * @version 1.0
@@ -31,7 +42,7 @@ public class AmigoUtil {
 	 * <li>Permitir sólo carácteres <b>'</b> <b>-</b></li>
 	 * </ol>
 	 * 
-	 * @param Nombre
+	 * @param nombre
 	 *            Nombre del alumno a comprobar.
 	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
 	 *         contrario.
@@ -59,6 +70,8 @@ public class AmigoUtil {
 	 * @return<b>true</b> si cumple las condiciones, <b>false</b> en caso
 	 *                    contrario.
 	 * @see com.ipartek.agenda.util.AmigoUtil.checkNombre.
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *         contrario.
 	 */
 	static public boolean checkApellido(String apellido) {
 		return checkNombre(apellido);
@@ -93,9 +106,9 @@ public class AmigoUtil {
 	 * 
 	 * @param calle
 	 *            calle del amigo.
-	 * @return<b>true</b> si cumple las condiciones, <b>false</b> en caso
-	 *                    contrario.
 	 * @see com.ipartek.agenda.util.AmigoUtil.checkNombre.
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *         contrario.
 	 */
 	public static boolean checkCalle(String calle) {
 		return checkNombre(calle);
@@ -106,9 +119,9 @@ public class AmigoUtil {
 	 * 
 	 * @param localidad
 	 *            localidad del amigo.
-	 * @return<b>true</b> si cumple las condiciones, <b>false</b> en caso
-	 *                    contrario.
 	 * @see com.ipartek.agenda.util.AmigoUtil.checkNombre.
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *         contrario.
 	 */
 	public static boolean checkLocalidad(String localidad) {
 		return checkNombre(localidad);
@@ -119,9 +132,10 @@ public class AmigoUtil {
 	 * 
 	 * @param provincia
 	 *            provincia del amigo.
-	 * @return<b>true</b> si cumple las condiciones, <b>false</b> en caso
-	 *                    contrario.
 	 * @see com.ipartek.agenda.util.AmigoUtil.checkNombre.
+	 * 
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *                    contrario.
 	 */
 	public static boolean checkProvincia(String provincia) {
 		return checkNombre(provincia);
@@ -166,7 +180,8 @@ public class AmigoUtil {
 	 * </ol>
 	 * 
 	 * @param movil
-	 * @return
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *                    contrario.
 	 */
 	public static boolean checkTelefonosMoviles(int movil) {
 		boolean resultado = false;
@@ -188,7 +203,8 @@ public class AmigoUtil {
 	 * </ol>
 	 * 
 	 * @param telefono
-	 * @return
+	 * @return <b>true</b> si cumple las condiciones, <b>false</b> en caso
+	 *                    contrario.
 	 */
 	private static boolean isTelephoneCorrect(int telefono) {
 		boolean resultado = false;
@@ -224,7 +240,7 @@ public class AmigoUtil {
 	/**
 	 * Poner la letra nicial en mayúsculas.
 	 * 
-	 * @param nombre
+	 * @param cadena
 	 *            cadena de texto.
 	 * @return cadena con char inicial en Mayúscula.
 	 */

@@ -22,7 +22,7 @@
 			
 			<div class="botones">
 				<a title="" href="main">cancelar</a>
-				<input type="submit" value="<%=MainServlet.OP_MODIFICAR %>" name="<%=MainServlet.OP_MODIFICAR %>" class="boton modificar">
+				<input type="submit" value="<%=MainServlet.OP_MODIFICAR %>" name="op" class="boton modificar">
 			</div>
 		</form>
 

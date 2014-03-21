@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.bean.Mensajes;
@@ -24,7 +23,7 @@ import com.ipartek.agenda.util.Util;
 /**
  * Servlet implementation class AmigoServlet.
  */
-public class AgendaServlet extends HttpServlet {
+public class AgendaServlet extends MainServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -34,8 +33,8 @@ public class AgendaServlet extends HttpServlet {
 	private static IDAOAmigo modeloAmigo;
 	
 	private static final int COD_MSG_NOTFOUND = 200;
-	private static final int COD_MSG_ERRORDATOS= 500;
-	private static final String TIPO_ERROR="ERR";
+	private static final int COD_MSG_ERRORDATOS = 500;
+	private static final String TIPO_ERROR = "ERR";
 	
 	private String opcion;
 	private Amigo amigo;
@@ -75,7 +74,9 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// recoger el parametro id
-		final String idAmigo = (String) request.getAttribute("id");
+		final String idAmigo = (String) request.getParameter("id");
+		
+		
 		if (idAmigo == null) {
 
 			// Devuelve la información de todos los amigos
@@ -124,9 +125,12 @@ public class AgendaServlet extends HttpServlet {
 		final int idAmigo = Integer.parseInt(id);
 
 		// buscar el amigo en la tabla
-		final Amigo amigoId = modeloAmigo.getById(idAmigo);
-		if (amigoId != null) {
+		final Amigo amigoEncontrado = modeloAmigo.getById(idAmigo);
+		if (amigoEncontrado != null) {
 			// Se ha encontrado sin problema
+			// devolver el amigo encontrado
+			request.setAttribute("amigo", amigoEncontrado);
+			
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
 
 		} else {
@@ -170,9 +174,9 @@ public class AgendaServlet extends HttpServlet {
 			request.setAttribute("operación", "eliminado");
 			// Se llama a la función para eliminar al amigo
 			eliminarAmigo(request, response);
-		} else{
+		} else {
 			// Se busca por el nombre introducido
-			buscarOperación(request, response);
+			buscarOperacion(request, response);
 		}
 	}
 
@@ -251,7 +255,7 @@ public class AgendaServlet extends HttpServlet {
 
 		} else {
 			// Devolver el amigo
-			request.setAttribute("amigos", amigoModificar);
+			request.setAttribute("amigo", amigoModificar);
 
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes(
@@ -277,8 +281,8 @@ public class AgendaServlet extends HttpServlet {
 		final int idAmigoEliminar = Integer.parseInt((String)
 				request.getParameter("id"));
 		// Buscar el amigo por el id
-		Amigo amigoEliminar= modeloAmigo.getById(idAmigoEliminar);
-		if(amigoEliminar != null) {
+		Amigo amigoEliminar = modeloAmigo.getById(idAmigoEliminar);
+		if (amigoEliminar != null) {
 		// Eliminar el amigo
 			final boolean eliminado = modeloAmigo.delete(idAmigoEliminar);
 			if (eliminado) {
@@ -322,7 +326,7 @@ public class AgendaServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void buscarOperación(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void buscarOperacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Obtener el nombre de bíusqueda
 		final String nombre = (String) request.getAttribute("nombre");

@@ -13,15 +13,9 @@ import org.apache.log4j.PropertyConfigurator;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.interfaces.IDAOAmigo;
-import com.ipartek.agenda.modelo.ConnectionFactory;
-
-
-
-
-
 
 /**
- * Clase para implementar la interactuación con la BBDD
+ * Clase para implementar la interactuación con la BBDD.
  * @author Patricia Navascués
  * @version 1.0
  *
@@ -44,7 +38,7 @@ public class DAOAmigo implements IDAOAmigo {
 	private static ArrayList<Amigo> amigos;
 	
 	/**
-	 * Constructor de la clase
+	 * Constructor de la clase.
 	 */
 	public DAOAmigo() {
 		PropertyConfigurator.configure("./config/log4j.properties");
@@ -154,7 +148,7 @@ public class DAOAmigo implements IDAOAmigo {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				amigo = new Amigo();
-				datosAlumno(rs);
+				datosAmigo(rs);
 				amigos.add(amigo);
 			}
 		} catch (SQLException ex) {
@@ -185,8 +179,10 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setString(1, nombre);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				datosAlumno(rs);
-				amigos.add(amigo);
+				datosAmigo(rs);
+				if (amigo != null) {
+					amigos.add(amigo);
+				}
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -213,7 +209,7 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setInt(1, idAmigo);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				datosAlumno(rs);
+				datosAmigo(rs);
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
@@ -300,7 +296,7 @@ public class DAOAmigo implements IDAOAmigo {
 	 * Método para manejar los datos recogidos por la base de datos.
 	 * @param rs
 	 */
-	private void datosAlumno(ResultSet rs) {
+	private void datosAmigo(ResultSet rs) {
 		try {
 			amigo.setId(rs.getInt("id"));
 			try {
@@ -314,15 +310,12 @@ public class DAOAmigo implements IDAOAmigo {
 				amigo.setFijo(rs.getInt("fijo"));
 				amigo.setAnotaciones(rs.getString("anotaciones"));
 			} catch (AmigoException e) {
+				amigo = null;
 				LOG.error("Error al crear el amigo"
-						+ " [ " + e.getMensajeError()+","
-								+ " "+ e.getCodigoError() );
+						+ " [ " + e.getMensajeError() + ","
+								+ " " + e.getCodigoError());
+			
 			}
-			
-			
-			//amigo.setfCreate(rs.getTimestamp("f_create"));
-			//amigo.setfUpdate(rs.getTimestamp("f_update"));
-			//amigo.setfDelete(rs.getTimestamp("f_delete"));
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		}
