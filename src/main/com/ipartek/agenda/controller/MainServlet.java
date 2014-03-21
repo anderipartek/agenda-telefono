@@ -73,12 +73,14 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
+		LOG.trace("doGet MainServlet");
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 
 		request.setAttribute("seccion", seccion);
 		dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
+		LOG.trace("doGet MainServlet fin");
 	}
 
 	/**

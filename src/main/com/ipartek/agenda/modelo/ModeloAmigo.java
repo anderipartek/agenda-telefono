@@ -74,6 +74,7 @@ public class ModeloAmigo implements IModeloAmigable {
 
 	@Override
 	public final HashMap<Integer, Amigo> recogerTodos() {
+		LOG.trace("Recogiendo todos los amigos de la BBDD");
 		HashMap<Integer, Amigo> listaAmigos = daoAmigo.getAllAmigo();
 		return listaAmigos;
 	}
@@ -82,6 +83,7 @@ public class ModeloAmigo implements IModeloAmigable {
 	public final Amigo recogerUno(final int id) {
 		Amigo amigo = daoAmigo.getAmigoById(id);
 		if (amigo == null) {
+			LOG.error("No se ha podido recuperar el amigo con id [" + id + "]");
 			amigo = new Amigo();
 		}
 		return amigo;
@@ -89,6 +91,7 @@ public class ModeloAmigo implements IModeloAmigable {
 
 	@Override
 	public final HashMap<Integer, Amigo> recogerPorNombre(final String nombre) {
+		LOG.trace("recuperando amigos por nombre [" + nombre + "]");
 		HashMap<Integer, Amigo> listaPorNombre;
 		listaPorNombre = daoAmigo.getAllByName(nombre);
 		return listaPorNombre;
