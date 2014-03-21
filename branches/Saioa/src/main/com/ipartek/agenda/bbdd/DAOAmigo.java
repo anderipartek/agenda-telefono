@@ -82,18 +82,7 @@ public class DAOAmigo implements IDAOAmigo {
 
 	}
 	
-	private void sqlExcepcion(SQLException ex) {
-		while (ex != null) {
-			log.error("Message:> " + ex.getMessage());
-			log.error("SQL State:> " + ex.getSQLState());
-			log.error("Error Code:> " + ex.getErrorCode());
-			log.error("Cause:> " + ex.getCause());
-			ex = ex.getNextException();
-		}
 
-	}
-
-	
 
 	@Override
 	public int insertarAmigo(Amigo a) {
@@ -139,9 +128,28 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean delete(int id) {
+		String sqlDelete = " delete from amigos where id = ?";
+		
+		boolean resul = false;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(sqlDelete);
+			pst.setInt(1, id);
+			if (pst.executeUpdate() == 1) {
+				resul = true;
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			log.trace("Fin delete");
+			return resul;
+		}
 	}
 
 	@Override
@@ -162,4 +170,15 @@ public class DAOAmigo implements IDAOAmigo {
 		return null;
 	}
 
+	private void sqlExcepcion(SQLException ex) {
+		while (ex != null) {
+			log.error("Message:> " + ex.getMessage());
+			log.error("SQL State:> " + ex.getSQLState());
+			log.error("Error Code:> " + ex.getErrorCode());
+			log.error("Cause:> " + ex.getCause());
+			ex = ex.getNextException();
+		}
+
+	}
+	
 }

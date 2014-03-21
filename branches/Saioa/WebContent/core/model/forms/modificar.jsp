@@ -1,3 +1,4 @@
+
 <div class="contain">
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
 

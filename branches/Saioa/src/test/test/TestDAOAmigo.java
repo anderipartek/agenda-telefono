@@ -56,12 +56,6 @@ public class TestDAOAmigo {
 		assertTrue("Se ha insertado amigo", id != -1);
 	}
 
-	@Test
-	public void testDelete() {
-		int id=dao.insertarAmigo(a);
-		int idB=dao.delete(id);
-		assertTrue("Se ha borrado amigo", idB != -1);
-	}
 
 	@Test
 	public void testUpdate() {

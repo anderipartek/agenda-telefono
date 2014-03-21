@@ -20,6 +20,7 @@ import com.ipartek.agenda.exception.AmigoException;
 import com.ipartek.agenda.modelo.ModeloAmigo;
 
 
+
 /**
  * Servlet implementation class MainServlet
  */
@@ -104,7 +105,7 @@ public void destroy() {
 		log.trace("Listado Amigos");
 		dispatcher = request.getRequestDispatcher("ver.jsp");
 
-		// conectar BBDD obtener Alumnos
+		// conectar BBDD obtener Amigos
 		ArrayList<Amigo> lAmigo = modelAmigo.getAll();
 
 		log.debug(lAmigo.size() + " Amigos consultados");
@@ -112,28 +113,53 @@ public void destroy() {
 		request.setAttribute("listaAmigos", lAmigo);
 		
 		if ( ELIMINAR.equalsIgnoreCase(op)){
-			request.setAttribute("msg", new Mensaje("Alumno Eliminado Correctamente", 200, Mensaje.TIPO_MENSAJE.INFO));
+			request.setAttribute("msg", new Mensaje("Amigo Eliminado Correctamente", 200, Mensaje.TIPO_MENSAJE.INFO));
 		}
 
+	}
+	private void borrarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		log.trace("Eliminar Amigo");
+		Amigo a=null;
+		//Modificar Amigo
+		String id=(String)request.getParameter("id");
+		//Modificar
+		Mensaje msg=null;
+		try {
+			a = new Amigo();
+		
+		    ModeloAmigo modelAmigo=new ModeloAmigo();
+		    if (!modelAmigo.delete(Integer.parseInt(id))){
+		    log.error("No se ha podido eliminar el Amigo. Consulte con su administrador");
+		    request.setAttribute("msg", new Mensaje("Amigo Modificado",200,Mensaje.TIPO_MENSAJE.ERROR));
+		    }
+		    log.info("Amigo Eliminado[" + id + "]" );
+		    	msg=new Mensaje("Usuario Modificado",703,Mensaje.TIPO_MENSAJE.INFO);
+		    	request.setAttribute("msg", new Mensaje("Amigo Eliminado",200,Mensaje.TIPO_MENSAJE.INFO));
+		    
+		} catch (Exception e1) {
+			log.warn("Excepcion general" + e1.getMessage());
+			 request.setAttribute("msg", new Mensaje("Amigo Modificado",200,Mensaje.TIPO_MENSAJE.ERROR));
+		}
+		
+			request.setAttribute("msg", msg);
+			RequestDispatcher dispatcher= request.getRequestDispatcher("eliminar.jsp");
+			dispatcher.forward(request, response);
+		log.trace("Eliminar Amigo- Fin");
 	}
 	private void crearAmigo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		log.trace("crearAmigo");
 		
-		Amigo Amigo = null;
+		Amigo a = null;
 		//TODO recoger parametros del formulario
 		String nombre = (String)request.getParameter("nombre");
 		String apellido = (String)request.getParameter("apellido");
 		String calle = (String)request.getParameter("calle");
-		String cp = (String)request.getParameter("cp");
-		int codigo = 0;
-		codigo = Integer.parseInt(cp);
+		int cp = Integer.parseInt(request.getParameter("cp"));
 		String localidad = (String)request.getParameter("localidad");
 		String provincia = (String)request.getParameter("provincia");
-		String movil = (String)request.getParameter("movil");
-		int numeroMovil = Integer.parseInt(movil);
-		String fijo = (String)request.getParameter("fijo");
-		int numeroFijo = Integer.parseInt(fijo);
+		int movil = Integer.parseInt(request.getParameter("movil"));
+		int fijo = Integer.parseInt(request.getParameter("fijo"));
 		String anotaciones = (String)request.getParameter("anotaciones");
 		
 		//apellido
@@ -142,19 +168,19 @@ public void destroy() {
 		//no poner inicializar variables en mayusculas porque se confunde con clase
 		//crear Amigo
 		try {
-			Amigo = new Amigo();
-			Amigo.setNombre(nombre);
-			Amigo.setApellido(apellido);
-			Amigo.setCalle(calle);
-			Amigo.setCp(codigo);
-			Amigo.setLocalidad(localidad);
-			Amigo.setProvincia(provincia);
-			Amigo.setMovil(numeroMovil);
-			Amigo.setFijo(numeroFijo);
-			Amigo.setAnotaciones(anotaciones);
+			a = new Amigo();
+			a.setNombre(nombre);
+			a.setApellido(apellido);
+			a.setCalle(calle);
+			a.setCp(cp);
+			a.setLocalidad(localidad);
+			a.setProvincia(provincia);
+			a.setMovil(movil);
+			a.setFijo(fijo);
+			a.setAnotaciones(anotaciones);
 			//INSERT INTO DDBB
-			modelAmigo.insert(Amigo);
-			log.info("Amigo insertado " + Amigo.toString());
+			modelAmigo.insert(a);
+			log.info("Amigo insertado " + a.toString());
 			request.setAttribute("msg",new Mensaje("Amigo insertado", 200, Mensaje.TIPO_MENSAJE.INFO));
 		} catch (AmigoException e) {
 			log.warn("Datos del Amigo no validos " + e.getMessage());

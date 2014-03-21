@@ -8,6 +8,7 @@
 <body id="home">
 <!-- HEADER -->
 <%@ include file="inc/header.jsp" %>
-
+<section class="wrapper content">
+</section>
 <!-- FOOTER -->
 <%@ include file="inc/footer.jsp"%>

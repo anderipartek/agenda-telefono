@@ -27,4 +27,12 @@ public class ModeloAmigo  {
 		return listaAmigos;
 	
 	}
+	public boolean delete(int id) {
+		boolean result = true;
+		if (!daoAmigo.delete(id)) {
+			result = false;
+			
+		}
+		return result;
+	}
 }
