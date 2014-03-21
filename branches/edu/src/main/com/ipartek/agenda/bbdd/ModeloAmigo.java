@@ -19,7 +19,7 @@ public class ModeloAmigo{
 		daoAmigo = factoria.getDAOAmigo();
 	}	
 	
-	public ArrayList<Amigo> getAlumnosByNombre(String nombre) {
+	public ArrayList<Amigo> getAmigosByNombre(String nombre) {
 		
 		amigos=null;
 		amigos=daoAmigo.obtenerAmigosByNombre(nombre);
@@ -35,7 +35,7 @@ public class ModeloAmigo{
 
 	
 	public ArrayList<Amigo> getAll() {
-		Amigo a = null;
+		
 		ArrayList<Amigo> listaAmigos = new ArrayList<Amigo>();
 		listaAmigos = daoAmigo.getAll();
 		return listaAmigos;

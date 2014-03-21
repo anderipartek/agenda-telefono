@@ -56,7 +56,7 @@
 				nombreApe = amigo.getNombre() + " " + amigo.getApellido();
 				%>
 			    
-				<input type="submit" name="amigo" value="<%=nombreApe%>">
+				<input type="submit" name="amigo" value="<%=nombreApe%>"><br/>
 				<input type="hidden" name="id" value="<%=amigo.getId()%>">
 						
 			
@@ -97,7 +97,7 @@
 			<input type="text" placeholder="provincia" name="provincia" value="<%=provincia %>">
 			<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999" name="movil" value="<%=movil %>">
 			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<%=fijo %>">
-			<textarea name="anotaciones" placeholder="anotaciones">"<%=anotaciones %>"</textarea>
+			<textarea name="anotaciones" placeholder="anotaciones"><%=anotaciones %></textarea>
 			<input type="hidden" name="id" value="<%=idM %>">
 			
 			

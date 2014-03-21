@@ -62,7 +62,7 @@ public class AgendaServlet extends ServletMaestro {
 			//Si no hay alumnos en la BD
 			if (amigos.size()==0)
 			{
-				String msg="No hay alumnos para mostrar en la BD";
+				String msg="No hay amigos para mostrar en la BD";
 				request.setAttribute("mensaje", msg);
 			}
 			request.setAttribute("listaAmigos", amigos);
@@ -163,7 +163,7 @@ public class AgendaServlet extends ServletMaestro {
 		    try {
 				a=parsearAmigo(request,id);
 				if (model.update(a, id)){
-					texto="Alumno modificado correctamente";
+					texto="Amigo modificado correctamente";
 					request.setAttribute("Mensaje", texto);
 					
 					
@@ -214,7 +214,7 @@ public class AgendaServlet extends ServletMaestro {
 
 	private void buscar(HttpServletRequest request, HttpServletResponse response,String form) {
 		log.trace("buscando");
-		amigos=model.getAlumnosByNombre(request.getParameter("nombre"));
+		amigos=model.getAmigosByNombre(request.getParameter("nombre"));
 		request.setAttribute("Amigos", amigos);
 		if (amigos.size()==0){
 			texto="No se ha encontrado ningun amigo con ese nombre";
@@ -247,7 +247,7 @@ public class AgendaServlet extends ServletMaestro {
 			a.setAnotaciones(request.getParameter("anotaciones"));
 			model.insertarAmigo(a);
 			dispatcher = request.getRequestDispatcher("core/model/forms/anadir.jsp");
-			texto="Alumno insertado correctamente";
+			texto="Amigo insertado correctamente";
 			request.setAttribute("Mensaje", texto);
 		} catch (AmigoException e) {
 			texto=e.getMensaje();

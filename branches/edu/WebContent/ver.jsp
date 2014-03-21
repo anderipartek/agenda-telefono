@@ -7,18 +7,20 @@
 <body>
 <%String msg=(String)request.getAttribute("mensaje");
    if (msg!=null){%>
-	   <h3><%=msg %></h3>
+	  <p class="errores"><%=msg%></p>	
    <%} %>
   
   
 
-<h3>Estos son tus amigos:</h3>
+
 
     <%
       ArrayList<Amigo> amigos=(ArrayList<Amigo>)request.getAttribute("listaAmigos");
+     if (amigos!=null){
+    	 %><p class="txt">Estos son tus amigos:</p> 
+     
       
-      
-    %>
+    
     <div id="anotaciones">
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
@@ -54,6 +56,7 @@
         </tbody>
 		</table>
 		</div>
+	<%} %>
 		
 		
 
