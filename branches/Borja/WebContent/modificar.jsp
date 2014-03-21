@@ -13,8 +13,8 @@
 					
 						<input type="submit" name="amigo" value="<%=listaAmigos.get(i)%>">
 						<input type="hidden" name="buscar" value="ok">
-						<input type="hidden" name="nombre" value="Erlantz">
-						<input type="hidden" name="id" value="<%=i %>>">
+						<input type="hidden" name="nombre" value="">
+						<input type="hidden" name="id" value="<%=i%>">
 					</form>
 				</li>
 				<%} %>

@@ -81,9 +81,6 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("He entrado en doget AgendaServlet");
-		
-
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 		request.setAttribute("seccion", seccion);
@@ -93,10 +90,14 @@ public class AgendaServlet extends HttpServlet {
 
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			
-		}else {
+		}else if (ANADIR.equals(SECCION)) {
 
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			
+		}else if (ELIMINAR.equals(SECCION)){
+			
+			//recogerDatos (request, response);
+			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
 		
 		// Redirecionar a la JSP
@@ -114,13 +115,13 @@ public class AgendaServlet extends HttpServlet {
 		if (OP_AÑADIR_AMIGO.equalsIgnoreCase(op)) {
 			crearAmigo(request, response);
 
-		} else if (OP_MODIFICAR_AMIGO.equalsIgnoreCase(op)) {
+		}/*else if (OP_MODIFICAR_AMIGO.equalsIgnoreCase(op)) {
 			modificarAmigo(request, response);
 		} else if (OP_ELIMINAR_AMIGO.equalsIgnoreCase(op)) {
 			borrarAmigo(request, response);
 
 			return;
-		}
+		}*/
 
 	}// end doPost
 	
@@ -144,34 +145,7 @@ public class AgendaServlet extends HttpServlet {
 	}
 	
 	
-	private void borrarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Amigo a = null;
-		int id = parseIdToInt(request);
-		if (this.modeloAgenda.delete(id)) {
-			//log.debug("Se ha borrado el alumno " + id);
-		} else {
-			//log.warn("No se ha podido borrar el alumno " + id);
-		}
-		request.setAttribute("mostrarLista", true);
-		doGet(request, response);
-	}
 	
-	private void modificarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = null;
-		Amigo a = null;
-		a = validateValues(request, response, true);
-		if (a != null) {
-			// if (!modeloAlumno.update(a, a.getId())) {
-			if (ConnectionFactory.getInstance().getDAOAmigo().update(a, a.getId())) {
-				//log.debug("Se ha modificado el alumno " + a.getId());
-			} else {
-				//log.warn("No se ha podido modificar el alumno " + a.getId());
-			}
-		}
-		dispatcher = request.getRequestDispatcher("alumnoDetalle.jsp");
-		dispatcher.forward(request, response);
-
-	}
 	
 	private void crearAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -203,15 +177,6 @@ public class AgendaServlet extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("alumnoDetalle.jsp");
 		dispatcher.forward(request, response);
 		//log.trace("crearAlumno - Fin");
-	}
-	
-	private int parseIdToInt(HttpServletRequest request) {
-		int id = -1;
-		try {
-			id = (Integer.parseInt(request.getParameter("id")));
-		} catch (Exception e) {
-		}
-		return id;
 	}
 	
 	
