@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.ipartek.agenda.database.ConnectionFactory;
+import com.ipartek.agenda.hibernate.HibernateUtil;
 
 /**
  * Application Lifecycle Listener implementation class InitListener
@@ -30,12 +31,22 @@ public class InitListener implements ServletContextListener {
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+
 		try {
 			ConnectionFactory.getInstance().getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		try {
+			HibernateUtil.getSession();
+			// session.beginTransaction();
+			// // saving objects to session
+			// session.save(new Amigo());
+			// session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		PropertyConfigurator.configure("./config/log4j.properties");
 	}
 
@@ -48,9 +59,11 @@ public class InitListener implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent sce) {
 		try {
 			ConnectionFactory.getInstance().closeConnection();
+			HibernateUtil.getSession().close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (Exception ex) {
+			System.out.println("no se pudo cerrar la conexion de hibernate");
 		}
 	}
-
 }

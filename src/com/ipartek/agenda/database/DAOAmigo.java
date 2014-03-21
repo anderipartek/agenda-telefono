@@ -33,7 +33,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public static final String ANOTACIONES = "anotaciones";
 
 	@Override
-	public final int add(final Amigo amigo) {
+	public final long add(final Amigo amigo) {
 		final String sqlInsert = "INSERT INTO `agenda`.`amigos` (`nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (?,?,?,?,?,?,?,?,?);";
 
 		String sqlId = "select max(id) from `agenda`.`amigos`";

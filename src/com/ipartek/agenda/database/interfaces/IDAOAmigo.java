@@ -13,7 +13,7 @@ public interface IDAOAmigo {
 	 *            a añadir
 	 * @return id del amigo añadido, -1 si no se ha podido añadir
 	 */
-	int add(Amigo amigo);
+	long add(Amigo amigo);
 
 	/**
 	 * Devuelve todos los amigos en la tabla amigos de la DB agenda
