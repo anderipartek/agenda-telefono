@@ -1,5 +1,11 @@
 package com.ipartek.agenda.bean;
 
+/**
+ * Clase para gerstionar los amigos.
+ * 
+ * @author Ibai Sainz-Aja
+ * @version 1.0
+ */
 public class Amigo {
 
 	private int id;
@@ -13,6 +19,9 @@ public class Amigo {
 	private int fijo;
 	private String anotaciones;
 
+	/**
+	 * Constructor por defecto.
+	 */
 	public Amigo() {
 		super();
 
@@ -29,9 +38,24 @@ public class Amigo {
 
 	}
 
-	public Amigo(String nombre, String apellido, String calle, int cp, String localidad, String provincia, int movil, int fijo, String anotaciones) {
+	/**
+	 * Constructor con parametros.
+	 * 
+	 * @param nombre
+	 * @param apellido
+	 * @param calle
+	 * @param cp
+	 * @param localidad
+	 * @param provincia
+	 * @param movil
+	 * @param fijo
+	 * @param anotaciones
+	 */
+	public Amigo(final String nombre, final String apellido,
+			final String calle, final int cp, final String localidad,
+			final String provincia, final int movil, final int fijo,
+			final String anotaciones) {
 		this();
-		this.id = this.id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.calle = calle;
@@ -43,90 +67,203 @@ public class Amigo {
 		this.anotaciones = anotaciones;
 	}
 
-	public int getId() {
+	/**
+	 * Getter del id.
+	 * 
+	 * @return id
+	 */
+	public final int getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	/**
+	 * Setter de id.
+	 * 
+	 * @param idParam
+	 *            del amigo
+	 */
+	public final void setId(final int idParam) {
+		this.id = idParam;
 	}
 
-	public String getNombre() {
+	/**
+	 * Getter del nombre.
+	 * 
+	 * @return nombre
+	 */
+	public final String getNombre() {
 		return this.nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	/**
+	 * Setter del nombre.
+	 * 
+	 * @param nombreParam
+	 *            del alumno
+	 */
+	public final void setNombre(final String nombreParam) {
+		this.nombre = nombreParam;
 	}
 
-	public String getApellido() {
+	/**
+	 * Getterdel apellido.
+	 * 
+	 * @return apellido
+	 */
+	public final String getApellido() {
 		return this.apellido;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	/**
+	 * Setter del apellido.
+	 * 
+	 * @param apellidoParam
+	 *            del amigo
+	 */
+	public final void setApellido(final String apellidoParam) {
+		this.apellido = apellidoParam;
 	}
 
-	public String getCalle() {
+	/**
+	 * Getter de la calle.
+	 * 
+	 * @return calle del amigo
+	 */
+	public final String getCalle() {
 		return this.calle;
 	}
 
-	public void setCalle(String calle) {
-		this.calle = calle;
+	/**
+	 * Setter de la calle.
+	 * 
+	 * @param calleParam
+	 *            del amigo
+	 */
+	public final void setCalle(final String calleParam) {
+		this.calle = calleParam;
 	}
 
-	public int getCp() {
+	/**
+	 * Getter del cp.
+	 * 
+	 * @return cp
+	 */
+	public final int getCp() {
 		return this.cp;
 	}
 
-	public void setCp(int cp) {
-		this.cp = cp;
+	/**
+	 * Setter del cp.
+	 * 
+	 * @param cpParam
+	 *            del alumno
+	 */
+	public final void setCp(final int cpParam) {
+		this.cp = cpParam;
 	}
 
-	public String getLocalidad() {
+	/**
+	 * Getter de la localidad.
+	 * 
+	 * @return localidad
+	 */
+	public final String getLocalidad() {
 		return this.localidad;
 	}
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
+	/**
+	 * Setter de la localidad.
+	 * 
+	 * @param localidadParam
+	 *            del amigo
+	 */
+	public final void setLocalidad(final String localidadParam) {
+		this.localidad = localidadParam;
 	}
 
-	public String getProvincia() {
+	/**
+	 * Getter de la provincia.
+	 * 
+	 * @return provincia
+	 */
+	public final String getProvincia() {
 		return this.provincia;
 	}
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	/**
+	 * Setter de la provincia.
+	 * 
+	 * @param provinciaParam
+	 *            del amigo
+	 */
+	public final void setProvincia(final String provinciaParam) {
+		this.provincia = provinciaParam;
 	}
 
-	public int getMovil() {
+	/**
+	 * Getter del movil.
+	 * 
+	 * @return movil
+	 */
+	public final int getMovil() {
 		return this.movil;
 	}
 
-	public void setMovil(int movil) {
-		this.movil = movil;
+	/**
+	 * Setter del movil.
+	 * 
+	 * @param movilParam
+	 *            del amigo
+	 */
+	public final void setMovil(final int movilParam) {
+		this.movil = movilParam;
 	}
 
-	public int getFijo() {
+	/**
+	 * Getter del fijo.
+	 * 
+	 * @return fijo.
+	 */
+	public final int getFijo() {
 		return this.fijo;
 	}
 
-	public void setFijo(int fijo) {
-		this.fijo = fijo;
+	/**
+	 * Setter del fijo.
+	 * 
+	 * @param fijoParam
+	 *            del amigo
+	 */
+	public final void setFijo(final int fijoParam) {
+		this.fijo = fijoParam;
 	}
 
-	public String getAnotaciones() {
+	/**
+	 * Getter de anotaciones.
+	 * 
+	 * @return anotaciones
+	 */
+	public final String getAnotaciones() {
 		return this.anotaciones;
 	}
 
-	public void setAnotaciones(String anotaciones) {
-		this.anotaciones = anotaciones;
+	/**
+	 * Setter de anotaciones.
+	 * 
+	 * @param anotacionesParam
+	 *            del amigo
+	 */
+	public final void setAnotaciones(final String anotacionesParam) {
+		this.anotaciones = anotacionesParam;
 	}
 
 	@Override
-	public String toString() {
-		return "Amigo [id=" + this.id + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", calle=" + this.calle + ", cp=" + this.cp
-				+ ", localidad=" + this.localidad + ", provincia=" + this.provincia + ", movil=" + this.movil + ", fijo=" + this.fijo
-				+ ", anotaciones=" + this.anotaciones + "]";
+	public final String toString() {
+		return "Amigo [id=" + this.id + ", nombre=" + this.nombre
+				+ ", apellido=" + this.apellido + ", calle=" + this.calle
+				+ ", cp=" + this.cp + ", localidad=" + this.localidad
+				+ ", provincia=" + this.provincia + ", movil=" + this.movil
+				+ ", fijo=" + this.fijo + ", anotaciones=" + this.anotaciones
+				+ "]";
 	}
 }

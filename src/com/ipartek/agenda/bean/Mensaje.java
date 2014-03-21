@@ -2,46 +2,79 @@ package com.ipartek.agenda.bean;
 
 import com.ipartek.agenda.enumeration.TIPO_MENSAJE;
 
-
 /**
- * Encapsula los mensajes para mostrar en el frontend de la AppWeb
- * @author Eduardo Monterrubio Robledo
+ * Encapsula los mensajes para mostrar en el frontend de la AppWeb.
+ * 
+ * @author Ibai Sainz-Aja Depardieu
  * @version 1.0
  */
 public class Mensaje {
-	
+
 	private String msg;
 	private int codigo;
 	private TIPO_MENSAJE tipo;
-	
-		
-	public Mensaje(String msg, int codigo, TIPO_MENSAJE tipo) {
+
+	/**
+	 * Constructor con poarametros.
+	 * 
+	 * @param msgParam mensaje a enviar
+	 * @param codigoParam del mensaje
+	 * @param tipoParam del mensaje
+	 */
+	public Mensaje(final String msgParam, final int codigoParam, 
+			final TIPO_MENSAJE tipoParam) {
 		super();
-		this.msg = msg;
-		this.codigo = codigo;
-		this.tipo = tipo;
+		this.msg = msgParam;
+		this.codigo = codigoParam;
+		this.tipo = tipoParam;
 	}
 
-	
-	public String getMsg() {
+	/**
+	 * Getter del mensaje.
+	 * @return el mensaje
+	 */
+	public final String getMsg() {
 		return msg;
 	}
-	public void setMsg(String msg) {
-		this.msg = msg;
+
+	/**
+	 * Setter del mensaje.
+	 * @param msgParam el mensaje
+	 */
+	public final void setMsg(final String msgParam) {
+		this.msg = msgParam;
 	}
-	public int getCodigo() {
+
+	/**
+	 * Getter del codigo.
+	 * @return codigo
+	 */
+	public final int getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+
+	/**
+	 * Setter del codigo.
+	 * @param codigoParam el codigo
+	 */
+	public final void setCodigo(final int codigoParam) {
+		this.codigo = codigoParam;
 	}
-	public TIPO_MENSAJE getTipo() {
+
+	/**
+	 * Getter del tipo.
+	 * @return tipo
+	 */
+	public final TIPO_MENSAJE getTipo() {
 		return tipo;
 	}
-	public void setTipo(TIPO_MENSAJE tipo) {
-		this.tipo = tipo;
+
+	/**
+	 * Setter del mensaje.
+	 * @param tipoParam del mensaje
+	 */
+	public final void setTipo(final TIPO_MENSAJE tipoParam) {
+		this.tipo = tipoParam;
 	}
-	
-	
 
 }
