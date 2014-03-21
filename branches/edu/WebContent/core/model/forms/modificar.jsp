@@ -49,15 +49,15 @@
 		if (amigos!=null){%>
 		    <p class="txt">Seleccionalo de la lista</p>
 			
-			<form action="agenda?operacion=datos" method="post">
+			
 			<% for (int i = 0 ; i < amigos.size(); i++) {%> 
-				
+				<form action="agenda?operacion=datos" method="post">
 				<% Amigo amigo = amigos.get(i);
 				nombreApe = amigo.getNombre() + " " + amigo.getApellido();
 				%>
 			    
 				<input type="submit" name="amigo" value="<%=nombreApe%>"><br/>
-				<input type="hidden" name="id" value="<%=amigo.getId()%>">
+				<input type="hidden" name="idM" value="<%=amigo.getId()%>">
 						
 			
 				

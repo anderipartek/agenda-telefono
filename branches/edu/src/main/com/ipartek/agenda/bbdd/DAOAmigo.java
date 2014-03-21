@@ -10,30 +10,30 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 import com.ipartek.agenda.bean.Amigo;
-import com.ipartek.agenda.controller.ServletMaestro;
 import com.ipartek.agenda.exception.AmigoException;
 import com.ipartek.agenda.interfaces.IAmigable;
 
 public class DAOAmigo implements IAmigable {
-	
-	
+
+
 	static ConnectionFactory factory=null;
 	static Connection con=null;
 	static Statement stmt=null;
 	static PreparedStatement pst=null;
 	static ResultSet rs=null;
 	static Amigo a=null;
+	static int id;
 	static ArrayList<Amigo> amigos;
 	private final static Logger log=Logger.getLogger(DAOAmigo.class);
-    public DAOAmigo(){
-    	factory=ConnectionFactory.getInstance();
-    	
-    }
-	
+	public DAOAmigo(){
+		factory=ConnectionFactory.getInstance();
+
+	}
+
 	@Override
 	public int insertarAmigo(Amigo a) {
 		log.trace("Insertando Alumno...");
-		int id;
+
 		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?,?,?,?,?)";
 		String sqlId = "select max(id) from amigos;";
 		id = -1;
@@ -57,7 +57,7 @@ public class DAOAmigo implements IAmigable {
 				a.setId(id);
 			}
 			log.info("Amigo insertado correctamente");
-			
+
 		} catch (SQLException ex) {
 			log.error("SQLException " + ex.getMessage());
 			id = -1;
@@ -71,14 +71,14 @@ public class DAOAmigo implements IAmigable {
 				log.info("Cerrada la conexion");
 			} catch (SQLException e) {
 				log.error("Error al cerrar la conexion");
-				
+
 			}
 		}
 		log.info("Fin insercion alumno");
 		return id;
-        
-		
-		
+
+
+
 	}
 
 	@Override
@@ -107,11 +107,11 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				log.error("SqlException" + ex.getMessage());
 			}
-			
+
 		}
 		log.trace("Fin Delete");
 		return result;
-		
+
 	}
 
 	@Override
@@ -149,11 +149,11 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				System.out.println("Error al cerrar la conexion");
 			}
-			
+
 		}
 		log.trace("Fin Update");
 		return result;
-		
+
 	}
 
 	@Override
@@ -172,11 +172,11 @@ public class DAOAmigo implements IAmigable {
 				listaAlumnos.add(a);
 				log.info("Obtenidos los alumnos de la BD");
 			}
-			
+
 		} catch (SQLException ex) {
 			log.error("SQLException" + ex.getMessage());
-		
-		
+
+
 		} catch (Exception ex) {
 			log.error("Excepcion Desconocida" + ex.getMessage());
 		} finally {
@@ -185,7 +185,7 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				log.error("Error al cerrar la conexion");
 			}
-			
+
 		}
 		log.trace("Fin getAll");
 		return listaAlumnos;
@@ -205,7 +205,7 @@ public class DAOAmigo implements IAmigable {
 				datosAmigo(rs);
 			}
 			log.info("Alumno obtenido por ID");
-		 
+
 		} catch (SQLException ex) {
 			log.error("SQLException"+ ex.getMessage());
 		} catch (Exception ex) {
@@ -216,13 +216,13 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				log.error("Error al cerrar la conexion");
 			}
-			
+
 		}
 		return a;
 	}
-	
+
 	private void datosAmigo(ResultSet rs) throws AmigoException {
-		   log.trace("Inicio datosAmigo");
+		log.trace("Inicio datosAmigo");
 		try {
 			a=new Amigo();
 			a.setId(rs.getInt("id"));
@@ -236,7 +236,7 @@ public class DAOAmigo implements IAmigable {
 			a.setFijo(rs.getInt("fijo"));
 			a.setAnotaciones(rs.getString("anotaciones"));
 			log.info("Alumno parseado correctamente");
-		
+
 		} catch (SQLException ex) {
 			log.error("Error al parsear los datos del Amigo");
 		}
@@ -250,7 +250,7 @@ public class DAOAmigo implements IAmigable {
 		String sqlAmigo = "select * from amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
-			
+
 			pst = con.prepareStatement(sqlAmigo);
 			pst.setString(1, nombre);
 			rs = pst.executeQuery();
@@ -259,10 +259,10 @@ public class DAOAmigo implements IAmigable {
 				log.info("Amigo obtenido por nombre");
 				amigos.add(a);
 				log.info("Amigo añadido a la lista de Amigos que coinciden con el mismo nombre");
-				
+
 			}
-			
-		 
+
+
 		} catch (SQLException ex) {
 			log.error("Error al obtener el amigo por nombre " + ex.getMessage());
 		} catch (Exception ex) {
@@ -273,11 +273,11 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				log.error("Error al cerrar la conexion");
 			}
-			
+
 		}
 		log.trace("Fin obtenerAmigoByNombre");
 		return amigos;
 	}
-	
-   
+
+
 }

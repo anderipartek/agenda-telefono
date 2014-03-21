@@ -54,7 +54,7 @@
 				nombreApe = amigo.getNombre() + " " + amigo.getApellido();
 			%>
 			    
-				<input type="submit" name="amigo" value="<%=nombreApe%>">
+				<input type="submit" name="amigo" value="<%=nombreApe%>"><br/>
 				<input type="hidden" name="idB" value="<%=amigo.getId()%>">
 						
 			
