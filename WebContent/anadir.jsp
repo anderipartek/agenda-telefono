@@ -13,7 +13,7 @@
  		} %>		
 		<p class="titulo">Cuales son los datos de tu amigo:</p>		
 		<form method="post" action="agenda">				
-			<input type="text" placeholder="nombre (minimo 2 caracteres)" name="nombre" value="nombre" required pattern="[A-Z][a-z]{2,}">
+			<input type="text" placeholder="nombre (minimo 2 caracteres)" name="nombre" value="nombre" required pattern="^[A-Za-z_]{2,15}">
 			<input type="text" placeholder="apellido" name="apellido" value="apellido">
 			<input type="text" placeholder="calle" name="calle" value="calle">
 			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="CP">

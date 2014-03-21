@@ -23,6 +23,10 @@ public class TestAmigo {
 	/**
 	 * 
 	 */
+	static final int CP_PRUEBA = 4000000;
+	/**
+	 * 
+	 */
 	static Amigo amigoTestVacio;
 	/**
 	 * 
@@ -240,7 +244,8 @@ public class TestAmigo {
 	 */
 	@Test(expected = AmigoExcepcion.class)
 	public final void testSetCodigoPostalExcepcion() throws Exception {
-		amigoTestParam.setCodigoPostal(4000000);
+
+		amigoTestParam.setCodigoPostal(CP_PRUEBA);
 	}
 
 	/**

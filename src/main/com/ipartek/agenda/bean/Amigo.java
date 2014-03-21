@@ -155,7 +155,7 @@ public class Amigo {
 		if (AmigoUtil.checkNombre(cNombre)) {
 			this.nombre = cNombre;
 		} else {
-			this.nombre = DEFAULT_NOMBRE_VALUE;
+			this.nombre = "";
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_NOMBRE,
 					AmigoExcepcion.MSG_ERROR_NOMBRE);
 		}
@@ -171,7 +171,7 @@ public class Amigo {
 		if (AmigoUtil.checkNombre(cApellido)) {
 			this.apellido = cApellido;
 		} else {
-			this.apellido = DEFAULT_APELLIDO_VALUE;
+			this.apellido = "";
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_APELLIDO,
 					AmigoExcepcion.MSG_ERROR_APELLIDO);
 		}
@@ -188,8 +188,7 @@ public class Amigo {
 		if (AmigoUtil.checkNumeros(cMTelefono)) {
 			this.mTelefono = cMTelefono;
 		} else {
-			// VALOR POR DEFECTO
-			this.mTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
+			this.mTelefono = "0";
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
 					AmigoExcepcion.MSG_ERROR_TELEFONO);
 		}
@@ -206,8 +205,7 @@ public class Amigo {
 		if (AmigoUtil.checkNumeros(cFTelefono)) {
 			this.fTelefono = cFTelefono;
 		} else {
-			// VALOR POR DEFECTO
-			this.fTelefono = String.valueOf(DEFAULT_TELEFONO_VALUE);
+			this.fTelefono = "0";
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_TELEFONO,
 					AmigoExcepcion.MSG_ERROR_TELEFONO);
 		}
@@ -218,7 +216,11 @@ public class Amigo {
 	 * @param cCalle calle
 	 */
 	public final void setCalle(final String cCalle) {
-		this.calle = cCalle;
+		if (!cCalle.isEmpty()) {
+			this.calle = cCalle;
+		} else {
+			this.calle = "";
+		}
 	}
 
 	/**
@@ -226,7 +228,11 @@ public class Amigo {
 	 * @param cProvincia provincia
 	 */
 	public final void setProvincia(final String cProvincia) {
-		this.provincia = cProvincia;
+		if (!cProvincia.isEmpty()) {
+			this.provincia = cProvincia;
+		} else {
+			this.provincia = "";
+		}
 	}
 
 	/**
@@ -234,7 +240,11 @@ public class Amigo {
 	 * @param cLocalidad localidad
 	 */
 	public final void setLocalidad(final String cLocalidad) {
-		this.localidad = cLocalidad;
+		if (!cLocalidad.isEmpty()) {
+			this.localidad = cLocalidad;
+		} else {
+			this.localidad = "";
+		}
 	}
 
 	/**
@@ -248,8 +258,7 @@ public class Amigo {
 		if (AmigoUtil.checkCP(cCodigoPostal)) {
 			this.codigoPostal = cCodigoPostal;
 		} else {
-			// VALOR POR DEFECTO
-			this.codigoPostal = DEFAULT_CP_VALUE;
+			this.codigoPostal = 0;
 			throw new AmigoExcepcion(AmigoExcepcion.COD_ERROR_CP,
 					AmigoExcepcion.MSG_ERROR_CP);
 		}
@@ -260,7 +269,11 @@ public class Amigo {
 	 * @param cAnotaciones comentarios sobre el amigo
 	 */
 	public final void setAnotaciones(final String cAnotaciones) {
-		this.anotaciones = cAnotaciones;
+		if (!cAnotaciones.isEmpty()) {
+			this.anotaciones = cAnotaciones;
+		} else {
+			this.anotaciones = "";
+		}
 	}
 
 	/**
