@@ -5,15 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.ipartek.agenda.interfaces.IAmigable;
-
+/**
+ * 
+ * @author Eduardo Monterrubio
+ *Clase que define el patron factoria a la conexion de la BD Agenda
+ */
 public class ConnectionFactory {
 	private static Connection conn = null;
 
-	private static final String DB_NAME = "agenda";
-	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME ;
-	static final String DRIVER = "com.mysql.jdbc.Driver";
-	static final String USER = "root";
-	static final String PASS = "root";
+	private static final String DB_NAME = "agenda"; //nombre base de datos
+	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME ; //String conexion
+	static final String DRIVER = "com.mysql.jdbc.Driver"; //Driver 
+	static final String USER = "root"; //user
+	static final String PASS = "root";//password
 
 	private static ConnectionFactory connectionFactory = null;
 
