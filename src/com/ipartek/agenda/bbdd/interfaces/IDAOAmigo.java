@@ -40,9 +40,10 @@ public interface IDAOAmigo {
 	
 	/**
 	 * Modificar alumno seleccionado
-	 * @param a alumno a modificar
+	 * @param a amigo a modificar
+	 * @param id identificador del amigo
 	 * @return true si se a modificado, false en caso contrario
 	 */
-	boolean update( Amigo a);
+	boolean update( Amigo a, int id);
 	
 }
