@@ -49,7 +49,9 @@
 
 		<ul class="amigos modify">
 			<li>
-				<%
+				<% 
+				
+				
 					if (amigos != null) {
 				    %>
 				<p class="txt">Seleccionalo de la lista</p> <%
@@ -58,6 +60,7 @@
 				<form action="agenda?operacion=datos" method="post">
 					<%
 						     Amigo amigo = amigos.get(i);
+					        
 						     nombreApe = amigo.getNombre() + " " + amigo.getApellido();
 					       %>
 
