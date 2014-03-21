@@ -62,10 +62,12 @@ public class ModeloAmigo implements IModeloAmigable {
 
 	@Override
 	public final boolean eliminar(final int id) {
-		boolean result = true;
+		boolean result;
 		if (!daoAmigo.deleteAmigo(id)) {
 			result = false;
 			LOG.error("Error ocurrido al eliminar amigo en ModeloAmigo");
+		} else {
+			result = true;
 		}
 		return result;
 	}
