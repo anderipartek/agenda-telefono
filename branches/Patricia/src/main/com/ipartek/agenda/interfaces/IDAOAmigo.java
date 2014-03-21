@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.ipartek.agenda.bean.Amigo;
 
 /**
- * Interfaz que define los métodos para las operaciones con la base de datos
+ * Interfaz que define los métodos para las operaciones con la base de datos.
  * @author Patricia Navascués
  * @version 1.0
  *
@@ -41,7 +41,7 @@ public interface IDAOAmigo {
 	
 	/**
 	 * Obtenemos un amigo por su ID.
-	 * @param identificador del amigo
+	 * @param idAmigo identificador del amigo
 	 * @return [Amigo] amigo
 	 */
 	Amigo getById(int idAmigo);

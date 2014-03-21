@@ -25,7 +25,7 @@ public class Util {
 	 * @param nombre
 	 *            nombre o fragmento de nombre que se va a buscar
 	 * 
-	 *            return listaAmigos
+	 * @return listaAmigos
 	 */
 	public static ArrayList<Amigo> getAmigoBusqueda(String nombre) {
 		

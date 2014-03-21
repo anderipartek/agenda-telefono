@@ -1,6 +1,5 @@
 package com.ipartek.agenda.exceptions;
 
-import com.ipartek.agenda.bean.Amigo;
 
 /**
  * Clase que define los códigos y mensajes de error.
@@ -10,8 +9,8 @@ import com.ipartek.agenda.bean.Amigo;
  */
 public class AmigoException extends Exception {
 
-	int codigoError;
-	String mensajeError;
+	private int codigoError;
+	private String mensajeError;
 
 	// codigos y mensajes de error
 	public static final int COD_ERROR_CALLE = 1;

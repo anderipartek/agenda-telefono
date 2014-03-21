@@ -1,9 +1,5 @@
 package com.ipartek.agenda.bean;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
 import com.ipartek.agenda.exceptions.AmigoException;
 
 import junit.framework.TestCase;
@@ -49,7 +45,7 @@ public class TestAmigo extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		manola=new Amigo();
+		manola = new Amigo();
 		manola.setNombre("manolita");
 		manola.setApellido("gisa");
 	
@@ -61,7 +57,7 @@ public class TestAmigo extends TestCase {
 	 */
 	@Override
 	protected void tearDown() throws Exception {
-		manola=null;
+		manola = null;
 	}
 
 	/**

@@ -6,12 +6,18 @@ import java.sql.SQLException;
 
 import com.ipartek.agenda.interfaces.IDAOAmigo;
 
-
+/**
+ * Clase para gestionar la conexión a la base de datos.
+ * 
+ * @author Patricia Navascués
+ * @version 1.0
+ *
+ */
 public class ConnectionFactory {
 
 	private static Connection conn = null;
 	private static final String DB_NAME = "agenda";
-	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/"+ DB_NAME + "?allowMultiQueries=true";
+	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME + "?allowMultiQueries=true";
 	static final String DRIVER = "com.mysql.jdbc.Driver";
 	static final String USER = "root";
 	static final String PASS = "root";
@@ -19,7 +25,7 @@ public class ConnectionFactory {
 	private static ConnectionFactory connectionFactory = null;
 
 	/**
-	 * Constructor privado para poder crear patron Singleton
+	 * Constructor privado para poder crear patron Singleton.
 	 */
 	private ConnectionFactory() {
 		try {
@@ -30,7 +36,7 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener una instancia de la clase, siguiendo el patron singleton
+	 * Obtener una instancia de la clase, siguiendo el patron singleton.
 	 * 
 	 * @return conexion a la bbdd
 	 */
@@ -42,7 +48,7 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener conexion a la BBDD
+	 * Obtener conexion a la BBDD.
 	 * 
 	 * @return conexion abierta
 	 * @throws SQLException
@@ -55,7 +61,7 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Cerrar conexion
+	 * Cerrar conexion.
 	 * 
 	 * @return
 	 * @throws SQLException
@@ -69,9 +75,9 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD
+	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD.
 	 * 
-	 * @return
+	 * @return IDAOAmigo
 	 */
 	public IDAOAmigo getDAOAmigo() {
 		return new DAOAmigo();

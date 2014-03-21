@@ -3,10 +3,13 @@ package com.ipartek.agenda.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Servlet implementation class MainServlet.
@@ -16,12 +19,12 @@ public class MainServlet extends HttpServlet {
 
 	public static final String SECCION = "seccion";
 	
-	public static final String OP_ANADIR="anadir";
-	public static final String OP_ELIMINAR="eliminar";
-	public static final String OP_MODIFICAR="modificar";
-	public static final String OP_CANCELAR="cancelar";
-	public static final String OP_BUSCAR="buscar";
-	public static final String OP_VER="ver";
+	public static final String OP_ANADIR = "anadir";
+	public static final String OP_ELIMINAR = "eliminar";
+	public static final String OP_MODIFICAR = "modificar";
+	public static final String OP_CANCELAR = "cancelar";
+	public static final String OP_BUSCAR = "buscar";
+	public static final String OP_VER = "ver";
 	
 	private RequestDispatcher dispatcher;
 
@@ -32,6 +35,12 @@ public class MainServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		PropertyConfigurator.configure("./config/log4j.properties");
+		super.init(config);
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -49,7 +58,7 @@ public class MainServlet extends HttpServlet {
 		} else if (OP_ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (OP_VER.equals(seccion)) {
-			dispatcher= request.getRequestDispatcher("ver.jsp");
+			dispatcher = request.getRequestDispatcher("ver.jsp");
 			//response.sendRedirect("/agenda");
 			
 		} else {
