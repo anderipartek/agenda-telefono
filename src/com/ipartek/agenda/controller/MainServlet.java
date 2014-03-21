@@ -148,6 +148,7 @@ public class MainServlet extends HttpServlet {
 	protected final void doPost(final HttpServletRequest request
 			, final HttpServletResponse response)
 			throws ServletException, IOException {
+		log.trace("Entramos en el metodo doPost");
 		String operacion = request.getParameter(OPERACION);
 		RequestDispatcher dispatcher = null;
 
@@ -155,8 +156,9 @@ public class MainServlet extends HttpServlet {
 			Amigo amigo = null;
 			try {
 				amigo = setAmigoFromRequest(request);
+				log.trace("Alumno insertado");
 			} catch (Exception e) {
-				log.error("Error al insertar alumno");
+				log.error("Error al insertar alumno " + e.getMessage());
 				request.setAttribute(ATRIBUTO_MSG, new Mensaje(
 						"Error al insertar el alumno,"
 						+ " comprueba que los datos sean correctos",
@@ -178,6 +180,7 @@ public class MainServlet extends HttpServlet {
 		} else if (MOSTRAR.equals(operacion)) { 
 			String id = request.getParameter("id");
 			if (id != null) {
+				log.trace("Mostramos el amigo a modificar");
 				int idAmigo = Integer.parseInt(id);
 				Amigo amigo = modeloAmigo.getById(idAmigo);
 				request.setAttribute(ATRIBUTO_AMIGO, amigo);
@@ -194,6 +197,7 @@ public class MainServlet extends HttpServlet {
 		} else if (MOSTRARELIMINAR.equals(operacion)) { 
 				String id = request.getParameter("id");
 				if (id != null) {
+					log.trace("Mostramos el amigo a eliminar");
 					int idAmigo = Integer.parseInt(id);
 					Amigo amigo = modeloAmigo.getById(idAmigo);
 					request.setAttribute(ATRIBUTO_AMIGO, amigo);
@@ -212,7 +216,7 @@ public class MainServlet extends HttpServlet {
 			try {
 				amigo = setAmigoFromRequest(request);
 			} catch (Exception e) {
-				log.error("Error al modificar el amigo");
+				log.error("Error al modificar el amigo, datos de entrada incorrectos");
 				request.setAttribute(ATRIBUTO_MSG, new Mensaje(
 						"Error al modificar el amigo, comprueba"
 						+ " que los datos sean correctos",
@@ -222,7 +226,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(ATRIBUTO_AMIGO, amigo);
 				request.setAttribute(OPERACION_MODIFICAR, "ok");
 			} else {
-				log.error("Error al modificar el amigo");
+				log.error("Error al modificar el amigo en la bbdd");
 				request.setAttribute(ATRIBUTO_MSG, new Mensaje(
 						"Error al modificar el amigo",
 						codigoError, TIPO_MENSAJE.INFO));
