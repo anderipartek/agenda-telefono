@@ -28,6 +28,9 @@ public class MainServlet extends AgendaServletMaestro {
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
 	
+	private static String idAmigo;
+	private static String nombre;
+	
 	public static String modo;
 	
 	RequestDispatcher dispatcher = null;
@@ -53,6 +56,11 @@ public class MainServlet extends AgendaServletMaestro {
 		modelAmigo = null;
 	}
 	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		idAmigo = (String)request.getParameter("id");
+		// realizar servicio
+		super.service(request, response);
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -65,9 +73,11 @@ public class MainServlet extends AgendaServletMaestro {
 		if (ANADIR.equals(seccion)) {
 			modo="anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)) {
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		} else if (MODIFICAR.equals(seccion)||(null != idAmigo)) {
+			modo="modificar";
+			detalleAmigo(request, response);			
 		} else if (ELIMINAR.equals(seccion)) {
+			modo="eliminar";
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
 			listarAmigos(request, response);
@@ -85,8 +95,9 @@ public class MainServlet extends AgendaServletMaestro {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (modo=="anadir"){
 			crearAmigo(request, response);
+		}else if (modo=="eliminar"){
+			buscarAmigos(request, response);
 		}
-		
 	}
 
 	private void crearAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -98,15 +109,10 @@ public class MainServlet extends AgendaServletMaestro {
 			// Insert into DDBB
 			modelAmigo.insert(a);
 			log.info("Amigo insertado " + a.toString());
+			
 		} catch (Exception e) {
 			log.warn("Excepcion general " + e.getMessage());
 		}
-		// enviar alumno a la JSP
-		//request.setAttribute("detalleAlumno", a);
-		// titulo para la JSP
-		//request.setAttribute("title", "Insertar Alumno");
-		// dispatcher
-		
 		dispatcher = request.getRequestDispatcher("todoOk.jsp");
 		dispatcher.forward(request, response);
 		log.trace("crearAmigo - Fin");
@@ -114,7 +120,7 @@ public class MainServlet extends AgendaServletMaestro {
 	
 	private void listarAmigos(HttpServletRequest request, HttpServletResponse response) {
 		// listando
-		log.trace("Listado Alumnos");
+		log.trace("Listado Amigos");
 		dispatcher = request.getRequestDispatcher("ver.jsp");
 		
 		// conectar BBDD obtener amigos
@@ -126,11 +132,31 @@ public class MainServlet extends AgendaServletMaestro {
 		
 	}
 	
+	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response) {
+		// detalle
+		log.trace("Detalle amigo " + idAmigo);
+		dispatcher = request.getRequestDispatcher("modificar.jsp");
+
+		// obtener Alumnos
+		Amigo a = modelAmigo.getAmigoById(idAmigo);
+		// enviar datos en la request a la JSP
+		request.setAttribute("detalleAmigo(HttpServletRequest, HttpServletResponse)", a);
+		// post method
+		request.setAttribute("method", "post");
+		request.setAttribute("title", "Modificar amigo");
+
+	}
+	
+	private void buscarAmigos(HttpServletRequest request, HttpServletResponse response){
+		/*ArrayList<Amigo> listaAmigos = modelAmigo.getAmigoByName(nombre);
+		request.setAttribute("listaAmigos", listaAmigos);*/
+		
+	}
 	private Amigo recogerDatos(HttpServletRequest request, HttpServletResponse response){
 		
 		log.trace("Init recoger datos alumno");
 		Amigo newAmigo =  new Amigo();
-		
+				
 		//coger datos del formulario
 		String nom=(String) request.getParameter("nombre");
 		String ape=(String) request.getParameter("apellido");
