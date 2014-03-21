@@ -161,7 +161,7 @@ public class MainServlet extends HttpServlet {
 		}
 	}
 
-	private int anadirAmigo(final Amigo amigo) {
+	private long anadirAmigo(final Amigo amigo) {
 		return ConnectionFactory.getInstance().getDAOAmigo().add(amigo);
 	}
 
@@ -182,6 +182,7 @@ public class MainServlet extends HttpServlet {
 	}
 
 	private Amigo getAmigoById(final int id) {
+
 		return ConnectionFactory.getInstance().getDAOAmigo().getById(id);
 	}
 

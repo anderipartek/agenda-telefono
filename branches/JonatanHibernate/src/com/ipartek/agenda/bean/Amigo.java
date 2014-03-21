@@ -1,32 +1,42 @@
 package com.ipartek.agenda.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.Table;
-
-@DynamicUpdate
-@Table(appliesTo = "amigo")
+@Entity(name = "amigos")
 public class Amigo {
 
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private long id;
+	@Column(name = "nombre")
 	private String nombre;
+	@Column(name = "apellido")
 	private String apellido;
+	@Column(name = "calle")
 	private String calle;
+	@Column(name = "cp")
 	private int cp;
+	@Column(name = "localidad")
 	private String localidad;
+	@Column(name = "provincia")
 	private String provincia;
+	@Column(name = "movil")
 	private int movil;
+	@Column(name = "fijo")
 	private int fijo;
+	@Column(name = "anotaciones")
 	private String anotaciones;
 
 	public Amigo() {
 		super();
 
 		this.id = -1;
-		this.nombre = "";
-		this.apellido = "";
+		this.nombre = "probando";
+		this.apellido = "hibernate";
 		this.calle = "";
 		this.cp = 0;
 		this.localidad = "";
@@ -67,8 +77,6 @@ public class Amigo {
 	 * 
 	 * @return long
 	 */
-	@Id
-	@Generated
 	public final long getId() {
 		return this.id;
 	}
