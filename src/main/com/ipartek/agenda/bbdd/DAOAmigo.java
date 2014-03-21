@@ -16,15 +16,15 @@ import com.ipartek.agenda.interfaces.IAmigable;
 public class DAOAmigo implements IAmigable {
 
 
-	static ConnectionFactory factory=null;
-	static Connection con=null;
-	static Statement stmt=null;
-	static PreparedStatement pst=null;
-	static ResultSet rs=null;
-	static Amigo a=null;
-	static int id;
-	static ArrayList<Amigo> amigos;
-	private final static Logger log=Logger.getLogger(DAOAmigo.class);
+	static ConnectionFactory factory=null; //factoria
+	static Connection con=null;            //conexion a la BD
+	static Statement stmt=null;            //Statement
+	static PreparedStatement pst=null;     //Prepared Statement 
+	static ResultSet rs=null;              //ResultSet
+	static Amigo a=null;                   //Objeto Amigo
+	static int id;                         //id del amigo 
+	static ArrayList<Amigo> amigos;        //amigos de la agenda 
+	private final static Logger log=Logger.getLogger(DAOAmigo.class); //log4j
 	public DAOAmigo(){
 		factory=ConnectionFactory.getInstance();
 

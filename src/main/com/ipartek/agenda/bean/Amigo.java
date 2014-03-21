@@ -44,7 +44,8 @@ public class Amigo {
      * @param movil
      * @param fijo
      * @param anotaciones
-     * @throws AmigoException
+     * @throws AmigoException excepcion que lanza el amigo bajo unos criterios explicados en la
+     * documentación del proyecto en la carpeta raiz documentacion
      */
 	public Amigo(int id, String nombre, String apellido, String calle, int cp,
 			String localidad, String provincia, int movil, int fijo,
@@ -97,6 +98,7 @@ public class Amigo {
 		else throw new AmigoException(AmigoException.COD_ERROR_APELLIDO,AmigoException.MENSAJE_ERROR_APELLIDO);
 		
 	}
+	
 	public String getCalle() {
 		return calle;
 	}
