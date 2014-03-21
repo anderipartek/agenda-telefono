@@ -1,5 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
+<body>
+
 <div class="contain">
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
 
@@ -65,7 +67,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="modificar" name="modificar" class="boton modificar">
+				<input type="submit" value="modificar" name="modificar" class="boton modificar" onClick="if(!confirm('¿Seguro que deseas modificar el registro?')){return false;}" >
 			</div>
 		</form>
 		<%} %>

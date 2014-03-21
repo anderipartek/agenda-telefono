@@ -95,7 +95,7 @@ public class AgendaServlet extends ServletMaestro {
 				dispatcher.forward(request, response);
 
 			}else if(idel!=null){
-				
+				request.setAttribute("seccion", "eliminar");
 				//Titulo para la jsp
 				amigo=modelAmigo.getById(Integer.valueOf(idel));
 				request.setAttribute("amigoeliminar", amigo);
@@ -106,6 +106,7 @@ public class AgendaServlet extends ServletMaestro {
 				log.trace("fin eliminar Alumno");
 				
 			}else if(imod!=null){
+				request.setAttribute("seccion", "modificar");
 				amigo=null;			
 				//Titulo para la jsp
 				amigo=modelAmigo.getById(Integer.valueOf(imod));
@@ -133,6 +134,7 @@ public class AgendaServlet extends ServletMaestro {
 			if(OP_NUEVO_AMIGO.equalsIgnoreCase(op)){
 				crearAmigo(request,response);
 			}else if (OP_MODIFICAR_AMIGO.equalsIgnoreCase(op)){
+				
 				modificarAmigo(request,response);
 			}else if (OP_ELIMINAR_AMIGO.equalsIgnoreCase(op)){
 				eliminarAmigo(request,response);
@@ -201,6 +203,7 @@ public class AgendaServlet extends ServletMaestro {
 			}
 			
 			request.setAttribute("amigoeliminado", aborrar);
+			request.setAttribute("seccion",aborrar);	
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			dispatcher.forward(request, response);			
 				
@@ -261,12 +264,8 @@ public class AgendaServlet extends ServletMaestro {
 				request.setAttribute("msg", new Mensaje("Datos de amigo no valido",0,Mensaje.TIPO_MENSAJE.INFO));
 			}
 
-				
-				request.setAttribute("amigomodificar", amodi);
-				
-				
-				
-							
+				request.setAttribute("amigomodificar",amodi);
+				request.setAttribute("seccion",amodi);	
 				dispatcher = request.getRequestDispatcher("modificar.jsp");
 				dispatcher.forward(request, response);
 				

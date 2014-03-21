@@ -45,7 +45,7 @@
 		<div class="botones">
 			<a title="" href="index.jsp">cancelar</a> <a title=""
 				href="todoOk.jsp"> 
-				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar" onClick="if(!confirm('¿Seguro que deseas eliminar > ?')){return false;}" >
+				<input type="submit" value="eliminar" name="eliminar" class="boton eliminar" onClick="if(!confirm('¿Seguro que deseas eliminar el registro?')){return false;}"  >
 			</a>
 		</div>
 	</form>

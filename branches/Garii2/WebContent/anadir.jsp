@@ -1,4 +1,4 @@
-<%--@ include file="core/abstract/functions.jsp" --%>
+
 		<%@ include file="inc/head.jsp"%>
 			<!-- HEADER -->
 			<%Amigo amigos =(Amigo) request.getAttribute("anadido");
