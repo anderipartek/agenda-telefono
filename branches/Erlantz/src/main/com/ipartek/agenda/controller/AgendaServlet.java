@@ -98,6 +98,7 @@ public class AgendaServlet extends MainServlet {
 	protected final void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
+		LOG.trace("doGet inicio");
 		op = request.getParameter("op");
 		if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
 			if (visualizar(request, response)) {
@@ -115,12 +116,14 @@ public class AgendaServlet extends MainServlet {
 			dispatcher = request.getRequestDispatcher("main?seccion=modificar");
 		}
 		dispatcher.forward(request, response);
+		LOG.trace("doGet fin");
 	}
 
 	@Override
 	protected final void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
+		LOG.trace("doPost inicio");
 		int todoOk = 0;
 		int borradoSi = 0;
 		int modificadoSi = 0;
@@ -179,6 +182,7 @@ public class AgendaServlet extends MainServlet {
 			request.setAttribute("todoOk", todoOk);
 		}
 		dispatcher.forward(request, response);
+		LOG.trace("doPost fin");
 	}
 
 	/**
@@ -189,6 +193,7 @@ public class AgendaServlet extends MainServlet {
 	 */
 	private void getRecogerSelecionado(final HttpServletRequest request,
 			final HttpServletResponse response) {
+		LOG.trace("RecogerSeleccionado de la lista de busqueda");
 		String amigo = "";
 		if (request.getParameter("id") != null) {
 			idAmigo = Integer.parseInt(request.getParameter("id"));
@@ -207,6 +212,7 @@ public class AgendaServlet extends MainServlet {
 	 */
 	private boolean buscador(final HttpServletRequest request,
 			final HttpServletResponse response) {
+		LOG.trace("Buscador de amigos por nombre");
 		boolean result = false;
 		String nombreBusqueda = request.getParameter("nombreBusqueda");
 		listaAmigos = modelo.recogerPorNombre(nombreBusqueda);

@@ -230,7 +230,7 @@ public class DAOAmigo implements IAmigable {
 
 	@Override
 	public final Amigo getAmigoById(final int id) {
-		LOG.trace("Recoger todos los amigos");
+		LOG.trace("Recoger amigo por id [" + id + "]");
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
 		int keyHashMap = 0;
 		try {
@@ -252,13 +252,14 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			LOG.trace("Fin recoger amigos");
+			LOG.trace("Fin recoger amigo por id");
 			return a;
 		}
 	}
 
 	@Override
 	public final Amigo getAmigoByName(final String nombre) {
+		LOG.trace("Recoger amigos por nombre [" + nombre + "]");
 		try {
 			a = new Amigo();
 			con = factory.getConnection();
@@ -277,6 +278,7 @@ public class DAOAmigo implements IAmigable {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
+			LOG.trace("Recoger amigos por nombre fin");
 			return a;
 		}
 	}
