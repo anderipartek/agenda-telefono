@@ -21,7 +21,7 @@ public interface IDAOAmigo {
 	
 	/**
 	 * Insertamos un amigo dentro de la tabla.
-	 * @param a Amigo
+	 * @param amigo Amigo
 	 * @return [int] identificador del nuevo alumno insertado en la bbdd
 	 */
 	int insertAmigo(Amigo amigo);
@@ -34,7 +34,7 @@ public interface IDAOAmigo {
 	
 	/**
 	 * Obtenemos un amigos por su DNI.
-	 * @param noombre del alumno
+	 * @param nombre del alumno
 	 * @return [Alumno] alumno
 	 */
 	ArrayList<Amigo> getByName(String nombre);
@@ -48,15 +48,15 @@ public interface IDAOAmigo {
 	
 	/**
 	 * Eliminar alumno por su identificador.
-	 * @param identificador del amigo
+	 * @param idAmigo identificador del amigo
 	 * @return true si se a borrado, false en caso contrario
 	 */
 	boolean delete(int idAmigo);	
 	
 	/**
 	 * Modificar alumno seleccionado.
-	 * @param a amigo a modificar
-	 * @param identificador del amigo
+	 * @param amigo amigo a modificar
+	 * @param idAmigo identificador del amigo
 	 * @return true si se a modificado, false en caso contrario
 	 */
 	boolean update(Amigo amigo, int idAmigo);

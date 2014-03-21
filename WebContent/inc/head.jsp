@@ -9,6 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Agenda Online</title>
 	<link href="css/styles.css" type="text/css" rel="stylesheet">
+	
+	<link href="css/style.css" type="text/css" rel="stylesheet">
         <!--[if IE]>
 			<link rel="stylesheet" type="text/css" href="css/ie.css" />
 		<![endif]-->

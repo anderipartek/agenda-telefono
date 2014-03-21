@@ -8,8 +8,7 @@
 <body>
 <section class="wrapper content">	
 <h3>Estos son tus amigos:</h3>
-
-	<% ArrayList<Amigo> amigos= (ArrayList<Amigo>) request.getAttribute("amigos"); %>
+	
 	<table>
 		<colgroup><col width="10%" span="2"><col width="20%"><col width="5%"><col width="10%" span="4"><col width="15%"></colgroup>
 		<tr>
@@ -22,22 +21,24 @@
 			<th>movil</th>
 			<th>fijo</th>
 			<th>anotaciones</th>
+			<th>Modificar</th>
+			<th>Editar</th>
 		</tr>
-
-	<%for(Amigo amigo: amigos){ %> 
-		<tr>
-			<td><%=amigo.getNombre() %></td>
-			<td><%=amigo.getApellido() %></td>
-			<td><%=amigo.getCalle() %></td>
-			<td><%=amigo.getCp() %></td>
-			<td><%=amigo.getLocalidad() %></td>
-			<td><%=amigo.getProvincia() %></td>
-			<td><%=amigo.getMovil() %></td>
-			<td><%=amigo.getFijo() %></td>
-			<td><%=amigo.getAnotaciones() %></td>
-		</tr>
-		<%} %>
-	
+		
+		<c:forEach var="amigo" items="${requestScope.amigos}">
+			<td><div><c:out value="${amigo.nombre}"/></div></td>
+    		<td><div><c:out value="${amigo.apellido}"/></div></td>
+    		<td><div><c:out value="${amigo.calle}"/></div></td>
+    		<td><div><c:out value="${amigo.cp}"/></div></td>
+    		<td><div><c:out value="${amigo.localidad}"/></div></td>
+    		<td><div><c:out value="${amigo.provincia}"/></div></td>
+    		<td><div><c:out value="${amigo.movil}"/></div></td>
+    		<td><div><c:out value="${amigo.fijo}"/></div></td>
+    		<td><div><c:out value="${amigo.Anotaciones}"/></div></td>
+    		<td><a href='agenda?id=${amigo.id}' id="modificar"><img src="../img/lapiz.jpg"></a></td>
+    		<td><a href='agenda?id=${amigo.id}' id='elimminar'><img src="../img/flecha_azul.jpg"></a></td>
+    		</tr>
+    	</c:forEach>
 		</table>
 	</section>
 	<%@include file="/inc/footer.jsp"%>

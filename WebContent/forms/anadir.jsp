@@ -1,4 +1,5 @@
-	<%@page import="com.ipartek.agenda.bean.Amigo"%>
+	<%@page import="com.ipartek.agenda.controller.AgendaServlet"%>
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
 <div class="contain">
 		<p class="titulo">Cuales son los datos de tu amigo:</p>
 		
@@ -19,7 +20,7 @@
 			
 			<div class="botones">
 				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="añadir" name="anadir" class="boton anadir">
+				<input type="submit" value="<%=AgendaServlet.OP_ANADIR %>" name="<%=AgendaServlet.OP_ANADIR %>" class="boton anadir">
 			</div>
 		</form>
 	</div>
