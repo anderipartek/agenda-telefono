@@ -74,7 +74,7 @@
 			if (request.getAttribute("amigo")!=null){
 				String idB=(String)request.getAttribute("amigo");
 			%>
-			<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
+			
 			<form method="post" action="agenda?operacion=eliminar">				
 				<input type="hidden" name="id" value=<%=idB%>>			
 				
