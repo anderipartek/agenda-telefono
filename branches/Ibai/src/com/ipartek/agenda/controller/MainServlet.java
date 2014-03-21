@@ -72,6 +72,7 @@ public class MainServlet extends HttpServlet {
         	PropertyConfigurator.configure(prefix + log4jpath);
     	}
     	modeloAmigo = new ModeloAmigo();
+    	log.trace("Inicializado el Servlet");
 	}
 	
 	/**
@@ -86,6 +87,7 @@ public class MainServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest request,
 			final HttpServletResponse response)
 					throws ServletException, IOException {
+		log.trace("Entrando en doGet");
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 
@@ -100,6 +102,7 @@ public class MainServlet extends HttpServlet {
 				Amigo a = modeloAmigo.getById(Integer.parseInt(id));
 				request.setAttribute(ATRIBUTO_AMIGO, a);
 			}
+			log.trace("Redirecionando a modificar");
 			dispatcher = request.getRequestDispatcher("modificar.jsp");	
 		//funcion para la busqueda dinamica de amigos
 		} else if (BUSCAR.equals(seccion)) { 
@@ -110,6 +113,7 @@ public class MainServlet extends HttpServlet {
 				String obj = new Gson().toJson(modeloAmigo.getByName(
 						request.getParameter(NOMBRE_A_BUSCAR)));
 				response.getWriter().write(obj);
+				log.trace("Enviando datos al buscador: " + obj);
 			}
 		//redireccion a la pagina de elimnar amigo
 		} else if (ELIMINAR.equals(seccion)) { 
@@ -118,12 +122,15 @@ public class MainServlet extends HttpServlet {
 				Amigo a = modeloAmigo.getById(Integer.parseInt(id));
 				request.setAttribute(ATRIBUTO_AMIGO, a);
 			}
+			log.trace("Redirecionando a eliminar");
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			// redireccion a la pagina de ver todos los amigos
 		} else if (VER.equals(seccion)) { 
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
+			log.trace("Redireccionando a ver listado");
 			dispatcher = request.getRequestDispatcher("ver.jsp");
 		} else { // redireccion al index
+			log.trace("Redirecionando al index");
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
 		if (dispatcher != null) {

@@ -37,14 +37,14 @@ public class DAOAmigo implements IDAOAmigo {
 	
 	private String sqlId;
 	private String sqlAll;
-	private String sqlInsert;
-	private String sql;
-	private String sqlUpdate;
-	private String sqlDelete;
+
+
+
+
 
 	@Override
 	public final int add(final Amigo amigo) {
-		sqlInsert = "INSERT INTO `agenda`.`amigos` "
+		String sqlInsert = "INSERT INTO `agenda`.`amigos` "
 				+ "(`nombre`, `apellido`, `calle`, `cp`, `localidad`,"
 				+ " `provincia`, `movil`, `fijo`, `anotaciones`)"
 				+ " VALUES (?,?,?,?,?,?,?,?,?);";
@@ -127,7 +127,7 @@ public class DAOAmigo implements IDAOAmigo {
 
 	@Override
 	public final Amigo getById(final int id) {
-		sql = "SELECT * FROM agenda.amigos where id = ?";
+		String sql = "SELECT * FROM agenda.amigos where id = ?";
 		Amigo amigo = null;
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -150,7 +150,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public final boolean update(final Amigo amigo) {
 		boolean result = false;
-		sqlUpdate = "UPDATE `agenda`.`amigos` SET `nombre`=?,"
+		String sqlUpdate = "UPDATE `agenda`.`amigos` SET `nombre`=?,"
 				+ " `apellido`=?, `calle`=?, `cp`=?, `localidad`=?,"
 				+ " `provincia`=?, `movil`=?, `fijo`=?,"
 				+ " `anotaciones`=? WHERE `id`=?";
@@ -176,7 +176,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public final boolean delete(final int id) {
 		boolean result = false;
-		sqlDelete = "DELETE FROM agenda.amigos WHERE id=?";
+		String sqlDelete = "DELETE FROM agenda.amigos WHERE id=?";
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
 			pst = con.prepareStatement(sqlDelete);
