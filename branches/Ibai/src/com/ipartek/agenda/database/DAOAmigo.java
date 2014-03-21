@@ -11,15 +11,18 @@ import org.apache.log4j.Logger;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.database.interfaces.IDAOAmigo;
 
+/**
+ * DAO para gestionar las operaciones contra la base de datos de la clase amigo.
+ * 
+ * @author Ibai Sainz-Aja Depardieu
+ * @version 1.0
+ */
 public class DAOAmigo implements IDAOAmigo {
-	static final Logger log = Logger.getLogger(DAOAmigo.class);
+	private static final Logger log = Logger.getLogger(DAOAmigo.class);
 
-	static final int ERROR_COD_TABLA = 1050;
-	static PreparedStatement pst;
-	static ResultSet rs;
-	static Connection con;
-	static StringBuilder sb;
-
+	private static PreparedStatement pst;
+	private static ResultSet rs;
+	private static Connection con;
 	// Datos tabla
 	public static final String ID = "id";
 	public static final String NOMBRE = "nombre";
@@ -31,12 +34,22 @@ public class DAOAmigo implements IDAOAmigo {
 	public static final String MOVIL = "movil";
 	public static final String FIJO = "fijo";
 	public static final String ANOTACIONES = "anotaciones";
+	
+	private String sqlId;
+	private String sqlAll;
+	private String sqlInsert;
+	private String sql;
+	private String sqlUpdate;
+	private String sqlDelete;
 
 	@Override
-	public int add(Amigo amigo) {
-		String sqlInsert = "INSERT INTO `agenda`.`amigos` (`nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (?,?,?,?,?,?,?,?,?);";
+	public final int add(final Amigo amigo) {
+		sqlInsert = "INSERT INTO `agenda`.`amigos` "
+				+ "(`nombre`, `apellido`, `calle`, `cp`, `localidad`,"
+				+ " `provincia`, `movil`, `fijo`, `anotaciones`)"
+				+ " VALUES (?,?,?,?,?,?,?,?,?);";
 
-		String sqlId = "select max(id) from amigos;";
+		sqlId = "select max(id) from amigos;";
 		int id = -1;
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -53,7 +66,8 @@ public class DAOAmigo implements IDAOAmigo {
 			sqlExcepcion(ex);
 			id = -1;
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al insertar alumno" + ex.getStackTrace());
+			log.warn("Ha ocurrido un error desconocido al insertar alumno"
+					+ ex.getStackTrace());
 			id = -1;
 		}
 
@@ -61,10 +75,10 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public ArrayList<Amigo> getAll() {
+	public final ArrayList<Amigo> getAll() {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos";
+		sqlAll = "SELECT * FROM agenda.amigos";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -79,16 +93,17 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de alumnos");
+			log.warn("Ha ocurrido un error desconocido"
+					+ " al recoger todos los datos de alumnos");
 		}
 		return listaAlumnos;
 	}
 
 	@Override
-	public ArrayList<Amigo> getByName(String value) {
+	public final ArrayList<Amigo> getByName(final String value) {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos where nombre like ?;";
+		sqlAll = "SELECT * FROM agenda.amigos where nombre like ?;";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -104,14 +119,15 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger todos los datos de alumnos");
+			log.warn("Ha ocurrido un error desconocido"
+					+ " al recoger todos los datos de alumnos");
 		}
 		return listaAlumnos;
 	}
 
 	@Override
-	public Amigo getById(int id) {
-		String sql = "SELECT * FROM agenda.amigos where id = ?";
+	public final Amigo getById(final int id) {
+		sql = "SELECT * FROM agenda.amigos where id = ?";
 		Amigo amigo = null;
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -125,15 +141,19 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger un alumno por id.");
+			log.warn("Ha ocurrido un error desconocido"
+					+ " al recoger un alumno por id.");
 		}
 		return amigo;
 	}
 
 	@Override
-	public boolean update(Amigo amigo) {
+	public final boolean update(final Amigo amigo) {
 		boolean result = false;
-		String sqlUpdate = "UPDATE `agenda`.`amigos` SET `nombre`=?, `apellido`=?, `calle`=?, `cp`=?, `localidad`=?, `provincia`=?, `movil`=?, `fijo`=?, `anotaciones`=? WHERE `id`=?";
+		sqlUpdate = "UPDATE `agenda`.`amigos` SET `nombre`=?,"
+				+ " `apellido`=?, `calle`=?, `cp`=?, `localidad`=?,"
+				+ " `provincia`=?, `movil`=?, `fijo`=?,"
+				+ " `anotaciones`=? WHERE `id`=?";
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -154,9 +174,9 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public boolean delete(int id) {
+	public final boolean delete(final int id) {
 		boolean result = false;
-		String sqlDelete = "DELETE FROM agenda.amigos WHERE id=?";
+		sqlDelete = "DELETE FROM agenda.amigos WHERE id=?";
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
 			pst = con.prepareStatement(sqlDelete);
@@ -176,12 +196,13 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	/**
-	 * Introduce los datos de un amigo en un pst para hacer operaciones
+	 * Introduce los datos de un amigo en un pst para hacer operaciones.
 	 * 
-	 * @param amigo
-	 * @throws SQLException
+	 * @param amigo datos del amigo
+	 * @throws SQLException exception de sql
 	 */
-	private void setPst(Amigo amigo) throws SQLException {
+
+	private void setPst(final Amigo amigo) throws SQLException {
 		pst.setString(1, amigo.getNombre());
 		pst.setString(2, amigo.getApellido());
 		pst.setString(3, amigo.getCalle());
@@ -200,23 +221,24 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	/**
-	 * Parsea un ResultSet en un Amigo
+	 * Parsea un ResultSet en un Amigo.
 	 * 
-	 * @param rs
+	 * @param rsParam resultset
+	 * @param amigo a crear
 	 *            ResultSet
 	 */
-	private void datosAmigo(ResultSet rs, Amigo amigo) {
+	private void datosAmigo(final ResultSet rsParam, final Amigo amigo) {
 		try {
-			amigo.setId(rs.getInt(ID));
-			amigo.setNombre(rs.getString(NOMBRE));
-			amigo.setApellido(rs.getString(APELLIDO));
-			amigo.setCalle(rs.getString(APELLIDO));
-			amigo.setCp(rs.getInt(CP));
-			amigo.setLocalidad(rs.getString(LOCALIDAD));
-			amigo.setProvincia(rs.getString(PROVINCIA));
-			amigo.setMovil(rs.getInt(MOVIL));
-			amigo.setFijo(rs.getInt(FIJO));
-			amigo.setAnotaciones(rs.getString(ANOTACIONES));
+			amigo.setId(rsParam.getInt(ID));
+			amigo.setNombre(rsParam.getString(NOMBRE));
+			amigo.setApellido(rsParam.getString(APELLIDO));
+			amigo.setCalle(rsParam.getString(APELLIDO));
+			amigo.setCp(rsParam.getInt(CP));
+			amigo.setLocalidad(rsParam.getString(LOCALIDAD));
+			amigo.setProvincia(rsParam.getString(PROVINCIA));
+			amigo.setMovil(rsParam.getInt(MOVIL));
+			amigo.setFijo(rsParam.getInt(FIJO));
+			amigo.setAnotaciones(rsParam.getString(ANOTACIONES));
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		}
@@ -224,7 +246,7 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	/**
-	 * Parsea una SQLException para añadirla al log
+	 * Parsea una SQLException para añadirla al log.
 	 * 
 	 * @param ex
 	 */

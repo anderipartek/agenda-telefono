@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import com.ipartek.agenda.bean.Amigo;
 
+/**
+ * 
+ * @author Ibai Sainz-Aja Depardieu
+ * @version 1.0
+ */
 public interface IDAOAmigo {
 
 	/**
@@ -16,7 +21,7 @@ public interface IDAOAmigo {
 	int add(Amigo amigo);
 
 	/**
-	 * Devuelve todos los amigos en la tabla amigos de la DB agenda
+	 * Devuelve todos los amigos en la tabla amigos de la DB agenda.
 	 * 
 	 * @return ArrayList<Amigo>
 	 */
@@ -24,7 +29,7 @@ public interface IDAOAmigo {
 
 	/**
 	 * Devuelve todos los amigos en la tabla amigos de la DB agenda que empiezen
-	 * por la cadena de caracteres value
+	 * por la cadena de caracteres value.
 	 * 
 	 * @param value
 	 *            Cadena de caracteres a buscar
@@ -34,7 +39,7 @@ public interface IDAOAmigo {
 
 	/**
 	 * Devuelve el amigo en la tabla amigos de la DB agenda que coincida con el
-	 * id
+	 * id.
 	 * 
 	 * @param id
 	 *            del amigo a buscar

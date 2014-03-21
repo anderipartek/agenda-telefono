@@ -6,7 +6,12 @@ import java.sql.SQLException;
 
 import com.ipartek.agenda.database.interfaces.IDAOAmigo;
 
-public class ConnectionFactory {
+/**
+ * 
+ * @author Ibai Sainz-Aja Deparideu
+ * @version 1.0
+ */
+public final class ConnectionFactory {
 
 	private static Connection conn = null;
 	static final String DB_NAME = "agenda";
@@ -15,10 +20,10 @@ public class ConnectionFactory {
 	static final String USER = "root";
 	static final String PASS = "root";
 
-	private static ConnectionFactory connectionFactory = null;
+	private static ConnectionFactory factory = null;
 
 	/**
-	 * Constructor privado para poder crear patron Singleton
+	 * Constructor privado para poder crear patron Singleton.
 	 */
 	private ConnectionFactory() {
 		try {
@@ -29,22 +34,22 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener una instancia de la clase, siguiendo el patron singleton
+	 * Obtener una instancia de la clase, siguiendo el patron singleton.
 	 * 
 	 * @return conexion a la bbdd
 	 */
 	public static ConnectionFactory getInstance() {
-		if (connectionFactory == null) {
-			connectionFactory = new ConnectionFactory();
+		if (factory == null) {
+			factory = new ConnectionFactory();
 		}
-		return connectionFactory;
+		return factory;
 	}
 
 	/**
-	 * Obtener conexion a la BBDD
+	 * Obtener conexion a la BBDD.
 	 * 
 	 * @return conexion abierta
-	 * @throws SQLException
+	 * @throws SQLException exception de sql
 	 */
 	public Connection getConnection() throws SQLException {
 		if (conn == null) {
@@ -54,10 +59,10 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Cerrar conexion
+	 * Cerrar conexion.
 	 * 
 	 * @return
-	 * @throws SQLException
+	 * @throws SQLException exception de sql
 	 */
 	public void closeConnection() throws SQLException {
 		if (conn != null) {
@@ -68,9 +73,10 @@ public class ConnectionFactory {
 	}
 
 	/**
-	 * Obtener el DAO para manipular Alumnos, soporta todas las operaciones CRUD
+	 * Obtener el DAO para manipular Alumnos,
+	 *  soporta todas las operaciones CRUD.
 	 * 
-	 * @return
+	 * @return DAOAmigo
 	 */
 	public IDAOAmigo getDAOAmigo() {
 		return new DAOAmigo();

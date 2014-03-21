@@ -11,26 +11,24 @@ import org.apache.log4j.PropertyConfigurator;
 import com.ipartek.agenda.database.ConnectionFactory;
 
 /**
- * Application Lifecycle Listener implementation class InitListener
+ * Application Lifecycle Listener implementation class InitListener.
  * 
  * Se encarga de inicializar y cerrar la conexion
  * 
+ * @author Ibai Sainz-Aja Depardieu
+ * @version 1.0
  */
 public class InitListener implements ServletContextListener {
 
-	/**
-	 * Default constructor.
-	 */
-	public InitListener() {
-	}
 
 	/**
-	 * Inicializamos la conexion
+	 * Inicializamos la conexion.
 	 * 
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
+	 * @param sce ServletContextEvent
 	 */
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
+	public final void contextInitialized(final ServletContextEvent sce) {
 		try {
 			ConnectionFactory.getInstance().getConnection();
 		} catch (SQLException e) {
@@ -39,12 +37,13 @@ public class InitListener implements ServletContextListener {
 	}
 
 	/**
-	 * Cerramos la conexion
+	 * Cerramos la conexion.
 	 * 
 	 * @see ServletContextListener#contextDestroyed(ServletContextEvent)
+	 * @param sce ServletContextEvent
 	 */
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
+	public final void contextDestroyed(final ServletContextEvent sce) {
 		try {
 			ConnectionFactory.getInstance().closeConnection();
 		} catch (SQLException e) {
