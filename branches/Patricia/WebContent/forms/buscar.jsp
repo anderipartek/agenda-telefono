@@ -2,7 +2,7 @@
 		<p class="titulo">Busca a tu amigo:</p>
 
 		
-		<form method="post" action="">				
+		<form method="post" action="agenda">				
 			<input type="text" placeholder="nombre que buscas..." name="nombre" value="">
 			
 			<div class="botones">

@@ -229,9 +229,9 @@ public class AmigoUtil {
 	 * @return cadena con char inicial en Mayúscula.
 	 */
 	static public String toCapitalCase(String cadena) {
-		char _char = Character.toUpperCase(cadena.charAt(0));
+		char caracter = Character.toUpperCase(cadena.charAt(0));
 		String subcadena = cadena.substring(1, cadena.length());
 
-		return _char + subcadena.toLowerCase();
+		return caracter + subcadena.toLowerCase();
 	}
 }

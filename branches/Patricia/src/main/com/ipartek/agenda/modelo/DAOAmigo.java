@@ -28,17 +28,17 @@ import com.ipartek.agenda.modelo.ConnectionFactory;
  */
 public class DAOAmigo implements IDAOAmigo {
 
-	static final Logger LOG = Logger.getLogger(DAOAmigo.class);
+	private static final Logger LOG = Logger.getLogger(DAOAmigo.class);
 	
 	// Error del 
-	static final int ERROR_COD_TABLA = 1050;
+	private static final int ERROR_COD_TABLA = 1050;
 	
 	// Variables de conexión
 	private static ConnectionFactory factory;
-	static PreparedStatement pst;
-	static ResultSet rs;
-	static Connection con;
-	static StringBuilder sb;
+	private static PreparedStatement pst;
+	private static ResultSet rs;
+	private static Connection con;
+	private static StringBuilder sb;
 	
 	private static Amigo amigo;
 	private static ArrayList<Amigo> amigos;

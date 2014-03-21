@@ -29,11 +29,11 @@ public class Util {
 	 */
 	public static ArrayList<Amigo> getAmigoBusqueda(String nombre) {
 		
-		amigosBusqueda= new ArrayList<Amigo>();
-		if(nombre!=null){
-			modeloAmigo=ConnectionFactory.getInstance().getDAOAmigo();
+		amigosBusqueda = new ArrayList<Amigo>();
+		if (nombre != null) {
+			modeloAmigo = ConnectionFactory.getInstance().getDAOAmigo();
 			
-			amigosBusqueda= modeloAmigo.getByName(nombre);
+			amigosBusqueda = modeloAmigo.getByName(nombre);
 		}
 
 		return amigosBusqueda;
