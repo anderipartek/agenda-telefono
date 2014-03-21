@@ -1,0 +1,12 @@
+.ERR{
+	color:red;
+}
+.INFO{
+	color:blue;
+}
+.WARN{
+	color:yellow;
+}
+.FATAL{
+	color: black;
+}
