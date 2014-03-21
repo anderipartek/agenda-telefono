@@ -11,6 +11,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 
 
+
 import com.ipartek.agenda.bbdd.interfaces.IAmigo;
 import com.ipartek.agenda.bean.Amigo;
 
@@ -127,6 +128,33 @@ public class DAOAmigo implements IAmigo {
 			}
 			return id;
 
+		}
+	}
+	
+
+	@Override
+	public Amigo getById(String id) {
+		String sqlAlumno = "select * from amigos where id = ?";
+		try {
+			con = factory.getConnection();
+			a = new Amigo();
+			pst = con.prepareStatement(sqlAlumno);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				datosAmigo(rs);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al recoger un alumno por id.");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return a;
 		}
 	}
 

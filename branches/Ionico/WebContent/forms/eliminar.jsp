@@ -16,6 +16,7 @@
 
 // 		while($result_row = mysql_fetch_array($result)){
 		%>
+	
 
 	<form method="post"
 		action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">

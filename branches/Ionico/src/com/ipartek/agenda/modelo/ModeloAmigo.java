@@ -29,6 +29,11 @@ public class ModeloAmigo {
 		listaAmigos = daoAmigo.getAll();
 		return listaAmigos;
 	}
-
+	
+	public Amigo getAmigoById(String id) {
+		Amigo a = null;
+		a = daoAmigo.getById(id);
+		return a;
+	}
 	
 }
