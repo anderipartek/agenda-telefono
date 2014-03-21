@@ -48,7 +48,7 @@ public class MainServlet extends HttpServlet {
 	public static final String VER = "ver";
 
 	@Override
-	public final void init() throws ServletException {
+	public void init() throws ServletException {
 		super.init();
 		// configuracion básica del LOG
 		// recoge la ruta dinámicamente hasta donde se encuentra el proyecto
@@ -70,7 +70,7 @@ public class MainServlet extends HttpServlet {
 	 * @throws IOException excepcion de entrada y salida
 	 */
 	@Override
-	protected final void doGet(final HttpServletRequest request,
+	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
 		String seccion = request.getParameter(SECCION);
@@ -90,7 +90,7 @@ public class MainServlet extends HttpServlet {
 	 * @throws IOException excepcion de entrada y salida
 	 */
 	@Override
-	protected final void doPost(final HttpServletRequest request,
+	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
 		doGet(request, response);
