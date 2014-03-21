@@ -1,5 +1,8 @@
 package com.ipartek.agenda.bbdd.interfaces;
 
+/**
+ * Interfaz para el Amigo
+ */
 import java.util.ArrayList;
 
 import com.ipartek.agenda.bean.Amigo;
@@ -13,8 +16,6 @@ public interface IAmigo {
 	 */
 	int insertAmigo(Amigo a);
 
-
-
 	/**
 	 * Para recoger todos los datos de los alumno
 	 * 
@@ -22,7 +23,11 @@ public interface IAmigo {
 	 */
 	ArrayList<Amigo> getAll();
 
-
-
+	/**
+	 * Devuelve un amigo por su id
+	 * @param id
+	 * @return
+	 */
+	Amigo getById(String id);
 
 }

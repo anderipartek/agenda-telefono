@@ -39,6 +39,7 @@
 			<th>movil</th>
 			<th>fijo</th>
 			<th>anotaciones</th>
+			<th>modificar</th>
 		</tr>
 
 		
@@ -59,6 +60,7 @@
 		   	 	 <td align="center"><%=a.getMovil()%></td>
 		    	 <td align="center"><%=a.getFijo()%></td>
 		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
+				 <td><a href="main?seccion=modificar&id=<%=a.getId()%>" title="">Modificar</a></td>
 		    </tr>   
 		    
 			<%		

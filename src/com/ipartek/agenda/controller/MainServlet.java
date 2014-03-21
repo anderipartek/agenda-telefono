@@ -19,7 +19,7 @@ import com.ipartek.agenda.modelo.ModeloAmigo;
 /**
  * Servlet implementation class MainServlet
  */
-public class MainServlet extends HttpServlet {
+public class MainServlet extends AgendaServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private final static Logger log=Logger.getLogger(MainServlet.class);
@@ -30,6 +30,8 @@ public class MainServlet extends HttpServlet {
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
 	public static String apartado;
+	private static String idAmigo;
+	private static String nombre;
 	
 	RequestDispatcher dispatcher=null;
 	ModeloAmigo modelAmigo;
@@ -64,9 +66,11 @@ public class MainServlet extends HttpServlet {
 		if (ANADIR.equals(seccion)) {
 			apartado = "anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)) {
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+		} else if (MODIFICAR.equals(seccion)||(null != idAmigo)) {
+			apartado="modificar";
+			detalleAmigo(request, response);
 		} else if (ELIMINAR.equals(seccion)) {
+			//borrarAmigo(request,response);
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
 			listarAmigos(request, response);
@@ -148,6 +152,7 @@ public class MainServlet extends HttpServlet {
 
 	}
 	
+	
 	/**
 	 * Crea un neuvo amigo con los datos recogidos anteriormente
 	 * @param request
@@ -181,11 +186,42 @@ public class MainServlet extends HttpServlet {
 	}
 	
 	
+	/**
+	 * Muestra los detalles del amigo
+	 * @param request
+	 * @param response
+	 */
+	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response) {
+		// detalle
+		log.trace("Detalle amigo " + idAmigo);
+		dispatcher = request.getRequestDispatcher("modificar.jsp");
+
+		// obtener Alumnos
+		Amigo a = modelAmigo.getAmigoById(idAmigo);
+		// enviar datos en la request a la JSP
+		request.setAttribute("detalleAmigo", a);
+		// post method
+		request.setAttribute("method", "post");
+		request.setAttribute("title", "Modificar amigo");
+
+	}
 		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (apartado=="anadir"){
 			crearAmigo(request, response);
-		}
+		}/*else if (apartado=="eliminar"){
+			buscarAmigos(request, response);
+		}*/
+	}
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		idAmigo = (String)request.getParameter("id");
+		// realizar servicio
+		super.service(request, response);
+	}
+	
+	private void borrarAmigo(HttpServletRequest request, HttpServletResponse response){
+		
 	}
 
 }
