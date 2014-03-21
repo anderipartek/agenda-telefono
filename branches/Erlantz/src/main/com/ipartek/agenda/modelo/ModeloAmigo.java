@@ -79,8 +79,8 @@ public class ModeloAmigo implements IModeloAmigable {
 	}
 
 	@Override
-	public final Amigo recogerUno(final String nombre) {
-		Amigo amigo = daoAmigo.getAmigoByName(nombre);
+	public final Amigo recogerUno(final int id) {
+		Amigo amigo = daoAmigo.getAmigoById(id);
 		if (amigo == null) {
 			amigo = new Amigo();
 		}

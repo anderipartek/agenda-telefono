@@ -65,10 +65,10 @@ public interface IModeloAmigable {
 	/**
 	 * Para poder recoger los datos de un amigo de la agenda.
 	 * 
-	 * @param nombre del amigo que queremos buscar
+	 * @param id Identificador del amigo que queremos buscar
 	 * @return todos los datos del amigo, Devuelve amigo por defecto si no se ha
 	 *         encotrado el amigo
 	 */
-	Amigo recogerUno(final String nombre);
+	Amigo recogerUno(final int id);
 
 }

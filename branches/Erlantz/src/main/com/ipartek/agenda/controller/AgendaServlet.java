@@ -109,8 +109,8 @@ public class AgendaServlet extends MainServlet {
 			dispatcher = request.getRequestDispatcher("main?seccion=eliminar");
 		} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
 			getRecogerSelecionado(request, response);
-			String nombre = request.getParameter("nombre");
-			a = modelo.recogerUno(nombre);
+			// String nombre = request.getParameter("nombre");
+			a = modelo.recogerUno(idAmigo);
 			request.setAttribute("amigoDatos", a);
 			dispatcher = request.getRequestDispatcher("main?seccion=modificar");
 		}

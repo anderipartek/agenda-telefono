@@ -135,7 +135,7 @@ public class TestModeloAmigo {
 	public final void testGetAlumnoByName() {
 		int id = modelo.insertar(a);
 		if (id > 0) {
-			Amigo b = modelo.recogerUno(a.getNombre());
+			Amigo b = modelo.recogerUno(id);
 			assertEquals("Recuperado amigo por nombre", b.toString(),
 					a.toString());
 			assertTrue(modelo.eliminar(id));

@@ -79,6 +79,11 @@ public class DAOAmigo implements IAmigable {
 	 */
 	private static final String SQL_ONE = "select * from "
 			+ "amigos where nombre = ?";
+	/**
+	 * 
+	 */
+	private static final String SQL_ID = "select * from "
+			+ "amigos where id = ?";
 
 	/**
 	 * Constructor que crea una instancia a la conexion de la BBDD.
@@ -220,6 +225,35 @@ public class DAOAmigo implements IAmigable {
 			}
 			LOG.trace("Fin recoger amigos");
 			return amigoMap;
+		}
+	}
+
+	@Override
+	public final Amigo getAmigoById(final int id) {
+		LOG.trace("Recoger todos los amigos");
+		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
+		int keyHashMap = 0;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(SQL_ID);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				a = new Amigo();
+				datosAmigo();
+				keyHashMap++;
+				amigoMap.put(keyHashMap, a);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			LOG.trace("Fin recoger amigos");
+			return a;
 		}
 	}
 
