@@ -19,5 +19,5 @@
 			</div>
 		</form>
 	</div>
-
+<%@ include file="inc/footer.jsp"%>
 	
