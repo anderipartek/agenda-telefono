@@ -31,8 +31,6 @@ public class DAOAmigo implements IAmigable {
 	static Amigo a;
 	static ConnectionFactory factory;
 
-	private static final String SQL_ALL = "select * from amigos";
-
 	public DAOAmigo() {
 
 		factory = ConnectionFactory.getInstance();
@@ -83,11 +81,12 @@ public class DAOAmigo implements IAmigable {
 	@Override
 	public HashMap<Integer, Amigo> getAll() {
 		log.trace("Recoger todos los amigos");
+		String sqlAll = "select * from amigos";
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
 		int keyHashMap = 0;
 		try {
 			con = factory.getConnection();
-			pst = con.prepareStatement(SQL_ALL);
+			pst = con.prepareStatement(sqlAll);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
@@ -164,7 +163,7 @@ public class DAOAmigo implements IAmigable {
 	}
 
 	@Override
-	public Amigo getAmigoByName(String nombre) {
+	public Amigo getAmigoByName(final String nombre) {
 		String sqlAlumno = "select * from amigos where nombre = ?";
 		try {
 			con = factory.getConnection();
@@ -175,8 +174,6 @@ public class DAOAmigo implements IAmigable {
 			while (rs.next()) {
 				datosAmigo(rs);
 			}
-		} catch (AmigoException ex) {
-			log.warn("Ha ocurrido un error un recoger el alumno por dni " + nombre);
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
@@ -188,6 +185,37 @@ public class DAOAmigo implements IAmigable {
 				sqlExcepcion(ex);
 			}
 			return a;
+		}
+
+	}
+
+	@Override
+	public HashMap<Integer, Amigo> getAllByName(final String nombre) {
+		log.trace("Recoger todos los amigos");
+		String sqlAlumno = "select * from amigos where nombre = ?";
+		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
+		int keyHashMap = 0;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(sqlAlumno);
+			pst.setString(1, nombre);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				a = new Amigo();
+				datosAmigo(rs);
+				keyHashMap++;
+				amigoMap.put(keyHashMap, a);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			log.trace("Fin recoger amigos");
+			return amigoMap;
 		}
 
 	}

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.ipartek.agenda.exception.AmigoException;
+
 /**
  * Servlet implementation class MainServlet
  */
@@ -49,6 +51,7 @@ public class MainServlet extends HttpServlet {
 	}
 
 	/**
+	 * @throws AmigoException
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override

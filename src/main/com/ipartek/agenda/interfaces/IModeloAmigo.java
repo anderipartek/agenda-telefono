@@ -3,7 +3,6 @@ package com.ipartek.agenda.interfaces;
 import java.util.HashMap;
 
 import com.ipartek.agenda.bean.Amigo;
-import com.ipartek.agenda.exception.AmigoException;
 
 public interface IModeloAmigo {
 
@@ -44,12 +43,19 @@ public interface IModeloAmigo {
 	public HashMap<Integer, Amigo> recogerTodos();
 
 	/**
+	 * Para obtener todos los amigos que tenemos en la agenda
+	 * 
+	 * @return una lista de amigos
+	 */
+	public HashMap<Integer, Amigo> recogerTodosNombre(final String nombre);
+
+	/**
 	 * Para obtener todos los amigos que coincidan con un nombre
 	 * 
 	 * @param nombre
 	 * @return
 	 */
 
-	public Amigo recogerUno(final String nombre) throws AmigoException;
+	public Amigo recogerUno(final String nombre);
 
 }

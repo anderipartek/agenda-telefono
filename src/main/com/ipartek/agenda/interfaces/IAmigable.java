@@ -10,9 +10,11 @@ public interface IAmigable {
 
 	public HashMap<Integer, Amigo> getAll();
 
+	public HashMap<Integer, Amigo> getAllByName(final String nombre);
+
 	boolean delete(int id);
 
 	boolean update(Amigo a, int id);
 
-	Amigo getAmigoByName(String nombre);
+	Amigo getAmigoByName(final String nombre);
 }

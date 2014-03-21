@@ -25,7 +25,7 @@ public class Amigo {
 	private String fijo;
 	private String anotaciones;
 
-	public Amigo() throws AmigoException {
+	public Amigo() {
 		// this.id = 0;
 		this.nombre = DEFAULT_NOMBRE_VALUE;
 		this.apellido = DEFAULT_APELLIDO_VALUE;
@@ -97,21 +97,19 @@ public class Amigo {
 	}
 
 	public void setNombre(String nombre) throws AmigoException {
-		if (AmigoUtil.checkNombre(nombre)) {
-			this.nombre = AmigoUtil.toCapitalCase(nombre);
-		} else {
-			this.nombre = DEFAULT_NOMBRE_VALUE;
-			throw new AmigoException(AmigoException.COD_ERROR_NOMBRE, AmigoException.MSG_ERROR_NOMBRE);
-		}
+		/*
+		 * if (AmigoUtil.checkNombre(nombre)) { this.nombre = AmigoUtil.toCapitalCase(nombre); } else { this.nombre = DEFAULT_NOMBRE_VALUE; throw new
+		 * AmigoException(AmigoException.COD_ERROR_NOMBRE, AmigoException.MSG_ERROR_NOMBRE); }
+		 */
+		this.nombre = nombre;
 	}
 
 	public void setApellido(String apellido) throws AmigoException {
-		if (AmigoUtil.checkNombre(apellido)) {
-			this.apellido = AmigoUtil.toCapitalCase(apellido);
-		} else {
-			this.apellido = DEFAULT_APELLIDO_VALUE;
-			throw new AmigoException(AmigoException.COD_ERROR_APELLIDO, AmigoException.MSG_ERROR_APELLIDO);
-		}
+		/*
+		 * if (AmigoUtil.checkNombre(apellido)) { this.apellido = AmigoUtil.toCapitalCase(apellido); } else { this.apellido = DEFAULT_APELLIDO_VALUE;
+		 * throw new AmigoException(AmigoException.COD_ERROR_APELLIDO, AmigoException.MSG_ERROR_APELLIDO); }
+		 */
+		this.apellido = apellido;
 	}
 
 	public void setCalle(String calle) throws AmigoException {
