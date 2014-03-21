@@ -152,8 +152,8 @@ public class DAOAmigo implements IDAOAmigo {
 			amigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAll);
 			rs = pst.executeQuery();
-			amigo = new Amigo();
 			while (rs.next()) {
+				amigo = new Amigo();
 				datosAlumno(rs);
 				amigos.add(amigo);
 			}
