@@ -13,35 +13,36 @@ public class ModeloAmigo{
 	static ConnectionFactory factoria;
 	static IAmigable daoAmigo;
 	static ArrayList<Amigo> amigos;
-	
+	static Amigo a;
+
 	public ModeloAmigo() {
 		factoria = ConnectionFactory.getInstance(); 
 		daoAmigo = factoria.getDAOAmigo();
 	}	
-	
+
 	public ArrayList<Amigo> getAmigosByNombre(String nombre) {
-		
+
 		amigos=null;
 		amigos=daoAmigo.obtenerAmigosByNombre(nombre);
 		return amigos;
 	}
 
-	
+
 	public Amigo getAmigoById(int id) {
-		Amigo a = null;
+		a = null;
 		a = daoAmigo.obtenerAmigoByID(id);
 		return a;
 	}
 
-	
+
 	public ArrayList<Amigo> getAll() {
-		
-		ArrayList<Amigo> listaAmigos = new ArrayList<Amigo>();
-		listaAmigos = daoAmigo.getAll();
-		return listaAmigos;
+
+		ArrayList<Amigo> amigos = new ArrayList<Amigo>();
+		amigos = daoAmigo.getAll();
+		return amigos;
 	}
 
-	
+
 	public boolean update(Amigo a, int id) {
 		int actualizado = daoAmigo.update(a, id);
 		boolean result=false;
@@ -77,12 +78,12 @@ public class ModeloAmigo{
 			result=false;
 		return result;
 	}
-				
-			
 
-			
 
-		
-		
-	
+
+
+
+
+
+
 }

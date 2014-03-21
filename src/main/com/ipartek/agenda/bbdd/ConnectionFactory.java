@@ -8,7 +8,7 @@ import com.ipartek.agenda.interfaces.IAmigable;
 
 public class ConnectionFactory {
 	private static Connection conn = null;
-	 
+
 	private static final String DB_NAME = "agenda";
 	static final String URL_CONEXION = "jdbc:mysql://localhost:3306/" + DB_NAME ;
 	static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -76,6 +76,6 @@ public class ConnectionFactory {
 		return new DAOAmigo();
 	}
 
-	
+
 
 }
