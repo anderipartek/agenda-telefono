@@ -10,11 +10,11 @@
 			</ul>
 <%-- 		<% } %> --%>
 		
-		<form method="post" action="main">				
+		<form method="post" action="main">			
 			<input type="text" placeholder="nombre" name="nombre">
 			<input type="text" placeholder="apellido" name="apellido">
 			<input type="text" placeholder="calle" name="calle">
-			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP">
+			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp">
 			<input type="text" placeholder="localidad" name="localidad">
 			<input type="text" placeholder="provincia" name="provincia">
 			<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil">

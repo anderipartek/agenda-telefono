@@ -39,13 +39,13 @@ public class MainServlet extends HttpServlet {
 	 */
 	public MainServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		
 		super.init(config);
 		modelAmigo = new ModeloAmigo();
 	}
@@ -76,6 +76,11 @@ public class MainServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Lista los amigos que existen en la base de datos
+	 * @param request
+	 * @param response
+	 */
 	private void listarAmigos(HttpServletRequest request, HttpServletResponse response) {
 		// listando
 		log.trace("Listado Amigos");
@@ -89,53 +94,42 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("listaAmigos", listaAmigos);
 	}
 	
-/*	private void añadir (HttpServletRequest request, HttpServletResponse response){
-		log.trace("datos de amigo");
-		dispatcher = request.getRequestDispatcher("anadir.jsp");
-		modelAmigo.insert(a);
-	}
-	*/
-	
-	private void crearAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		log.trace("datos del amigo");
-		Amigo a = null;
-		
-		try {
-			a = recogerDatos(request, response);		
-			// Insert into DDBB
-			modelAmigo.insertar(a);
-			log.info("Amigo insertado " + a.toString());
-		} catch (Exception e) {
-			log.warn("Excepcion general " + e.getMessage());
-		}
-		// enviar alumno a la JSP
-		//request.setAttribute("detalleAlumno", a);
-		// titulo para la JSP
-		//request.setAttribute("title", "Insertar Alumno");
-		// dispatcher
-		
-		
-		dispatcher = request.getRequestDispatcher("todoOk.jsp");
-		dispatcher.forward(request, response);
-		log.trace("crearAmigo - Fin");
-	}
-	
-	
+	/**
+	 * REcoge los datos facilitados en el formulario
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	
 	private Amigo recogerDatos(HttpServletRequest request, HttpServletResponse response){
 		
 		log.trace("Init recoger datos alumno");
 		Amigo newAmigo =  new Amigo();
 		
-		//coger datos del formulario
+	
 		String nom=(String) request.getParameter("nombre");
 		String ape=(String) request.getParameter("apellido");
 		String call=(String) request.getParameter("calle");
-		int codigop = Integer.parseInt(request.getParameter("cp"));
+		int codigop = -1;
+		try{
+			codigop = Integer.parseInt(request.getParameter("cp"));
+		}catch(Exception e){
+			log.warn("Imposible parsear a entero el CP= " + request.getParameter("cp") );
+		}
 		String loc=(String) request.getParameter("localidad");
 		String prov=(String) request.getParameter("provincia");
-		int mov = Integer.parseInt(request.getParameter("movil"));
-		int fij = Integer.parseInt(request.getParameter("fijo"));
+		int mov = -1;
+		try{
+			mov = Integer.parseInt(request.getParameter("movil"));
+		}catch (Exception e){
+			log.warn("Imposible parsear a entero el movil= " + request.getParameter("movil") );
+		}
+		int fij = -1;
+		try{
+			fij = Integer.parseInt(request.getParameter("fijo"));
+		}catch (Exception e){
+			log.warn("Imposible parsear a entero el fijo= " + request.getParameter("fijo") );
+		}
 		String anot=(String) request.getParameter("anotaciones");
 		
 		//meter los datos nuevos en el nuevo amigo
@@ -154,7 +148,40 @@ public class MainServlet extends HttpServlet {
 
 	}
 	
+	/**
+	 * Crea un neuvo amigo con los datos recogidos anteriormente
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	
+	private void crearAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		log.trace("datos del amigo");
+		Amigo a = null;
+		
+		try {
+			a = recogerDatos(request, response);		
+			// Insert into DDBB
+			modelAmigo.insert(a);
+			log.info("Amigo insertado " + a.toString());
+		} catch (Exception e) {
+			log.warn("Excepcion general " + e.getMessage());
+		}
+		// enviar alumno a la JSP
+		//request.setAttribute("detalleAlumno", a);
+		// titulo para la JSP
+		//request.setAttribute("title", "Insertar Alumno");
+		// dispatcher
+		
+		
+		dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		dispatcher.forward(request, response);
+		log.trace("crearAmigo - Fin");
+	}
+	
+	
+		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (apartado=="anadir"){
 			crearAmigo(request, response);

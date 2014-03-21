@@ -17,10 +17,10 @@ public class ModeloAmigo {
 		daoAmigo = factoria.getInstance().getDAOAmigo();
 	}
 	
-	public int insertar(Amigo a) {
+	public int insert(Amigo a) {
 		boolean result = false;
 		int insertado = -1;
-		insertado = daoAmigo.insertarAmigo(a);		
+		insertado = daoAmigo.insertAmigo(a);		
 		return insertado;
 	}
 	

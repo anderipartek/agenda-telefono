@@ -87,8 +87,8 @@ public class DAOAmigo implements IAmigo {
 
 	}
 
-	
-	public int insertarAmigo(Amigo a) {
+	@Override
+	public int insertAmigo(Amigo a) {
 		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String sqlId = "select max(id) from amigos;";
 		int id = -1;
