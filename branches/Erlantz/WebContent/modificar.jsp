@@ -73,7 +73,7 @@
 				<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="<%=amigo.getCodigoPostal()%>">
 				<input type="text" placeholder="localidad" name="localidad" value="<%=amigo.getLocalidad()%>">
 				<input type="text" placeholder="provincia" name="provincia" value="<%=amigo.getProvincia()%>">
-				<input type="text" pattern="[0-9]{9}" placeholder="mÃ³vil 999999999" name="movil" value="<%=amigo.getMTelefono()%>">
+				<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999" name="movil" value="<%=amigo.getMTelefono()%>">
 				<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="<%=amigo.getFTelefono()%>">
 				<textarea name="anotaciones" placeholder="anotaciones"><%=amigo.getAnotaciones()%></textarea>
 				<input type="hidden" name="nombre" value="<%=amigo.getNombre()%>">
