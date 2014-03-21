@@ -15,10 +15,15 @@ public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String SECCION = "seccion";
-	public static final String ANADIR = "anadir";
-	public static final String MODIFICAR = "modificar";
-	public static final String ELIMINAR = "eliminar";
-	public static final String VER = "ver";
+	
+	public static final String OP_ANADIR="anadir";
+	public static final String OP_ELIMINAR="eliminar";
+	public static final String OP_MODIFICAR="modificar";
+	public static final String OP_CANCELAR="cancelar";
+	public static final String OP_BUSCAR="buscar";
+	public static final String OP_VER="ver";
+	
+	private RequestDispatcher dispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -33,19 +38,20 @@ public class MainServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String seccion = request.getParameter(SECCION);
-		RequestDispatcher dispatcher = null;
-
+		final String seccion = request.getParameter(SECCION);
+		
 		request.setAttribute("seccion", seccion);
 
-		if (ANADIR.equals(seccion)) {
+		if (OP_ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)) {
+		} else if (OP_MODIFICAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
-		} else if (ELIMINAR.equals(seccion)) {
+		} else if (OP_ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
-		} else if (VER.equals(seccion)) {
-			dispatcher = request.getRequestDispatcher("ver.jsp");
+		} else if (OP_VER.equals(seccion)) {
+			dispatcher= request.getRequestDispatcher("ver.jsp");
+			//response.sendRedirect("/agenda");
+			
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}

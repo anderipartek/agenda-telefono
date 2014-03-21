@@ -32,25 +32,23 @@ public class AgendaServlet extends HttpServlet {
 
 	private static RequestDispatcher dispatcher;
 	private static IDAOAmigo modeloAmigo;
+	
 	private static final int COD_MSG_NOTFOUND = 200;
 	private static final int COD_MSG_ERRORDATOS= 500;
+	private static final String TIPO_ERROR="ERR";
 	
 	private String opcion;
 	private Amigo amigo;
 	private ArrayList<Amigo> listaAmigos;
 	
-	public static final String OP_ANADIR="anadir";
-	public static final String OP_ELIMINAR="eliminar";
-	public static final String OP_MODIFICAR="modificar";
-	public static final String OP_CANCELAR="cancelar";
-	public static final String OP_BUSCAR="buscar";
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public AgendaServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
@@ -77,7 +75,7 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// recoger el parametro id
-		String idAmigo = (String) request.getAttribute("id");
+		final String idAmigo = (String) request.getAttribute("id");
 		if (idAmigo == null) {
 
 			// Devuelve la información de todos los amigos
@@ -98,7 +96,7 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	private void listarAmigos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger los datos de todos los amigos
-		ArrayList<Amigo> amigos = modeloAmigo.getAll();
+		final ArrayList<Amigo> amigos = modeloAmigo.getAll();
 
 		// Guardar en la request la lista de amigos
 		request.setAttribute("listaAmigos", amigos);
@@ -110,13 +108,11 @@ public class AgendaServlet extends HttpServlet {
 	}
 
 	/**
-	 * Método para devolver los datos de un amigo.
-	 * Sirve para las siguientes operaciones:
+	 * Método para devolver los datos de un amigo para las siguientes operaciones.
 	 * <ol>
 	 * 	<li>Modificar</li>
 	 * 	<li>Eliminar</li>
 	 * </ol>
-	 * 
 	 * @param request
 	 * @param response
 	 * @param id
@@ -125,10 +121,10 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
 		// Pasar el id del amigo a int para poder buscar por id
-		int idAmigo = Integer.parseInt(id);
+		final int idAmigo = Integer.parseInt(id);
 
 		// buscar el amigo en la tabla
-		Amigo amigoId = modeloAmigo.getById(idAmigo);
+		final Amigo amigoId = modeloAmigo.getById(idAmigo);
 		if (amigoId != null) {
 			// Se ha encontrado sin problema
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
@@ -159,23 +155,25 @@ public class AgendaServlet extends HttpServlet {
 
 		opcion = (String) request.getParameter("op");
 
-		if (OP_ANADIR.equalsIgnoreCase(opcion)) {
+		if (MainServlet.OP_ANADIR.equalsIgnoreCase(opcion)) {
 			// Se llama a la función para añadir el amigo a la tabla
+			// Se guarda la operación para el operaciónCorrecta
+			request.setAttribute("operación", "añadido");
 			anadirAmigo(request, response);
-		} else if (OP_MODIFICAR.equalsIgnoreCase(opcion)) {
+		} else if (MainServlet.OP_MODIFICAR.equalsIgnoreCase(opcion)) {
+			// Se guarda la operación para el operaciónCorrecta
+			request.setAttribute("operación", "modificado");
 			// Se llama a la función para modificar el amigo
 			modificarAmigo(request, response);
-		} else if (OP_ELIMINAR.equalsIgnoreCase(opcion)) {
+		} else if (MainServlet.OP_ELIMINAR.equalsIgnoreCase(opcion)) {
+			// Se guarda la operación para el operaciónCorrecta
+			request.setAttribute("operación", "eliminado");
 			// Se llama a la función para eliminar al amigo
 			eliminarAmigo(request, response);
-		} else if (OP_BUSCAR.equalsIgnoreCase(opcion)) {
-			
+		} else{
+			// Se busca por el nombre introducido
 			buscarOperación(request, response);
-		} else {
-			// Cancelar cualquier operación
-			cancelarOperación(request, response);
 		}
-
 	}
 
 	/**
@@ -189,7 +187,7 @@ public class AgendaServlet extends HttpServlet {
 	private void anadirAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger los datos del amigo
 
-		final Amigo amigoNuevo = recogerDatosAmigo(request, response, OP_ANADIR);
+		final Amigo amigoNuevo = recogerDatosAmigo(request, response, MainServlet.OP_ANADIR);
 
 		// intentar gusdar los datos en la bbdd
 		final int idNuevo = modeloAmigo.insertAmigo(amigoNuevo);
@@ -202,7 +200,8 @@ public class AgendaServlet extends HttpServlet {
 			request.setAttribute("msg", new Mensajes(
 					"El amigo se ha introducido correctamente....",
 					COD_MSG_NOTFOUND, "INFO"));
-			// Guardar el amigo con el que se ha trabajado
+			// Guardar el nombre del amigo con el que se ha trabajado
+			request.setAttribute("nombreAmigo", amigoNuevo.getNombre());
 			
 			// Redirección a operacion correcta
 			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
@@ -214,7 +213,7 @@ public class AgendaServlet extends HttpServlet {
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes(
 					"El amigo no se ha introducido correctamente....",
-					COD_MSG_NOTFOUND, "ERR"));
+					COD_MSG_NOTFOUND, TIPO_ERROR));
 
 			// Redirección a añadir amigo
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
@@ -233,7 +232,7 @@ public class AgendaServlet extends HttpServlet {
 	private void modificarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger los datos del amigo
 
-		final Amigo amigoModificar = recogerDatosAmigo(request, response, OP_MODIFICAR );
+		final Amigo amigoModificar = recogerDatosAmigo(request , response , MainServlet.OP_MODIFICAR);
 
 		// intentar gusdar los datos en la bbdd
 		final boolean actualizado = modeloAmigo.update(
@@ -244,6 +243,9 @@ public class AgendaServlet extends HttpServlet {
 			request.setAttribute("msg", new Mensajes(
 					"El amigo se ha introducido correctamente....",
 					COD_MSG_NOTFOUND, "INFO"));
+			// Guardar el nombre del amigo con el que se ha trabajado
+			request.setAttribute("nombreAmigo", amigoModificar.getNombre());
+			
 			// Redirección a operacion correcta
 			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
 
@@ -254,7 +256,7 @@ public class AgendaServlet extends HttpServlet {
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes(
 					"El amigo no se ha introducido correctamente....",
-					COD_MSG_NOTFOUND, "ERR"));
+					COD_MSG_NOTFOUND, TIPO_ERROR));
 
 			// Redirección a añadir amigo
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
@@ -274,43 +276,39 @@ public class AgendaServlet extends HttpServlet {
 		// Obtener el id del amigo a eliminar
 		final int idAmigoEliminar = Integer.parseInt((String)
 				request.getParameter("id"));
-
+		// Buscar el amigo por el id
+		Amigo amigoEliminar= modeloAmigo.getById(idAmigoEliminar);
+		if(amigoEliminar != null) {
 		// Eliminar el amigo
-		final boolean eliminado = modeloAmigo.delete(idAmigoEliminar);
-		if (eliminado) {
-			// Mensaje de información
-			request.setAttribute("msg", new Mensajes(
-					"El amigo borrado correctamente....",
-					COD_MSG_NOTFOUND, "INFO"));
-
-			// Redirección a añadir amigo
-			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			final boolean eliminado = modeloAmigo.delete(idAmigoEliminar);
+			if (eliminado) {
+				// Mensaje de información
+				request.setAttribute("msg", new Mensajes(
+						"El amigo borrado correctamente....",
+						COD_MSG_NOTFOUND, "INFO"));
+				// Guardar el nombre del amigo con el que se ha trabajado
+				request.setAttribute("nombreAmigo", amigoEliminar.getNombre());
+				
+				// Redirección a añadir amigo
+				dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			} else {
+				// Mensaje de error
+				request.setAttribute("msg", new Mensajes(
+						"El amigo no se ha borrado correctamente....",
+						COD_MSG_NOTFOUND, TIPO_ERROR));
+	
+				// Redirección a añadir amigo
+				dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			}
 		} else {
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes(
-					"El amigo no se ha borrado correctamente....",
-					COD_MSG_NOTFOUND, "ERR"));
+								"El amigo no se encuentra entre tus amigos",
+								COD_MSG_NOTFOUND, TIPO_ERROR));
 
-			// Redirección a añadir amigo
+			//Redirección a añadir amigo
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		}
-		dispatcher.forward(request, response);
-	}
-	
-	/**
-	 * Método para realizar la operación de cancelación.
-	 * 
-	 * @param request
-	 * @param response
-	 * 
-	 * @throws ServletException
-	 * @throws IOException
-	 */
-
-	private void cancelarOperación(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Redirigir a la home
-
-		dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -327,14 +325,14 @@ public class AgendaServlet extends HttpServlet {
 	private void buscarOperación(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Obtener el nombre de bíusqueda
-		String nombre = (String) request.getAttribute("nombre");
+		final String nombre = (String) request.getAttribute("nombre");
 				
 		listaAmigos = Util.getAmigoBusqueda(nombre);
 		
 		// Devolver los resultados
 		 request.setAttribute("listaAmigos", listaAmigos);
 		 
-		 dispatcher = request.getRequestDispatcher("modificar.jsp");
+		 dispatcher = request.getRequestDispatcher("index.jsp");
 		 
 		 dispatcher.forward(request, response);
 	}
@@ -364,7 +362,9 @@ public class AgendaServlet extends HttpServlet {
 		final int movil = Integer.parseInt(request.getParameter("movil"));
 		final String anotaciones = request.getParameter("anotaciones");
 		
-		amigo.setId(Integer.parseInt(request.getParameter("id")));
+		if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
+			amigo.setId(Integer.parseInt(request.getParameter("id")));
+		}
 		try {
 			amigo.setNombre(nombre);
 			amigo.setApellido(apellido);
@@ -394,7 +394,7 @@ public class AgendaServlet extends HttpServlet {
 			// Establecer el mensaje de error que se ha producido.
 				request.setAttribute("msg", new Mensajes(
 						"Datos incorrectos " + ex.getMensajeError(),
-						COD_MSG_ERRORDATOS , "ERR"));
+						COD_MSG_ERRORDATOS , TIPO_ERROR));
 				dispatcher = request.getRequestDispatcher(operacion + ".jsp");
 				dispatcher.forward(request, response);
 		}
