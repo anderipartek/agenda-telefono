@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ipartek.agenda.bean.Amigo;
 
+
 public interface IDAOAmigo {
 
 	/**
@@ -18,4 +19,17 @@ public interface IDAOAmigo {
 	 * @return [ArrayList<T>] todos los amigos sin filtro
 	 */
 	ArrayList<Amigo> getAll();
+	
+
+	/**
+	 * Obtenemos todos los amigos con ese nombre
+	 * @return
+	 */
+	//ArrayList<Amigo> getByNombre(String nombre);
+	
+	/**
+	 * Obtenemos un amigo con ese id
+	 * @return
+	 */
+	Amigo getById( String id );
 }

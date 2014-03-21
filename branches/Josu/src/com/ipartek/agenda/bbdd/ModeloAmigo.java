@@ -6,7 +6,6 @@ import com.ipartek.agenda.bbdd.intefaces.IDAOAmigo;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.bbdd.ConnectionFactory;
 
-
 public class ModeloAmigo {
 	
 	static ConnectionFactory factoria;
@@ -28,4 +27,15 @@ public class ModeloAmigo {
 		return listaAmigos;
 	}
 	
+	/*public ArrayList<Amigo> getAmigoByName(String nombre) {
+		ArrayList<Amigo> listaAmigos = new ArrayList<Amigo>();
+		listaAmigos = daoAmigo.getByNombre(nombre);
+		return listaAmigos;
+	}*/
+	
+	public Amigo getAmigoById(String id) {
+		Amigo a = null;
+		a = daoAmigo.getById(id);
+		return a;
+	}
 }

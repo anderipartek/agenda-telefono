@@ -27,6 +27,9 @@ public class DAOAmigo implements IDAOAmigo {
 		factory = ConnectionFactory.getInstance();
 	}
 	
+	/**
+	 * Funcion para coger todos los amigos de la base de datos
+	 */
 	@Override
 	public ArrayList<Amigo> getAll() {
 		ArrayList<Amigo> listaAmigos = null;
@@ -55,36 +58,63 @@ public class DAOAmigo implements IDAOAmigo {
 		}
 	}
 
-	
-	private void datosAmigo(ResultSet rs) {
+	/*public ArrayList<Amigo> getByNombre(String nombre) {
+		ArrayList<Amigo> listaAmigos = null;
+		String sqlAmigo = "select * from amigos where nombre = ?";
 		try {
-			a.setId(rs.getInt("id"));
-			a.setNombre(rs.getString("nombre"));
-			a.setApellido(rs.getString("apellido"));
-			a.setCalle(rs.getString("calle"));
-			a.setCp(rs.getInt("cp"));
-			a.setLocalidad(rs.getString("localidad"));
-			a.setProvincia(rs.getString("provincia"));
-			a.setMovil(rs.getInt("movil"));
-			a.setFijo(rs.getInt("fijo"));
-			a.setAnotaciones(rs.getString("anotaciones"));
+			con = factory.getConnection();
+			listaAmigos = new ArrayList<Amigo>();
+			pst = con.prepareStatement(sqlAmigo);
+			pst.setString(1, a.getNombre());
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				a = new Amigo();
+				datosAmigo(rs);
+				listaAmigos.add(a);
+			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al recoger un amigo por nombre.");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return listaAmigos;
+		}
+	}*/
+
+	public Amigo getById(String id) {
+		String sqlAlumno = "select * from amigos where id = ?";
+		try {
+			con = factory.getConnection();
+			a = new Amigo();
+			pst = con.prepareStatement(sqlAlumno);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				datosAmigo(rs);
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al recoger un alumno por id.");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return a;
 		}
 
 	}
 	
-	private void sqlExcepcion(SQLException ex) {
-		while (ex != null) {
-			log.error("Message:> " + ex.getMessage());
-			log.error("SQL State:> " + ex.getSQLState());
-			log.error("Error Code:> " + ex.getErrorCode());
-			log.error("Cause:> " + ex.getCause());
-			ex = ex.getNextException();
-		}
-
-	}
-
+	/**
+	 * funcion para insertar un amigo nuevo en la base de datos
+	 */
 	@Override
 	public int insertAmigo(Amigo a) {
 		String sqlInsert = "insert into amigos (nombre,apellido,calle,cp,localidad,provincia,movil,fijo,anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -127,6 +157,35 @@ public class DAOAmigo implements IDAOAmigo {
 			return id;
 
 		}
+	}
+	
+	private void datosAmigo(ResultSet rs) {
+		try {
+			a.setId(rs.getInt("id"));
+			a.setNombre(rs.getString("nombre"));
+			a.setApellido(rs.getString("apellido"));
+			a.setCalle(rs.getString("calle"));
+			a.setCp(rs.getInt("cp"));
+			a.setLocalidad(rs.getString("localidad"));
+			a.setProvincia(rs.getString("provincia"));
+			a.setMovil(rs.getInt("movil"));
+			a.setFijo(rs.getInt("fijo"));
+			a.setAnotaciones(rs.getString("anotaciones"));
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		}
+
+	}
+	
+	private void sqlExcepcion(SQLException ex) {
+		while (ex != null) {
+			log.error("Message:> " + ex.getMessage());
+			log.error("SQL State:> " + ex.getSQLState());
+			log.error("Error Code:> " + ex.getErrorCode());
+			log.error("Cause:> " + ex.getCause());
+			ex = ex.getNextException();
+		}
+
 	}
 
 }
