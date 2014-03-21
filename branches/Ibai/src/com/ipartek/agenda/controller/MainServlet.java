@@ -139,6 +139,8 @@ public class MainServlet extends HttpServlet {
 	}
 
 	/**
+	 * Metodo post.
+	 * 
 	 * @param request HttpServletRequest
 	 * @param response HttpServletResponse
 	 * @throws ServletException ServletException
@@ -216,7 +218,8 @@ public class MainServlet extends HttpServlet {
 			try {
 				amigo = setAmigoFromRequest(request);
 			} catch (Exception e) {
-				log.error("Error al modificar el amigo, datos de entrada incorrectos");
+				log.error("Error al modificar el amigo,"
+						+ " datos de entrada incorrectos");
 				request.setAttribute(ATRIBUTO_MSG, new Mensaje(
 						"Error al modificar el amigo, comprueba"
 						+ " que los datos sean correctos",
