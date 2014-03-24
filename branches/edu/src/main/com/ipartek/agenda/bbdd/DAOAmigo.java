@@ -247,12 +247,12 @@ public class DAOAmigo implements IAmigable {
 	public ArrayList<Amigo> obtenerAmigosByNombre(String nombre) {
 		log.trace("Inicio ObtenerAmigosByNombre");
 		amigos=new ArrayList<Amigo>();
-		String sqlAmigo = "select * from amigos where nombre = ?";
+		String sqlAmigo = "select * from amigos where nombre like ?";
 		try {
 			con = factory.getConnection();
 
 			pst = con.prepareStatement(sqlAmigo);
-			pst.setString(1, nombre);
+			pst.setString(1, nombre+"%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				datosAmigo(rs);
