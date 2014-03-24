@@ -143,12 +143,12 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public ArrayList<Amigo> getByNombre(String nombre) {
 		ArrayList<Amigo> listaAmigos = null;
-		String sqlAmigo = "select * from agenda.amigos where nombre = ?";
+		String sqlAmigo = "select * from agenda.amigos where nombre LIKE ?";
 		try {
 			con = factory.getConnection();
 			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAmigo);
-			pst.setString(1, nombre);
+			pst.setString(1, nombre + "%");//LIKE
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();

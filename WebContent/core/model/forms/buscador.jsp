@@ -5,7 +5,7 @@
 		
 		
 		<form method="post" action="main?buscador.jsp">				
-			<input type="text" placeholder="nombre que buscas..." name="nombreBuscar" value="">
+			<input id="aSearch" type="text" placeholder="nombre que buscas..." name="nombreBuscar" value="">
 			
 			<div class="botones">
 				<input type="submit" value="buscar" name="accion" class="boton buscar">
