@@ -171,12 +171,12 @@ public class DAOAmigo implements IDAOAmigo {
 	public final ArrayList<Amigo> getByName(String nombre) {
 		
 		amigos = new ArrayList<Amigo>();
-		final String sqlAlumno = "select * from amigos where nombre = ?";
+		final String sqlAlumno = "select * from amigos where nombre like ?";
 		try {
 			con = factory.getConnection();
 			amigo = new Amigo();
 			pst = con.prepareStatement(sqlAlumno);
-			pst.setString(1, nombre);
+			pst.setString(1, nombre +"%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				datosAmigo(rs);
