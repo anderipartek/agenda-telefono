@@ -10,13 +10,14 @@ import org.apache.log4j.PropertyConfigurator;
 import com.ipartek.agenda.bean.Amigo;
 import com.ipartek.agenda.exceptions.AmigoException;
 import com.ipartek.agenda.interfaces.IDAOAmigo;
+
 /**
  * Clase para testear el funcionamiento de DAOAmigo.
  * 
  * 
  * @author Patricia Navascués
  * @version 1.0
- *
+ * 
  */
 public class TestDAOAmigo extends TestCase {
 	private final static Logger LOG = Logger.getLogger(DAOAmigo.class);
@@ -35,7 +36,7 @@ public class TestDAOAmigo extends TestCase {
 		ConnectionFactory.getInstance().getDAOAmigo().createTable();
 		lista = new ArrayList<Amigo>();
 		daoAmigo = ConnectionFactory.getInstance().getDAOAmigo();
-		a = new Amigo("Patricia", "Navascues",  codigoPostal, telefonoMovil, "Bilbao", "Bizkaia", telefonoFijo, "Mazustegi",
+		a = new Amigo("Patricia", "Navascues", codigoPostal, telefonoMovil, "Bilbao", "Bizkaia", telefonoFijo, "Mazustegi",
 				"datos importantes del amigo");
 
 	}
@@ -114,13 +115,10 @@ public class TestDAOAmigo extends TestCase {
 		int id = daoAmigo.insertAmigo(a);
 
 		try {
-			a.setNombre("Erlantz");
-			a.setApellido("Romero");
-			// a.setEmail("errre@eee.eee");
-			// a.setDni("77121113C");
+			Amigo a = new Amigo("Patricia", "Vega", 48006, 666666666, "Bilbao", "Indautxu", 888888888, "Bizkaia",
+					"No tengo anotaciones para este amigo");
 		} catch (AmigoException e) {
-			LOG.error("Error al crear el nuevo amigo [" + e.getMensajeError()
-						+ ", " + e.getCodigoError() + "]");
+			LOG.error("Error al crear el nuevo amigo [" + e.getMensajeError() + ", " + e.getCodigoError() + "]");
 			e.printStackTrace();
 		}
 
