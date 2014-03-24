@@ -113,3 +113,29 @@
 
 
 	</div>
+ <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+ <script>
+    var url='servletAjax';
+ $(document).ready(function(){
+       console.debug('ready...'); 
+       //seleccionar campo texto
+       var asearch=$('#asearch');
+       asearch.keyup(function() {
+    	   console.debug(asearch.val());
+    	   //TODO LLamada AJAX
+    	   $.ajax(url, {
+    		   "type": "get", // usualmente post o get
+    		   "success": function(data) {
+    		   console.log("Llego el contenido y no hubo error:" + data);
+    		   },
+    		   "error": function(error) {
+    		   console.error("Este callback maneja los errores:" + error);
+    		   },
+    		   "data": {search: asearch.val()},
+    		   "async": true,
+    		   });
+
+    	   });
+      
+ });
+</script>

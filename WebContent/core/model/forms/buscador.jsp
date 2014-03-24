@@ -9,7 +9,7 @@
 
 
 	<form method="post" action="agenda?operacion=buscar">
-		<input type="text" placeholder="nombre que buscas..." name="nombre"
+		<input id="asearch" type="text" placeholder="nombre que buscas..." name="nombre"
 			value=""> <input type="hidden" name="op" value="<%=form%>">
 		<div class="botones">
 
