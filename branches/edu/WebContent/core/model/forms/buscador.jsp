@@ -8,13 +8,13 @@
 
 
 
-	<form method="post" action="agenda?operacion=buscar">
+	<form method="post" action="">
 		<input id="aSearch" type="text" placeholder="nombre que buscas..." name="nombre"
-			value=""> <input type="hidden" name="op" value="<%=form%>">
-		<div class="botones">
+			value=""> 
+		
+		
 
-			<input type="submit" value="buscar" name="buscar"
-				class="boton buscar">
-		</div>
+			
+		
 	</form>
 </div>
