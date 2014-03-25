@@ -18,14 +18,14 @@
 	String nombre = "";
 	%>
 	<p class="errores"><%=msg%></p>
-	<p class="titulo">Cuales son los datos de tu amigo:</p>
+	
 
 
 	
 	<script src="js/jquery-1.11.0.js"></script>
 
 	<ul id="listaAmigos" class="amigos modify">
-		<li>Busca un Amigos para modificar</li>
+		<p>Busca un Amigos para modificar</p>
              
 		
 		
