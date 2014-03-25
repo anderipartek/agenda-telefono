@@ -65,12 +65,13 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 			table td { vertical-align: top; border-bottom: 1px solid #d5d5d5;}
 
 		.amigos { margin-top: 2em;}
-			.amigos li { display: block; margin-bottom:1em; }
-			.amigos li input[type=submit] { padding: .4em 1.5em .4em 2em; background: none; border:0; cursor: pointer; font-size: 1.2em; text-transform: capitalize;}
-			.amigos li input[type=submit]:hover { background-color: #D8FF00;}
+			.amigos li { display: block; margin-bottom:1em;  padding: .4em 1.5em .4em 2em; background: none; border:0; cursor: pointer; font-size: 1.2em; text-transform: capitalize;}
+			/*.amigos li input[type=submit] { padding: .4em 1.5em .4em 2em; background: none; border:0; cursor: pointer; font-size: 1.2em; text-transform: capitalize;}
+			.amigos li input[type=submit]:hover { background-color: #D8FF00;}*/
 
-			.amigos.del input[type=submit] { background: url(../../theme/img/bullet-del.png) no-repeat .5em center;}
-			.amigos.modify input[type=submit] { background: url(../../theme/img/bullet-modify.png) no-repeat .35em center;}
+			.amigos.del li { background: url(../../theme/img/bullet-del.png) no-repeat .5em center;}
+			.amigos.modify li { background: url(../../theme/img/bullet-modify.png) no-repeat .35em center;}
+			.amigos li:hover { background-color: #D8FF00;}
 
 /* FIN CONTENT */
 
@@ -90,4 +91,12 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 			.navBar li#ver a{ background: url(../../theme/img/vertodos.gif) no-repeat 0 center; background-size: contain; } 
 
 /* FIN NAVBAR */
+/*Google Maps*/
+
+      #map-canvas {
+        height: 300px;
+        margin: 0px;
+        padding: 0px
+      }
+    
 
