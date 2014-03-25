@@ -73,12 +73,12 @@ public class MainServlet extends AgendaServletMaestro {
 		if (ANADIR.equals(seccion)) {
 			modo="anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)||(null != idAmigo)) {
+		} else if (MODIFICAR.equals(seccion)&&(null != idAmigo)) {
 			modo="modificar";
 			detalleAmigo(request, response);			
 		} else if (ELIMINAR.equals(seccion)) {
 			modo="eliminar";
-			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			detalleAmigo(request, response);	
 		} else if (VER.equals(seccion)) {
 			listarAmigos(request, response);
 		} else {
@@ -135,15 +135,25 @@ public class MainServlet extends AgendaServletMaestro {
 	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response) {
 		// detalle
 		log.trace("Detalle amigo " + idAmigo);
-		dispatcher = request.getRequestDispatcher("modificar.jsp");
-
-		// obtener Alumnos
-		Amigo a = modelAmigo.getAmigoById(idAmigo);
-		// enviar datos en la request a la JSP
-		request.setAttribute("detalleAmigo", a);
-		// post method
-		request.setAttribute("method", "post");
-		request.setAttribute("title", "Modificar amigo");
+		if(modo=="modificar"){
+			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			// obtener Alumnos
+			Amigo a = modelAmigo.getAmigoById(idAmigo);
+			// enviar datos en la request a la JSP
+			request.setAttribute("detalleAmigo", a);
+			// post method
+			request.setAttribute("method", "post");
+			request.setAttribute("title", "Modificar amigo");
+		}else{
+			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			// obtener Alumnos
+			Amigo a = modelAmigo.getAmigoById(idAmigo);
+			// enviar datos en la request a la JSP
+			request.setAttribute("detalleAmigo", a);
+			// post method
+			request.setAttribute("method", "post");
+			request.setAttribute("title", "Eliminar amigo");
+		}
 
 	}
 	
