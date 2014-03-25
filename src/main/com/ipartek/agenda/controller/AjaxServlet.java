@@ -34,7 +34,7 @@ public class AjaxServlet extends ServletMaestro {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//recoger parametro search
 		RequestDispatcher dispatcher = null;
-		String busqueda=request.getParameter("search");
+		String busqueda=request.getParameter("aSearch");
 		//TODO llamar al modelo
 		ModeloAmigo model= new ModeloAmigo();
 		ArrayList<Amigo> listaAmigos=model.getAmigosByNombre(busqueda);
