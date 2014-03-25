@@ -58,18 +58,18 @@ public class MainServlet extends ServletMaestro {
 		String seccion = request.getParameter(SECCION);
 
 		request.setAttribute("seccion", seccion);
-		
+
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
-			
+
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
 			mostrarListaAmigos(request, response);
 			dispatcher = request.getRequestDispatcher("ver.jsp");
-			
+
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
@@ -97,46 +97,47 @@ public class MainServlet extends ServletMaestro {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String accion = request.getParameter("accion");
-		request.setAttribute("accion", accion);
+		
+		RequestDispatcher dispatcher = null;
 
 		if ("anadir".equals(accion)) {
 			crearAmigo(request, response);
 
-		
-		}else if ("buscar".equals(accion)) {
-				buscador(request, response);
-		}else if ("modificar".equals(accion)) {			
-					
-					modificarAmigo(request, response);		
-		}else if("eliminar".equals(accion)){
-			eliminarAmigo(request,response);
+		} else if ("modificar".equals(accion)) {
+			modificarAmigo(request, response);
+		} else if ("eliminar".equals(accion)) {
+			eliminarAmigo(request, response);
 		}
-
-		dispatcher.forward(request, response);
+		request.setAttribute("accion", accion);
+		//dispatcher.forward(request, response);
 	}
 
 	private void eliminarAmigo(HttpServletRequest request,
 			HttpServletResponse response) {
 		
+		int idAmigo = Integer.parseInt(request.getParameter("id"));
+	
+		boolean result = factory.getDAOAmigo().delete(idAmigo);
+		if (!result) {
+			textoError = "Error en la modificacion del contacto";
+			request.setAttribute("mensaje", textoError);
+
+		} else {
+			log.info("Amigo Modificado ");
+			dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		}
+
+
+		
+
 	}
 
-	private void buscador(HttpServletRequest request,
-			HttpServletResponse response) {
-		String nombreBuscar = request.getParameter("nombreBuscar");
-		
-			ArrayList<Amigo> listaAmigosBuscador = factory.getDAOAmigo().getByNombre(nombreBuscar);
-			request.setAttribute("listaAmigosBuscador", listaAmigosBuscador);
-	
-		dispatcher = request.getRequestDispatcher("modificar.jsp");
-		
-	}
 
 	private void modificarAmigo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Amigo a = new Amigo();
-		
 		int idAmigo = Integer.parseInt(request.getParameter("id"));
-		
+
 		a.setId(idAmigo);
 		a.setNombre(request.getParameter("nombre"));
 		a.setApellido(request.getParameter("apellido"));
@@ -146,21 +147,20 @@ public class MainServlet extends ServletMaestro {
 		a.setProvincia(request.getParameter("provincia"));
 		a.settMovil(Integer.valueOf(request.getParameter("movil")));
 		a.settFijo(Integer.valueOf(request.getParameter("fijo")));
-	
 
-		boolean result = factory.getDAOAmigo().update(a,a.getId());
-		if (result) {
-			log.info("Amigo Modificado " + a.toString());
-			dispatcher = request.getRequestDispatcher("todoOk.jsp");
-		} else {
+		boolean result = factory.getDAOAmigo().update(a, idAmigo);
+		if (!result) {
 			textoError = "Error en la modificacion del contacto";
 			request.setAttribute("mensaje", textoError);
+
+		} else {
+			log.info("Amigo Modificado " + a.toString());
+			dispatcher = request.getRequestDispatcher("todoOk.jsp");
 		}
-		
+
 		request.setAttribute("listaAmigosBuscador", a);
-		dispatcher = request.getRequestDispatcher("modificar.jsp");
+		// dispatcher = request.getRequestDispatcher("modificar.jsp");
 		dispatcher.forward(request, response);
-	
 
 	}
 

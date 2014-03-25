@@ -172,13 +172,13 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 
 	@Override
-	public boolean delete(String nombre) {
+	public boolean delete(int id) {
 		boolean borrado = false;
-		String sqlDelete = "delete from agenda.amigos where nombre = ?";
+		String sqlDelete = "delete from agenda.amigos where id = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlDelete);
-			pst.setString(1, nombre);
+			pst.setInt(1, id);
 			if ((pst.executeUpdate()) == 1) {
 				borrado = true;
 			} else {
@@ -203,7 +203,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public boolean update(Amigo a, int id) {
 		boolean result = false;
-		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=? fijo=?, anotaciones=? where id = ?";
+		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?,provincia=?,movil=?,fijo=?,anotaciones=?  where id = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlUpdate);
@@ -217,7 +217,6 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setInt(8, a.gettFijo());
 			pst.setString(9, a.getAnotaciones());
 			pst.setInt(10, id);
-			
 			if (pst.executeUpdate() == 1) {
 				result = true;
 			} else {
@@ -225,6 +224,7 @@ public class DAOAmigo implements IDAOAmigo {
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
+			
 		} catch (Exception ex) {
 			log.warn("Ha ocurrido un error desconocido al borrar.");
 		} finally {

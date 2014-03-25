@@ -50,16 +50,12 @@ public class AjaxServlet extends HttpServlet {
 		
 		//devolver datos
 		//response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
 		out.write(new Gson().toJson(lista));
 		
-		
-		out.println("retornamos datos de los amigos que empiezan por: " + nSearch);
-		for(int i=0; i<lista.size();i++){
-			out.println(lista.get(i));
-		}
 	
 	
 	}
