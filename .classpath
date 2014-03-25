@@ -15,5 +15,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.26-bin.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-gson-2.2.4-release.zip"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

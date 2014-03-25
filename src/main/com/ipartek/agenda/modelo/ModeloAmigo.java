@@ -35,4 +35,19 @@ public class ModeloAmigo  {
 		}
 		return result;
 	}
+	public boolean modificar( Amigo a, int id) {
+		boolean result = true;
+		if (!daoAmigo.modificar(a,id)) {
+			result = false;
+		
+		}
+		return result;
+	}
+	public ArrayList<Amigo> obtenerAmigoByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		ArrayList<Amigo> listaPorNombre = new ArrayList<Amigo>();
+		listaPorNombre = daoAmigo.obtenerAmigoByNombre(nombre);
+		return listaPorNombre;
+		
+	}
 }
