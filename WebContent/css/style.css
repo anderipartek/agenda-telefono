@@ -10,3 +10,5 @@
 .FATAL{
 	color: black;
 }
+.amigos.modify .modificar { background: url(../img/bullet-modify.png) no-repeat .35em center;}
+.amigos.modify .modificar:hover{background-color: #D8FF00;}
