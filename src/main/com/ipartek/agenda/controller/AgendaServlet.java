@@ -97,7 +97,7 @@ public class AgendaServlet extends ServletMaestro {
 		}
 
 		//redirigir a index.jsp al iniciar la aplicación
-		else if (operacion==null)
+		else 
 		{
 			log.trace("Redirigiendo a index.jsp" );	
 			dispatcher = request.getRequestDispatcher("index.jsp");
@@ -119,14 +119,8 @@ public class AgendaServlet extends ServletMaestro {
 
 			insertar(request,response);
 		}
-		//submit buscar
-		else if ("buscar".equals(operacion)){
-			//recogemos la operacion para saber que mostrar en el buscador.jsp
-			form=request.getParameter("op");	
-			buscar(request,response,form);
-
-		}
-		//submit eliminar
+		
+        //submit eliminar
 		else if ("eliminar".equals(operacion)){
 			delete(request,response);
 		}
@@ -135,21 +129,8 @@ public class AgendaServlet extends ServletMaestro {
 			id=request.getParameter("id");
 			modificar(request,response,id);
 		}
-		//submit datos
-		else if("datos".equals(operacion)){
-			log.trace("Cargando datos en el formulario");
-			idAmigo=Integer.parseInt(request.getParameter("idM"));
-			a=model.getAmigoById(idAmigo);
-			request.setAttribute("Amigo",a );
-			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
-		}
-		//submit confirmacion borrar
-		else if("confirmacion".equals(operacion)){
-			log.trace("Confirmacion borrar");
-			id=request.getParameter("idB");
-			request.setAttribute("amigo",id);
-			dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
-		}
+		
+		//hacemos el forward y en caso de error lo visualizamos en el log
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -159,12 +140,16 @@ public class AgendaServlet extends ServletMaestro {
 		}
 
 	}
-
+    
+	/**
+	 * Metodo que modifica un amigo venido por la request
+	 * @param request
+	 * @param response
+	 * @param id del Amigo
+	 */
 	private void modificar(HttpServletRequest request,
 			HttpServletResponse response,String id) {
 		log.trace("Modificando Amigo");
-		
-
 		idAmigo=Integer.parseInt(id);
 		try {
 			//parseamos el amigo a traves del request
@@ -228,30 +213,7 @@ public class AgendaServlet extends ServletMaestro {
 		dispatcher = request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 
 	}
-    /**
-     * Metodo que busca en la BD los amigos que tienen el mismo nombre
-     * @param request
-     * @param response
-     * @param form referencia del formulario del que viene
-     */
-	private void buscar(HttpServletRequest request, HttpServletResponse response,String form) {
-		log.trace("buscando");
-		amigos=model.getAmigosByNombre(request.getParameter("nombre"));
-		request.setAttribute("Amigos", amigos);
-		if (amigos.size()==0){
-			texto="No se ha encontrado ningun amigo con ese nombre";
-			request.setAttribute("Mensaje", texto);
-		}
-		//en funcion de que formulario venga
-		if ("Mod".equals(form)){
-			dispatcher = request.getRequestDispatcher("core/model/forms/modificar.jsp");
-		}
-		else if ("Del".equals(form)){
-			dispatcher = request.getRequestDispatcher("core/model/forms/eliminar.jsp");
-		}
-
-
-	}
+    
     /**
      * Metodo que inserta en la BD el Amigo
      * @param request

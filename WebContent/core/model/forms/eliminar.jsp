@@ -121,15 +121,18 @@
 			//TODO controlar si no existen resultados
 			if (data.length==0){
             	$('#listaAmigos').addClass('errores');
-            	$('#listaAmigos').append('<li>No hay amigos en la BD que empiecen con ese nombre </li>');
+            	$('#listaAmigos').append('<p>No hay amigos en la BD que empiecen con ese nombre </p>');
             }
+			else{
 			//iteramos sobre los datos recibidos
 			$.each(data, function(index, amigo) {
 				console.debug(index + " " + amigo.id + " " + amigo.nombre);
 
 				//añadir en la lista un li
-				$('#listaAmigos').append('<li>' + amigo.nombre + " " + amigo.apellido +  '</li>');
+				
+				$('#listaAmigos').append('<li class="elemento">' + amigo.nombre + " " + amigo.apellido +  '</li>');
 
 			});
+			}
 		}
 	</script>  
