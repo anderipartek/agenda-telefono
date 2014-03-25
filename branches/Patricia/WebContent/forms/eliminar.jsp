@@ -8,16 +8,16 @@
 	<%@include file="/inc/mensajes.jsp"%>
 
 	<%
-		int eliminar = 0;
+		String eliminar = "0";
 		if (request.getAttribute("eliminando") != null) {
-			eliminar = Integer.parseInt((String) request.getAttribute("eliminando"));
+			eliminar = (String)request.getAttribute("eliminando");
 		}
 	
 	
 	%>
 	<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 	<form method="post" action="agenda">
-		<input type="hidden" name="id" value="<%=eliminar%>">
+		<input id="eliminar" type="hidden" name="id" value="<%=eliminar%>">
 
 		<div class="botones">
 			<a title="" href="main">cancelar</a> <input type="submit"
