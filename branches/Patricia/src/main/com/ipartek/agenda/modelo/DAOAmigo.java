@@ -180,9 +180,9 @@ public class DAOAmigo implements IDAOAmigo {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				datosAmigo(rs);
-				if (amigo != null) {
+				
 					amigos.add(amigo);
-				}
+				
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
