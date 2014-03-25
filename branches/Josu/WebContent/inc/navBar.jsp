@@ -1,5 +1,5 @@
+<%@page import="com.ipartek.agenda.controller.MainServlet"%>    
 
-<%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <nav class="navBar">
 	<ul>
 		<li id="anadir" <%if(MainServlet.ANADIR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" title="">Añadir

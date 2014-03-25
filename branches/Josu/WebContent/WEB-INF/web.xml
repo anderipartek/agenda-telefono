@@ -29,4 +29,14 @@
     <servlet-name>AgendaServletMaestro</servlet-name>
     <url-pattern>/AgendaServletMaestro</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxServlet</display-name>
+    <servlet-name>AjaxServlet</servlet-name>
+    <servlet-class>com.ipartek.agenda.controller.AjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxServlet</servlet-name>
+    <url-pattern>/servletAjax</url-pattern>
+  </servlet-mapping>
 </web-app>

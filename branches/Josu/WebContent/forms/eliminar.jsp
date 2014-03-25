@@ -35,7 +35,73 @@
 			<%
 		}
 	%>
-
-
-
+	
 </div>
+
+<script src="js/jquery-2.1.0.min.js"></script>	
+	
+<script>
+
+var url = 'servletAjax';
+var amigos; //Array de Amigos recuperados de la llamada Ajax
+
+$(document).ready(function() {
+	console.debug('ready....');	
+	//selecionar campo texto
+	var asearch = $('#asearch');
+
+	//Llamada Ajax sobre el evento KEYUP 
+	asearch.keyup(function() {			
+		console.debug( asearch.val() );
+		//TODO llamar Ajax
+		$.ajax( url , {
+			"type": "get", // usualmente post o get
+			"success": function(data) {
+				amigos=data;					
+				cargarLista(data);
+			},
+			"error": function(error) {
+				console.error("Este callback maneja los errores " + error);
+			},
+			"data": { search: asearch.val() },
+			"async": true,
+		});						
+	});
+
+
+	//Capturar evento click sobre lista busqueda
+	$('#listaAmigos').on('click','li',function(){
+		console.log($(this).index() );
+		//obtenmos el amigo seleccionado
+		var amigo = amigos[$(this).index()];				
+		
+		//rellenar formulario
+		$('#formulario input[name=nombre]').val( amigo.nombre );
+		$('#formolario input[name=apellido]').val(amigo.apellido);
+		
+	});
+			
+});	
+
+function cargarLista( data ){
+	console.log("Comenzamos a cargar las lista con: " + data);
+			
+	//limpiar lista
+	$('#listaAmigos').empty();
+
+	//TODO cotrolar si no existen resultados
+	
+	//iteramos sobre los datos recividos
+	$.each( data, function(index, amigo ){
+		console.debug( index + " " + amigo.id + " " + amigo.nombre );			
+		//añadir en la lista un LI
+		$('#listaAmigos').append('<li>' + amigo.nombre + ' ' + amigo.apellido +'</li>');
+		
+	});
+}	
+
+
+function cargarFormulario(){
+		console.debug('cargarFormulario');
+}
+</script>
