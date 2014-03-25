@@ -22,7 +22,7 @@
 			<th>fijo</th>
 			<th>anotaciones</th>
 			<th>Modificar</th>
-			<th>Editar</th>
+			<th>Eliminar</th>
 		</tr>
 		<tr>
 		<c:forEach var="amigo" items="${requestScope.listaAmigos}">
@@ -35,8 +35,8 @@
     		<td><div><c:out value="${amigo.movil}"/></div></td>
     		<td><div><c:out value="${amigo.fijo}"/></div></td>
     		<td><div><c:out value="${amigo.anotaciones}"/></div></td>
-    		<td><a href='agenda?id=${amigo.id}' name="modificar"><img src="../img/lapiz.gif"></a></td>
-    		<td><a href='agenda?id=${amigo.id}' name='elimminar'><img src="../img/eliminar.jpg"></a></td>
+    		<td><a href='agenda?id=${amigo.id}' name="modificar"><img src="img/bullet-modify.png"></a></td>
+    		<td><a href='agenda?id=${amigo.id}' name='elimminar'><img src="img/bullet-del.png"></a></td>
     		</tr>
     	</c:forEach>
 		</table>

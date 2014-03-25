@@ -13,7 +13,7 @@
 			eliminar = Integer.parseInt((String) request.getAttribute("eliminando"));
 		}
 	
-	if(eliminar>0){
+	
 	%>
 	<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
 	<form method="post" action="agenda">
@@ -26,5 +26,5 @@
 		</div>
 	</form>
 
-	<%} %>
+	
 </div>
