@@ -60,7 +60,7 @@
 		    	 <td align="center"><%=a.getFijo()%></td>
 		   	 	 <td align="center"><%=a.getAnotaciones()%></td>
 		   	 	 <td><a href="main?seccion=modificar&id=<%=a.getId()%>" title="">Modificar</a></td>
-		   	 	 <td id="eliminar" <%if(MainServlet.ELIMINAR.equals(request.getAttribute("seccion"))){%> class="sel" <%}%>><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ELIMINAR %>" title="">Borrar</a></td>
+		   	 	 <td><a href="main?seccion=eliminar&id=<%=a.getId()%>" title="">Eliminar</a></td></td> 
 		    </tr>   
 		    
 			<%		
