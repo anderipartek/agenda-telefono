@@ -1,38 +1,3 @@
-
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-	String nombre = "";
-	String apellido = "";
-	String calle = "";
-	String cp = "";
-	String localidad = "";
-	String provincia = "";
-	String movil = "";
-	String fijo = "";
-	String anotaciones = "";
-	String nombreApe = "";
-	String idM = "";
-	Amigo a = (Amigo) request.getAttribute("Amigo");
-	if (a != null) {
-		nombre = a.getNombre();
-		apellido = a.getApellido();
-		calle = a.getCalle();
-		cp = String.valueOf(a.getCp());
-		localidad = a.getLocalidad();
-		provincia = a.getProvincia();
-		movil = String.valueOf(a.getMovil());
-		fijo = String.valueOf(a.getFijo());
-		anotaciones = a.getAnotaciones();
-		idM = String.valueOf(a.getId());
-	}
-	ArrayList<Amigo> amigos = (ArrayList<Amigo>) request
-			.getAttribute("Amigos");
-%>
-
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 
@@ -44,98 +9,123 @@
 	<%@ include file="buscador.jsp"%>
 	<div class="contain">
 
-		<p class="errores"><%=msg%></p>
-
-
-		<ul class="amigos modify">
-			<li>
-				<% 
-				
-				
-					if (amigos != null) {
-				    %>
-				<p class="txt">Seleccionalo de la lista</p> <%
- 	                   for (int i = 0; i < amigos.size(); i++) {
-                       %>
-				<form action="agenda?operacion=datos" method="post">
-					<%
-						     Amigo amigo = amigos.get(i);
-					        
-						     nombreApe = amigo.getNombre() + " " + amigo.getApellido();
-					       %>
-
-					<input type="submit" name="amigo" value="<%=nombreApe%>"><br />
-					<input type="hidden" name="idM" value="<%=amigo.getId()%>">
-
-					<%
-				        } // END FOR
-					%>
-				</form> <%
- 	                }//END IF
- %>
-			</li>
-		</ul>
-	</div>
-
-
-	<%
 		
+<%
+	String msg = (String) request.getAttribute("Mensaje");
+	if (msg == null) {
+		msg = "";
+	}
+	String nombre = "";
 	%>
-	<div class="contain">
-		<p class="titulo">Cuales son los datos de tu amigo:</p>
+	
+	<p class="titulo">Cuales son los datos de tu amigo:</p>
 
 
-		<form method="post" action="agenda?operacion=modificar">
+	
+	<script src="js/jquery-1.11.0.js"></script>
 
-			<input type="text" placeholder="nombre" name="nombre"
-				value="<%=nombre%>"> <input type="text"
-				placeholder="apellido" name="apellido" value="<%=apellido%>">
-			<input type="text" placeholder="calle" name="calle"
-				value="<%=calle%>"> <input type="text" pattern="[0-9]{5}"
-				placeholder="cp 48004" name="cp" value="<%=cp%>"> <input
-				type="text" placeholder="localidad" name="localidad"
-				value="<%=localidad%>"> <input type="text"
-				placeholder="provincia" name="provincia" value="<%=provincia%>">
-			<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999"
-				name="movil" value="<%=movil%>"> <input type="text"
-				pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo"
-				value="<%=fijo%>">
-			<textarea name="anotaciones" placeholder="anotaciones"><%=anotaciones%></textarea>
-			<input type="hidden" name="id" value="<%=idM%>">
+	<ul id="listaAmigos" class="amigos modify">
+		<li>Busca un Amigos para modificar</li>
+
+		
+		</li>
+
+	</ul>
+
+    <form id="formulario" method="post" action="main">
+		<input type="text" placeholder="nombre" name="nombre" value="">
+		<input type="text" placeholder="apellido" name="apellido" value="">
+		<input type="text" placeholder="calle" name="calle" value="">
+		<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp"
+			value=""> 
+		<input type="text" placeholder="localidad" name="localidad" value=""> 
+		<input type="text" placeholder="provincia" name="provincia" value=""> 
+		<input type="text" pattern="[0-9]{9}" placeholder="movil 999999999"
+			name="movil" value=""> 
+		<input type="text" pattern="[0-9]{9}"
+			placeholder="fijo 999999999" name="fijo" value="">
+		<textarea name="anotaciones" placeholder="anotaciones"></textarea>
+		<input type="hidden" name="nombre" value=""> <input
+			type="hidden" name="id" value="">
+
+		<div class="botones">
+			<a title="" href="main">cancelar</a> <input type="submit"
+				value="modificar" name="modificar" class="boton modificar">
+		</div>
+	</form>
 
 
-			<div class="botones">
+	<script type="text/javascript">
+		var url = 'servletAjax';
+		var amigos; //Array de amigos recuperados de la llamada ajax
+		$(document).ready(
+				function() {
 
-				<input type="submit" value="modificar" name="modificar"
-					class="boton modificar">
-			</div>
-		</form>
+					console.debug('ready...');
+					//seleccionar campo texto
+					var aSearch = $('#aSearch');
 
+					//Llamada ajax sobre el elemento KEYUP
+					aSearch.keyup(function() {
+						console.debug(aSearch.val());
+						//llamar a AJax
+						$.ajax(url, {
+							"type" : "get", // usualmente post o get
+							"success" : function(data) {
+								amigos=data;
+								cargarLista(data);
+							},
+							"error" : function(error) {
+								console.error(
+										"Este callback maneja los errores",
+										error);
+							},
+							"data" : {
+								search : aSearch.val()
+							},
+							"async" : true,
+						});
+					});
 
-	</div>
- <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
- <script>
-    var url='servletAjax';
- $(document).ready(function(){
-       console.debug('ready...'); 
-       //seleccionar campo texto
-       var asearch=$('#asearch');
-       asearch.keyup(function() {
-    	   console.debug(asearch.val());
-    	   //TODO LLamada AJAX
-    	   $.ajax(url, {
-    		   "type": "get", // usualmente post o get
-    		   "success": function(data) {
-    		   console.log("Llego el contenido y no hubo error:" + data);
-    		   },
-    		   "error": function(error) {
-    		   console.error("Este callback maneja los errores:" + error);
-    		   },
-    		   "data": {search: asearch.val()},
-    		   "async": true,
-    		   });
+				});
 
-    	   });
-      
- });
-</script>
+		//capturar evento click sobre lista de la busqueda
+		$("#listaAmigos").on('click', 'li', function() {
+			console.log($(this).index());
+			
+			//obtenemos el amigo selecionado
+			var amigo = amigos[$(this).index()];
+			console.debug(amigo.nombre);
+			
+			//rellenar formulario
+			$('#formulario input[name=nombre]').val(amigo.nombre);
+			$('#formulario input[name=apellido]').val(amigo.apellido);
+			$('#formulario input[name=calle]').val(amigo.calle);
+			$('#formulario input[name=cp]').val(amigo.cp);
+			$('#formulario input[name=localidad]').val(amigo.localidad);
+			$('#formulario input[name=provincia]').val(amigo.provincia);
+			$('#formulario input[name=movil]').val(amigo.movil);
+			$('#formulario input[name=fijo]').val(amigo.fijo);
+			$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
+			
+		});
+
+		function cargarLista(data) {
+			console.log("Comenzamos a cargar la lista con: " + data);
+
+			//limpiar lista
+			$('#listaAmigos').empty();
+
+			//TODO controlar si no existen resultados
+
+			//iteramos sobre los datos recibidos
+			$.each(data, function(index, amigo) {
+				console.debug(index + " " + amigo.id + " " + amigo.nombre);
+
+				//añadir en la lista un li
+				$('#listaAmigos').append('<li>' + amigo.nombre + '</li>');
+
+			});
+		}
+	</script>  
+</div>
