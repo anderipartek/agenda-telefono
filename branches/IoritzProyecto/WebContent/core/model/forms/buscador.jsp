@@ -8,8 +8,8 @@
 			</ul>
 		<?php } ?-->
 
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="text" placeholder="nombre que buscas..." name="nombre" value="nombre">
+		<form method="post" action="main">				
+			<input id="asearch" type="text" placeholder="amigo que buscas..." name="nombre" value="nombre">
 			
 			<div class="botones">
 				<input type="submit" value="buscar" name="buscar" class="boton buscar">

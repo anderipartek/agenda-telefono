@@ -77,8 +77,7 @@ public class DAOContacto implements IDAOContacto{
 				c.setMovil(rs.getInt("movil"));
 				c.setFijo(rs.getInt("fijo"));
 				c.setAnotaciones(rs.getString("anotaciones"));
-			} catch (ContactoException ex){
-			} catch (SQLException ex) {
+			}  catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
 
@@ -209,7 +208,7 @@ public class DAOContacto implements IDAOContacto{
 
 		@Override
 		public Contacto getByNombre(String nombre) {
-			String sqlContacto = "select * from amigos where nombre = ?";
+			String sqlContacto = "select * from amigos where nombre like = ?";
 			try {
 				con = factory.getConnection();
 				c = new Contacto();

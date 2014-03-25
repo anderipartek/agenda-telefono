@@ -1,5 +1,6 @@
 package com.ipartek.agenda.model;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.ipartek.agenda.bbdd.interfaces.IDAOContacto;
 import com.ipartek.agenda.bbdd.interfaces.IModeloContacto;
@@ -69,6 +70,11 @@ public class ModeloContacto implements IModeloContacto{
 
 	@Override
 	public Contacto getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public HashMap<Integer, Contacto> recogetPorNombre(String nombreSearch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
