@@ -4,7 +4,7 @@
 <div class="contain">
 	<p class="titulo">Cuales son los datos de tu amigo:</p>
 	<%@include file="/inc/mensajes.jsp" %>	
-	<form id="formulario" method="post" action="">				
+	<form id="formulario" method="post" action="agenda">				
 			<input type="hidden" placeholder="id" name="id" value="${requestScope.amigo.id }">		
 			<input type="text" placeholder="nombre (min 3 caracteres)" name="nombre" value="${requestScope.amigo.nombre}">
 			<input type="text" placeholder="apellido (min 3 caracteres)" name="apellido" value="${requestScope.amigo.apellido }">

@@ -93,6 +93,8 @@
 							var indice = $(this).index();
 
 							// Rellenar formulario
+							$('#formulario input[name=id]').val(
+									amigos[indice].id);
 							$('#formulario input[name=nombre]').val(
 									amigos[indice].nombre);
 							$('#formulario input[name=apellido]').val(
@@ -109,7 +111,7 @@
 									amigos[indice].movil);
 							$('#formulario input[name=fijo]').val(
 									amigos[indice].fijo);
-							$('#formulario textarea[name=anotaciones]').val(
+							$('#formulario html .mce-content-body').val(
 									amigos[indice].anotaciones);
 						});
 
