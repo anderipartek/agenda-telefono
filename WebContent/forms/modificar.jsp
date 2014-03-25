@@ -14,6 +14,7 @@
 			<input type="text" placeholder="provincia" name="provincia" value="${requestScope.amigo.provincia }">
 			<input type="text" pattern="[0-9]{9}" placeholder="móvil 666666666" name="movil" value="${requestScope.amigo.movil }">
 			<input type="text" pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo" value="${requestScope.amigo.fijo }">
+			<br>
 			<textarea name="anotaciones" placeholder="anotaciones">${requestScope.agenda.anotaciones }</textarea>
 		
 			<div class="botones">
