@@ -174,7 +174,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public boolean delete(int id) {
 		boolean borrado = false;
-		String sqlDelete = "delete from agenda.amigos where id = ?";
+		String sqlDelete = "delete from amigos where id = ?";
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlDelete);

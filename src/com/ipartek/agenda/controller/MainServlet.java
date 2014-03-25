@@ -113,7 +113,7 @@ public class MainServlet extends ServletMaestro {
 	}
 
 	private void eliminarAmigo(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws ServletException, IOException {
 		
 		int idAmigo = Integer.parseInt(request.getParameter("id"));
 	
@@ -127,7 +127,7 @@ public class MainServlet extends ServletMaestro {
 			dispatcher = request.getRequestDispatcher("todoOk.jsp");
 		}
 
-
+		dispatcher.forward(request, response);
 		
 
 	}
