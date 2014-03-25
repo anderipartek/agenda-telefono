@@ -371,7 +371,7 @@ public class AgendaServlet extends MainServlet {
 		final int codigoPostal = Integer.parseInt(request.getParameter("CP"));
 		final int fijo = Integer.parseInt(request.getParameter("fijo"));
 		final int movil = Integer.parseInt(request.getParameter("movil"));
-		final String anotaciones = request.getParameter("anotaciones");
+		final String anotaciones = (String)request.getParameter("anotaciones");
 		
 		if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
 			amigo.setId(Integer.parseInt(request.getParameter("id")));

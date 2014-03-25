@@ -12,3 +12,11 @@
 }
 .amigos.modify .modificar { background: url(../img/bullet-modify.png) no-repeat .35em center;}
 .amigos.modify .modificar:hover{background-color: #D8FF00;}
+/*** Google maps**/
+		
+	html,body,#map-canvas {
+	height: 250px;
+	margin: 0px;
+	padding: 0px
+	
+	}
