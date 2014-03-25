@@ -10,6 +10,7 @@ public class ModeloAmigo {
 	
 	static ConnectionFactory factoria;
 	static IDAOAmigo daoAmigo;
+	static ArrayList<Amigo> amigos; 
 	
 	public ModeloAmigo() {
 		daoAmigo = factoria.getInstance().getDAOAmigo();
@@ -27,10 +28,22 @@ public class ModeloAmigo {
 		return listaAmigos;
 	}
 	
-	/*public ArrayList<Amigo> getAmigoByName(String nombre) {
-		ArrayList<Amigo> listaAmigos = new ArrayList<Amigo>();
-		listaAmigos = daoAmigo.getByNombre(nombre);
-		return listaAmigos;
+	public boolean actualizar(Amigo a, int id) {
+		boolean resultado = daoAmigo.update(a, id);
+		boolean result=false;
+		if (resultado== true){
+			result=true;
+		}
+		else
+			result= false;
+		return result;
+	}
+
+	/*public ArrayList<Amigo> getAmigosByNombre(String nombre) {
+
+		amigos=null;
+		amigos=daoAmigo.obtenerAmigosByNombre(nombre);
+		return amigos;
 	}*/
 	
 	public Amigo getAmigoById(String id) {

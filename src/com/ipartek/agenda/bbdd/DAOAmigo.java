@@ -21,6 +21,7 @@ public class DAOAmigo implements IDAOAmigo {
 	static PreparedStatement pst;
 	static Connection con;
 	static ConnectionFactory factory;
+	static ArrayList<Amigo> amigos;  
 	
 	public DAOAmigo() {
 		PropertyConfigurator.configure("./config/log4j.properties");
@@ -58,32 +59,36 @@ public class DAOAmigo implements IDAOAmigo {
 		}
 	}
 
-	/*public ArrayList<Amigo> getByNombre(String nombre) {
-		ArrayList<Amigo> listaAmigos = null;
-		String sqlAmigo = "select * from amigos where nombre = ?";
+	/*public ArrayList<Amigo> obtenerAmigosByNombre(String nombre) {
+		log.trace("Inicio ObtenerAmigosByNombre");
+		amigos=new ArrayList<Amigo>();
+		String sqlAmigo = "select * from amigos where nombre like ?";
 		try {
 			con = factory.getConnection();
-			listaAmigos = new ArrayList<Amigo>();
 			pst = con.prepareStatement(sqlAmigo);
-			pst.setString(1, a.getNombre());
+			pst.setString(1, nombre+"%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				a = new Amigo();
 				datosAmigo(rs);
-				listaAmigos.add(a);
+				log.info("Amigo obtenido por nombre");
+				amigos.add(a);
+				log.info("Amigo añadido a la lista de Amigos que coinciden con el mismo nombre");
 			}
+
 		} catch (SQLException ex) {
-			sqlExcepcion(ex);
+			log.error("Error al obtener el amigo por nombre " + ex.getMessage());
 		} catch (Exception ex) {
-			log.warn("Ha ocurrido un error desconocido al recoger un amigo por nombre.");
+			log.error("Ha ocurrido un error desconocido al recoger un alumno por nombre." + ex.getMessage());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
-				sqlExcepcion(ex);
+				log.error("Error al cerrar la conexion");
 			}
-			return listaAmigos;
+
 		}
+		log.trace("Fin obtenerAmigoByNombre");
+		return amigos;
 	}*/
 
 	public Amigo getById(String id) {
@@ -157,6 +162,42 @@ public class DAOAmigo implements IDAOAmigo {
 			return id;
 
 		}
+	}
+	
+	public boolean update(Amigo a, int id) {
+		boolean result = false;
+		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, cp=?, localidad=?, provincia=?, movil=?, fijo=?, anotaciones=? where id = ?";
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(sqlUpdate);
+			pst.setString(1, a.getNombre());
+			pst.setString(2, a.getApellido());
+			pst.setString(3, a.getCalle());
+			pst.setInt(4, a.getCp());
+			pst.setString(5, a.getLocalidad());
+			pst.setString(6, a.getProvincia());
+			pst.setInt(7, a.getMovil());
+			pst.setInt(8, a.getFijo());
+			pst.setString(9, a.getAnotaciones());
+			pst.setInt(10, id);
+			if (pst.executeUpdate() == 1) {
+				result = true;
+			} else {
+				result = false;
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} catch (Exception ex) {
+			log.warn("Ha ocurrido un error desconocido al modificar.");
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			return result;
+		}
+
 	}
 	
 	private void datosAmigo(ResultSet rs) {

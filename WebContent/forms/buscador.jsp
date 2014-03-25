@@ -4,7 +4,7 @@
 		<p class="titulo">Busca a tu amigo:</p>		
 
 		<form method="post" action="main">				
-			<input type="text" placeholder="nombre que buscas..." name="nombre" value="">
+			<input id="asearch" type="text" placeholder="nombre que buscas..." name="nombre" value="">
 			<input type="hidden" name="op" value="<%=form%>">
 			
 			<div class="botones">			    

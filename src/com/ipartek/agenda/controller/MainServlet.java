@@ -95,8 +95,8 @@ public class MainServlet extends AgendaServletMaestro {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (modo=="anadir"){
 			crearAmigo(request, response);
-		}else if (modo=="eliminar"){
-			buscarAmigos(request, response);
+		}else if (modo=="modificar"){
+			modificarAmigo(request, response);
 		}
 	}
 
@@ -145,6 +145,28 @@ public class MainServlet extends AgendaServletMaestro {
 		request.setAttribute("method", "post");
 		request.setAttribute("title", "Modificar amigo");
 
+	}
+	
+	private void modificarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		log.trace("modificarAmigo");
+		Amigo a = null;		
+		try {
+			a = recogerDatos(request, response);			
+			// Update into DDBB
+			modelAmigo.actualizar(a, Integer.parseInt(idAmigo));			
+			log.info("Alumno Modificado " + a.toString());			
+			
+		} catch (Exception e) {
+			log.warn("Excepcion general " + e.getMessage());
+		}
+		// enviar alumno a la JSP
+		request.setAttribute("detalleAmigo", a);
+		// titulo para la JSP
+		request.setAttribute("title", "Modificar Amigo");
+		// dispatcher
+		dispatcher = request.getRequestDispatcher("todoOk.jsp");
+		dispatcher.forward(request, response);
+		log.trace("modificarAmigo - Fin");
 	}
 	
 	private void buscarAmigos(HttpServletRequest request, HttpServletResponse response){
