@@ -10,11 +10,11 @@
 	
 
 		<form method="post" action="agenda">				
-			<input type="text" placeholder="nombre que buscas..." name="nombre" value="">
+			<input id="asearch" type="text" placeholder="nombre que buscas..." name="nombre" value="">
 			<input type="hidden" name="op" value="buscar"> 
 			
 			<div class="botones">
-				<input type="submit" value="buscar" name="buscar" class="boton buscar" >
+				<input type="submit" value="buscar" name="buscar" class="boton buscar">
 			</div>
 		</form>
 	</div>

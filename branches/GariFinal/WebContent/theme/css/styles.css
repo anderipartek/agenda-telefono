@@ -92,4 +92,13 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 			.navBar li#ver a{ background: url(../../theme/img/vertodos.gif) no-repeat 0 center; background-size: contain; } 
 
 /* FIN NAVBAR */
+/*Googlemap*/
+
+html,body,#map-canvas {
+	height: 250px;
+	margin: 0px;
+	padding: 0px
+}
+
+
 
