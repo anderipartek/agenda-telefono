@@ -35,7 +35,7 @@
     		<td><div><c:out value="${amigo.movil}"/></div></td>
     		<td><div><c:out value="${amigo.fijo}"/></div></td>
     		<td><div><c:out value="${amigo.anotaciones}"/></div></td>
-    		<td><a href='agenda?id=${amigo.id}' name="modificar"><img src="img/bullet-modify.png"></a></td>
+    		<td><a href='agenda?id=${amigo.id}&op="modificar"' name="modificar"><img src="img/bullet-modify.png"></a></td>
     		<td><a href='agenda?id=${amigo.id}' name='elimminar'><img src="img/bullet-del.png"></a></td>
     		</tr>
     	</c:forEach>

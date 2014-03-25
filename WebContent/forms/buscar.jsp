@@ -91,8 +91,10 @@
 						function() {
 							//cargarFormulario();
 							var indice = $(this).index();
-
+							/// Para eliminar 
+							$('#eliminar').val(amigos[indice].id);
 							// Rellenar formulario
+							// Para modificar
 							$('#formulario input[name=id]').val(
 									amigos[indice].id);
 							$('#formulario input[name=nombre]').val(

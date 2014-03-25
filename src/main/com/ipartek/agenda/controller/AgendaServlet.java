@@ -82,7 +82,8 @@ public class AgendaServlet extends MainServlet {
 			// Devuelve la información de todos los amigos
 			listarAmigos(request, response);
 		} else {
-			detalleAmigo(request, response, idAmigo);
+			String accion = (String) request.getAttribute("op");
+			detalleAmigo(request, response, idAmigo, accion);
 		}
 
 	}
@@ -120,7 +121,7 @@ public class AgendaServlet extends MainServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
+	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response, String id, String accion) throws ServletException, IOException {
 		// Pasar el id del amigo a int para poder buscar por id
 		final int idAmigo = Integer.parseInt(id);
 
@@ -130,13 +131,13 @@ public class AgendaServlet extends MainServlet {
 			// Se ha encontrado sin problema
 			// devolver el amigo encontrado
 			// Obtener si se elimina o si se modifica el alumno
-			String accion = (String) request.getAttribute("name");
+			
 			
 			request.setAttribute("amigo", amigoEncontrado);
 			if (MainServlet.OP_MODIFICAR.equalsIgnoreCase(accion)) {
 				dispatcher = request.getRequestDispatcher("modificar.jsp");
 			}else{
-				request.setAttribute("eliminando", amigoEncontrado.getId());
+				request.setAttribute("eliminando", String.valueOf(amigoEncontrado.getId()));
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			}
 
