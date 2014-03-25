@@ -78,7 +78,7 @@ public class DAOAmigo implements IAmigable {
 	 * 
 	 */
 	private static final String SQL_ONE = "select * from "
-			+ "amigos where nombre = ?";
+			+ "amigos where nombre like ?";
 	/**
 	 * 
 	 */
@@ -207,7 +207,7 @@ public class DAOAmigo implements IAmigable {
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(SQL_ONE);
-			pst.setString(1, nombre);
+			pst.setString(1, nombre + "%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
