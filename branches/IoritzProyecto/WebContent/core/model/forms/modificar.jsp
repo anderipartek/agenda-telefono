@@ -38,7 +38,7 @@
 		<form id="formulario" method="post" action="main">
 			
 			<input type="hidden" name="op" value="modificar">				
-			<input type="text" placeholder="nombre" name="nombre" value="<%=%>">
+			<input type="text" placeholder="nombre" name="nombre" value="">
 			<input type="text" placeholder="apellido" name="apellido" value="">
 			<input type="text" placeholder="calle" name="calle" value="">
 			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp" value="">
@@ -66,7 +66,7 @@
 			<script>
 			
 			var url='servletAjax';
-			var contacto; //Array de amigos recuperados de la llamada Ajax
+			var contact; //Array de amigos recuperados de la llamada Ajax
 			
 			$(document).ready(function(){
 					console.debug('ready.......');
@@ -84,7 +84,7 @@
 					$.ajax( url , {
 						"type": "get", // usualmente post o get
 						"success": function(data) {
-							contacto = data;
+							contact = data;
 							cargarLista(data);
 						},
 						"error": function(error) {
@@ -101,7 +101,7 @@
 				console.log($(this).index());
 				
 				//obtenemos el amigo seleccionado
-				var contacto = contactos[$(this).index()];
+				var contacto = contact[$(this).index()];
 				
 				console.debug();
 				
