@@ -17,7 +17,7 @@
 	}
 	String nombre = "";
 	%>
-	
+	<p class="errores"><%=msg%></p>
 	<p class="titulo">Cuales son los datos de tu amigo:</p>
 
 
@@ -45,7 +45,7 @@
 		<input type="text" pattern="[0-9]{9}"
 			placeholder="fijo 999999999" name="fijo" value="">
 		<textarea name="anotaciones" placeholder="anotaciones"></textarea>
-		<input type="text" name="id" value=""> 
+		<input type="hidden" name="id" value=""> 
 		 
 
 		<div class="botones">
@@ -107,7 +107,7 @@
 			$('#formulario input[name=movil]').val(amigo.movil);
 			$('#formulario input[name=fijo]').val(amigo.fijo);
 			$('#formulario input[name=id]').val(amigo.id);
-			//$('#formulario textarea[name=anotaciones][0]').val(amigo.anotaciones);
+			$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
 			
 		});
 
@@ -118,7 +118,10 @@
 			$('#listaAmigos').empty();
 
 			//TODO controlar si no existen resultados
-
+            if (data.length==0){
+            	$('#listaAmigos').addClass('errores');
+            	$('#listaAmigos').append('<li>No hay amigos en la BD que empiecen con ese nombre </li>');
+            }
 			//iteramos sobre los datos recibidos
 			$.each(data, function(index, amigo) {
 				console.debug(index + " " + amigo.id + " " + amigo.nombre);

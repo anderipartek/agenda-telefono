@@ -194,6 +194,7 @@ public class AgendaServlet extends ServletMaestro {
      * @throws AmigoException al recoger un campo que no cumple con una serie de caracteristicas
      */
 	private Amigo parsearAmigo(HttpServletRequest request,int idAmigo) throws AmigoException {
+		a=new Amigo();
 		log.trace("Parseando Amigo desde formulario");
 		a.setId(idAmigo);
 		a.setNombre(request.getParameter("nombre"));
