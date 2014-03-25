@@ -32,3 +32,21 @@
 		}
 		?-->
 	</div>
+	
+	<script src="js/jquery-2.1.0.min.js"></script>
+			
+			<script>
+				$(document).ready(function(){
+					console.debug('ready.......');
+				});
+				
+				//seleccionar campo texto
+				var asearch = $('#asearch');
+				
+				console.debug();
+			
+			
+			
+			
+			
+			</script>

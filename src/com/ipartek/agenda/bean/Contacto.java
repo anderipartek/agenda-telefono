@@ -43,8 +43,8 @@ public class Contacto {
 	
 	public Contacto() throws ContactoException{
 		super();
-		this.setNombre("Sin especificar");
-		this.setApellido("Sin especificar"); 
+		this.setNombre(nombre);
+		this.setApellido(apellido); 
 		this.setCalle(calle);
 		this.setCp(cp);
 		this.setLocalidad(localidad);
@@ -84,22 +84,14 @@ public class Contacto {
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) throws ContactoException {
-		if (ContactoUtil.checkNombre(nombre)) {
-			this.nombre = ContactoUtil.toCapitalCase(nombre);
-		} else {
-			throw new ContactoException(ContactoException.COD_ERROR_NOMBRE, ContactoException.MSG_ERROR_NOMBRE);
-		}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public String getApellido() {
 		return apellido;
 	}
-	public void setApellido(String apellido) throws ContactoException{
-		if (ContactoUtil.checkNombre(apellido)) {
-			this.apellido = ContactoUtil.toCapitalCase(apellido);
-		} else {
-			throw new ContactoException(ContactoException.COD_ERROR_APELLIDO, ContactoException.MSG_ERROR_APELLIDO);
-		}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 	public String getCalle() {
 		return calle;

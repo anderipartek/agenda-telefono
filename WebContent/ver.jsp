@@ -45,6 +45,7 @@
 			<th>movil</th>
 			<th>fijo</th>
 			<th>anotaciones</th>
+			<th>operaciones</th>
 		</tr>
 		
 		<%
@@ -64,6 +65,7 @@
 					    	 <td><%=c.getMovil()%></td>
 					    	 <td><%=c.getFijo()%></td>
 					    	 <td><%=c.getAnotaciones()%></td>
+					    	 <td><a href="main?seccion=modificar&id=<%=c.getId()%>">modificar</a>&nbsp;&nbsp;<a href="eliminar.jsp">eliminar</a></td>
 					    </tr>   
 						<%
 					
