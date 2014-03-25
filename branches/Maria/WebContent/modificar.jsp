@@ -81,7 +81,7 @@
 				$.ajax( url , {
 					"type": "get", // usualmente post o get
 					"success": function(data) {
-						console.log("Llego el contenido y no hubo error "+ data);
+						cargarLista(data);
 					},
 					"error": function(error) {
 						console.error("Este callback maneja los errores "+ error);
@@ -94,4 +94,25 @@
 			
 		
 		});
+		
+		function cargarLista(data){
+			console.log("Comenzamos a cargar la lista con: "+ data);
+			//limpiar lista
+			$('#listaAmigos').empty();
+			//iteramos sobre los datos recibidos
+			$.each(data, function(index, amigo){ //por cada elemento de dato hago una funcion
+				console.debug(index + " "+ amigo.id +" "+ amigo.nombre);
+			
+			//añadir en la lista un LI
+			$('#listaAmigos').append('<li>' + amigo.nombre + '</li>');
+			});
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>

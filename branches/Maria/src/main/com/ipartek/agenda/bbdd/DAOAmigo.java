@@ -192,13 +192,13 @@ public class DAOAmigo implements IAmigable {
 	@Override
 	public HashMap<Integer, Amigo> getAllByName(final String nombre) {
 		log.trace("Recoger todos los amigos");
-		String sqlAlumno = "select * from amigos where nombre = ?";
+		String sqlAlumno = "select * from amigos where nombre LIKE ?";
 		HashMap<Integer, Amigo> amigoMap = new HashMap<Integer, Amigo>();
 		int keyHashMap = 0;
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement(sqlAlumno);
-			pst.setString(1, nombre);
+			pst.setString(1, nombre + "%");// LIKE
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				a = new Amigo();
