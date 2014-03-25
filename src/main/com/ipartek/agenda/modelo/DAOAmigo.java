@@ -16,27 +16,28 @@ import com.ipartek.agenda.interfaces.IDAOAmigo;
 
 /**
  * Clase para implementar la interactuación con la BBDD.
+ * 
  * @author Patricia Navascués
  * @version 1.0
- *
+ * 
  */
 public class DAOAmigo implements IDAOAmigo {
 
 	private static final Logger LOG = Logger.getLogger(DAOAmigo.class);
-	
-	// Error del 
+
+	// Error del
 	private static final int ERROR_COD_TABLA = 1050;
-	
+
 	// Variables de conexión
 	private static ConnectionFactory factory;
 	private static PreparedStatement pst;
 	private static ResultSet rs;
 	private static Connection con;
 	private static StringBuilder sb;
-	
+
 	private static Amigo amigo;
 	private static ArrayList<Amigo> amigos;
-	
+
 	/**
 	 * Constructor de la clase.
 	 */
@@ -44,10 +45,9 @@ public class DAOAmigo implements IDAOAmigo {
 		PropertyConfigurator.configure("./config/log4j.properties");
 
 		factory = ConnectionFactory.getInstance();
-		
+
 	}
-	
-	
+
 	@Override
 	public final boolean createTable() {
 		boolean resul = false;
@@ -56,19 +56,13 @@ public class DAOAmigo implements IDAOAmigo {
 			con = factory.getConnection();
 			sb = new StringBuilder();
 			st = con.createStatement();
-			
-			sb.append("CREATE TABLE IF NOT EXISTS `amigos` (`id` int(11) NOT "
-					+ "NULL AUTO_INCREMENT,`nombre` varchar(50) COLLATE "
-					+ "utf8_unicode_ci NOT NULL,`apellido` varchar(50) COLLATE "
-					+ "utf8_unicode_ci NOT NULL,`calle` varchar(150) COLLATE "
-					+ "utf8_unicode_ci NOT NULL,`cp` int(11) NOT NULL,"
-					+ "`localidad` varchar(150) COLLATE utf8_unicode_ci NOT "
-					+ "NULL,`provincia` varchar(150) COLLATE utf8_unicode_ci "
-					+ "NOT NULL,`movil` int(11) NOT NULL,`fijo` int(11) NOT "
-					+ "NULL,`anotaciones` varchar(300) COLLATE utf8_unicode_ci"
-					+ " NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT "
-					+ "CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;"
-					+ "");
+
+			sb.append("CREATE TABLE IF NOT EXISTS `amigos` (`id` int(11) NOT " + "NULL AUTO_INCREMENT,`nombre` varchar(50) COLLATE "
+					+ "utf8_unicode_ci NOT NULL,`apellido` varchar(50) COLLATE " + "utf8_unicode_ci NOT NULL,`calle` varchar(150) COLLATE "
+					+ "utf8_unicode_ci NOT NULL,`cp` int(11) NOT NULL," + "`localidad` varchar(150) COLLATE utf8_unicode_ci NOT "
+					+ "NULL,`provincia` varchar(150) COLLATE utf8_unicode_ci " + "NOT NULL,`movil` int(11) NOT NULL,`fijo` int(11) NOT "
+					+ "NULL,`anotaciones` varchar(300) COLLATE utf8_unicode_ci" + " NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT "
+					+ "CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;" + "");
 			st.executeQuery(sb.toString());
 			resul = true;
 		} catch (SQLException ex) {
@@ -79,25 +73,22 @@ public class DAOAmigo implements IDAOAmigo {
 				LOG.info("La tabla 'alumno' ya existe");
 			}
 		} catch (Exception ex) {
-			LOG.error("Ha ocurrido un error desconocido"
-					+ " al crear tabla" + ex.getStackTrace());
+			LOG.error("Ha ocurrido un error desconocido" + " al crear tabla" + ex.getStackTrace());
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			
+
 		}
 		return resul;
 	}
 
 	@Override
 	public final int insertAmigo(Amigo amigo) {
-		final String sqlInsert = "insert into amigos (nombre,apellido,"
-				+ "calle, cp, localidad, provincia,movil, fijo"
-				+ ",anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?,"
-				+ "?)";
+		final String sqlInsert = "insert into amigos (nombre,apellido," + "calle, cp, localidad, provincia,movil, fijo"
+				+ ",anotaciones) value (?, ?, ?, ?, ?, ?, ?, ?," + "?)";
 		final String sqlId = "select max(id) from amigos;";
 		int idInsert = -1;
 		try {
@@ -112,7 +103,7 @@ public class DAOAmigo implements IDAOAmigo {
 			pst.setInt(7, amigo.getMovil());
 			pst.setInt(8, amigo.getFijo());
 			pst.setString(9, amigo.getAnotaciones());
-			
+
 			if (pst.executeUpdate() > 0) {
 				pst = con.prepareStatement(sqlId);
 				rs = pst.executeQuery();
@@ -124,8 +115,7 @@ public class DAOAmigo implements IDAOAmigo {
 			sqlExcepcion(ex);
 			idInsert = -1;
 		} catch (Exception ex) {
-			LOG.warn("Ha ocurrido un error desconocido "
-					+ "al insertar amigo" + ex.getStackTrace());
+			LOG.warn("Ha ocurrido un error desconocido " + "al insertar amigo" + ex.getStackTrace());
 			idInsert = -1;
 		} finally {
 
@@ -154,41 +144,42 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			LOG.warn("Ha ocurrido un error desconocido al "
-					+ "recoger todos los datos de alumnos");
+			LOG.warn("Ha ocurrido un error desconocido al " + "recoger todos los datos de alumnos");
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			
+
 		}
 		return amigos;
 	}
 
 	@Override
 	public final ArrayList<Amigo> getByName(String nombre) {
-		
+
 		amigos = new ArrayList<Amigo>();
+
 		final String sqlAlumno = "select * from amigos where nombre like ?";
 		try {
 			con = factory.getConnection();
-			amigo = new Amigo();
+			
 			pst = con.prepareStatement(sqlAlumno);
-			pst.setString(1, nombre +"%");
+			pst.setString(1, nombre + "%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
+				amigo = new Amigo();
 				datosAmigo(rs);
-				
+				if (amigo != null) {
 					amigos.add(amigo);
-				
+				}
+
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			LOG.warn("Ha ocurrido un error desconocido al "
-					+ "recoger un alumno por dni.");
+			LOG.warn("Ha ocurrido un error desconocido al " + "recoger un alumno por dni.");
 		} finally {
 			try {
 				factory.closeConnection();
@@ -214,15 +205,14 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			LOG.warn("Ha ocurrido un error desconocido al "
-					+ "recoger un alumno por id.");
+			LOG.warn("Ha ocurrido un error desconocido al " + "recoger un alumno por id.");
 		} finally {
 			try {
 				factory.closeConnection();
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-					}
+		}
 		return amigo;
 	}
 
@@ -249,7 +239,7 @@ public class DAOAmigo implements IDAOAmigo {
 			} catch (SQLException ex) {
 				sqlExcepcion(ex);
 			}
-			
+
 		}
 		return result;
 	}
@@ -257,8 +247,7 @@ public class DAOAmigo implements IDAOAmigo {
 	@Override
 	public final boolean update(Amigo amigo, int idAmigo) {
 		boolean result = false;
-		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, "
-				+ "cp=?, localidad=?, provincia=?, movil=?, fijo=?, "
+		String sqlUpdate = "update amigos set nombre=?, apellido=?, calle=?, " + "cp=?, localidad=?, provincia=?, movil=?, fijo=?, "
 				+ "anotaciones=? where id = ?";
 		try {
 			con = factory.getConnection();
@@ -294,6 +283,7 @@ public class DAOAmigo implements IDAOAmigo {
 
 	/**
 	 * Método para manejar los datos recogidos por la base de datos.
+	 * 
 	 * @param rs
 	 */
 	private void datosAmigo(ResultSet rs) {
@@ -311,23 +301,22 @@ public class DAOAmigo implements IDAOAmigo {
 				amigo.setAnotaciones(rs.getString("anotaciones"));
 			} catch (AmigoException e) {
 				amigo = null;
-				LOG.error("Error al crear el amigo"
-						+ " [ " + e.getMensajeError() + ","
-								+ " " + e.getCodigoError());
-			
+				LOG.error("Error al crear el amigo" + " [ " + e.getMensajeError() + "," + " " + e.getCodigoError());
+
 			}
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		}
 
 	}
-	
+
 	/**
-	 * Metodo para la gestión de las excepciones 
-	 * producidas por la base de datos.
+	 * Metodo para la gestión de las excepciones producidas por la base de
+	 * datos.
+	 * 
 	 * @param ex
 	 */
-	
+
 	private void sqlExcepcion(SQLException ex) {
 		while (ex != null) {
 			LOG.error("Message:> " + ex.getMessage());
@@ -338,5 +327,5 @@ public class DAOAmigo implements IDAOAmigo {
 		}
 
 	}
-	
+
 }
