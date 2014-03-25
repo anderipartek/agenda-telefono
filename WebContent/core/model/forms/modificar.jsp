@@ -26,13 +26,13 @@
 
 	<ul id="listaAmigos" class="amigos modify">
 		<li>Busca un Amigos para modificar</li>
-
+             
 		
-		</li>
+		
 
 	</ul>
 
-    <form id="formulario" method="post" action="main">
+    <form id="formulario" method="post" action="agenda?operacion=modificar">
 		<input type="text" placeholder="nombre" name="nombre" value="">
 		<input type="text" placeholder="apellido" name="apellido" value="">
 		<input type="text" placeholder="calle" name="calle" value="">
@@ -45,11 +45,11 @@
 		<input type="text" pattern="[0-9]{9}"
 			placeholder="fijo 999999999" name="fijo" value="">
 		<textarea name="anotaciones" placeholder="anotaciones"></textarea>
-		<input type="hidden" name="nombre" value=""> <input
-			type="hidden" name="id" value="">
+		<input type="text" name="id" value=""> 
+		 
 
 		<div class="botones">
-			<a title="" href="main">cancelar</a> <input type="submit"
+			<a title="" href="agenda">cancelar</a> <input type="submit"
 				value="modificar" name="modificar" class="boton modificar">
 		</div>
 	</form>
@@ -81,7 +81,7 @@
 										error);
 							},
 							"data" : {
-								search : aSearch.val()
+								parametro_busqueda : aSearch.val()
 							},
 							"async" : true,
 						});
@@ -95,7 +95,7 @@
 			
 			//obtenemos el amigo selecionado
 			var amigo = amigos[$(this).index()];
-			console.debug(amigo.nombre);
+			
 			
 			//rellenar formulario
 			$('#formulario input[name=nombre]').val(amigo.nombre);
@@ -106,7 +106,8 @@
 			$('#formulario input[name=provincia]').val(amigo.provincia);
 			$('#formulario input[name=movil]').val(amigo.movil);
 			$('#formulario input[name=fijo]').val(amigo.fijo);
-			$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
+			$('#formulario input[name=id]').val(amigo.id);
+			//$('#formulario textarea[name=anotaciones][0]').val(amigo.anotaciones);
 			
 		});
 
@@ -123,7 +124,7 @@
 				console.debug(index + " " + amigo.id + " " + amigo.nombre);
 
 				//añadir en la lista un li
-				$('#listaAmigos').append('<li>' + amigo.nombre + '</li>');
+				$('#listaAmigos').append('<li>' + amigo.nombre + " " + amigo.apellido +  '</li>');
 
 			});
 		}
