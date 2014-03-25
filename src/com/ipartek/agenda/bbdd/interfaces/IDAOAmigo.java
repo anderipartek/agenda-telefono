@@ -32,11 +32,11 @@ public interface IDAOAmigo {
 	ArrayList<Amigo> getByNombre( String nombre );
 	
 	/**
-	 * Obtenemos el nombre del amigo y lo borramos
-	 * @param nombre
+	 * Obtenemos el id del amigo y lo borramos
+	 * @param id
 	 * @return true si el amigo se ha eliminado y false si no se ha eliminado
 	 */
-	boolean delete( String nombre );	
+	boolean delete( int id );	
 	
 	/**
 	 * Modificar alumno seleccionado

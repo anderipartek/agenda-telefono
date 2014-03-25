@@ -2,35 +2,116 @@
 
 
 <div class="contain">
-		<p class="titulo">&iquest;Deseas realmente eliminar a tu amigo?</p>
+	<p class="titulo">Cuales son los datos de tu amigo que deseas eliminar:</p>
 
-		<!--  ?php
 
-		// enviamos la query
-		$id = comillas_inteligentes($_POST['id']);
-		$query = "SELECT * FROM amigos WHERE nombre LIKE $nombre and id = $id";
+	<%@include file="buscador.jsp"%>
+	<script src="js/jquery-2.1.0.min.js"></script>
 
-		$result = mysql_query($query);
-		//comprobamos si la query ha ido bien
-		if(!$result){
-			die('No se pudo ejecutar la consulta sobre la BBDD' . mysql_error() . '<br>');
-		}
-
-		while($result_row = mysql_fetch_array($result)){
-		?-->
+	<ul id="listaAmigos" class="amigos modify">
+		<li>Busca el Amigo para Eliminar</li>
+	
+		<li></li>
 		
-		<form method="post" action="<?php htmlentities($_SERVER['PHP_SELF']); ?>">				
-			<input type="hidden" name="nombre" value="<?php echo $result_row[1]; ?>">
-			<input type="hidden" name="id" value="<?php echo $result_row[0]; ?>">			
-			<input type="hidden" name="apellido" value="<?php echo $result_row[2]; ?>">
-			
-			<div class="botones">
-				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="eliminar" name="accion" class="boton eliminar">
-			</div>
-		</form>
+	</ul>
 
-		<!-- ?php
+	<p class="txt">Amigo a eliminar</p>
+
+	<form id="formulario" method="post" action="main">
+		<input disabled="disabled" type="text" placeholder="nombre" name="nombre" value="">
+		<input disabled="disabled" type="text" placeholder="apellido" name="apellido" value="">
+		<input disabled="disabled" type="text" placeholder="calle" name="calle" value="">
+		<input disabled="disabled" type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp"
+			value=""> 
+		<input disabled="disabled" type="text" placeholder="localidad" name="localidad" value=""> 
+		<input disabled="disabled" type="text" placeholder="provincia" name="provincia" value=""> 
+		<input disabled="disabled" type="text" pattern="[0-9]{9}" placeholder="móvil 999999999"
+			name="movil" value=""> 
+		<input disabled="disabled" type="text" pattern="[0-9]{9}"
+			placeholder="fijo 999999999" name="fijo" value="">
+		<textarea disabled="disabled" name="anotaciones" placeholder="anotaciones"></textarea>
+		<input type="hidden" name="nombre" value=""> <input
+			type="hidden" name="id" value="">
+
+		<div class="botones">
+			<a title="" href="main">cancelar</a> <input type="submit"
+				value="eliminar" name="accion" class="boton eliminar">
+		</div>
+	</form>
+
+
+	<script type="text/javascript">
+		var url = 'servletAjax';
+		var amigos; //Array de amigos recuperados de la llamada ajax
+		$(document).ready(
+				function() {
+
+					console.debug('ready...');
+					//seleccionar campo texto
+					var aSearch = $('#aSearch');
+
+					//Llamada ajax sobre el elemento KEYUP
+					aSearch.keyup(function() {
+						console.debug(aSearch.val());
+						//llamar a AJax
+						$.ajax(url, {
+							"type" : "get", // usualmente post o get
+							"success" : function(data) {
+								amigos=data;
+								cargarLista(data);
+							},
+							"error" : function(error) {
+								console.error(
+										"Este callback maneja los errores",
+										error);
+							},
+							"data" : {
+								search : aSearch.val()
+							},
+							"async" : true,
+						});
+					});
+
+				});
+
+		//capturar evento click sobre lista de la busqueda
+		$("#listaAmigos").on('click', 'li', function() {
+			console.log($(this).index());
+			
+			//obtenemos el amigo selecionado
+			var amigo = amigos[$(this).index()];
+			console.debug(amigo.nombre);
+			
+			//rellenar formulario
+			$('#formulario input[name=id]').val(amigo.id);
+			$('#formulario input[name=nombre]').val(amigo.nombre);
+			$('#formulario input[name=apellido]').val(amigo.apellido);
+			$('#formulario input[name=calle]').val(amigo.calle);
+			$('#formulario input[name=cp]').val(amigo.cp);
+			$('#formulario input[name=localidad]').val(amigo.localidad);
+			$('#formulario input[name=provincia]').val(amigo.provincia);
+			$('#formulario input[name=movil]').val(amigo.movil);
+			$('#formulario input[name=fijo]').val(amigo.fijo);
+			$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
+			
+		});
+
+		function cargarLista(data) {
+			console.log("Comenzamos a cargar la lista con: " + data);
+
+			//limpiar lista
+			$('#listaAmigos').empty();
+
+			//TODO controlar si no existen resultados
+
+			//iteramos sobre los datos recibidos
+			$.each(data, function(index, amigo) {
+				console.debug(index + " " + amigo.id + " " + amigo.nombre);
+
+				//añadir en la lista un li
+				$('#listaAmigos').append('<li>' + amigo.nombre + '</li>');
+
+			});
 		}
-		?-->
-	</div>
+	</script>  
+</div>

@@ -4,7 +4,7 @@
 		<p class="titulo">Busca a tu amigo:</p>
 		
 		
-		<form method="post" action="main?buscador.jsp">				
+		<form method="post" action="main">				
 			<input id="aSearch" type="text" placeholder="nombre que buscas..." name="nombreBuscar" value="">
 			
 			<div class="botones">

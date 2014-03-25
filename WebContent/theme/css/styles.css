@@ -92,3 +92,10 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
 /* FIN NAVBAR */
 
+/*Google maps*/
+
+ #map-canvas {
+        height: 250px;
+        margin: 0px;
+        padding: 0px
+      }
