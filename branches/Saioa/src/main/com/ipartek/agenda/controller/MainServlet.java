@@ -32,11 +32,12 @@ public class MainServlet extends ServletMaestro {
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
 	RequestDispatcher dispatcher = null;
+	private int idAmigo;
 	private final static Logger log = Logger.getLogger(MainServlet.class);
 	ModeloAmigo modelAmigo;
 	HttpSession session;
 	private static String op; //Operacion a realizar	
-	
+	private Amigo a;
 		
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -72,6 +73,7 @@ public void destroy() {
 			pagina = "anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
+			pagina = "modificar";
 			dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (ELIMINAR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
@@ -93,6 +95,8 @@ public void destroy() {
 		
 		if (pagina=="anadir"){
 			crearAmigo(request, response);
+		}else if(pagina=="modificar"){
+			modificar(request, response);
 		}
 		
 	}
@@ -170,6 +174,21 @@ public void destroy() {
 		log.trace("crearAmigo - Fin");
 		
 	}
+	private boolean modificar(final HttpServletRequest request,
+			final HttpServletResponse response) {
+		log.trace("metodo modificar init");
+		boolean result = true;
+		recogerDatos(request, response);
+		if (!modelAmigo.modificar(a, idAmigo)) {
+			result = false;
+			log.warn("ATENCION no se ha podido modificar el amigo con id ["
+					+ idAmigo + "]");
+		} else {
+			log.trace("Amigo modificado con id [" + idAmigo + "]");
+		}
+		log.trace("metodo modificar final");
+		return result;
+	}
 
 	private Amigo recogerDatos(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -220,6 +239,16 @@ public void destroy() {
 		return a;
 
 	}
-	
+	private boolean buscador(final HttpServletRequest request,
+			final HttpServletResponse response) {
+		boolean result = false;
+		ArrayList<Amigo> lAmigo = modelAmigo.obtenerAmigoByNombre("nombre");
+		String nombreBusqueda = request.getParameter("nombreBusqueda");
+		lAmigo = modelAmigo.obtenerAmigoByNombre(nombreBusqueda);
+		if (lAmigo.size() > 0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

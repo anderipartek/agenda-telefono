@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
+
+
 
 
 import com.ipartek.agenda.interfaces.IAmigo;
@@ -144,11 +147,42 @@ public class DAOAmigo implements IAmigo {
 			return resul;
 		}
 	}
-
-	@Override
-	public int update(Amigo a, int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	private void prepareStatment(Amigo a) throws SQLException {
+		pst.setString(1, a.getNombre());
+		pst.setString(2, a.getApellido());
+		pst.setString(3, a.getCalle());
+		pst.setInt(4, a.getCp());
+		pst.setString(5, a.getLocalidad());
+		pst.setString(6, a.getProvincia());
+		pst.setLong(7, a.getMovil());
+		pst.setLong(8, a.getFijo());
+		pst.setString(9, a.getAnotaciones());
+	}
+	public boolean modificar(final Amigo a, final int id) {
+			log.trace("Actualizar amigo [" + a.toString() + "]");
+			String SQL_UPDATE = "update amigos set nombre = ?, apellido = ?, calle = ?, cp = ?, localidad = ?, provincia = ?, "
+					+ "movil = ?, fijo = ?, anotaciones = ? where id = ?";
+			boolean result = false;
+			try {
+				con = factory.getConnection();
+				pst = con.prepareStatement(SQL_UPDATE);
+				prepareStatment(a);
+				pst.setInt(10, id);
+				if (pst.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			} finally {
+				try {
+					factory.closeConnection();
+				} catch (SQLException ex) {
+					sqlExcepcion(ex);
+				}
+				log.trace("Fin actualizar");
+				return result;
+			}
+		
 	}
 
 	@Override
@@ -158,9 +192,33 @@ public class DAOAmigo implements IAmigo {
 	}
 
 	@Override
-	public Amigo obtenerAmigoByNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Amigo> obtenerAmigoByNombre(String nombre) {
+		final String SQL_ONE = "select * from amigos where nombre like ?";
+		ArrayList<Amigo> listaAmigos = null;
+		boolean result = false;
+		try {
+			con = factory.getConnection();
+			pst = con.prepareStatement(SQL_ONE);
+			pst.setString(1, nombre+"%");
+			rs = pst.executeQuery();
+			while (rs.next()) {
+			
+				a = new Amigo();
+				datosAlumno(rs);
+				listaAmigos.add(a);
+			
+			}
+		} catch (SQLException ex) {
+			sqlExcepcion(ex);
+		} finally {
+			try {
+				factory.closeConnection();
+			} catch (SQLException ex) {
+				sqlExcepcion(ex);
+			}
+			log.trace("Fin recoger amigos");
+			return listaAmigos;
+		}
 	}
 
 	private void sqlExcepcion(SQLException ex) {
@@ -173,5 +231,6 @@ public class DAOAmigo implements IAmigo {
 		}
 
 	}
-	
+
+
 }

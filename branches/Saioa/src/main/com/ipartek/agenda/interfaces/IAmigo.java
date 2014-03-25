@@ -19,13 +19,14 @@ public interface IAmigo {
  */
   boolean delete(int id);
  
-  int update(Amigo a,int id);
+  boolean modificar(Amigo a,int id);
  
   ArrayList<Amigo> getAll();
 
   Amigo obtenerAmigoByID(int id);
 
-  Amigo obtenerAmigoByNombre(String nombre);
+  ArrayList<Amigo> obtenerAmigoByNombre(String nombre);
+
     
     
     
