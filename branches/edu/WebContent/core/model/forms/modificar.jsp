@@ -107,7 +107,7 @@
 			$('#formulario input[name=movil]').val(amigo.movil);
 			$('#formulario input[name=fijo]').val(amigo.fijo);
 			$('#formulario input[name=id]').val(amigo.id);
-			$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
+			$('#formulario textarea[name=anotaciones]').val(amigo.anotaciones);
 			
 		});
 
