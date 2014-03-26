@@ -82,7 +82,7 @@ public class AgendaServlet extends MainServlet {
 			// Devuelve la información de todos los amigos
 			listarAmigos(request, response);
 		} else {
-			String accion = (String) request.getAttribute("op");
+			String accion = (String) request.getParameter("op");
 			detalleAmigo(request, response, idAmigo, accion);
 		}
 
