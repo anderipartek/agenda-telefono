@@ -65,61 +65,81 @@ public class AgendaServlet extends ServletMaestro {
 		RequestDispatcher dispatcher = null;
         //si entramos desde el movil
 		if (isMobile){
-			amigos=model.getAll();
-			request.setAttribute("listaAmigos", amigos);
-			dispatcher=request.getRequestDispatcher("ver.mobi.jsp");
-		}
-		
-		//redirigir a ver todos
-		else if ("ver".equals(operacion)){
-			log.trace("Redirigiendo a ver.jsp" );
-			amigos=model.getAll();
-			//Si no hay alumnos en la BD
-			if (amigos.size()==0)
-			{
-				//mensaje que anyadimos al .jsp
-				msg="No hay amigos para mostrar en la BD";
-				request.setAttribute("mensaje", msg);
+			//redirigir a ver movil
+			if ("ver".equals(operacion)){
+				log.trace("Redirigiendo a ver.mobi.jsp" );
+				amigos=model.getAll();
+				request.setAttribute("listaAmigos", amigos);
+				dispatcher=request.getRequestDispatcher("ver.mobi.jsp");
 			}
-			//mandamos la lista de amigos a ver.jsp
-			request.setAttribute("listaAmigos", amigos);
-			dispatcher = request.getRequestDispatcher("ver.jsp");
+			//redirigir a anadir movil
+			else if ("anadir".equals(operacion)){
+				log.trace("Redirigiendo a anadir.mobi.jsp" );
+				dispatcher=request.getRequestDispatcher("anadir.mobi.jsp");
+			}
+			//redirigir a eliminar movil
+			else if("eliminar".equals(operacion)){
+				log.trace("Redirigiendo a eliminar.mobi.jsp" );
+				dispatcher=request.getRequestDispatcher("eliminar.mobi.jsp");
+                
+			}
+			//redirigir a modificar movil
+			else if("modificar".equals(operacion)){
+				log.trace("Redirigiendo a modificar.jsp");
+				dispatcher=request.getRequestDispatcher("modificar.mobi.jsp");
+			}
+			
 		}
-		//redirigir a insertar
-		else if ("anadir".equals(operacion)){
-			log.trace("Redirigiendo a anadir.jsp" );
-			dispatcher=request.getRequestDispatcher("core/model/forms/anadir.jsp");
-		}
-		//redirigir a borrar
-		else if("eliminar".equals(operacion)){
-			log.trace("Redirigiendo a eliminar.jsp" );
-			form="Del";
-			request.setAttribute("form",form );
+		//si nos conectamos mediante el ordenador
+		else{
+			//redirigir a ver todos
+			if ("ver".equals(operacion)){
+				log.trace("Redirigiendo a ver.jsp" );
+				amigos=model.getAll();
+				//Si no hay alumnos en la BD
+				if (amigos.size()==0)
+				{
+					//mensaje que anyadimos al .jsp
+					msg="No hay amigos para mostrar en la BD";
+					request.setAttribute("mensaje", msg);
+				}
+				//mandamos la lista de amigos a ver.jsp
+				request.setAttribute("listaAmigos", amigos);
+				dispatcher = request.getRequestDispatcher("ver.jsp");
+			}
+			//redirigir a insertar
+			else if ("anadir".equals(operacion)){
+				log.trace("Redirigiendo a anadir.jsp" );
+				dispatcher=request.getRequestDispatcher("core/model/forms/anadir.jsp");
+			}
+			//redirigir a borrar
+			else if("eliminar".equals(operacion)){
+				log.trace("Redirigiendo a eliminar.jsp" );
+				form="Del";
+				request.setAttribute("form",form );
+				dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
 
-			dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.jsp");
-
+			}
+			//redirigir a modificar
+			else if("modificar".equals(operacion)){
+				log.trace("Redirigiendo a modificar.jsp");
+				//Para saber de que formulario llama a buscar
+				form="Mod";
+				request.setAttribute("form",form );
+				dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
+			}
+		    
+			//redirigir a index.jsp al iniciar la aplicación
+			else 
+			{
+				log.trace("Redirigiendo a index.jsp" );	
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			}
 		}
-		//redirigir a modificar
-		else if("modificar".equals(operacion)){
-			log.trace("Redirigiendo a modificar.jsp");
-			//Para saber de que formulario llama a buscar
-			form="Mod";
-			request.setAttribute("form",form );
-			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
-		}
-		
-		 
-
-		//redirigir a index.jsp al iniciar la aplicación
-		else 
-		{
-			log.trace("Redirigiendo a index.jsp" );	
-			dispatcher = request.getRequestDispatcher("index.jsp");
-		}
-
 		log.trace("Fin AgendaServlet doGet" );
 		dispatcher.forward(request, response);
-	}
+	
+	}	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -130,8 +150,7 @@ public class AgendaServlet extends ServletMaestro {
 
 		//submit insertar
 		if ("anadir".equals(operacion)){
-
-			insertar(request,response);
+           insertar(request,response);
 		}
 		
         //submit eliminar

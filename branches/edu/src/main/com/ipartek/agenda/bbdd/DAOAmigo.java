@@ -160,7 +160,7 @@ public class DAOAmigo implements IAmigable {
 	public ArrayList<Amigo> getAll() {
 		log.trace("Obteniendo amigos " );
 		ArrayList<Amigo> listaAlumnos = null;
-		String sqlAll = "select * from amigos";
+		String sqlAll = "select * from amigos order by nombre ASC";
 		try {
 			con = factory.getConnection();
 			listaAlumnos = new ArrayList<Amigo>();
