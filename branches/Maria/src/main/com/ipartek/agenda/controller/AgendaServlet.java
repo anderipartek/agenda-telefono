@@ -38,6 +38,7 @@ public class AgendaServlet extends MainServlet {
 	private static int idAmigo;
 	private Amigo amigo;
 	public static String op;
+	boolean isMobile = false;
 	public static String buscadorSeccion;
 	public static String nombre;
 	private HashMap<Integer, Amigo> listaAmigos;
@@ -197,10 +198,16 @@ public class AgendaServlet extends MainServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		// detectar agente navegacion
+		String userAgent = request.getHeader("User-Agent");
+		isMobile = userAgent.contains("mobile") || userAgent.contains("Mobile");
+
 		op = request.getParameter("op");
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_VER)) {
-				if (verTodos(request, response)) {
+				if (isMobile) {
+					dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+				} else if (verTodos(request, response)) {
 					dispatcher = request.getRequestDispatcher("main?seccion=ver");
 					// enviar datos en la request a la JSP
 					request.setAttribute("listaTodos", listaAmigos);
