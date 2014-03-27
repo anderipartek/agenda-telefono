@@ -25,14 +25,11 @@
 <body>
 <div data-role="page" id="home">
 
-	<div data-role="panel" id="mypanel" data-position="left" data-display="overlay">
-    <!-- panel content goes here -->
-    	
-	</div><!-- /panel -->
 	
 	<div data-role="header" class="">
 		<h1>Listado Amigos</h1>
 		<a href="#" data-role="button" data-icon="back">Home</a>
+		
 	</div>
 	
 	<div data-role="content">

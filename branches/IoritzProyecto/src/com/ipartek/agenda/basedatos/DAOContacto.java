@@ -40,7 +40,7 @@ public class DAOContacto implements IDAOContacto{
 	
 	public ArrayList<Contacto> getAll() {
 		ArrayList<Contacto> lContactos = null;
-		String sqlAll = "select * from amigos";
+		String sqlAll = "select * from amigos order by nombre";
 		try {
 			con = factory.getConnection();
 			lContactos = new ArrayList<Contacto>();
