@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
 <html>
@@ -25,21 +26,119 @@
 <body>
 
 	<div data-role="page" id="home">
+	
+		<div data-role="panel" id="mypanel">
+		    <ul  data-role="listview" >
+			    <li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" >Añadir</a></li>
+				<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" >Modificar</a></li>
+				<li><a href="">Eliminar</a></li>
+				<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" >Ver</a></li>
+		    </ul>
+		</div><!-- /panel -->
+			
+	
+	
 		<div data-role="header" class="">
 			<h1>Datos Amigos</h1>
+			<a href="#mypanel">menu</a>
 		</div>
 
-				<a href="" data-role="button" data-inline="true" data-theme="a">Añadir</a>
-				<a href="" data-role="button" data-inline="true" data-theme="b">Modificar</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" data-role="button" data-inline="true" data-theme="a">Añadir</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" data-role="button" data-inline="true" data-theme="b">Modificar</a>
 				<a href="" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
-				<a href="" data-role="button" data-inline="true" data-theme="d">Ver</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" data-role="button" data-inline="true" data-theme="d">Ver</a>
 
 
 		<div data-role="content" class="">
+		
+			<%@include file="forms/buscador.jsp"%>
+				<div class="contain" id="listContainer">
+	
+			</div>
 
+			<%
+				if (request.getAttribute("amigo") != null){
+					Amigo amigo = (Amigo)request.getAttribute("amigo");
+					%>		
+						<form id="datosAlumno" method="post">
+							<input type="text" placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
+							<input type="text" placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
+							<input type="text" placeholder="calle" name="calle" value="<%=amigo.getCalle()%>">
+							<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="cp"
+								value="<%=amigo.getCp()%>"> <input type="text" placeholder="localidad"
+								name="localidad" value="<%=amigo.getLocalidad()%>"> <input type="text"
+								placeholder="provincia" name="provincia" value="<%=amigo.getProvincia()%>"> <input
+								type="text" pattern="[0-9]{9}" placeholder="móvil 999999999"
+								name="movil" value="<%=amigo.getMovil()%>"> <input type="text" pattern="[0-9]{9}"
+								placeholder="fijo 999999999" name="fijo" value="<%=amigo.getFijo()%>">
+							<textarea name="anotaciones" placeholder="anotaciones"><%=amigo.getAnotaciones()%></textarea>
+							<input type="hidden" name="nombre" value="<%=amigo.getNombre()%>"> <input
+								type="hidden" name="id" value="<%=amigo.getId()%>">
+					
+							<div class="botones">
+								<a data-role="button" data-inline="true" title="" href="main">cancelar</a>
+								<input data-role="button" data-inline="true" type="submit" value="modificar" name="operacion" class="boton modificar">
+								<input data-role="button" data-inline="true" type="submit"value="eliminar" name="operacion" class="boton modificar">
+							</div>
+						</form>		
+					<%
+				}
 			
+			
+			%>
 
 		</div>
+		
+		<script>
+		$(document).ready(function() { // When the HTML DOM is ready loading, then execute the following function...
+			$('#btnbuscar').click(function() { // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+				search();
+			});
+		
+			$('#textbuscar').keyup(function() {
+			    search();
+			});
+			
+			function search(){
+				$.get('main?<%=MainServlet.SECCION%>=<%=MainServlet.BUSCAR%>&<%=MainServlet.NOMBRE_A_BUSCAR%>=' + $('#textbuscar').val(), function(responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...	
+					console.log(responseText);
+					fillList(responseText)
+				});
+			}
+			
+			var list;
+			function fillList(data) {
+				$("#listContainer").empty();
+				$("#datosAlumno").empty();
+
+				list = jQuery.parseJSON(data);
+				if (list.length > 0){
+					drawContainer();
+					for (var i=0; i < list.length; i++){
+						fillItem(list[i]);
+					}
+				}
+			};
+			
+			function drawContainer(){
+				$('#listContainer').append('<p class="txt">Seleccionalo de la lista</p>')
+					.append('<ul data-role="listview" data-inset="true" class="amigos modify" id="listaAmigosModificar">')
+					.append('</ul>');
+			}
+			
+			function fillItem(data) {
+				$("#listaAmigosModificar").append('<li><form method="post" action="main"></form></li>');
+				$('#listaAmigosModificar li:last-child form')
+					.append('<input type="submit" name="amigo" value="' + data.nombre + ' ' + data.apellido  + '">')
+					.append('<input type="hidden" name="operacion" value="mostrar">')
+					.append('<input type="hidden" name="nombre" value="' + data.nombre + '">')
+					.append('<input type="hidden" name="id" value="' + data.id + '">');
+			}
+			
+
+		});
+		
+		</script>
 
 		<div data-role="footer" class="">
 			<h4>IparSex servicios Informaticos 2014</h4>

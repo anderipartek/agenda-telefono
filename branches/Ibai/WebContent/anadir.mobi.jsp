@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ver amigos | Version Movil</title>
+<title>Añadir amigo | Version Movil</title>
 
 <link rel="stylesheet" href="theme/css/jquery.mobile-1.4.2.css">
 <link rel="stylesheet"
@@ -27,7 +28,6 @@
 
 	<div data-role="page" id="home">
 	
-			
 		<div data-role="panel" id="mypanel">
 		    <ul  data-role="listview" >
 			    <li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" >Añadir</a></li>
@@ -40,21 +40,49 @@
 	
 	
 		<div data-role="header" class="">
-			<h1>Listado Amigos</h1>
-				<a href="#mypanel">menu</a>
+			<h1>Añadir Amigos</h1>
+			<a href="#mypanel">menu</a>
 		</div>
+
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" data-role="button" data-inline="true" data-theme="a">Añadir</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" data-role="button" data-inline="true" data-theme="b">Modificar</a>
+				<a href="" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" data-role="button" data-inline="true" data-theme="d">Ver</a>
+
 
 		<div data-role="content" class="">
 
+			<%@include file="../mensaje.jsp"%>	
 			
-			<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busca tu amigo" data-autodividers="true">
 			<%
-				ArrayList<Amigo> list = (ArrayList<Amigo>)request.getAttribute("lista_amigos");
-				for(int i=0; i<list.size(); i++){
-					out.print("<li><a href='main?seccion=modificar&id="+list.get(i).getId()+"'><h2>"+ list.get(i).getNombre()+" "+ list.get(i).getApellido() + "</h2><p>"+ list.get(i).getMovil()  +"</p></a></li>");
-				}
+				Amigo amigo = (Amigo)request.getAttribute("amigo");
+	
+			   	if (amigo == null){
+			   		amigo = new Amigo();
+			   	}else{
+			   		%><p class="titulo correcto">Amigo añadido</p><%
+			   	}
 			%>
-			</ul>
+		
+			<p class="titulo">Cuales son los datos de tu amigo:</p>
+		
+			
+			<form method="post" action="main">				
+				<input type="text" pattern=[A-Za-z]{2,25} placeholder="nombre" name="nombre" value="<%=amigo.getNombre()%>">
+				<input type="text" pattern=[A-Za-z]{2,25} placeholder="apellido" name="apellido" value="<%=amigo.getApellido()%>">
+				<input type="text" pattern=[A-Za-z]{2,25} placeholder="calle" name="calle" value="<%=amigo.getCalle()%>">
+				<input type="text" pattern="[0-9]{5}" placeholder="cp" name="cp" value="<%if(amigo.getCp()!=0){%><%=amigo.getCp() %><%}%>">
+				<input type="text" pattern=[A-Za-z]{2,25} placeholder="localidad" name="localidad" value="<%=amigo.getLocalidad()%>">
+				<input type="text" pattern=[A-Za-z]{2,25} placeholder="provincia" name="provincia" value="<%=amigo.getProvincia()%>">
+				<input type="text" pattern="[0-9]{9}" placeholder="móvil " name="movil" value="<%if(amigo.getMovil()!=0){%><%=amigo.getMovil() %><%}%>">
+				<input type="text" pattern="[0-9]{9}" placeholder="fijo " name="fijo" value="<%if(amigo.getFijo()!=0){%><%=amigo.getFijo() %><%}%>">
+				<textarea name="anotaciones" placeholder="anotaciones"></textarea>
+				
+				<div class="botones">
+					<a data-role="button" data-inline="true" title="" href="main">cancelar</a>
+					<input data-role="button" data-inline="true" type="submit" value="anadir" name="operacion" class="boton anadir">
+				</div>
+			</form>
 		</div>
 
 		<div data-role="footer" class="">

@@ -113,7 +113,7 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute(SECCION, seccion);
 
 		if (ANADIR.equals(seccion)) { //redireccion a la pagina de añadir amigo
-			dispatcher = request.getRequestDispatcher("anadir.jsp");
+			dispatcher = request.getRequestDispatcher("anadir"+prefijo);
 		//redirecion a la pagina de modificar amigo
 		} else if (MODIFICAR.equals(seccion)) { 
 			String id = (String) request.getParameter("id");
@@ -142,7 +142,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(ATRIBUTO_AMIGO, a);
 			}
 			log.trace("Redirecionando a eliminar");
-			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			dispatcher = request.getRequestDispatcher("eliminar"+prefijo);
 			// redireccion a la pagina de ver todos los amigos
 		} else if (VER.equals(seccion)) { 
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
@@ -150,7 +150,7 @@ public class MainServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("ver"+prefijo);
 		} else { // redireccion al index
 			log.trace("Redirecionando al index");
-			dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher = request.getRequestDispatcher("index"+prefijo);
 		}
 		
 		if (dispatcher != null) {
@@ -197,7 +197,7 @@ public class MainServlet extends HttpServlet {
 						codigoError, TIPO_MENSAJE.WARNING));
 			}
 			request.setAttribute(SECCION, "anadir");
-			dispatcher = request.getRequestDispatcher("anadir.jsp");
+			dispatcher = request.getRequestDispatcher("anadir"+prefijo);
 		//recivimos el id del alumno de los datos a mostrar
 		} else if (MOSTRAR.equals(operacion)) { 
 			String id = request.getParameter("id");
@@ -214,7 +214,7 @@ public class MainServlet extends HttpServlet {
 						codigoError, TIPO_MENSAJE.INFO));
 			}
 			request.setAttribute(SECCION, "modificar");
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			dispatcher = request.getRequestDispatcher("modificar"+prefijo);
 		//recivimos el id del alumno a eliminar para comprobar que existe
 		} else if (MOSTRARELIMINAR.equals(operacion)) { 
 				String id = request.getParameter("id");
@@ -231,7 +231,7 @@ public class MainServlet extends HttpServlet {
 							+ " a eliminar", codigoError, TIPO_MENSAJE.INFO));	
 				}
 				request.setAttribute(SECCION, "eliminar");
-				dispatcher = request.getRequestDispatcher("eliminar.jsp");
+				dispatcher = request.getRequestDispatcher("eliminar"+prefijo);
 		//recivimos el amigo a modificar
 		} else if (MODIFICAR.equals(operacion)) { 
 			Amigo amigo = null;
@@ -255,7 +255,7 @@ public class MainServlet extends HttpServlet {
 						codigoError, TIPO_MENSAJE.INFO));
 			}
 			request.setAttribute(SECCION, "modificar");
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			dispatcher = request.getRequestDispatcher("modificar"+prefijo);
 		} else if (ELIMINAR.equals(operacion)) { //revimos el amigo a eliminar
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
@@ -269,7 +269,7 @@ public class MainServlet extends HttpServlet {
 			}
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
 			request.setAttribute(SECCION, "ver");
-			dispatcher = request.getRequestDispatcher("ver.jsp");
+			dispatcher = request.getRequestDispatcher("ver"+prefijo);
 		} else if (OPERACION_VER_TODOS.equals(operacion)) {
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getByName(""));
 		} else if (OPERACION_VER_NOMBRE.equals(operacion)) {
