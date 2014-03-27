@@ -59,12 +59,14 @@ public class AgendaServlet extends ServletMaestro {
 		userAgent.contains("Mobile");
 		isMobile=userAgent.contains("Mobile") || userAgent.contains("mobile");
 		
-		amigos= new ArrayList<Amigo>();
+		
 		//recogemos la operacion del request
 		operacion = request.getParameter("operacion");
 		RequestDispatcher dispatcher = null;
-        
+        //si entramos desde el movil
 		if (isMobile){
+			amigos=model.getAll();
+			request.setAttribute("listaAmigos", amigos);
 			dispatcher=request.getRequestDispatcher("ver.mobi.jsp");
 		}
 		
