@@ -206,7 +206,11 @@ public class AgendaServlet extends MainServlet {
 		if (op != null) {
 			if (op.equalsIgnoreCase(OP_VER)) {
 				if (isMobile) {
-					dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+					if (verTodos(request, response)) {
+						dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+						// enviar datos en la request a la JSP
+						request.setAttribute("listaTodos", listaAmigos);
+					}
 				} else if (verTodos(request, response)) {
 					dispatcher = request.getRequestDispatcher("main?seccion=ver");
 					// enviar datos en la request a la JSP
