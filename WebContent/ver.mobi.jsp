@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
@@ -23,10 +24,17 @@
 <body>
 <div data-role="page" class="" id="home">
 <div data-role="header" class="">
+
 <h1>Listado Amigos</h1>
 </div>
 
 <div data-role="content" class="">
+<%
+	String msg = (String) request.getAttribute("mensaje");
+	if (msg != null) {%>
+		<p class="errores"><%=msg%></p>
+	<% }%>
+
 <a href="#" data-role="button" data-inline="true" data-theme="a">Añadir</a>
 <a href="#" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
 <a href="#" data-role="button" data-inline="true" data-theme="c">Eliminar</a>

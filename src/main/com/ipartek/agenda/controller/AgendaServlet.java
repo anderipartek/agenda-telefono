@@ -69,24 +69,31 @@ public class AgendaServlet extends ServletMaestro {
 			if ("ver".equals(operacion)){
 				log.trace("Redirigiendo a ver.mobi.jsp" );
 				amigos=model.getAll();
+				//Si no hay alumnos en la BD
+				if (amigos.size()==0)
+				{
+					//mensaje que anyadimos al .jsp
+					msg="No hay amigos para mostrar en la BD";
+					request.setAttribute("mensaje", msg);
+				}
 				request.setAttribute("listaAmigos", amigos);
 				dispatcher=request.getRequestDispatcher("ver.mobi.jsp");
 			}
 			//redirigir a anadir movil
 			else if ("anadir".equals(operacion)){
 				log.trace("Redirigiendo a anadir.mobi.jsp" );
-				dispatcher=request.getRequestDispatcher("anadir.mobi.jsp");
+				dispatcher=request.getRequestDispatcher("core/model/forms/anadir.mobi.jsp");
 			}
 			//redirigir a eliminar movil
 			else if("eliminar".equals(operacion)){
 				log.trace("Redirigiendo a eliminar.mobi.jsp" );
-				dispatcher=request.getRequestDispatcher("eliminar.mobi.jsp");
+				dispatcher=request.getRequestDispatcher("core/model/forms/eliminar.mobi.jsp");
                 
 			}
 			//redirigir a modificar movil
 			else if("modificar".equals(operacion)){
 				log.trace("Redirigiendo a modificar.jsp");
-				dispatcher=request.getRequestDispatcher("modificar.mobi.jsp");
+				dispatcher=request.getRequestDispatcher("core/model/forms/modificar.mobi.jsp");
 			}
 			
 		}
