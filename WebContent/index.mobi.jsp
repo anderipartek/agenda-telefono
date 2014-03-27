@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.ipartek.agenda.controller.MainServlet"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ver amigos | Version Movil</title>
+<title>Añadir amigo | Version Movil</title>
 
 <link rel="stylesheet" href="theme/css/jquery.mobile-1.4.2.css">
 <link rel="stylesheet"
@@ -25,41 +26,31 @@
 </head>
 <body>
 
+	<div data-role="panel" id="mypanel">
+	    <ul  data-role="listview" >
+		    <li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" >Añadir</a></li>
+			<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" >Modificar</a></li>
+			<li><a href="">Eliminar</a></li>
+			<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" >Ver</a></li>
+	    </ul>
+	</div><!-- /panel -->
+			
+	
+
 	<div data-role="page" id="home">
-	
-			
-		<div data-role="panel" id="mypanel">
-		    <ul  data-role="listview" >
-			    <li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" >Añadir</a></li>
-				<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" >Modificar</a></li>
-				<li><a href="">Eliminar</a></li>
-				<li><a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" >Ver</a></li>
-		    </ul>
-		</div><!-- /panel -->
-			
-	
-	
 		<div data-role="header" class="">
-			<h1>Listado Amigos</h1>
-				<a href="#mypanel">menu</a>
+			<h1>Añadir Amigos</h1>
+			<a href="#mypanel">menu</a>
 		</div>
+
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.ANADIR %>" data-role="button" data-inline="true" data-theme="a">Añadir</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.MODIFICAR %>" data-role="button" data-inline="true" data-theme="b">Modificar</a>
+				<a href="" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
+				<a href="main?<%=MainServlet.SECCION %>=<%=MainServlet.VER %>" data-role="button" data-inline="true" data-theme="d">Ver</a>
+
 
 		<div data-role="content" class="">
 
-			
-			<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busca tu amigo" data-autodividers="true">
-			<%
-				ArrayList<Amigo> list = (ArrayList<Amigo>)request.getAttribute("lista_amigos");
-				for(int i=0; i<list.size(); i++){
-					out.print("<li><a href='main?seccion=modificar&id="+list.get(i).getId()+"'><h2>"+ list.get(i).getNombre()+" "+ list.get(i).getApellido() + "</h2><p>"+ list.get(i).getMovil()  +"</p></a></li>");
-				}
-			%>
-			</ul>
-		</div>
-
-		<div data-role="footer" class="">
-			<h4>IparSex servicios Informaticos 2014</h4>
-			<p><a href="#politica" data-transition="slideup">Politica privacidad</a></p>
 		</div>
 	</div>
 	<!-- /page home-->
