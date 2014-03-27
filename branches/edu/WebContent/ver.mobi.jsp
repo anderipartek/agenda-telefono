@@ -35,10 +35,10 @@
 		<p class="errores"><%=msg%></p>
 	<% }%>
 
-<a href="core/model/forms/anadir.mobi.jsp" data-role="button" data-inline="true" data-theme="a">Añadir</a>
-<a href="#" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
-<a href="#" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
-<a href="#" data-role="core/model/forms/ver.mobi.jsp"  data-inline="true" data-theme="d">Ver todos</a>
+<a href="core/model/forms/anadir.mobi.jsp" data-role="button" data-inline="true" data-theme="a">Insertar</a>
+<a href="core/model/forms/modificar.mobi.jsp" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
+<a href="core/model/forms/eliminar.mobi.jsp" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
+<a href="" data-role="button"  data-inline="true" data-theme="d">Ver todos</a>
 <ul data-role="listview" data-filter="true" data-autodividers="true">
 <%
   ArrayList<Amigo> list=(ArrayList<Amigo>)request.getAttribute("listaAmigos");
