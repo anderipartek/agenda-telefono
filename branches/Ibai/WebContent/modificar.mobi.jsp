@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@page import="java.util.ArrayList"%>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datos amigos | Version Movil</title>
+
+<link rel="stylesheet" href="theme/css/jquery.mobile-1.4.2.css">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery.mobile-1.4.2.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$.mobile.defaultPageTransition='slideup';
+		$.mobile.defaultDialogTransition='pop';
+	});
+</script>
+
+</head>
+<body>
+
+	<div data-role="page" id="home">
+		<div data-role="header" class="">
+			<h1>Datos Amigos</h1>
+		</div>
+
+				<a href="" data-role="button" data-inline="true" data-theme="a">Añadir</a>
+				<a href="" data-role="button" data-inline="true" data-theme="b">Modificar</a>
+				<a href="" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
+				<a href="" data-role="button" data-inline="true" data-theme="d">Ver</a>
+
+
+		<div data-role="content" class="">
+
+			
+
+		</div>
+
+		<div data-role="footer" class="">
+			<h4>IparSex servicios Informaticos 2014</h4>
+			<p><a href="#politica" data-transition="slideup">Politica privacidad</a></p>
+		</div>
+	</div>
+	<!-- /page home-->
+
+	<div data-role="page" id="politica">
+		<div data-role="header" class="">
+			<h1>Politica privacidad</h1>
+			<a href="#home" data-role="button" data-icon="back">Home</a>
+		</div>
+
+		<div data-role="content" class="">Lorem Ipsum es simplemente el
+			texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha
+			sido el texto de relleno estándar de las industrias desde el año
+			1500, cuando un impresor (N. del T. persona que se dedica a la
+			imprenta) desconocido usó una galería de textos y los mezcló de tal
+			manera que logró hacer un libro de textos especimen. No sólo
+			sobrevivió 500 años, sino que tambien ingresó como texto de relleno
+			en documentos electrónicos, quedando esencialmente igual al original.
+			Fue popularizado en los 60s con la creación de las hojas "Letraset",
+			las cuales contenian pasajes de Lorem Ipsum, y más recientemente con
+			software de autoedición, como por ejemplo Aldus PageMaker, el cual
+			incluye versiones de Lorem Ipsum.</div>
+
+		<div data-role="footer" class="">IparSex servicios Informaticos
+			2014</div>
+	</div>
+	<!-- /page politica-->
+
+
+
+
+</body>
+</html>

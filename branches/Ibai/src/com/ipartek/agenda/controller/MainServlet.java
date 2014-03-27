@@ -52,6 +52,8 @@ public class MainServlet extends HttpServlet {
 	public static final String LISTA_AMIGOS = "lista_amigos";
 	public static final String NOMBRE_A_BUSCAR = "nombre_a_buscar";
 	
+	public boolean isMovil = false;
+	public String prefijo = ".jsp";
 
 	
 	private ModeloAmigo modeloAmigo;
@@ -75,6 +77,21 @@ public class MainServlet extends HttpServlet {
     	log.trace("Inicializado el Servlet");
 	}
 	
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String userAgent = request.getHeader("User-Agent");
+		log.trace(userAgent);
+		if (userAgent.contains("Mobile") || userAgent.contains("mobile") ){
+			isMovil = true;
+			prefijo = ".mobi.jsp";
+		}else{
+			isMovil = false;
+			prefijo = ".jsp";
+		}
+		super.service(request, response);
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -87,6 +104,8 @@ public class MainServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest request,
 			final HttpServletResponse response)
 					throws ServletException, IOException {
+		
+		
 		log.trace("Entrando en doGet");
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
@@ -103,7 +122,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(ATRIBUTO_AMIGO, a);
 			}
 			log.trace("Redirecionando a modificar");
-			dispatcher = request.getRequestDispatcher("modificar.jsp");	
+			dispatcher = request.getRequestDispatcher("modificar"+prefijo);	
 		//funcion para la busqueda dinamica de amigos
 		} else if (BUSCAR.equals(seccion)) { 
 			if (request.getParameter(NOMBRE_A_BUSCAR) != null
@@ -128,11 +147,12 @@ public class MainServlet extends HttpServlet {
 		} else if (VER.equals(seccion)) { 
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getAll());
 			log.trace("Redireccionando a ver listado");
-			dispatcher = request.getRequestDispatcher("ver.jsp");
+			dispatcher = request.getRequestDispatcher("ver"+prefijo);
 		} else { // redireccion al index
 			log.trace("Redirecionando al index");
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
+		
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}
@@ -256,6 +276,7 @@ public class MainServlet extends HttpServlet {
 			request.setAttribute(LISTA_AMIGOS, modeloAmigo.getByName(
 					request.getParameter(NOMBRE_A_BUSCAR)));
 		}
+		
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}

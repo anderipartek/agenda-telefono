@@ -48,7 +48,28 @@
 
 
 <script>
-	$(document).ready(function() { // When the HTML DOM is ready loading, then execute the following function...
+	var url = 'servletAjax';
+
+	$(document).ready(function() { 
+		var asearch = $('#textbuscar');		
+		asearch.keyup(function() {
+			console.info(asearch.val());
+			$.ajax(url, {
+				"type": "get", // usualmente post o get
+				"success": function(data) {
+				console.log("Llego el contenido y no hubo error " + data);
+				},
+				"error": function(error) {
+				console.error("Este callback maneja los errores " + error);
+				},
+				"data": {search: asearch.val()},
+				"async": true,
+			});
+		});
+	});
+
+/*
+ 	$(document).ready(function() { // When the HTML DOM is ready loading, then execute the following function...
 		$('#btnbuscar').click(function() { // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
 			search();
 		});
@@ -95,5 +116,6 @@
 		
 
 	});
+ */
 </script>
 
