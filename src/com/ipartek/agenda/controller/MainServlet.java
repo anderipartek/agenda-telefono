@@ -47,6 +47,7 @@ public class MainServlet extends HttpServlet {
 	public static final String MODIFICAR = "modificar";
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
+	boolean isMobile = false;
 	
 	private final static Logger log = Logger.getLogger(MainServlet.class);
 	
@@ -92,6 +93,9 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("seccion", seccion);
 		dispatcher = request.getRequestDispatcher("index.jsp");
 		
+		String userAgent = request.getHeader("User-Agent");
+		isMobile = userAgent.contains("Mobile") || userAgent.contains("mobile");
+		
 		if (ANADIR.equals(seccion)){
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		}else if (MODIFICAR.equals(seccion)){
@@ -102,6 +106,10 @@ public class MainServlet extends HttpServlet {
 			listarContactos(request, response);
 		}else{
 			dispatcher = request.getRequestDispatcher("index.jsp");
+		}
+		
+		if (isMobile){
+			dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
 		}
 		
 		/*
