@@ -33,6 +33,7 @@ public class AgendaServlet extends ServletMaestro {
 	int idAmigo;//id amigo
 	int cp;//codigo postal
 	String id; //parameter de la request que contiene el id del amigo
+	boolean isMobile=false;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -41,6 +42,7 @@ public class AgendaServlet extends ServletMaestro {
 		super();
 
 	}
+	
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -53,13 +55,21 @@ public class AgendaServlet extends ServletMaestro {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.trace("Inicio AgendaServlet doGet" );
+		String userAgent=request.getHeader("User-Agent");
+		userAgent.contains("Mobile");
+		isMobile=userAgent.contains("Mobile") || userAgent.contains("mobile");
+		
 		amigos= new ArrayList<Amigo>();
 		//recogemos la operacion del request
 		operacion = request.getParameter("operacion");
 		RequestDispatcher dispatcher = null;
-
+        
+		if (isMobile){
+			dispatcher=request.getRequestDispatcher("ver.mobi.jsp");
+		}
+		
 		//redirigir a ver todos
-		if ("ver".equals(operacion)){
+		else if ("ver".equals(operacion)){
 			log.trace("Redirigiendo a ver.jsp" );
 			amigos=model.getAll();
 			//Si no hay alumnos en la BD
@@ -95,6 +105,8 @@ public class AgendaServlet extends ServletMaestro {
 			request.setAttribute("form",form );
 			dispatcher=request.getRequestDispatcher("core/model/forms/modificar.jsp");
 		}
+		
+		 
 
 		//redirigir a index.jsp al iniciar la aplicación
 		else 
