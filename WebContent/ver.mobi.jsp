@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <head>
 
@@ -29,13 +31,18 @@
 <a href="#" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
 <a href="#" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
 <a href="#" data-role="button"  data-inline="true" data-theme="d">Ver todos</a>
+<ul data-role="listview" data-filter="true" data-autodividers="true">
+<%
+  ArrayList<Amigo> list=(ArrayList<Amigo>)request.getAttribute("listaAmigos");
+  for(int i=0; i<list.size();i++){
+	  Amigo a=list.get(i);
+	  out.print("<li><a href='#'><h2>" + a.getNombre() + " " + a.getApellido() + "</h2> </a> </li>");
+	  
+	  
+  }%>
+  </ul>
 
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer volutpat est justo, eget imperdiet est 
-	   dapibus eu. Duis feugiat, nisl nec pretium pulvinar, magna odio varius metus, nec vehicula libero metus vitae
-	   dolor. Donec sollicitudin rhoncus purus at aliquet. Pellentesque et gravida enim. Ut ornare pharetra turpis,
-	   sed tempor turpis luctus sed. Phasellus at urna vel leo ullamcorper dapibus. Curabitur fermentum massa non 
-	   nunc pellentesque, at euismod arcu bibendum.
-	</p>
+	
 </div><!-- /content -->
 <div data-role="footer">
 <h4>IparSex servicios informaticos 2014</h4>
