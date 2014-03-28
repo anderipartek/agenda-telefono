@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -295,10 +296,12 @@ public class MainServlet extends HttpServlet {
 		Locale locale = request.getLocale();
 
 		if ( (locale.getLanguage()+"_"+locale.getCountry()) == "en_EN"){
-			request.setAttribute("lenguage", "en_EN");
+			HttpSession sesion= request.getSession();
+			sesion.setAttribute("language", "es_ES");
 			locale = new Locale("en_EN");
 		}else{
-			request.setAttribute("language", "es_ES");
+			HttpSession sesion= request.getSession();
+			sesion.setAttribute("language", "es_ES");
 			locale = localeDef;
 		}
 		log.debug("locale: " + locale);
