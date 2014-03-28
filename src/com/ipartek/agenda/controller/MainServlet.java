@@ -60,16 +60,6 @@ public class MainServlet extends HttpServlet {
 	{
 		String userAgent = request.getHeader("User-Agent");
 		this.isMobile = userAgent.contains("Mobile") || userAgent.contains("mobile");
-		 
-		//Locale por defecto Español
-		Locale locale = new Locale("es_ES");
-
-		//obtener lenguaje de la session del usuario
-		if (request.getLocale() != null){
-			locale = request.getLocale();
-		}
-		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18nmain", locale);		
-
 
 		 super.service(request, response);
 	}
@@ -84,6 +74,9 @@ public class MainServlet extends HttpServlet {
 
 		request.setAttribute(SECCION, seccion);
 
+		System.out.println(request.getLocale());
+		request.getSession().setAttribute("language", request.getLocale());
+		
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion))  {

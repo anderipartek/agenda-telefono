@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'es_ES'}" scope="session" />
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'en_EN'}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.agenda.controller.i18nmain" /> 
 
