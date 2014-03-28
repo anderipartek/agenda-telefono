@@ -13,7 +13,3 @@
 	
 	</ul>
 </nav>
-<!-- a href="main?<%--=MainServlet.SECCION %>=<%=MainServlet.VER --%>" title="">Ver
-href="agenda" name="op" value="ver" title=""
-
-				todos</a-->
