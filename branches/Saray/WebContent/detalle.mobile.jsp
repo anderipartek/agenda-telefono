@@ -42,28 +42,25 @@
 			<%
 				Amigo amigo = (Amigo)request.getAttribute("idAmigo");
 			%>
-			 <ul data-role="listview" data-insert="true"
-			 data-autodividers="true">
-				<li type="text" placeholder="nombre" name="nombre" value=<%=amigo.getNombre()%>></li>
-				<li type="text" placeholder="apellido" name="apellido" value=<%=amigo.getApellido()%>></li>
-				<li type="text" placeholder="calle" name="calle" value=<%=amigo.getCalle()%>></li>
-				<li type="text" pattern="[0-9]{5}" placeholder="cp 48004"
-					name="cp" value=<%=amigo.getCp()%>> </li>
-					<li type="text"
-					placeholder="localidad" name="localidad" value=<%=amigo.getLocalidad()%>> </li>
-					<li
-					type="text" placeholder="provincia" name="provincia" value=<%=amigo.getProvincia()%>></li>
-				<li type="text" pattern="[0-9]{9}" placeholder="móvil 999999999"
-					name="movil" value=<%=amigo.gettMovil()%>> </li>
-					<li type="text"
-					pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo"
-					value=<%=amigo.gettFijo()%>></li>
-				<li name="anotaciones" placeholder="anotaciones"></li>
-				<li type="hidden" name="nombre" value=""></li>
-				 <li type="hidden" name="id" value=""></li>
-			</ul>
 			
-				
+			<form id="detalleFormulario" method="post" action="main">
+				<input type="text" placeholder="nombre" name="nombre" value=<%=amigo.getNombre()%>>
+				<input type="text" placeholder="apellido" name="apellido" value=<%=amigo.getApellido()%>>
+				<input type="text" placeholder="calle" name="calle" value=<%=amigo.getCalle()%>>
+				<input type="text" pattern="[0-9]{5}" placeholder="cp 48004"
+					name="cp" value=<%=amigo.getCp()%>> 
+					<input type="text"
+					placeholder="localidad" name="localidad" value=<%=amigo.getLocalidad()%>> 
+					<input
+					type="text" placeholder="provincia" name="provincia" value="">
+				<input type="text" pattern="[0-9]{9}" placeholder="móvil 999999999"
+					name="movil" value=<%=amigo.getProvincia()%>> 
+					<input type="text"
+					pattern="[0-9]{9}" placeholder="fijo 999999999" name="fijo"
+					value="">
+				<textarea name="anotaciones" placeholder="anotaciones"></textarea>
+				<input type="hidden" name="nombre" value=""> <input
+					type="hidden" name="id" value="">
 
 				<div class="botones">
 					<a title="" href="main">cancelar</a> <input type="submit"
