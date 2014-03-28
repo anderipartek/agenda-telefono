@@ -112,18 +112,6 @@ public class MainServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
 		}
 		
-		if (isMobile){
-			dispatcher = request.getRequestDispatcher("anadir.mobi.jsp");
-		}
-		
-		if (isMobile){
-			dispatcher = request.getRequestDispatcher("modificar.mobi.jsp");
-		}
-		
-		if (isMobile){
-			dispatcher = request.getRequestDispatcher("eliminar.mobi.jsp");
-		}
-		
 		
 		
 		
