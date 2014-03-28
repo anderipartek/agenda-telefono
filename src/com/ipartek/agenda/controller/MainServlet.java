@@ -2,6 +2,8 @@ package com.ipartek.agenda.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -12,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+
+
 import org.apache.log4j.Logger;
+
+
 
 
 
@@ -80,6 +86,10 @@ public class MainServlet extends HttpServlet {
 		 modeloContacto = null;
 	 }
 	 
+	 protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 idContacto = request.getParameter("id");
+		 super.service(request, response);
+	 }
 
 
 	/**
@@ -92,6 +102,23 @@ public class MainServlet extends HttpServlet {
 
 		request.setAttribute("seccion", seccion);
 		dispatcher = request.getRequestDispatcher("index.jsp");
+		
+		//Locale por defecto Español
+		Locale locale = new Locale("es_ES");
+
+		//obtener lenguaje de la session del usuario
+		String language = (String) request.getSession().getAttribute("language");
+
+		if ( language != null ){
+		locale = new Locale(language);
+		}
+		log.debug("language: " + language + " locale: " + locale);
+
+
+		//Cargar resourceBundle o properties dependiente del idioma
+
+		// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale
+		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.formacion.egunon.controller.i18nmessages", locale );
 		
 		String userAgent = request.getHeader("User-Agent");
 		isMobile = userAgent.contains("Mobile") || userAgent.contains("mobile");
