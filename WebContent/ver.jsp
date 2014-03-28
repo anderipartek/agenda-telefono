@@ -1,11 +1,8 @@
 
-<%
-	String msg = (String) request.getAttribute("mensaje");
-	if (msg != null) {
-%>
+<%@ include file="core/model/forms/mensaje.jsp"%>
 <p class="errores"><%=msg%></p>
 <%
-	}
+	
 	ArrayList<Amigo> amigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
 %>
 

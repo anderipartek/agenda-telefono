@@ -1,10 +1,4 @@
-
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-%>
+<%@ include file="mensaje.jsp"%>
 
 
 <%@ include file="../../../inc/head.jsp"%>

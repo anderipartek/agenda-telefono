@@ -1,9 +1,4 @@
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-%>
+<%@ include file="mensaje.jsp"%>
 
 <!DOCTYPE html>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
@@ -48,10 +43,10 @@
 			<textarea name="anotaciones" placeholder="anotaciones">anotaciones</textarea>
 
 			<div class="botones">
-				<a title="" href="../../../index.jsp">cancelar</a> <input type="submit"
+				<a title="" href="agenda?operacion=ver">cancelar</a> <input type="submit"
 					value="insertar" name="anadir" class="boton anadir">
 			</div>
 		</form>
-	</div>
+	
 </body>
 </html>

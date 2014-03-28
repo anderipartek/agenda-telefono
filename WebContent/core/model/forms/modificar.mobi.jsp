@@ -1,9 +1,4 @@
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-%>
+<%@ include file="mensaje.jsp"%>
 
 <!DOCTYPE html>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
@@ -20,9 +15,6 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 	<script  type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
-	<script>
-	
-	</script>
 	<script type="text/javascript">
 		var url = 'servletAjax';
 		var amigos; //Array de amigos recuperados de la llamada ajax
@@ -60,7 +52,6 @@
 		//capturar evento click sobre lista de la busqueda
 		$("#listaAmigos").on('click', 'li', function() {
 			console.log($(this).index());
-			
 			//obtenemos el amigo selecionado
 			var amigo = amigos[$(this).index()];
 			
@@ -96,7 +87,7 @@
 				console.debug(index + " " + amigo.id + " " + amigo.nombre);
 
 				//añadir en la lista un li
-				$('#listaAmigos').append('<li class="elemento">' + amigo.nombre + " " + amigo.apellido +  '</li>');
+				$('#listaAmigos').append('<li> <a href="agenda?operacion=datos&id=amigo.id"' + amigo.nombre + " " + amigo.apellido +  '</li>');
 			
 			    });
 			}	
@@ -107,10 +98,14 @@
   <%@ include file="buscador.jsp"%>
   <p class="errores"><%=msg%></p>
   
-
-	<ul id="listaAmigos" class="amigos modify">
-		
+  <ul id="listaAmigos" class="amigos modify" data-role="listview">
+  
+	  
+  
   </ul>
+	
+		
+ 
   <p class="titulo">Cuales son los datos de tu amigo:</p>
       
 
@@ -131,7 +126,7 @@
 			<textarea name="anotaciones" placeholder="anotaciones">anotaciones</textarea>
 
 			<div class="botones">
-				<a title="" href="../../../index.jsp">cancelar</a> <input type="submit"
+				<a title="" href="agenda?operacion=ver">cancelar</a> <input type="submit"
 					value="Modificar" name="anadir" class="boton anadir">
 			</div>
 		</form>

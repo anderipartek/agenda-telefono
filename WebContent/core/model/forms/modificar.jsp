@@ -10,13 +10,7 @@
 	<div class="contain">
 
 		
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-	String nombre = "";
-	%>
+    <%@ include file="mensaje.jsp"%>
 	<p class="errores"><%=msg%></p>
 	
 

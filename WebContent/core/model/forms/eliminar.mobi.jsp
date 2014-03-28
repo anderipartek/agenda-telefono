@@ -1,9 +1,4 @@
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-%>
+<%@ include file="mensaje.jsp"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
 <html>
