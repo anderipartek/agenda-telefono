@@ -295,9 +295,9 @@ public class MainServlet extends HttpServlet {
 		//obtener lenguaje de la session del usuario
 		Locale locale = request.getLocale();
 
-		if ( (locale.getLanguage()+"_"+locale.getCountry()) == "en_EN"){
+		if ( (locale.getLanguage()+"_"+locale.getCountry()) == "en_EN" || locale.getLanguage() == "en"){
 			HttpSession sesion= request.getSession();
-			sesion.setAttribute("language", "es_ES");
+			sesion.setAttribute("language", "en_EN");
 			locale = new Locale("en_EN");
 		}else{
 			HttpSession sesion= request.getSession();
