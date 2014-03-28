@@ -2,6 +2,8 @@ package com.ipartek.agenda.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -22,6 +24,8 @@ import com.ipartek.agenda.bbdd.model.ModeloAgenda;
 public class AgendaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	
+	boolean isMobile;
 	private ModeloAgenda modeloAgenda;
     
 	private static String op; // Operacion a realizar
@@ -55,12 +59,31 @@ public class AgendaServlet extends HttpServlet {
 		super.init(config);
 		this.modeloAgenda = new ModeloAgenda();
 		//log.trace("init " + getServletName());
+		
+		
+		
 	}
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+				
+
+		//obtener locale del navegador
+		Locale locale = request.getLocale();
+		
+		//String con el lenguaje por defecto Ingles
+		String lang = locale.getLanguage()+"_EN";
+				
+
+				/*if (language.getCountry&&!language.equals(new Locale("eu_ES"))&&!language.equals(new Locale("en_EN"))){
+					language = new Locale("en_EN");
+				}*/
+				
+		//ResourceBundle webTexts = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18n", lang);
+	  
 		session = request.getSession(true);
+		session.setAttribute("language", lang);
 		op = (String) request.getParameter("op");
 		super.service(request, response);
 	
@@ -81,6 +104,12 @@ public class AgendaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+	    String userAgent = request.getHeader("User-Agent");
+	    
+	    isMobile = userAgent.contains("Mobile")||userAgent.contains("mobile");
+
+		
+		
 		String seccion = request.getParameter(SECCION);
 		RequestDispatcher dispatcher = null;
 		request.setAttribute("seccion", seccion);
@@ -98,6 +127,10 @@ public class AgendaServlet extends HttpServlet {
 			
 			//recogerDatos (request, response);
 			dispatcher = request.getRequestDispatcher("index.jsp");
+		}
+		
+		if (isMobile){
+			dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
 		}
 		
 		// Redirecionar a la JSP

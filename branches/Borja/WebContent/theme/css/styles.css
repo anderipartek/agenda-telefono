@@ -92,3 +92,14 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
 /* FIN NAVBAR */
 
+/* GOOGLE MAPS */
+
+
+       #map-canvas {
+        height: 200px;
+        margin: 0px;
+        padding: 0px
+      }
+      
+/* FIN GOOGLE MAPS */     
+

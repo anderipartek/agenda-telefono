@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
- 
   <servlet>
     <description></description>
     <display-name>AgendaServlet</display-name>
@@ -19,5 +18,15 @@
   <servlet-mapping>
     <servlet-name>AgendaServlet</servlet-name>
     <url-pattern>/agenda</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletAjax</display-name>
+    <servlet-name>ServletAjax</servlet-name>
+    <servlet-class>com.ipartek.agenda.controller.ServletAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAjax</servlet-name>
+    <url-pattern>/servletAjax</url-pattern>
   </servlet-mapping>
 </web-app>

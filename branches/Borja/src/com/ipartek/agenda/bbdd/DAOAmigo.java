@@ -108,7 +108,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public ArrayList<Amigo> getByNombre(String nombre) {
 		
 		ArrayList<Amigo> listaAmigos = null;
-		String sqlAmigos = "select * from amigos where nombre = ?";
+		String sqlAmigos = "select * from amigos where nombre like ?%";
 		try {
 			con = factory.getConnection();
 			con = factory.getConnection();

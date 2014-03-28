@@ -1,4 +1,5 @@
 <header class="header">
+
 	<div class="wrapper">
 		
 		<%if(request.getParameter("seccion") != null) {%>
@@ -6,8 +7,8 @@
 		<%} %>
 		<a  href="main">
 			<div class="logo">
-				<span>Agenda</span>
-				<span>online</span>
+				<span><fmt:message key="titulo.parte1" /></span>
+				<span><fmt:message key="titulo.parte2" /></span>
 					
 			</div>
 			</a>

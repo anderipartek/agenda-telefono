@@ -1,5 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 			ArrayList <Amigo> lAmigos = (ArrayList<Amigo>) request.getAttribute("listaAmigos");
   			Amigo a; 
@@ -11,7 +13,9 @@
   			}
 %>
 
-
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'es_ES'}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="com.ipartek.agenda.controller.i18n" /> 
 
 
 
