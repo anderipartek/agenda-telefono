@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<c:set var="language" value="${requestScope.language}" />
+<c:set var="language" value="${sesionScope.language}" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="com.ipartek.agenda.controller.i18ntexto" />    
       
