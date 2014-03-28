@@ -2,6 +2,8 @@ package com.ipartek.agenda.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,13 +47,32 @@ public class MainServlet extends HttpServlet {
 	public static final String ERROR = "error";
 	public static final String ERROR_ID_EMPTY = "error_id_empty";
 
+	private boolean isMobile;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public MainServlet() {
 		super();
 	}
+	@Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String userAgent = request.getHeader("User-Agent");
+		this.isMobile = userAgent.contains("Mobile") || userAgent.contains("mobile");
+		 
+		//Locale por defecto Español
+		Locale locale = new Locale("es_ES");
 
+		//obtener lenguaje de la session del usuario
+		if (request.getLocale() != null){
+			locale = request.getLocale();
+		}
+		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18nmain", locale);		
+
+
+		 super.service(request, response);
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -65,7 +86,7 @@ public class MainServlet extends HttpServlet {
 
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)) {
+		} else if (MODIFICAR.equals(seccion))  {
 			if (request.getParameter(NOMBRE_A_BUSCAR) != null) {
 				// http://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
 				// Set content type of the response so that jQuery knows what it
@@ -84,7 +105,11 @@ public class MainServlet extends HttpServlet {
 					} catch (Exception e) {
 					}
 				}
-				dispatcher = request.getRequestDispatcher("modificar.jsp");
+				
+				if (this.isMobile)
+					dispatcher = request.getRequestDispatcher("modificar.mobi.jsp");
+				else
+					dispatcher = request.getRequestDispatcher("modificar.jsp");
 			}
 		} else if (ELIMINAR.equals(seccion)) {
 			if (request.getParameter("id") != null) {
@@ -97,10 +122,16 @@ public class MainServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		} else if (VER.equals(seccion)) {
 			request.setAttribute(LISTA_AMIGOS, getAll());
-			dispatcher = request.getRequestDispatcher("ver.jsp");
+			
+			if (this.isMobile){
+				dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+			} else {
+				dispatcher = request.getRequestDispatcher("ver.jsp");
+			}
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
+		
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}
@@ -130,7 +161,10 @@ public class MainServlet extends HttpServlet {
 			request.setAttribute(SECCION, MODIFICAR);
 			request.setAttribute(OPERACION_MODIFICAR, modificarAmigo(amigo));
 			request.setAttribute(AMIGO, amigo);
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			if (this.isMobile)
+				dispatcher = request.getRequestDispatcher("modificar.mobi.jsp");
+			else
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
 		} else if (OPERACION_ELIMINAR.equals(operacion)) {
 			String id = request.getParameter(DAOAmigo.ID);
 			if (!id.isEmpty()) {
@@ -154,6 +188,7 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute(ERROR, ERROR_ID_EMPTY);
 			}
 		}
+		
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		}
