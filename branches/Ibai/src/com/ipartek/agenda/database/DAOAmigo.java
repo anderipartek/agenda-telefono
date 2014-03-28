@@ -241,7 +241,7 @@ public class DAOAmigo implements IDAOAmigo {
 			amigo.setId(rsParam.getInt(ID));
 			amigo.setNombre(rsParam.getString(NOMBRE));
 			amigo.setApellido(rsParam.getString(APELLIDO));
-			amigo.setCalle(rsParam.getString(APELLIDO));
+			amigo.setCalle(rsParam.getString(CALLE));
 			amigo.setCp(rsParam.getInt(CP));
 			amigo.setLocalidad(rsParam.getString(LOCALIDAD));
 			amigo.setProvincia(rsParam.getString(PROVINCIA));
