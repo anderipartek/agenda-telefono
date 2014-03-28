@@ -25,26 +25,34 @@
 
 		// Try HTML5 geolocation
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = new google.maps.LatLng(position.coords.latitude,
-						position.coords.longitude);
+			navigator.geolocation
+					.getCurrentPosition(
+							function(position) {
+								var pos = new google.maps.LatLng(
+										position.coords.latitude,
+										position.coords.longitude);
 
-				var infowindow = new google.maps.InfoWindow({
-					map : map,
-					position : pos,
-					content : 'Te hemos geolocalizado, estas en: [<b>latitud</b>'+ position.coords.latitude+',<b>longitud</b>'+ position.coords.longitude +']'
-				});
-				
-				var marker = new google.maps.Marker({
-				      position: pos,
-				      map: map,
-				      title: 'Ongi Etorri!'
-				  });
+								var infowindow = new google.maps.InfoWindow(
+										{
+											map : map,
+											position : pos,
+											content : 'Te hemos geolocalizado, estas en: [<b>latitud</b>'
+													+ position.coords.latitude
+													+ ',<b>longitud</b>'
+													+ position.coords.longitude
+													+ ']'
+										});
 
-				map.setCenter(pos);
-			}, function() {
-				handleNoGeolocation(true);
-			});
+								var marker = new google.maps.Marker({
+									position : pos,
+									map : map,
+									title : 'Ongi Etorri!'
+								});
+
+								map.setCenter(pos);
+							}, function() {
+								handleNoGeolocation(true);
+							});
 		} else {
 			// Browser doesn't support Geolocation
 			handleNoGeolocation(false);
@@ -54,6 +62,15 @@
 	// Cuando esta cargada la api se carga, como el document ready de jquery
 	google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
+
+
+<!--  <div id="idiomas">
+	Selecciona tu idioma, por favor <select name="select">
+		<option value="EN">Inglés</option>
+		<option value="ES" selected>Castellano</option>
+	</select>
+</div>-->
 <%@include file="/inc/navBar.jsp"%>
 
 

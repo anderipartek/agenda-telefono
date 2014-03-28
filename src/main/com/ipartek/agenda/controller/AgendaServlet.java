@@ -2,6 +2,8 @@ package com.ipartek.agenda.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -19,6 +21,7 @@ import com.ipartek.agenda.interfaces.IDAOAmigo;
 import com.ipartek.agenda.modelo.ConnectionFactory;
 import com.ipartek.agenda.modelo.DAOAmigo;
 import com.ipartek.agenda.util.Util;
+import com.ipartek.agenda.controller.i18nmessages.Menssagges;
 
 /**
  * Servlet implementation class AmigoServlet.
@@ -26,34 +29,36 @@ import com.ipartek.agenda.util.Util;
 public class AgendaServlet extends MainServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	static final Logger LOG = Logger.getLogger(DAOAmigo.class);
+	static final Logger LOG = Logger.getLogger(AgendaServlet.class);
 
 	private static RequestDispatcher dispatcher;
 	private static IDAOAmigo modeloAmigo;
-	
+
 	private static final int COD_MSG_NOTFOUND = 200;
 	private static final int COD_MSG_ERRORDATOS = 500;
 	private static final String TIPO_ERROR = "ERR";
-	
+
 	private String opcion;
 	private Amigo amigo;
 	private ArrayList<Amigo> listaAmigos;
-	
-	
+
+	private static Locale locale;
+
+	private boolean isMobile = false;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public AgendaServlet() {
 		super();
-		
+
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 
 		modeloAmigo = ConnectionFactory.getInstance().getDAOAmigo();
+
 		super.init(config);
 	}
 
@@ -68,22 +73,59 @@ public class AgendaServlet extends MainServlet {
 	/**
 	 * 
 	 * @param request
+	 * @param key
+	 * @return
+	 */
+	private static String obtenerMensages(HttpServletRequest request, String key) {
+
+		locale = Menssagges.getLanguage(request);
+
+		ResourceBundle messages = ResourceBundle.getBundle(Menssagges.NOMBRE_PAQUETE, locale);
+
+		return messages.getString(key);
+	}
+
+	/**
+	 * 
+	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// Detecta si es móvil o no
+		detectUserAgent(request);
+
+		// Obtiene el idoma de la aplicación
+
 		// recoger el parametro id
 		final String idAmigo = (String) request.getParameter("id");
-		
-		
-		if (idAmigo == null) {
 
-			// Devuelve la información de todos los amigos
+		if (idAmigo == null) {
 			listarAmigos(request, response);
+			if (!isMobile) {
+				// Devuelve la información de todos los amigos
+
+				dispatcher = request.getRequestDispatcher("ver.jsp");
+
+				dispatcher.forward(request, response);
+			} else {
+				dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+				dispatcher.forward(request, response);
+			}
 		} else {
 			String accion = (String) request.getParameter("op");
 			detalleAmigo(request, response, idAmigo, accion);
+		}
+
+	}
+
+	private void detectUserAgent(HttpServletRequest request) {
+		isMobile = false;
+		String userAgent = (String) request.getHeader("User-Agent");
+		if (userAgent.contains("Mobile") || userAgent.contains("mobile")) {
+			isMobile = true;
 		}
 
 	}
@@ -104,39 +146,45 @@ public class AgendaServlet extends MainServlet {
 		request.setAttribute("listaAmigos", amigos);
 
 		// Dispatcher.forward
-		dispatcher = request.getRequestDispatcher("ver.jsp");
 
-		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * Método para devolver los datos de un amigo para las siguientes operaciones.
+	 * Método para devolver los datos de un amigo para las siguientes
+	 * operaciones.
 	 * <ol>
-	 * 	<li>Modificar</li>
-	 * 	<li>Eliminar</li>
+	 * <li>Modificar</li>
+	 * <li>Eliminar</li>
 	 * </ol>
+	 * 
 	 * @param request
 	 * @param response
 	 * @param id
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response, String id, String accion) throws ServletException, IOException {
+	private void detalleAmigo(HttpServletRequest request, HttpServletResponse response, String id, String accion) throws ServletException,
+			IOException {
 		// Pasar el id del amigo a int para poder buscar por id
 		final int idAmigo = Integer.parseInt(id);
 
 		// buscar el amigo en la tabla
 		final Amigo amigoEncontrado = modeloAmigo.getById(idAmigo);
+
 		if (amigoEncontrado != null) {
 			// Se ha encontrado sin problema
 			// devolver el amigo encontrado
 			// Obtener si se elimina o si se modifica el alumno
-			
-			
+
 			request.setAttribute("amigo", amigoEncontrado);
+			detectUserAgent(request);
 			if (MainServlet.OP_MODIFICAR.equalsIgnoreCase(accion)) {
-				dispatcher = request.getRequestDispatcher("modificar.jsp");
-			}else{
+				if (!isMobile) {
+					dispatcher = request.getRequestDispatcher("modificar.jsp");
+				} else {
+					dispatcher = request.getRequestDispatcher("modificar.mobi.jsp");
+				}
+			} else {
 				request.setAttribute("eliminando", String.valueOf(amigoEncontrado.getId()));
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			}
@@ -146,7 +194,11 @@ public class AgendaServlet extends MainServlet {
 			// Establecer mensaje de error que no se ha podidio encontrar el
 			// amigo
 
-			request.setAttribute("msg", new Mensajes("El amigo no existe......", COD_MSG_NOTFOUND, "WARN"));
+			// Rcuperar los mensajes correspondientes
+			String amigo = obtenerMensages(request, "amigo");
+			String noEncontrado = obtenerMensages(request, "noEncontrado");
+
+			request.setAttribute("msg", new Mensajes(amigo + id + noEncontrado, COD_MSG_NOTFOUND, "WARN"));
 
 			dispatcher = request.getRequestDispatcher("ver.jsp");
 		}
@@ -206,15 +258,18 @@ public class AgendaServlet extends MainServlet {
 
 		// Guardar la operación que se ha realizado
 		request.setAttribute("operacion", "");
-		
+
 		if (idNuevo > 0) {
 			// Mensaje de alumno insertado correctamente
-			request.setAttribute("msg", new Mensajes(
-					"El amigo se ha introducido correctamente....",
-					COD_MSG_NOTFOUND, "INFO"));
+
+			// Recuperar mensajes
+			String amigo = obtenerMensages(request, "elAmigo");
+			String insertadoOK = obtenerMensages(request, "insertadoOK");
+
+			request.setAttribute("msg", new Mensajes(amigo + amigoNuevo.getNombre() + insertadoOK, COD_MSG_NOTFOUND, "INFO"));
 			// Guardar el nombre del amigo con el que se ha trabajado
 			request.setAttribute("nombreAmigo", amigoNuevo.getNombre());
-			
+
 			// Redirección a operacion correcta
 			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
 
@@ -223,16 +278,15 @@ public class AgendaServlet extends MainServlet {
 			request.setAttribute("amigos", amigoNuevo);
 
 			// Mensaje de error
-			request.setAttribute("msg", new Mensajes(
-					"El amigo no se ha introducido correctamente....",
-					COD_MSG_NOTFOUND, TIPO_ERROR));
+			request.setAttribute("msg", new Mensajes("El amigo " + amigoNuevo.getNombre() + " no se ha introducido correctamente.", COD_MSG_NOTFOUND,
+					TIPO_ERROR));
 
 			// Redirección a añadir amigo
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		}
 		dispatcher.forward(request, response);
 	}
-	
+
 	/**
 	 * Método para realizar la operación de modificar un amigo.
 	 * 
@@ -244,20 +298,18 @@ public class AgendaServlet extends MainServlet {
 	private void modificarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recoger los datos del amigo
 
-		final Amigo amigoModificar = recogerDatosAmigo(request , response , MainServlet.OP_MODIFICAR);
+		final Amigo amigoModificar = recogerDatosAmigo(request, response, MainServlet.OP_MODIFICAR);
 
 		// intentar gusdar los datos en la bbdd
-		final boolean actualizado = modeloAmigo.update(
-				amigoModificar, amigoModificar.getId());
+		final boolean actualizado = modeloAmigo.update(amigoModificar, amigoModificar.getId());
 
 		if (actualizado) {
 			// Mensaje de alumno insertado correctamente
-			request.setAttribute("msg", new Mensajes(
-					"El amigo se ha introducido correctamente....",
-					COD_MSG_NOTFOUND, "INFO"));
+			request.setAttribute("msg", new Mensajes("El amigo " + amigoModificar.getNombre() + " se ha modificado correctamente.", COD_MSG_NOTFOUND,
+					"INFO"));
 			// Guardar el nombre del amigo con el que se ha trabajado
 			request.setAttribute("nombreAmigo", amigoModificar.getNombre());
-			
+
 			// Redirección a operacion correcta
 			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
 
@@ -266,8 +318,7 @@ public class AgendaServlet extends MainServlet {
 			request.setAttribute("amigo", amigoModificar);
 
 			// Mensaje de error
-			request.setAttribute("msg", new Mensajes(
-					"El amigo no se ha introducido correctamente....",
+			request.setAttribute("msg", new Mensajes("El amigo " + amigoModificar.getNombre() + " no se ha introducido correctamente.",
 					COD_MSG_NOTFOUND, TIPO_ERROR));
 
 			// Redirección a añadir amigo
@@ -286,47 +337,43 @@ public class AgendaServlet extends MainServlet {
 	 */
 	private void eliminarAmigo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener el id del amigo a eliminar
-		final int idAmigoEliminar = Integer.parseInt((String)
-				request.getParameter("id"));
+		final int idAmigoEliminar = Integer.parseInt((String) request.getParameter("id"));
 		// Buscar el amigo por el id
 		Amigo amigoEliminar = modeloAmigo.getById(idAmigoEliminar);
 		if (amigoEliminar != null) {
-		// Eliminar el amigo
+			// Eliminar el amigo
 			final boolean eliminado = modeloAmigo.delete(idAmigoEliminar);
 			if (eliminado) {
 				// Mensaje de información
-				request.setAttribute("msg", new Mensajes(
-						"El amigo borrado correctamente....",
-						COD_MSG_NOTFOUND, "INFO"));
+				request.setAttribute("msg", new Mensajes("El amigo " + amigoEliminar.getNombre() + " se ha borrado correctamente.", COD_MSG_NOTFOUND,
+						"INFO"));
 				// Guardar el nombre del amigo con el que se ha trabajado
 				request.setAttribute("nombreAmigo", amigoEliminar.getNombre());
-				
+
 				// Redirección a añadir amigo
 				dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
 			} else {
 				// Mensaje de error
-				request.setAttribute("msg", new Mensajes(
-						"El amigo no se ha borrado correctamente....",
+				request.setAttribute("msg", new Mensajes("El amigo " + amigoEliminar.getNombre() + " no se ha borrado correctamente.",
 						COD_MSG_NOTFOUND, TIPO_ERROR));
-	
+
 				// Redirección a añadir amigo
 				dispatcher = request.getRequestDispatcher("eliminar.jsp");
 			}
 		} else {
 			// Mensaje de error
-			request.setAttribute("msg", new Mensajes(
-								"El amigo no se encuentra entre tus amigos",
-								COD_MSG_NOTFOUND, TIPO_ERROR));
+			request.setAttribute("msg", new Mensajes("El amigo " + idAmigoEliminar + " no se encuentra entre tus amigos", COD_MSG_NOTFOUND,
+					TIPO_ERROR));
 
-			//Redirección a añadir amigo
+			// Redirección a añadir amigo
 			dispatcher = request.getRequestDispatcher("eliminar.jsp");
 		}
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * Método para realizar la operación de búsqueda 
-	 * en el caso de pinchar en el botón de búscar.
+	 * Método para realizar la operación de búsqueda en el caso de pinchar en el
+	 * botón de búscar.
 	 * 
 	 * @param request
 	 * @param response
@@ -335,21 +382,20 @@ public class AgendaServlet extends MainServlet {
 	 * @throws IOException
 	 */
 	private void buscarOperacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// Obtener el nombre de bíusqueda
 		final String nombre = (String) request.getAttribute("nombre");
-				
+
 		listaAmigos = Util.getAmigoBusqueda(nombre);
-		
+
 		// Devolver los resultados
-		 request.setAttribute("listaAmigos", listaAmigos);
-		 
-		 dispatcher = request.getRequestDispatcher("index.jsp");
-		 
-		 dispatcher.forward(request, response);
+		request.setAttribute("listaAmigos", listaAmigos);
+
+		dispatcher = request.getRequestDispatcher("index.jsp");
+
+		dispatcher.forward(request, response);
 	}
-	
-	
+
 	/**
 	 * Método para rellenar los datos del amigo que se desea modificar o añadir.
 	 * 
@@ -358,22 +404,22 @@ public class AgendaServlet extends MainServlet {
 	 * @param operacion
 	 * 
 	 * @return Amigo con con el que se va a realizar alguna operación
-	 * @throws IOException 
-	 * @throws ServletException 
+	 * @throws IOException
+	 * @throws ServletException
 	 */
 	private Amigo recogerDatosAmigo(HttpServletRequest request, HttpServletResponse response, String operacion) throws ServletException, IOException {
-		 amigo = new Amigo();
+		amigo = new Amigo();
 
 		final String nombre = (String) request.getParameter("nombre");
 		final String apellido = (String) request.getParameter("apellido");
 		final String localidad = (String) request.getParameter("localidad");
 		final String calle = (String) request.getParameter("calle");
-		final String provincia = (String) request.getParameter("provincia"); 
+		final String provincia = (String) request.getParameter("provincia");
 		final int codigoPostal = Integer.parseInt(request.getParameter("CP"));
 		final int fijo = Integer.parseInt(request.getParameter("fijo"));
 		final int movil = Integer.parseInt(request.getParameter("movil"));
-		final String anotaciones = (String)request.getParameter("anotaciones");
-		
+		final String anotaciones = (String) request.getParameter("anotaciones");
+
 		if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
 			amigo.setId(Integer.parseInt(request.getParameter("id")));
 		}
@@ -391,24 +437,23 @@ public class AgendaServlet extends MainServlet {
 		} catch (AmigoException ex) {
 			// Escribir en el log que se ha producido un error
 			LOG.fatal("Se ha producido un error al crear el nuevo amigo");
-			
+
 			// Recoger todos los datos que son incorrectos
-				request.setAttribute("nombre", nombre);
-				request.setAttribute("apellido", apellido);
-				request.setAttribute("localidad", localidad);
-				request.setAttribute("calle", calle);
-				request.setAttribute("provincia", provincia);
-				request.setAttribute("CP", codigoPostal);
-				request.setAttribute("fijo", fijo);
-				request.setAttribute("movil", movil);
-				request.setAttribute("anotaciones", anotaciones);
-				
+			request.setAttribute("nombre", nombre);
+			request.setAttribute("apellido", apellido);
+			request.setAttribute("localidad", localidad);
+			request.setAttribute("calle", calle);
+			request.setAttribute("provincia", provincia);
+			request.setAttribute("CP", codigoPostal);
+			request.setAttribute("fijo", fijo);
+			request.setAttribute("movil", movil);
+			request.setAttribute("anotaciones", anotaciones);
+
 			// Establecer el mensaje de error que se ha producido.
-				request.setAttribute("msg", new Mensajes(
-						"Datos incorrectos " + ex.getMensajeError(),
-						COD_MSG_ERRORDATOS , TIPO_ERROR));
-				dispatcher = request.getRequestDispatcher(operacion + ".jsp");
-				dispatcher.forward(request, response);
+			request.setAttribute("msg", new Mensajes("Datos incorrectos " + ex.getMensajeError() + ", por favor revisa los datos introducidos.",
+					COD_MSG_ERRORDATOS, TIPO_ERROR));
+			dispatcher = request.getRequestDispatcher(operacion + ".jsp");
+			dispatcher.forward(request, response);
 		}
 
 		return amigo;
