@@ -95,6 +95,12 @@ public class AgendaServlet extends ServletMaestro {
 				log.trace("Redirigiendo a modificar.jsp");
 				dispatcher=request.getRequestDispatcher("core/model/forms/modificar.mobi.jsp");
 			}
+			//redirigir a index.jsp al iniciar la aplicación
+			else 
+			{
+				log.trace("Redirigiendo a index.jsp" );	
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			}
 			
 		}
 		//si nos conectamos mediante el ordenador
@@ -142,6 +148,7 @@ public class AgendaServlet extends ServletMaestro {
 				log.trace("Redirigiendo a index.jsp" );	
 				dispatcher = request.getRequestDispatcher("index.jsp");
 			}
+			
 		}
 		log.trace("Fin AgendaServlet doGet" );
 		dispatcher.forward(request, response);

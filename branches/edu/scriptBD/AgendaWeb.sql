@@ -45,7 +45,7 @@ CREATE TABLE `amigos` (
 
 LOCK TABLES `amigos` WRITE;
 /*!40000 ALTER TABLE `amigos` DISABLE KEYS */;
-INSERT  IGNORE INTO `amigos` (`id`, `nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (125,'Eduardo','Monterrubio','Tyu',48991,'Algorta','Vizcaya',111111111,111111111,'Me llamo eduardo'),(127,'Gari','Elorrieta','Piscinas',48995,'Gasteiz','Alava',333333333,333333333,'Soy gari'),(128,'Borja','Perez','callewerwerwe',48996,'Getxo','Vizcaya',444444444,444444444,'Soy borja'),(129,'Saioa','Ruiz','Bidebarrieta',48991,'Cruces','Vizcaya',555555555,555555555,'Soy saioa '),(130,'Javier','Torres','Racasa',48996,'Bilbao','Vizcaya',666666666,666666666,'Soy javi'),(132,'Eduardo','apellido','calle',48991,'localidad','provincia',111111111,111111111,'anotaciones');
+INSERT  IGNORE INTO `amigos` (`id`, `nombre`, `apellido`, `calle`, `cp`, `localidad`, `provincia`, `movil`, `fijo`, `anotaciones`) VALUES (125,'Eduardo','Monterrubio','Tyu',48991,'Algorta','Vizcaya',111111111,111111111,'Me llamo eduardo'),(127,'Gari','Elorrieta','Piscinas',48995,'Gasteiz','Alava',333333333,333333333,'Soy gari'),(128,'Borja','Perez','callewerwerwe',48996,'Getxo','Vizcaya',444444444,444444444,'Soy borja'),(129,'Saioa','Ruiz','Bidebarrieta',48991,'Cruces','Vizcaya',555555555,555555555,'Soy saioa '),(130,'Javier','Torres','Racasa',48996,'Bilbao','Vizcaya',666666666,666666666,'Soy javi'),(132,'Eduardo','Perez','calle',48991,'localidad','provincia',111111111,111111111,'anotaciones');
 /*!40000 ALTER TABLE `amigos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

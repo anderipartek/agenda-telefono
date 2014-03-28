@@ -1,4 +1,4 @@
-
+<%@ include file="core/model/forms/mensaje.jsp"%>
 <!DOCTYPE html>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.ArrayList"%>
@@ -29,16 +29,15 @@
 </div>
 
 <div data-role="content" class="">
-<%
-	String msg = (String) request.getAttribute("mensaje");
+<% 
 	if (msg != null) {%>
 		<p class="errores"><%=msg%></p>
 	<% }%>
 
-<a href="core/model/forms/anadir.mobi.jsp" data-role="button" data-inline="true" data-theme="a">Insertar</a>
-<a href="core/model/forms/modificar.mobi.jsp" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
-<a href="core/model/forms/eliminar.mobi.jsp" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
-<a href="" data-role="button"  data-inline="true" data-theme="d">Ver todos</a>
+<a href="agenda?operacion=anadir" data-role="button" data-inline="true" data-theme="a">Insertar</a>
+<a href="agenda?operacion=modificar" data-role="button"  data-inline="true" data-theme="b">Modificar</a>
+<a href="agenda?operacion=eliminar" data-role="button" data-inline="true" data-theme="c">Eliminar</a>
+<a href="agenda?operacion=ver" data-role="button"  data-inline="true" data-theme="d">Ver todos</a>
 <ul data-role="listview" data-filter="true" data-autodividers="true">
 <%
   ArrayList<Amigo> list=(ArrayList<Amigo>)request.getAttribute("listaAmigos");

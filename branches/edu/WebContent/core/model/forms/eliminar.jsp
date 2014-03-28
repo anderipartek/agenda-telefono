@@ -1,10 +1,6 @@
 
-<%
-	String msg = (String) request.getAttribute("Mensaje");
-	if (msg == null) {
-		msg = "";
-	}
-
+<%@ include file="mensaje.jsp"%>
+<% 
 	Amigo a = (Amigo) request.getAttribute("Amigo");
 	String nombre = "";
 	String apellidos = "";
