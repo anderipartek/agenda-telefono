@@ -121,8 +121,8 @@
 			};
 			
 			function drawContainer(){
-				$('#listContainer').append('<p class="txt">Seleccionalo de la lista</p>')
-					.append('<ul data-role="listview" data-inset="true" class="amigos modify" id="listaAmigosModificar">')
+				$('#listContainer').append('<p>Seleccionalo de la lista</p>')
+					.append('<ul data-role="listview" data-inset="true" id="listaAmigosModificar">')
 					.append('</ul>');
 			}
 			

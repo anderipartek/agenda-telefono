@@ -290,7 +290,7 @@ public class MainServlet extends HttpServlet {
 
 	private void cargarIdioma(HttpServletRequest request){
 		//Locale por defecto Español
-		Locale localeDef = new Locale("es_ES");
+		//Locale localeDef = new Locale("es_ES");
 
 		//obtener lenguaje de la session del usuario
 		Locale locale = request.getLocale();
@@ -298,11 +298,11 @@ public class MainServlet extends HttpServlet {
 		if ( (locale.getLanguage()+"_"+locale.getCountry()) == "en_EN" || locale.getLanguage() == "en"){
 			HttpSession sesion= request.getSession();
 			sesion.setAttribute("language", "en_EN");
-			locale = new Locale("en_EN");
+			//locale = new Locale("en_EN");
 		}else{
 			HttpSession sesion= request.getSession();
 			sesion.setAttribute("language", "es_ES");
-			locale = localeDef;
+			//locale = localeDef;
 		}
 		log.debug("locale: " + locale);
 
@@ -310,7 +310,7 @@ public class MainServlet extends HttpServlet {
 		//Cargar resourceBundle o properties dependiente del idioma
 
 		// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale 
-		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18ntexto", locale );
+		//ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18ntexto", locale );
 
 	}
 
