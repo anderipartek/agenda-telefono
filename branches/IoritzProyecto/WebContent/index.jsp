@@ -5,6 +5,7 @@
 <%--!public static String seccion; --%>
 
 <%@ include file="inc/head.jsp"%>
+<fmt:message key="navmenu.op1"/>
 <!-- HEADER -->
 <%@ include file="inc/header.jsp" %>
 <section class="wrapper content">
