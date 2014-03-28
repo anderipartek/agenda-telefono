@@ -92,6 +92,12 @@ body#home { background: url(../img/bg_body.jpg) no-repeat center 98px;}
 
 /* FIN NAVBAR */
 
+/* ELIMINAR */
+#borrado {
+	display: none;
+}
+/* FIN ELIMINAR */
+
 /* GOOGLE MAPS */
  #map-canvas {height: 300px; margin: 0px; padding: 0px}
 

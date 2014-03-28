@@ -100,19 +100,33 @@ public class AgendaServlet extends MainServlet {
 			IOException {
 		LOG.trace("doGet inicio");
 		op = request.getParameter("op");
-		if (op.equalsIgnoreCase(OP_VISUALIZAR)) {
-			if (visualizar(request, response)) {
+		String opMod = request.getParameter("opMod");
+		if (OP_VISUALIZAR.equalsIgnoreCase(op)) {
+			if (!detectMobile(request, response)) {
 				dispatcher = request.getRequestDispatcher("main?seccion=ver");
+			} else {
+				dispatcher = request.getRequestDispatcher("ver.mobile.jsp");
+			}
+			if (visualizar(request, response)) {
 				request.setAttribute("lista", listaAmigos);
 			}
-		} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
+		} else if (OP_ELIMINAR.equalsIgnoreCase(op)) {
 			getRecogerSelecionado(request, response);
 			dispatcher = request.getRequestDispatcher("main?seccion=eliminar");
-		} else if (op.equalsIgnoreCase(OP_MODIFICAR)) {
+		} else if (OP_MODIFICAR.equalsIgnoreCase(op)
+				|| OP_MODIFICAR.equalsIgnoreCase(opMod)) {
 			getRecogerSelecionado(request, response);
 			a = modelo.recogerUno(idAmigo);
 			request.setAttribute("amigoDatos", a);
-			dispatcher = request.getRequestDispatcher("main?seccion=modificar");
+			if (!detectMobile(request, response)) {
+				dispatcher = request
+						.getRequestDispatcher("main?seccion=modificar");
+			} else {
+				dispatcher = request
+						.getRequestDispatcher("modificar.mobile.jsp");
+			}
+		} else {
+			dispatcher = request.getRequestDispatcher("ver.mobile.jsp");
 		}
 		dispatcher.forward(request, response);
 		LOG.trace("doGet fin");
@@ -149,6 +163,7 @@ public class AgendaServlet extends MainServlet {
 							(a.getNombre() + " " + a.getApellido()));
 				}
 			} else if (op.equalsIgnoreCase(OP_ELIMINAR)) {
+				idAmigo = Integer.parseInt(request.getParameter("id"));
 				if (eliminar(request, response)) {
 					dispatcher = request
 							.getRequestDispatcher("main?seccion=eliminar");
@@ -182,6 +197,21 @@ public class AgendaServlet extends MainServlet {
 		}
 		dispatcher.forward(request, response);
 		LOG.trace("doPost fin");
+	}
+
+	/**
+	 * Detectar si es movil.
+	 * 
+	 * @param request request
+	 * @param response response
+	 * @return true si es movil\false si no es movil
+	 */
+	private boolean detectMobile(final HttpServletRequest request,
+			final HttpServletResponse response) {
+		boolean result;
+		String userAgent = request.getHeader("User-Agent");
+		result = userAgent.contains("Mobile");
+		return result;
 	}
 
 	/**

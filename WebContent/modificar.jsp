@@ -34,16 +34,6 @@
 	<p class="txt">Seleccionalo de la lista</p>
 	<ul id="listaAmigos" class="amigos modify">
 		<li>Busca un Amigos para modificar</li>
-		<!-- li>
-			<form action="agenda" method="get">
-				<input type="submit" name="amigo" value="aaa"> <input
-					type="hidden" name="buscar" value="ok"> <input
-					type="hidden" name="nombre" value="aaa">
-				<input type="hidden" name="id" value="aaa">
-				<input type="hidden" name="op" value="modificar">
-			</form>
-		</li -->
-
 	</ul>
 
 

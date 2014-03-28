@@ -1,6 +1,8 @@
 package com.ipartek.agenda.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,6 +61,7 @@ public class MainServlet extends HttpServlet {
 			PropertyConfigurator.configure(prefix + log4jPath);
 		}
 		LOG.trace("Init " + getServletName());
+
 	}
 
 	/**
@@ -81,6 +84,19 @@ public class MainServlet extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 		LOG.trace("doGet MainServlet fin");
+		// Locale por defecto Español
+		Locale locale = new Locale("es_ES");
+
+		// obtener lenguaje de la session del usuario
+		String language = (String) request.getSession()
+				.getAttribute("language");
+		if (language != null) {
+			locale = new Locale(language);
+		}
+
+		LOG.debug("language: " + language + " locale: " + locale);
+		ResourceBundle.getBundle("com.ipartek.agenda.controller.i18nmessages",
+				locale);
 	}
 
 	/**

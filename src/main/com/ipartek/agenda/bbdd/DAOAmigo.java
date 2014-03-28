@@ -73,7 +73,7 @@ public class DAOAmigo implements IAmigable {
 	/**
 	 * 
 	 */
-	private static final String SQL_ALL = "select * from amigos";
+	private static final String SQL_ALL = "select * from amigos order by nombre";
 	/**
 	 * 
 	 */
