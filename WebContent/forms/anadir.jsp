@@ -7,7 +7,7 @@
 		
 		<form method="POST" action="agenda">				
 			<input type="hidden" placeholder="id" name="id" value="${requestScope.amigo.id}">		
-			<input type="text" placeholder="nombre" name="nombre" value="${requestScope.amigo.nombre}">
+			<input type="text" placeholder="<fmt:message key="form.nombre" />" name="<fmt:message key="form.nombre" />" value="${requestScope.amigo.nombre}">
 			<input type="text" placeholder="apellido" name="apellido" value="${requestScope.amigo.apellido }">
 			<input type="text" placeholder="calle" name="calle" value="${requestScope.amigo.calle}">
 			<input type="text" pattern="[0-9]{5}" placeholder="cp 48004" name="CP" value="${requestScope.amigo.cp}">
