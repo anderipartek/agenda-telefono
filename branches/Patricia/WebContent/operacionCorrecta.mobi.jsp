@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Modificar | Versión Móvil</title>
+<title>Operacion Correcta | Versión Móvil</title>
 
 <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css">
 <link rel="stylesheet" href="_assets/css/jqm-demos.css">
@@ -31,22 +31,33 @@
 </head>
 
 <body>
-<div data-role="header" class="">
+	<div data-role="page" id="correcta" class="">
+		<div data-role="header" class="">
 			<h1>Operación correcta</h1>
 			<a href="agenda" data-role="button" data-icon="back">Back</a>
 			<!--  <a href="#" data-role="button" data-icon="back">Home</a>-->
-		</div><!-- /Header -->
+		</div>
+		<!-- /Header -->
 
-<div class="contain">
-	<p>Se ha 
-		 ${requestScope.operacion}
-		correctamente a 
-		<span>${requestScope.nombreAmigo}</span> 
-		a la agenda</p>
-	<h3>¿Qué puedes hacer ahora?</h3>
-	<ul class="links">
-		<li><a href="main?seccion=anadir" class="boton anadir">añadir a un amigo</a></li>
-		<li><a href="main?seccion=modificar" class="boton modificar">modificar a un amigo</a></li>
-		<li><a href="main?seccion=eliminar" class="boton eliminar">eliminar a un amigo</a></li>
-	</ul>
-</div>
+		<div data-role="content" class="">
+			<div class="contain">
+				<p>
+					Se ha ${requestScope.operacion} correctamente a <span>${requestScope.nombreAmigo}</span>
+					a la agenda
+				</p>
+				<h3>¿Qué puedes hacer ahora?</h3>
+				<ul class="links" data-role="listview">
+					<li><a href="anadir.mobi.jsp" data-role="button"
+						data-inline="false" class="boton anadir">añadir a un amigo</a></li>
+					<li><a href="modificar.mobi.jsp" data-role="button"
+						data-inline="false" class="boton modificar">modificar a un
+							amigo</a></li>
+					<li><a href="eliminar.mobi.jsp" data-role="button"
+						data-inline="false" class="boton eliminar">eliminar a un amigo</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

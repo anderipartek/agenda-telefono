@@ -416,12 +416,18 @@ public class AgendaServlet extends MainServlet {
 		// Obtener el nombre de bíusqueda
 		final String nombre = (String) request.getAttribute("nombre");
 
+		detectUserAgent(request);
+		
 		listaAmigos = Util.getAmigoBusqueda(nombre);
 
 		// Devolver los resultados
 		request.setAttribute("listaAmigos", listaAmigos);
 
-		dispatcher = request.getRequestDispatcher("index.jsp");
+		if(!isMobile){
+			dispatcher = request.getRequestDispatcher("index.jsp");
+		}else{
+			dispatcher = request.getRequestDispatcher("ver.mobi.jsp");
+		}
 
 		dispatcher.forward(request, response);
 	}
