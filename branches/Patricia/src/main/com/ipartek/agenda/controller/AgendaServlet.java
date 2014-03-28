@@ -256,6 +256,8 @@ public class AgendaServlet extends MainServlet {
 		// intentar gusdar los datos en la bbdd
 		final int idNuevo = modeloAmigo.insertAmigo(amigoNuevo);
 
+		detectUserAgent(request);
+
 		// Guardar la operación que se ha realizado
 		request.setAttribute("operacion", "");
 
@@ -270,8 +272,13 @@ public class AgendaServlet extends MainServlet {
 			// Guardar el nombre del amigo con el que se ha trabajado
 			request.setAttribute("nombreAmigo", amigoNuevo.getNombre());
 
-			// Redirección a operacion correcta
-			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			if (!isMobile) {
+				// Redirección a operacion correcta
+				dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			} else {
+				// Redirección a operacion correcta
+				dispatcher = request.getRequestDispatcher("operacionCorrecta.mobi.jsp");
+			}
 
 		} else {
 			// Devolver el amigo
@@ -280,9 +287,12 @@ public class AgendaServlet extends MainServlet {
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes("El amigo " + amigoNuevo.getNombre() + " no se ha introducido correctamente.", COD_MSG_NOTFOUND,
 					TIPO_ERROR));
-
-			// Redirección a añadir amigo
-			dispatcher = request.getRequestDispatcher("anadir.jsp");
+			if (!isMobile) {
+				// Redirección a añadir amigo
+				dispatcher = request.getRequestDispatcher("anadir.jsp");
+			} else {
+				dispatcher = request.getRequestDispatcher("anadir.mobi.jsp");
+			}
 		}
 		dispatcher.forward(request, response);
 	}
@@ -303,6 +313,9 @@ public class AgendaServlet extends MainServlet {
 		// intentar gusdar los datos en la bbdd
 		final boolean actualizado = modeloAmigo.update(amigoModificar, amigoModificar.getId());
 
+		// Detectar si es movil
+		detectUserAgent(request);
+
 		if (actualizado) {
 			// Mensaje de alumno insertado correctamente
 			request.setAttribute("msg", new Mensajes("El amigo " + amigoModificar.getNombre() + " se ha modificado correctamente.", COD_MSG_NOTFOUND,
@@ -310,8 +323,13 @@ public class AgendaServlet extends MainServlet {
 			// Guardar el nombre del amigo con el que se ha trabajado
 			request.setAttribute("nombreAmigo", amigoModificar.getNombre());
 
-			// Redirección a operacion correcta
-			dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			if (!isMobile) {
+				// Redirección a operacion correcta
+				dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+			} else {
+				// Redirección a operacion correcta
+				dispatcher = request.getRequestDispatcher("operacionCorrecta.mobi.jsp");
+			}
 
 		} else {
 			// Devolver el amigo
@@ -322,7 +340,11 @@ public class AgendaServlet extends MainServlet {
 					COD_MSG_NOTFOUND, TIPO_ERROR));
 
 			// Redirección a añadir amigo
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			if (!isMobile) {
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
+			} else {
+				dispatcher = request.getRequestDispatcher("modificar.mobi.jsp");
+			}
 		}
 		dispatcher.forward(request, response);
 	}
@@ -350,8 +372,13 @@ public class AgendaServlet extends MainServlet {
 				// Guardar el nombre del amigo con el que se ha trabajado
 				request.setAttribute("nombreAmigo", amigoEliminar.getNombre());
 
-				// Redirección a añadir amigo
-				dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+				if (!isMobile) {
+					// Redirección a operacion correcta
+					dispatcher = request.getRequestDispatcher("operacionCorrecta.jsp");
+				} else {
+					// Redirección a operacion correcta
+					dispatcher = request.getRequestDispatcher("operacionCorrecta.mobi.jsp");
+				}
 			} else {
 				// Mensaje de error
 				request.setAttribute("msg", new Mensajes("El amigo " + amigoEliminar.getNombre() + " no se ha borrado correctamente.",
@@ -364,9 +391,12 @@ public class AgendaServlet extends MainServlet {
 			// Mensaje de error
 			request.setAttribute("msg", new Mensajes("El amigo " + idAmigoEliminar + " no se encuentra entre tus amigos", COD_MSG_NOTFOUND,
 					TIPO_ERROR));
-
-			// Redirección a añadir amigo
-			dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			if (!isMobile) {
+				// Redirección a añadir amigo
+				dispatcher = request.getRequestDispatcher("eliminar.jsp");
+			}else{
+				dispatcher = request.getRequestDispatcher("eliminar.mobi.jsp");
+			}
 		}
 		dispatcher.forward(request, response);
 	}
@@ -420,7 +450,8 @@ public class AgendaServlet extends MainServlet {
 		final int movil = Integer.parseInt(request.getParameter("movil"));
 		final String anotaciones = (String) request.getParameter("anotaciones");
 
-		if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
+		if (request.getParameter("id") != null) { // !request.getParameter("id").isEmpty()
+													// &&
 			amigo.setId(Integer.parseInt(request.getParameter("id")));
 		}
 		try {

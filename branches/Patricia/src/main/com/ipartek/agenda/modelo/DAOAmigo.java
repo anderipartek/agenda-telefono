@@ -270,7 +270,7 @@ public class DAOAmigo implements IDAOAmigo {
 		} catch (SQLException ex) {
 			sqlExcepcion(ex);
 		} catch (Exception ex) {
-			LOG.warn("Ha ocurrido un error desconocido al borrar.");
+			LOG.warn("Ha ocurrido un error desconocido al actualizar.");
 		} finally {
 			try {
 				factory.closeConnection();

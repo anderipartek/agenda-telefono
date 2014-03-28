@@ -39,17 +39,35 @@
 			<!--  <a href="#" data-role="button" data-icon="back">Home</a>-->
 		</div><!-- /Header -->
 		<form id="formulario" method="post" action="agenda" >
-			<label for="text-basic">Nombre:</label> 
-			<input id="nombre" name="nombre" data-ajax="false" type="text" name="text-basic" id="text-basic" value="${requestScope.amigo.nombre}">
+		
+			<input name="id" id="id" value="${requestScope.amigo.id}" type="hidden">
 			
-			<label for="number-pattern">CP:</label>
-			<input id="cp" name="cp" data-ajax="false" type="number" name="number" pattern="[0-9]{5}" id="number-pattern" value="${requestScope.amigo.cp}">
+			<label for="nombre">Nombre:</label> 
+			<input id="nombre" name="nombre" data-ajax="false" type="text" name="nombre" id="nombre" value="${requestScope.amigo.nombre}">
+			
+			<label for="nombre">Apellido:</label> 
+			<input id="apellido" name="apellido" data-ajax="false" type="text" value="${requestScope.amigo.apellido}">
+			
+			<label for="nombre">Calle:</label>
+			<input id="calle" name="calle" data-ajax="false" type="text" value="${requestScope.amigo.calle}">
+			
+			<label for="CP">CP:</label>
+			<input id="cp" name="CP" data-ajax="false" type="number" name="CP" pattern="[0-9]{5}" id="number-pattern" value="${requestScope.amigo.cp}">
+			
+			<label for="nombre">Localidad:</label> 
+			<input id="localidad" name="localidad" data-ajax="false" type="text" value="${requestScope.amigo.localidad}">
+			
+			<label for="nombre">Provincia:</label> 
+			<input id="provincia" name="provincia" data-ajax="false" type="text" value="${requestScope.amigo.provincia}">
 			
 			<label for="tel">Teléfono fijo:</label>
 			<input id="fijo" name="fijo" data-ajax="false" type="tel" name="tel" id="tel" pattern="[8-9]{1}[0-9]{8}" value="${requestScope.amigo.fijo}">
 			
-			<label for="textarea-2">Anotaciones:</label>
-			<textarea id="anotaciones" name="anotaciones" data-ajax="false" cols="40" rows="8" name="textarea-2" id="textarea-2">${requestScope.amigo.anotaciones}</textarea>
+			<label for="movil">Teléfono móvil:</label>
+			<input id="movil" name="movil" data-ajax="false" type="tel" name="tel" id="tel" pattern="[6-7]{1}[0-9]{8}" value="${requestScope.amigo.movil}">
+			
+			<label for="anotaciones">Anotaciones:</label>
+			<textarea id="anotaciones" name="anotaciones" data-ajax="false" cols="40" rows="8" name="anotaciones" id="anotaciones">${requestScope.amigo.anotaciones}</textarea>
 			
 			<input type="submit" value="<%=MainServlet.OP_MODIFICAR %>" name="op" class="boton modificar">
 		</form>
