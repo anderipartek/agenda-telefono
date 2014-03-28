@@ -27,10 +27,20 @@
 
 		<div data-role="header" class="">
 			<h1>Listado Amigos</h1>
+			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 		</div>
 		<!-- /header-->
 		<div data-role="content">
-			
+			<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                <li><a href="#">Accordion</a></li>
+                <li><a href="#">Ajax Navigation</a></li>
+                <li><a href="#">Autocomplete</a></li>
+                <li><a href="#">Buttons</a></li>
+            
+        </ul>
+    </div><!-- /panel -->
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Añadir</a>
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Modificarr</a>
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Eliminar</a>
@@ -44,7 +54,7 @@
 				Amigo a = listaAmigos.get(i);
 			 			
 			%>
-			<li><a href='#'><%=a.getNombre()+ " "+ a.getApellido()%></a></li>
+			<li><a href='#detalle'><%=a.getNombre()+ " "+ a.getApellido()%></a></li>
 			<%} %>
 			</ul>
 			
@@ -57,6 +67,35 @@
 
 	</div>
 	<!-- /page home-->
+	
+	<div data-role="page" id="detalle">
+
+		<div data-role="header" class="">
+			<h1>Listado Amigos</h1>
+		</div>
+		<!-- /header-->
+		<div data-role="content">
+			
+			<a href="#" data-role="button" data-inline="true" data-theme="b">Añadir</a>
+			<a href="#" data-role="button" data-inline="true" data-theme="b">Modificarr</a>
+			<a href="#" data-role="button" data-inline="true" data-theme="b">Eliminar</a>
+			<a href="#" data-role="button" data-inline="true" data-theme="b">Ver</a>
+			
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="Busca a tu Amigo" data-autodivider="true">
+			
+			Mostrar Detalle amigo
+			
+			</ul>
+			
+		</div>
+		<!-- /content -->
+		<div data-role="footer">
+			<h4>IparSex servicios Informaticos 2014</h4>
+			<p><a href="#politica" data-transition="slide">Politica Privacidad</a></p>
+		</div><!-- /footer -->
+
+	</div>
+	<!-- /page detalle-->
 	
 
 	<div data-role="page" id="politica">

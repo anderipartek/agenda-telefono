@@ -62,6 +62,7 @@ public class AgendaServlet extends MainServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		model = new ModeloAmigo();
+
 	}
 
 	/**
