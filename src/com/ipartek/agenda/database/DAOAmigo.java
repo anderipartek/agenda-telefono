@@ -65,7 +65,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public ArrayList<Amigo> getAll() {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos";
+		String sqlAll = "SELECT * FROM agenda.amigos ORDER BY " + NOMBRE;
 
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
@@ -89,7 +89,7 @@ public class DAOAmigo implements IDAOAmigo {
 	public ArrayList<Amigo> getByName(String value) {
 		ArrayList<Amigo> listaAlumnos = null;
 		Amigo amigo;
-		String sqlAll = "SELECT * FROM agenda.amigos where agenda.amigos.nombre like ?";
+		String sqlAll = "SELECT * FROM agenda.amigos where agenda.amigos.nombre like ? ORDER BY " + NOMBRE;
 		value += "%";
 		try {
 			con = ConnectionFactory.getInstance().getConnection();
