@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- HEAD -->
 <%--!public static String seccion; --%>
@@ -7,6 +9,8 @@
 <%@ include file="inc/head.jsp"%>
 <!-- HEADER -->
 <%@ include file="inc/header.jsp" %>
+
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'es_ES'}" scope="session" />
 <section class="wrapper content">
  
  	<!-- div para Google Maps -->
