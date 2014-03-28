@@ -33,6 +33,8 @@ public class MainServlet extends AgendaServletMaestro {
 	
 	public static String modo;
 	
+	boolean isMobile=false;
+	
 	RequestDispatcher dispatcher = null;
 	ModeloAmigo modelAmigo;
 
@@ -70,20 +72,30 @@ public class MainServlet extends AgendaServletMaestro {
 		String seccion = request.getParameter(SECCION);
 		request.setAttribute("seccion", seccion);
 
+		String userAgent = request.getHeader("User-Agent");
+		isMobile = userAgent.contains("Mobile");
+		
 		if (ANADIR.equals(seccion)) {
 			modo="anadir";
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
-		} else if (MODIFICAR.equals(seccion)&&(null != idAmigo)) {
+		} else if (MODIFICAR.equals(seccion)) {
 			modo="modificar";
-			detalleAmigo(request, response);			
+			detalleAmigo(request, response);	
+			if(isMobile){
+				dispatcher=request.getRequestDispatcher("modificarMovil.jsp");
+			}
 		} else if (ELIMINAR.equals(seccion)) {
 			modo="eliminar";
 			detalleAmigo(request, response);	
 		} else if (VER.equals(seccion)) {
 			listarAmigos(request, response);
+			if(isMobile){
+				dispatcher=request.getRequestDispatcher("indexMovil.jsp");
+			}
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
-		}
+		}		
+		
 		dispatcher.forward(request, response);
 	}
 
@@ -136,7 +148,11 @@ public class MainServlet extends AgendaServletMaestro {
 		// detalle
 		log.trace("Detalle amigo " + idAmigo);
 		if(modo=="modificar"){
-			dispatcher = request.getRequestDispatcher("modificar.jsp");
+			if(isMobile){
+				dispatcher = request.getRequestDispatcher("modificarMovil.jsp");
+			}else{
+				dispatcher = request.getRequestDispatcher("modificar.jsp");
+			}
 			// obtener Alumnos
 			Amigo a = modelAmigo.getAmigoById(idAmigo);
 			// enviar datos en la request a la JSP

@@ -27,7 +27,7 @@ if (request.getAttribute("detalleAmigo") == null) {
 			<input type="hidden" name="id" value="<%=a.getId()%>">
 			
 			<div class="botones">
-				<a title="" href="main?seccion=ver">cancelar</a>
+				<a href="main?seccion=ver">cancelar</a>
 				<input type="submit" value="modificar" name="modificar" class="boton modificar">
 			</div>
 		</form>
