@@ -1,6 +1,8 @@
 package com.ipartek.agenda.controller;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -61,7 +63,7 @@ public class MainServlet extends HttpServlet {
 	
 	private String prefix; 
 	private String log4jpath;
-
+	
 
 	@Override
 	public final void init(final ServletConfig config) throws ServletException {
@@ -75,6 +77,8 @@ public class MainServlet extends HttpServlet {
     	}
     	modeloAmigo = new ModeloAmigo();
     	log.trace("Inicializado el Servlet");
+    	
+    	
 	}
 	
 	@Override
@@ -150,6 +154,7 @@ public class MainServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("ver"+prefijo);
 		} else { // redireccion al index
 			log.trace("Redirecionando al index");
+			cargarIdioma(request);
 			dispatcher = request.getRequestDispatcher("index"+prefijo);
 		}
 		
@@ -282,6 +287,29 @@ public class MainServlet extends HttpServlet {
 		}
 	}
 
+	private void cargarIdioma(HttpServletRequest request){
+		//Locale por defecto Español
+		Locale localeDef = new Locale("es_ES");
+
+		//obtener lenguaje de la session del usuario
+		Locale locale = request.getLocale();
+
+		if ( (locale.getLanguage()+"_"+locale.getCountry()) == "en_EN"){
+			request.setAttribute("lenguage", "en_EN");
+			locale = new Locale("en_EN");
+		}else{
+			request.setAttribute("language", "es_ES");
+			locale = localeDef;
+		}
+		log.debug("locale: " + locale);
+
+
+		//Cargar resourceBundle o properties dependiente del idioma
+
+		// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale 
+		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18ntexto", locale );
+
+	}
 
 
 
