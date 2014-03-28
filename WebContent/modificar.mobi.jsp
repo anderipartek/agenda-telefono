@@ -31,6 +31,7 @@
 </head>
 
 <body>
+	<%@include file="inc/mensajes.jsp" %>
 	<div data-role="page" id="modificar" class="">
 
 		<div data-role="header" class="">
