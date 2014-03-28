@@ -115,7 +115,7 @@ public class DAOAmigo implements IDAOAmigo {
 	}
 	
 	public Amigo getById(int id) {
-		String sqlAmigo = "select * from agenda.amigos where id = ?";
+		String sqlAmigo = "select * from amigos where id = ?";
 		try {
 			con = factory.getConnection();
 			a = new Amigo();

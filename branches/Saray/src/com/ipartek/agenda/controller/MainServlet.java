@@ -2,10 +2,14 @@ package com.ipartek.agenda.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,11 +31,14 @@ public class MainServlet extends ServletMaestro {
 	public static final String MODIFICAR = "modificar";
 	public static final String ELIMINAR = "eliminar";
 	public static final String VER = "ver";
-
+	boolean isMobile=false;
+	
 	DAOAmigo daoAmigo;
 	RequestDispatcher dispatcher = null;
 	ConnectionFactory factory;
 	String textoError;
+	
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,7 +54,8 @@ public class MainServlet extends ServletMaestro {
 		factory = ConnectionFactory.getInstance();
 
 	}
-
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -55,10 +63,45 @@ public class MainServlet extends ServletMaestro {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		log.debug("Comienza doGEt");
+		
+		String id = request.getParameter("ID");
+		
+		if(id!=null){
+			
+			Amigo amigo =  factory.getDAOAmigo().getById(Integer.parseInt(id));
+			request.setAttribute("idAmigo", amigo);
+			dispatcher = request.getRequestDispatcher("detalle.mobile.jsp");
+			
+			
+		}else{
+			
+		
+		
+
+		//Locale por defecto Español
+		Locale locale = new Locale("es_ES");
+
+		//obtener lenguaje de la session del usuario
+		String language = (String) request.getSession().getAttribute("language");
+
+		if ( language != null ){
+		locale = new Locale(language);
+		}
+		log.debug("language: " + language + " locale: " + locale);
+
+
+		//Cargar resourceBundle o properties dependiente del idioma
+
+		// Debemos indicara el package donde se encuentra y el nombre del /properties sin la extension del locale 
+		ResourceBundle messages = ResourceBundle.getBundle("com.ipartek.agenda.controller.i18nmessages_es_ES", locale );
+		
 		String seccion = request.getParameter(SECCION);
-
 		request.setAttribute("seccion", seccion);
-
+		//controlar si es dispositivo es un movil
+		String userAgent = request.getHeader("User-Agent");
+		isMobile = userAgent.contains("Mobile") || userAgent.contains("mobile");
+		
 		if (ANADIR.equals(seccion)) {
 			dispatcher = request.getRequestDispatcher("anadir.jsp");
 		} else if (MODIFICAR.equals(seccion)) {
@@ -73,8 +116,17 @@ public class MainServlet extends ServletMaestro {
 		} else {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}
+		
+		
+		if(isMobile){
+			log.debug("es movil");
+			dispatcher = request.getRequestDispatcher("ver.mobile.jsp");
+			
+		}				
+		}
 
 		dispatcher.forward(request, response);
+		
 	}
 
 	private void mostrarListaAmigos(HttpServletRequest request,
@@ -84,7 +136,6 @@ public class MainServlet extends ServletMaestro {
 		// conectar BBDD obtener Amigos
 		ArrayList<Amigo> listaAmigos = factory.getDAOAmigo().getAll();
 		log.debug(listaAmigos.size() + " alumnos consultados");
-
 		request.setAttribute("listaAmigos", listaAmigos);
 
 	}
@@ -119,7 +170,7 @@ public class MainServlet extends ServletMaestro {
 	
 		boolean result = factory.getDAOAmigo().delete(idAmigo);
 		if (!result) {
-			textoError = "Error en la modificacion del contacto";
+			textoError = "Error en la borrado del contacto";
 			request.setAttribute("mensaje", textoError);
 
 		} else {

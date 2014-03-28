@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- HEAD -->
 <%--!public static String seccion; --%>
 
 <%@ include file="inc/head.jsp"%>
 <!-- HEADER -->
 <%@ include file="inc/header.jsp"%>
+<!-- internacionalizacion -->
+	
+	<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'es_ES'}" scope="session" />
+	<fmt:setLocale value="${language}" />
+	<fmt:setBundle basename="com.ipartek.agenda.controller.i18nmessages_es_ES" /> 
+	<fmt:message key="navmenu.es" />
 <section class="wrapper content">
 
 	<!-- Div para Google maps -->
@@ -66,7 +73,6 @@
 	</script>
 	
 	
-
 	<%
 		//seccion = (String) session.getAttribute("seccion")
 		if ("anadir".equalsIgnoreCase(request.getParameter("seccion"))) {
