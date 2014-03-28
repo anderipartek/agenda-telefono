@@ -18,8 +18,8 @@
 			<textarea name="anotaciones" placeholder="anotaciones">${requestScope.amigo.anotaciones}</textarea>
 			
 			<div class="botones">
-				<a title="" href="index.jsp">cancelar</a>
-				<input type="submit" value="<%=MainServlet.OP_ANADIR %>" name="op" class="boton anadir">
+				<a title="" href="index.jsp"><fmt:message key="boton.Cancelar" /></a>
+				<input type="submit" value="<fmt:message key="boton.Aniadir" />" name="op" class="boton anadir">
 			</div>
 		</form>
 	</div>

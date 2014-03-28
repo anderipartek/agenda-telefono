@@ -300,7 +300,7 @@ public class DAOAmigo implements IDAOAmigo {
 				amigo.setFijo(rs.getInt("fijo"));
 				amigo.setAnotaciones(rs.getString("anotaciones"));
 			} catch (AmigoException e) {
-				amigo = null;
+				//amigo = null;
 				LOG.error("Error al crear el amigo" + " [ " + e.getMensajeError() + "," + " " + e.getCodigoError());
 
 			}
