@@ -32,6 +32,13 @@ public interface IDAOAmigo {
 	ArrayList<Amigo> getByNombre( String nombre );
 	
 	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Amigo getById(int id);
+	
+	/**
 	 * Obtenemos el id del amigo y lo borramos
 	 * @param id
 	 * @return true si el amigo se ha eliminado y false si no se ha eliminado

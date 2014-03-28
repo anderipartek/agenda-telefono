@@ -1,8 +1,12 @@
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="contain">
 	<p class="titulo">Cuales son los datos de tu amigo:</p>
-
+	<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'es_ES'}" scope="session" />
+	<fmt:setLocale value="${language}" />
+	<fmt:setBundle basename="com.ipartek.agenda.controller.i18nmessages_es_ES" /> 
+	<fmt:message key="navmenu.en" />
 
 	<%@include file="buscador.jsp"%>
 	<script src="js/jquery-2.1.0.min.js"></script>
