@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ipartek.agenda.controller.AgendaServlet"%>
 <%@page import="com.ipartek.agenda.bean.Amigo"%>
 <%@page import="java.util.HashMap"%>
 <html>
@@ -80,35 +79,26 @@
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Modificar</a>
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Eliminar</a>
 			<a href="#ver" data-role="button" data-inline="true" data-theme="b">Ver</a>
-			<ul id="listado" data-role="listview" data-insert="true"
-				data-filter="true" data-filter-placeholder="Busca a tu colega">
-				<!-- data-autodividers="true"-->
-				<%
-					if (request.getAttribute("lista") != null) {
-						listaAmigo = (HashMap<Integer, Amigo>) request
-								.getAttribute("lista");
-						for (int i = 1; i <= listaAmigo.size(); i++) {
-							a = listaAmigo.get(i);
-				%>
-				<li><a href="#mostrar">
-						<h2><%=a.getNombre() + " " + a.getApellido()%></h2>
-						<p><%=a.getMTelefono() + " - " + a.getFTelefono()%></p>
-						<input type="hidden" name="id" value="<%=a.getId()%>">
-						<input type="hidden" name="nombre" value="<%=a.getNombre()%>">
-						<input type="hidden" name="apellido" value="<%=a.getApellido()%>">
-						<input type="hidden" name="calle" value="<%=a.getCalle()%>">
-						<input type="hidden" name="cp" value="<%=a.getCodigoPostal()%>">
-						<input type="hidden" name="localidad" value="<%=a.getLocalidad()%>">
-						<input type="hidden" name="provincia" value="<%=a.getProvincia()%>">
-						<input type="hidden" name="movil" value="<%=a.getMTelefono()%>">
-						<input type="hidden" name="fijo" value="<%=a.getFTelefono()%>">
-						<input type="hidden" name="anotaciones" value="<%=a.getAnotaciones()%>">
-				</a></li>
-				<%
+				<ul id="listado" data-role="listview" data-insert="true"
+					data-filter="true" data-filter-placeholder="Busca a tu colega">
+					<!-- data-autodividers="true"-->
+					<%
+						if (request.getAttribute("lista") != null) {
+							listaAmigo = (HashMap<Integer, Amigo>) request
+									.getAttribute("lista");
+							for (int i = 1; i <= listaAmigo.size(); i++) {
+								a = listaAmigo.get(i);
+					%>
+					<li><a href="#mostrar">
+							<h2><%=a.getNombre() + " " + a.getApellido()%></h2>
+							<p><%=a.getMTelefono() + " - " + a.getFTelefono()%></p>
+							<input type="hidden" name="id" value="<%=a.getId()%>">
+					</a></li>
+					<%
+							}
 						}
-					}
-				%>
-			</ul>
+					%>
+				</ul>
 		</div>
 		<!-- content -->
 
@@ -138,22 +128,7 @@
 			<a href="#" data-role="button" data-inline="true" data-theme="b">Eliminar</a>
 			<a href="#ver" data-role="button" data-inline="true" data-theme="b">Ver</a>
 			<form id="formulario">
-				<label for="text-basic">Nombre:</label>
-				<input type="text" name="nombre" id="nombre" value="">
-				<label for="text-basic">Apellido:</label>
-				<input type="text" name="apellido" id="apellido" value="">
-				<label for="text-basic">Calle:</label>
-				<input type="text" name="calle" id="calle" value="">
-				<label for="text-basic">Codigo Postal:</label>
-				<input type="text" name="cp" id="cp" value="">
-				<label for="text-basic">Localidad:</label>
-				<input type="text" name="localidad" id="localidad" value="">
-				<label for="text-basic">Provincia:</label>
-				<input type="text" name="provincia" id="provincia" value="">
-				<label for="text-basic">Movil:</label>
-				<input type="text" name="movil" id="movil" value="">
-				<label for="text-basic">Fijo:</label>
-				<input type="text" name="fijo" id="fijo" value="">
+				<p><input type="text" name="nombre" value=""></p>
 			</form>
 		</div>
 		<!-- content -->
@@ -230,28 +205,15 @@
 
 	</div>
 	<!-- /page politica-->
-	<script>
-	console.log('aa');
-	$('#listado').on('click', 'li', function() {
-		console.log($(this).index());
-		//Obtenemos el amigo seleccionado
-		var amigo = $(this).index().find('input').val();
 
-		console.debug(amigo);
-		/*
-		$('#formulario input[name=nombre]').val(amigo.nombre);
-		$('#formulario input[name=apellido]').val(amigo.apellido);
-		$('#formulario input[name=CP]').val(amigo.codigoPostal);
-		$('#formulario input[name=calle]').val(amigo.calle);
-		$('#formulario input[name=provincia]').val(amigo.provincia);
-		$('#formulario input[name=localidad]').val(amigo.localidad);
-		$('#formulario input[name=movil]').val(amigo.mTelefono);
-		$('#formulario input[name=fijo]').val(amigo.fTelefono);
-		$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
-		$('#formulario input[name=anotaciones]').val(amigo.anotaciones);
-		$('#formulario input[name=id]').val(amigo.id);*/
+<script>
 
+	$('#listado').on('click','li',function(){
+		console.info($(this).contents('input').val());
+		var id = $(this).find('input').attr('value');
+		$('#formulario input[name=id]').val(id);
 	});
-	</script>
+
+</script>
 </body>
 </html>
